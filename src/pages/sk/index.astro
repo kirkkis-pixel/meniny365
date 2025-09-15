@@ -310,7 +310,7 @@ const structuredData = {
     // Add empty cells for days before month starts
     for (let i = 0; i < startingDay; i++) {
       const emptyDay = document.createElement('div');
-      emptyDay.className = 'h-40 bg-slate-50/30 rounded-2xl';
+      emptyDay.className = 'h-48 bg-slate-50/30 rounded-2xl';
       calendarGrid.appendChild(emptyDay);
     }
 
@@ -328,7 +328,7 @@ const structuredData = {
       const today = new Date();
       const isToday = day === today.getDate() && currentMonth === today.getMonth() && currentYear === today.getFullYear();
       
-      dayElement.className = `h-40 rounded-2xl p-3 cursor-pointer transition-all duration-200 hover:scale-105 ${
+      dayElement.className = `h-48 rounded-2xl p-3 cursor-pointer transition-all duration-200 hover:scale-105 ${
         isToday 
           ? 'bg-gradient-to-br from-slate-800 to-slate-900 text-white shadow-lg' 
           : names.length > 0 
@@ -336,14 +336,25 @@ const structuredData = {
             : 'bg-gradient-to-br from-white to-slate-50/30 hover:from-slate-50/40 hover:to-slate-100/40 border border-slate-200/30'
       }`;
 
+      // Show up to 6 names initially, then "show more" if there are more
+      const maxInitialNames = 6;
+      const hasMoreNames = names.length > maxInitialNames;
+      const initialNames = names.slice(0, maxInitialNames);
+      const remainingNames = names.slice(maxInitialNames);
+      
       dayElement.innerHTML = `
         <div class="flex flex-col h-full">
           <div class="text-sm font-bold mb-1 flex-shrink-0">${day}</div>
           <div class="flex-1 flex flex-col space-y-0.5 overflow-hidden">
             ${names.length > 0 ? (
-              names.map(name => 
+              initialNames.map(name => 
                 `<div class="text-xs font-medium truncate px-2 py-1 ${isToday ? 'bg-white/20 text-white rounded-full' : 'bg-slate-200/60 text-slate-700 rounded-full'} text-center">${name}</div>`
-              ).join('')
+              ).join('') +
+              (hasMoreNames ? 
+                `<button class="text-xs px-2 py-1 ${isToday ? 'bg-white/10 text-white hover:bg-white/20' : 'bg-slate-100/80 text-slate-600 hover:bg-slate-200/80'} rounded-full text-center transition-colors show-more-btn" data-day="${day}" data-month="${currentMonth}" data-year="${currentYear}">
+                  +${remainingNames.length} viac
+                </button>` : ''
+              )
             ) : (
               `<div class="text-xs ${isToday ? 'text-white/50' : 'text-slate-400'} text-center mt-2">-</div>`
             )}
@@ -351,13 +362,37 @@ const structuredData = {
         </div>
       `;
 
-      // Add click handler
-      dayElement.addEventListener('click', () => {
+      // Add click handler for the day
+      dayElement.addEventListener('click', (e) => {
+        // Don't navigate if clicking the "show more" button
+        if (e.target.classList.contains('show-more-btn')) {
+          e.stopPropagation();
+          return;
+        }
         window.location.href = `/sk/den/${currentYear}/${monthString}/${dayString}`;
       });
+      
+      // Add click handler for "show more" button
+      if (hasMoreNames) {
+        const showMoreBtn = dayElement.querySelector('.show-more-btn');
+        if (showMoreBtn) {
+          showMoreBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            showAllNames(dayElement, names, isToday);
+          });
+        }
+      }
 
       calendarGrid.appendChild(dayElement);
     }
+  }
+
+  // Show all names for a day
+  function showAllNames(dayElement, names, isToday) {
+    const namesContainer = dayElement.querySelector('.flex-1');
+    namesContainer.innerHTML = names.map(name => 
+      `<div class="text-xs font-medium truncate px-2 py-1 ${isToday ? 'bg-white/20 text-white rounded-full' : 'bg-slate-200/60 text-slate-700 rounded-full'} text-center">${name}</div>`
+    ).join('');
   }
 
   // Update calendar
