@@ -176,7 +176,7 @@ const structuredData = {
       </section>
 
       <!-- E-Card Maker Modal -->
-      <div id="cardModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+      <div id="cardModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4" style="display: none !important;">
         <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
           <div class="sticky top-0 bg-white border-b border-slate-200 p-4 flex items-center justify-between">
             <h3 class="text-xl font-semibold text-slate-800">Vytvoriť e-pohľadnicu</h3>
@@ -614,18 +614,45 @@ const structuredData = {
         const cardModal = document.getElementById('cardModal');
         const closeCardModal = document.getElementById('closeCardModal');
         
-        createCardBtn?.addEventListener('click', () => {
-          cardModal?.classList.remove('hidden');
+        // Function to show modal
+        function showModal() {
+          if (cardModal) {
+            cardModal.classList.remove('hidden');
+            cardModal.style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+          }
+        }
+        
+        // Function to hide modal
+        function hideModal() {
+          if (cardModal) {
+            cardModal.classList.add('hidden');
+            cardModal.style.display = 'none';
+            document.body.style.overflow = ''; // Restore scrolling
+          }
+        }
+        
+        createCardBtn?.addEventListener('click', (e) => {
+          e.preventDefault();
+          showModal();
         });
         
-        closeCardModal?.addEventListener('click', () => {
-          cardModal?.classList.add('hidden');
+        closeCardModal?.addEventListener('click', (e) => {
+          e.preventDefault();
+          hideModal();
         });
         
         // Close modal when clicking outside
         cardModal?.addEventListener('click', (e) => {
           if (e.target === cardModal) {
-            cardModal.classList.add('hidden');
+            hideModal();
+          }
+        });
+        
+        // Close modal with Escape key
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && cardModal && !cardModal.classList.contains('hidden')) {
+            hideModal();
           }
         });
       });
