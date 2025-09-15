@@ -35,13 +35,13 @@ const structuredData = {
   structuredData={structuredData}
 >
   <!-- Hero Section - Clean Minimal Style -->
-  <section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+  <section class="relative py-20 overflow-hidden">
     <!-- Clean Background -->
     <div class="absolute inset-0 bg-white"></div>
     
     <div class="container relative z-10 text-center max-w-4xl">
       <!-- New Badge - Like Reference -->
-      <div class="inline-flex items-center bg-gray-100 rounded-full px-4 py-2 mb-12 animate-fade-in-up">
+      <div class="inline-flex items-center bg-gray-100 rounded-full px-4 py-2 mb-8 animate-fade-in-up">
         <span class="bg-black text-white text-xs font-medium px-2 py-1 rounded-full mr-3">New</span>
         <span class="text-sm text-gray-700">Prvý AI-powered kalendár menín na Slovensku</span>
         <svg class="w-4 h-4 ml-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -50,18 +50,18 @@ const structuredData = {
       </div>
       
       <!-- Main Heading - Clean & Bold -->
-      <h1 class="text-6xl font-bold text-black mb-8 leading-tight animate-fade-in-up" style="animation-delay: 0.2s;">
+      <h1 class="text-5xl font-bold text-black mb-6 leading-tight animate-fade-in-up" style="animation-delay: 0.2s;">
         Kto má dnes meniny?
       </h1>
       
       <!-- Subtitle - Clean Description -->
-      <p class="text-xl text-gray-600 mb-12 max-w-2xl mx-auto animate-fade-in-up" style="animation-delay: 0.4s;">
+      <p class="text-lg text-gray-600 mb-8 max-w-2xl mx-auto animate-fade-in-up" style="animation-delay: 0.4s;">
         Prvý AI-powered kalendár menín na Slovensku s inteligentným vyhľadávaním, 
         návrhmi darčekov a personalizovanými skúsenosťami.
       </p>
       
       <!-- Call to Actions - Clean Buttons -->
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-6 mb-20 animate-fade-in-up" style="animation-delay: 0.6s;">
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-6 mb-12 animate-fade-in-up" style="animation-delay: 0.6s;">
         <a 
           href="/sk/kalendár"
           class="bg-black text-white px-8 py-4 rounded-lg font-medium hover:bg-gray-800 transition-colors flex items-center gap-2"
@@ -76,30 +76,34 @@ const structuredData = {
         </a>
       </div>
       
-      <!-- Today's Names Display - Clean & Centered -->
-      {todayNames.length > 0 ? (
-        <div class="bg-gray-50 rounded-2xl p-12 max-w-3xl mx-auto mb-24 animate-fade-in-up" style="animation-delay: 0.8s;">
-          <h2 class="text-2xl font-semibold text-black mb-8">{todayFormatted}</h2>
-          <h3 class="text-lg text-gray-600 mb-8">Dnes majú meniny:</h3>
-          <div class="flex flex-wrap justify-center gap-4">
-            {todayNames.map(name => (
-              <a 
-                href={`/sk/meno/${toSlug(name)}`}
-                class="bg-white text-black px-6 py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors border border-gray-200"
-              >
-                {name}
-              </a>
-            ))}
-          </div>
+      <!-- Today's Names Display - Super Clear & Focused -->
+      <div class="bg-gray-50 rounded-2xl p-8 max-w-2xl mx-auto mb-16 animate-fade-in-up" style="animation-delay: 0.8s;">
+        <div class="text-center">
+          <h2 class="text-2xl font-semibold text-black mb-6">{todayFormatted}</h2>
+          
+          {todayNames.length > 0 ? (
+            <div>
+              <p class="text-lg text-gray-600 mb-6">Dnes majú meniny:</p>
+              <div class="flex flex-wrap justify-center gap-3">
+                {todayNames.map(name => (
+                  <a 
+                    href={`/sk/meno/${toSlug(name)}`}
+                    class="bg-white text-black px-4 py-2 rounded-full font-medium hover:bg-gray-100 transition-colors border border-gray-200 shadow-sm hover:shadow-md"
+                  >
+                    {name}
+                  </a>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <div>
+              <p class="text-lg text-gray-600">
+                Dnes nemá nikto meniny. Skúste pozrieť iný deň v kalendári.
+              </p>
+            </div>
+          )}
         </div>
-      ) : (
-        <div class="bg-gray-50 rounded-2xl p-12 max-w-2xl mx-auto mb-24 animate-fade-in-up" style="animation-delay: 0.8s;">
-          <h2 class="text-2xl font-semibold text-black mb-8">{todayFormatted}</h2>
-          <p class="text-lg text-gray-600">
-            Dnes nemá nikto meniny. Skúste pozrieť iný deň v kalendári.
-          </p>
-        </div>
-      )}
+      </div>
       
       <!-- Horizontal Swipable Months - Clean -->
       <div class="mb-32 animate-fade-in-up" style="animation-delay: 1s;">
