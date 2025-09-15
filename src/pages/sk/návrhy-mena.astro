@@ -1,0 +1,292 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getAllNames } from '../../lib/meniny';
+
+// Get all names for suggestions
+const allNames = await getAllNames();
+
+// Generate structured data
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Návrhy mien - nájdite perfektné meno pre vaše dieťa",
+  "description": "Nájdite perfektné meno pre vaše dieťa. Filtrujte podľa štýlu, dĺžky, pohlavia a ďalších kritérií.",
+  "url": "https://meniny365.sk/sk/návrhy-mena",
+  "mainEntity": {
+    "@type": "ItemList",
+    "itemListElement": allNames.slice(0, 20).map((name, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "name": name,
+      "url": `https://meniny365.sk/sk/meno/${name.toLowerCase().replace(/[áä]/g, 'a').replace(/[č]/g, 'c').replace(/[ď]/g, 'd').replace(/[ľĺ]/g, 'l').replace(/[ň]/g, 'n').replace(/[óô]/g, 'o').replace(/[ŕ]/g, 'r').replace(/[š]/g, 's').replace(/[ť]/g, 't').replace(/[ú]/g, 'u').replace(/[ý]/g, 'y').replace(/[ž]/g, 'z').replace(/[^a-z0-9]/g, '-')}`
+    }))
+  }
+};
+---
+
+<Layout 
+  title="Návrhy mien - nájdite perfektné meno | meniny365"
+  description="Nájdite perfektné meno pre vaše dieťa. Filtrujte podľa štýlu, dĺžky, pohlavia a ďalších kritérií. Instantné výsledky a tipy."
+  canonical="https://meniny365.sk/sk/návrhy-mena"
+  structuredData={structuredData}
+>
+  <div class="container py-8">
+    <!-- Breadcrumbs -->
+    <nav class="mb-8">
+      <ol class="flex items-center space-x-2 text-sm text-[var(--muted)]">
+        <li><a href="/sk" class="hover:text-[var(--brand)] transition-colors">Dnes</a></li>
+        <li>/</li>
+        <li class="text-[var(--text)]">Návrhy mien</li>
+      </ol>
+    </nav>
+
+    <!-- Header -->
+    <div class="text-center mb-12">
+      <h1 class="text-4xl md:text-5xl font-bold text-[var(--text)] mb-4">
+        Návrhy mien
+      </h1>
+      <p class="text-xl text-[var(--muted)] mb-8">
+        Nájdite perfektné meno pre vaše dieťa
+      </p>
+    </div>
+
+    <!-- Search and Filters -->
+    <div class="card p-6 mb-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- Search -->
+        <div>
+          <label class="block text-sm font-medium text-[var(--text)] mb-2">Hľadať meno</label>
+          <input 
+            type="text" 
+            placeholder="Zadajte meno..."
+            class="w-full px-3 py-2 border border-[var(--border)] rounded-lg bg-[var(--card)] text-[var(--text)] focus:ring-2 focus:ring-[var(--brand)] focus:border-transparent"
+            id="nameSearch"
+          />
+        </div>
+        
+        <!-- Gender -->
+        <div>
+          <label class="block text-sm font-medium text-[var(--text)] mb-2">Pohlavie</label>
+          <select class="w-full px-3 py-2 border border-[var(--border)] rounded-lg bg-[var(--card)] text-[var(--text)]" id="genderFilter">
+            <option value="all">Všetky</option>
+            <option value="male">Mužské</option>
+            <option value="female">Ženské</option>
+            <option value="unisex">Unisex</option>
+          </select>
+        </div>
+        
+        <!-- Length -->
+        <div>
+          <label class="block text-sm font-medium text-[var(--text)] mb-2">Dĺžka</label>
+          <select class="w-full px-3 py-2 border border-[var(--border)] rounded-lg bg-[var(--card)] text-[var(--text)]" id="lengthFilter">
+            <option value="all">Všetky</option>
+            <option value="short">Krátke (≤4)</option>
+            <option value="medium">Stredné (5-6)</option>
+            <option value="long">Dlhé (≥7)</option>
+          </select>
+        </div>
+        
+        <!-- Style -->
+        <div>
+          <label class="block text-sm font-medium text-[var(--text)] mb-2">Štýl</label>
+          <select class="w-full px-3 py-2 border border-[var(--border)] rounded-lg bg-[var(--card)] text-[var(--text)]" id="styleFilter">
+            <option value="all">Všetky</option>
+            <option value="traditional">Tradičné</option>
+            <option value="modern">Moderné</option>
+            <option value="international">Medzinárodné</option>
+            <option value="biblical">Biblické</option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="flex justify-center mt-6">
+        <button 
+          class="btn btn-primary"
+          onclick="filterNames()"
+        >
+          🔍 Filtrovať mená
+        </button>
+        <button 
+          class="btn btn-secondary ml-4"
+          onclick="surpriseMe()"
+        >
+          🎲 Prekvap ma
+        </button>
+      </div>
+    </div>
+
+    <!-- Results -->
+    <div class="card p-6 mb-12">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-semibold text-[var(--text)]">Výsledky</h2>
+        <span class="text-sm text-[var(--muted)]" id="resultCount">
+          Zobrazené: {allNames.length} mien
+        </span>
+      </div>
+      
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3" id="nameResults">
+        {allNames.slice(0, 24).map(name => (
+          <a
+            href={`/sk/meno/${name.toLowerCase().replace(/[áä]/g, 'a').replace(/[č]/g, 'c').replace(/[ď]/g, 'd').replace(/[ľĺ]/g, 'l').replace(/[ň]/g, 'n').replace(/[óô]/g, 'o').replace(/[ŕ]/g, 'r').replace(/[š]/g, 's').replace(/[ť]/g, 't').replace(/[ú]/g, 'u').replace(/[ý]/g, 'y').replace(/[ž]/g, 'z').replace(/[^a-z0-9]/g, '-')}`}
+            class="p-3 text-center border border-[var(--border)] rounded-lg hover:bg-[var(--hover)] hover:border-[var(--brand)] transition-all"
+          >
+            <div class="font-medium text-[var(--text)]">{name}</div>
+            <div class="text-xs text-[var(--muted)] mt-1">
+              {name.length} písmen
+            </div>
+          </a>
+        ))}
+      </div>
+      
+      <div class="text-center mt-6">
+        <button 
+          class="btn btn-secondary"
+          onclick="loadMore()"
+          id="loadMoreBtn"
+        >
+          Načítať viac
+        </button>
+      </div>
+    </div>
+
+    <!-- Tips -->
+    <div class="card p-8 mb-12">
+      <h2 class="text-2xl font-semibold text-[var(--text)] mb-6">Tipy na výber mena</h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <h3 class="text-lg font-semibold text-[var(--text)] mb-3">Čo zvážiť pri výbere mena</h3>
+          <ul class="text-[var(--muted)] space-y-2">
+            <li>• <strong>Výslovnosť:</strong> Je meno ľahko vysloviteľné?</li>
+            <li>• <strong>Prezývky:</strong> Aké prezývky môže meno vytvoriť?</li>
+            <li>• <strong>Medzinárodnosť:</strong> Funguje meno v zahraničí?</li>
+            <li>• <strong>Kombinácia:</strong> Ladí s priezviskom?</li>
+            <li>• <strong>Význam:</strong> Má meno pekný význam?</li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-semibold text-[var(--text)] mb-3">Populárne trendy</h3>
+          <ul class="text-[var(--muted)] space-y-2">
+            <li>• <strong>Krátke mená:</strong> Adam, Emma, Leo, Mia</li>
+            <li>• <strong>Klasické mená:</strong> Ján, Mária, Peter, Anna</li>
+            <li>• <strong>Medzinárodné:</strong> Alexander, Sofia, Daniel, Kristína</li>
+            <li>• <strong>Unisex mená:</strong> Alex, Sam, Jordan, Taylor</li>
+            <li>• <strong>Vintage mená:</strong> Oliver, Charlotte, Henry, Eleanor</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEO Content -->
+    <div class="prose prose-lg max-w-4xl mx-auto text-[var(--text)] mb-12">
+      <h2 class="text-2xl font-semibold mb-4">Ako vybrať perfektné meno pre dieťa</h2>
+      <p class="text-[var(--muted)] leading-relaxed">
+        Výber mena pre dieťa je jednou z najdôležitejších rozhodnutí, ktoré rodičia robia. 
+        Meno bude sprevádzať vaše dieťa celý život, takže je dôležité vybrať si ho s rozvahou.
+      </p>
+      
+      <h3 class="text-xl font-semibold mt-8 mb-4">Faktory na zváženie</h3>
+      <p class="text-[var(--muted)] leading-relaxed">
+        Pri výbere mena zvážte jeho výslovnosť, význam, históriu a ako bude znieť v kombinácii 
+        s priezviskom. Dôležité je aj to, či meno funguje v medzinárodnom prostredí a aké 
+        prezývky môže vytvoriť.
+      </p>
+    </div>
+
+    <!-- Related Links -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <a href="/sk/populárne-mená" class="card p-6 hover:scale-105 transition-transform">
+        <h3 class="text-xl font-semibold text-[var(--text)] mb-2">🔥 Populárne mená</h3>
+        <p class="text-[var(--muted)]">Zistite ktoré mená sú najpopulárnejšie</p>
+      </a>
+      
+      <a href="/sk" class="card p-6 hover:scale-105 transition-transform">
+        <h3 class="text-xl font-semibold text-[var(--text)] mb-2">📅 Dnes má meniny</h3>
+        <p class="text-[var(--muted)]">Zistite kto má dnes meniny</p>
+      </a>
+      
+      <a href="/sk/kalendár" class="card p-6 hover:scale-105 transition-transform">
+        <h3 class="text-xl font-semibold text-[var(--text)] mb-2">📅 Kalendár menín</h3>
+        <p class="text-[var(--muted)]">Pozrite si kompletný kalendár menín</p>
+      </a>
+    </div>
+  </div>
+
+  <script define:vars={{ allNames }}>
+    // Names data for filtering
+    let currentPage = 1;
+    const namesPerPage = 24;
+    
+    function filterNames() {
+      const search = document.getElementById('nameSearch').value.toLowerCase();
+      const gender = document.getElementById('genderFilter').value;
+      const length = document.getElementById('lengthFilter').value;
+      const style = document.getElementById('styleFilter').value;
+      
+      let filtered = allNames.filter(name => {
+        // Search filter
+        if (search && !name.toLowerCase().includes(search)) return false;
+        
+        // Length filter
+        if (length === 'short' && name.length > 4) return false;
+        if (length === 'medium' && (name.length < 5 || name.length > 6)) return false;
+        if (length === 'long' && name.length < 7) return false;
+        
+        return true;
+      });
+      
+      displayNames(filtered.slice(0, namesPerPage));
+      document.getElementById('resultCount').textContent = `Zobrazené: ${filtered.length} mien`;
+      currentPage = 1;
+    }
+    
+    function displayNames(names) {
+      const container = document.getElementById('nameResults');
+      container.innerHTML = names.map(name => `
+        <a
+          href="/sk/meno/${name.toLowerCase().replace(/[áä]/g, 'a').replace(/[č]/g, 'c').replace(/[ď]/g, 'd').replace(/[ľĺ]/g, 'l').replace(/[ň]/g, 'n').replace(/[óô]/g, 'o').replace(/[ŕ]/g, 'r').replace(/[š]/g, 's').replace(/[ť]/g, 't').replace(/[ú]/g, 'u').replace(/[ý]/g, 'y').replace(/[ž]/g, 'z').replace(/[^a-z0-9]/g, '-')}"
+          class="p-3 text-center border border-[var(--border)] rounded-lg hover:bg-[var(--hover)] hover:border-[var(--brand)] transition-all"
+        >
+          <div class="font-medium text-[var(--text)]">${name}</div>
+          <div class="text-xs text-[var(--muted)] mt-1">
+            ${name.length} písmen
+          </div>
+        </a>
+      `).join('');
+    }
+    
+    function surpriseMe() {
+      const randomNames = allNames.sort(() => 0.5 - Math.random()).slice(0, 12);
+      displayNames(randomNames);
+      document.getElementById('resultCount').textContent = `Náhodné: ${randomNames.length} mien`;
+    }
+    
+    function loadMore() {
+      currentPage++;
+      const start = (currentPage - 1) * namesPerPage;
+      const end = start + namesPerPage;
+      const moreNames = allNames.slice(start, end);
+      
+      if (moreNames.length === 0) {
+        document.getElementById('loadMoreBtn').style.display = 'none';
+        return;
+      }
+      
+      const container = document.getElementById('nameResults');
+      const newHTML = moreNames.map(name => `
+        <a
+          href="/sk/meno/${name.toLowerCase().replace(/[áä]/g, 'a').replace(/[č]/g, 'c').replace(/[ď]/g, 'd').replace(/[ľĺ]/g, 'l').replace(/[ň]/g, 'n').replace(/[óô]/g, 'o').replace(/[ŕ]/g, 'r').replace(/[š]/g, 's').replace(/[ť]/g, 't').replace(/[ú]/g, 'u').replace(/[ý]/g, 'y').replace(/[ž]/g, 'z').replace(/[^a-z0-9]/g, '-')}"
+          class="p-3 text-center border border-[var(--border)] rounded-lg hover:bg-[var(--hover)] hover:border-[var(--brand)] transition-all"
+        >
+          <div class="font-medium text-[var(--text)]">${name}</div>
+          <div class="text-xs text-[var(--muted)] mt-1">
+            ${name.length} písmen
+          </div>
+        </a>
+      `).join('');
+      
+      container.innerHTML += newHTML;
+    }
+  </script>
+</Layout>

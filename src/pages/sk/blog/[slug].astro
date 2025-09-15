@@ -1,0 +1,151 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const blogPosts = await getCollection('pages/sk/blog');
+  return blogPosts.map(post => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+
+// Generate structured data
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": post.data.title,
+  "description": post.data.description,
+  "author": {
+    "@type": "Organization",
+    "name": post.data.author || "meniny365.sk"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "meniny365.sk",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://meniny365.sk/logo.png"
+    }
+  },
+  "datePublished": post.data.pubDate,
+  "dateModified": post.data.pubDate,
+  "url": `https://meniny365.sk/sk/blog/${post.slug}`,
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": `https://meniny365.sk/sk/blog/${post.slug}`
+  }
+};
+---
+
+<Layout 
+  title={`${post.data.title} | meniny365`}
+  description={post.data.description}
+  canonical={`https://meniny365.sk/sk/blog/${post.slug}`}
+  structuredData={structuredData}
+>
+  <div class="container py-8">
+    <!-- Breadcrumbs -->
+    <nav class="mb-8">
+      <ol class="flex items-center space-x-2 text-sm text-[var(--muted)]">
+        <li><a href="/sk" class="hover:text-[var(--brand)] transition-colors">Dnes</a></li>
+        <li>/</li>
+        <li><a href="/sk/blog" class="hover:text-[var(--brand)] transition-colors">Blog</a></li>
+        <li>/</li>
+        <li class="text-[var(--text)]">{post.data.title}</li>
+      </ol>
+    </nav>
+
+    <!-- Article Header -->
+    <div class="text-center mb-12">
+      <h1 class="text-4xl md:text-5xl font-bold text-[var(--text)] mb-4">
+        {post.data.title}
+      </h1>
+      
+      <div class="flex justify-center items-center space-x-4 text-[var(--muted)] mb-6">
+        <time>
+          {new Date(post.data.pubDate).toLocaleDateString('sk-SK')}
+        </time>
+        <span>•</span>
+        <span>{post.data.author || 'meniny365.sk'}</span>
+      </div>
+      
+      <div class="flex flex-wrap justify-center gap-2">
+        {post.data.tags?.map(tag => (
+          <span class="px-3 py-1 bg-[var(--brand)]/20 text-[var(--brand)] rounded-full text-sm">
+            {tag}
+          </span>
+        ))}
+      </div>
+    </div>
+
+    <!-- Article Content -->
+    <article class="prose prose-lg max-w-4xl mx-auto text-[var(--text)] mb-12">
+      <Content />
+    </article>
+
+    <!-- Share Buttons -->
+    <div class="card p-6 mb-12">
+      <h3 class="text-lg font-semibold text-[var(--text)] mb-4">Zdieľať článok</h3>
+      <div class="flex flex-wrap gap-4">
+        <a 
+          href={`https://www.facebook.com/sharer/sharer.php?u=https://meniny365.sk/sk/blog/${post.slug}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn btn-secondary"
+        >
+          📘 Facebook
+        </a>
+        <a 
+          href={`https://twitter.com/intent/tweet?url=https://meniny365.sk/sk/blog/${post.slug}&text=${encodeURIComponent(post.data.title)}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn btn-secondary"
+        >
+          🐦 Twitter
+        </a>
+        <a 
+          href={`https://www.linkedin.com/sharing/share-offsite/?url=https://meniny365.sk/sk/blog/${post.slug}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn btn-secondary"
+        >
+          💼 LinkedIn
+        </a>
+        <button 
+          onclick="navigator.clipboard.writeText(`https://meniny365.sk/sk/blog/${post.slug}`)"
+          class="btn btn-secondary"
+        >
+          📋 Kopírovať odkaz
+        </button>
+      </div>
+    </div>
+
+    <!-- Related Articles -->
+    <div class="card p-8 mb-12">
+      <h3 class="text-2xl font-semibold text-[var(--text)] mb-6">Súvisiace články</h3>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <a href="/sk/blog/meniny-na-slovensku" class="p-4 border border-[var(--border)] rounded-lg hover:bg-[var(--hover)] transition-colors">
+          <h4 class="font-semibold text-[var(--text)] mb-2">Meniny na Slovensku: tradície a zvyky</h4>
+          <p class="text-sm text-[var(--muted)]">Zistite viac o tradíciách a zvykoch spojených s meninami na Slovensku.</p>
+        </a>
+        
+        <a href="/sk/blog/darceky-na-meniny" class="p-4 border border-[var(--border)] rounded-lg hover:bg-[var(--hover)] transition-colors">
+          <h4 class="font-semibold text-[var(--text)] mb-2">20 tipov na darčeky na meniny</h4>
+          <p class="text-sm text-[var(--muted)]">Nájdite perfektný darček pre každý rozpočet a príležitosť.</p>
+        </a>
+      </div>
+    </div>
+
+    <!-- Back to Blog -->
+    <div class="text-center">
+      <a href="/sk/blog" class="btn btn-primary">
+        ← Späť na blog
+      </a>
+    </div>
+  </div>
+</Layout>

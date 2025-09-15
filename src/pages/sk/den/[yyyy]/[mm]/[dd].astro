@@ -1,0 +1,199 @@
+---
+import Layout from '../../../../../layouts/Layout.astro';
+import { formatDateSlovak, getMonthNameSlovak, getAdjacentDay } from '../../../../../lib/date';
+import { getNamesByDate } from '../../../../../lib/meniny';
+import { toSlug } from '../../../../../lib/slug';
+
+export async function getStaticPaths() {
+  // Generate paths for the current year
+  const year = 2025;
+  const paths = [];
+  
+  for (let month = 1; month <= 12; month++) {
+    const daysInMonth = new Date(year, month, 0).getDate();
+    for (let day = 1; day <= daysInMonth; day++) {
+      paths.push({
+        params: {
+          yyyy: year.toString(),
+          mm: month.toString().padStart(2, '0'),
+          dd: day.toString().padStart(2, '0')
+        }
+      });
+    }
+  }
+  
+  return paths;
+}
+
+const { yyyy, mm, dd } = Astro.params;
+
+// Validate and construct date
+const year = parseInt(yyyy!);
+const month = parseInt(mm!);
+const day = parseInt(dd!);
+
+if (isNaN(year) || isNaN(month) || isNaN(day) || month < 1 || month > 12 || day < 1 || day > 31) {
+  return Astro.redirect('/sk');
+}
+
+const dateStr = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+const date = new Date(year, month - 1, day);
+
+// Validate date is valid
+if (date.getFullYear() !== year || date.getMonth() !== month - 1 || date.getDate() !== day) {
+  return Astro.redirect('/sk');
+}
+
+const names = await getNamesByDate(dateStr);
+const formattedDate = formatDateSlovak(date);
+const monthName = getMonthNameSlovak(month);
+
+// Get adjacent days
+const prevDay = getAdjacentDay(dateStr, -1);
+const nextDay = getAdjacentDay(dateStr, 1);
+
+// Generate structured data
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": `Meniny ${formattedDate}`,
+  "description": `${formattedDate} majú meniny: ${names.join(', ')}`,
+  "url": `https://meniny365.sk/sk/den/${yyyy}/${mm}/${dd}`,
+  "mainEntity": {
+    "@type": "ItemList",
+    "itemListElement": names.map((name, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "name": name,
+      "url": `https://meniny365.sk/sk/meno/${toSlug(name)}`
+    }))
+  }
+};
+---
+
+<Layout 
+  title={`Meniny ${formattedDate} - kto oslavuje | meniny365`}
+  description={`${formattedDate} majú meniny: ${names.join(', ')}. Zistite kto oslavuje meniny, nájdite darčekové nápady a viac informácií.`}
+  canonical={`https://meniny365.sk/sk/den/${yyyy}/${mm}/${dd}`}
+  structuredData={structuredData}
+>
+  <div class="container py-8">
+    <!-- Breadcrumbs -->
+    <nav class="mb-8">
+      <ol class="flex items-center space-x-2 text-sm text-[var(--muted)]">
+        <li><a href="/sk" class="hover:text-[var(--brand)] transition-colors">Dnes</a></li>
+        <li>/</li>
+        <li><a href={`/sk/kalendár/${year}/${month}`} class="hover:text-[var(--brand)] transition-colors">{monthName} {year}</a></li>
+        <li>/</li>
+        <li class="text-[var(--text)]">{day}. {monthName} {year}</li>
+      </ol>
+    </nav>
+
+    <!-- Date Header -->
+    <div class="text-center mb-12">
+      <h1 class="text-4xl md:text-5xl font-bold text-[var(--text)] mb-4">
+        Meniny {formattedDate}
+      </h1>
+      
+      {names.length > 0 ? (
+        <div class="card p-8 max-w-2xl mx-auto">
+          <h2 class="text-2xl font-semibold text-[var(--text)] mb-6">
+            Dnes majú meniny:
+          </h2>
+          <div class="flex flex-wrap gap-3 justify-center">
+            {names.map(name => (
+              <a 
+                href={`/sk/meno/${toSlug(name)}`}
+                class="btn btn-primary text-lg px-6 py-3"
+              >
+                {name}
+              </a>
+            ))}
+          </div>
+          
+          <div class="mt-8">
+            <a 
+              href={`/api/ical?date=${dateStr}`}
+              class="btn btn-secondary"
+              download={`meniny-${dateStr}.ics`}
+            >
+              📅 Pridať do kalendára
+            </a>
+          </div>
+        </div>
+      ) : (
+        <div class="card p-8 max-w-2xl mx-auto">
+          <p class="text-[var(--muted)] text-lg">
+            {formattedDate} nemá nikto meniny. Skúste pozrieť iný deň v kalendári.
+          </p>
+        </div>
+      )}
+    </div>
+
+    <!-- Navigation -->
+    <div class="flex justify-center space-x-4 mb-12">
+      <a href={`/sk/den/${prevDay.split('-')[0]}/${prevDay.split('-')[1]}/${prevDay.split('-')[2]}`} class="btn btn-secondary">
+        ← Predchádzajúci deň
+      </a>
+      <a href={`/sk/kalendár/${year}/${month}`} class="btn btn-secondary">
+        📅 Kalendár {monthName} {year}
+      </a>
+      <a href={`/sk/den/${nextDay.split('-')[0]}/${nextDay.split('-')[1]}/${nextDay.split('-')[2]}`} class="btn btn-secondary">
+        Ďalší deň →
+      </a>
+    </div>
+
+    <!-- SEO Content -->
+    {names.length > 0 && (
+      <div class="prose prose-lg max-w-4xl mx-auto text-[var(--text)]">
+        <h2 class="text-2xl font-semibold mb-4">O meninách {formattedDate}</h2>
+        <p class="text-[var(--muted)] leading-relaxed">
+          {formattedDate} je špeciálny deň pre všetkých, ktorí majú meniny. {names.length === 1 ? `Dnes oslavuje ${names[0]}` : `Dnes oslavujú ${names.join(', ')}`}. 
+          Meniny sú dôležitou súčasťou slovenskej kultúry a tradície, kde sa oslavujú namiesto narodenín.
+        </p>
+        
+        <h3 class="text-xl font-semibold mt-8 mb-4">Darčekové nápady</h3>
+        <p class="text-[var(--muted)] leading-relaxed">
+          Hľadáte darček na meniny? Na našej stránke nájdete množstvo nápadov pre každý rozpočet. 
+          Od tradičných darčekov po moderné trendy - máme pre vás pripravené tipy pre každého.
+        </p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+          {names.map(name => (
+            <div class="card p-6">
+              <h4 class="text-lg font-semibold text-[var(--text)] mb-3">
+                <a href={`/sk/meno/${toSlug(name)}`} class="hover:text-[var(--brand)] transition-colors">
+                  {name}
+                </a>
+              </h4>
+              <p class="text-[var(--muted)] text-sm mb-4">
+                Pozrite si všetky informácie o mene {name}, jeho pôvode, významu a darčekových nápadoch.
+              </p>
+              <a href={`/sk/meno/${toSlug(name)}`} class="btn btn-primary btn-sm">
+                Zobraziť detaily
+              </a>
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
+
+    <!-- Related Links -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+      <a href={`/sk/kalendár/${year}/${month}`} class="card p-6 hover:scale-105 transition-transform">
+        <h3 class="text-xl font-semibold text-[var(--text)] mb-2">📅 Kalendár {monthName}</h3>
+        <p class="text-[var(--muted)]">Pozrite si všetky meniny v {monthName} {year}</p>
+      </a>
+      
+      <a href="/sk/populárne-mená" class="card p-6 hover:scale-105 transition-transform">
+        <h3 class="text-xl font-semibold text-[var(--text)] mb-2">🔥 Populárne mená</h3>
+        <p class="text-[var(--muted)]">Zistite ktoré mená sú najpopulárnejšie</p>
+      </a>
+      
+      <a href="/sk/návrhy-mena" class="card p-6 hover:scale-105 transition-transform">
+        <h3 class="text-xl font-semibold text-[var(--text)] mb-2">💡 Návrhy mien</h3>
+        <p class="text-[var(--muted)]">Nájdite perfektné meno pre vaše dieťa</p>
+      </a>
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,158 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+// Get blog posts
+const blogPosts = await getCollection('pages/sk/blog');
+
+// Generate structured data
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Blog o meninách - tipy, tradície a zaujímavosti",
+  "description": "Čítajte zaujímavé články o meninách, tradíciách, darčekoch a všetkom, čo súvisí s oslavami menín na Slovensku.",
+  "url": "https://meniny365.sk/sk/blog",
+  "mainEntity": {
+    "@type": "ItemList",
+    "itemListElement": blogPosts.map((post, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "name": post.data.title,
+      "description": post.data.description,
+      "url": `https://meniny365.sk/sk/blog/${post.slug}`
+    }))
+  }
+};
+---
+
+<Layout 
+  title="Blog o meninách - tipy a zaujímavosti | meniny365"
+  description="Čítajte zaujímavé články o meninách, tradíciách, darčekoch a všetkom, čo súvisí s oslavami menín na Slovensku."
+  canonical="https://meniny365.sk/sk/blog"
+  structuredData={structuredData}
+>
+  <div class="container py-8">
+    <!-- Breadcrumbs -->
+    <nav class="mb-8">
+      <ol class="flex items-center space-x-2 text-sm text-[var(--muted)]">
+        <li><a href="/sk" class="hover:text-[var(--brand)] transition-colors">Dnes</a></li>
+        <li>/</li>
+        <li class="text-[var(--text)]">Blog</li>
+      </ol>
+    </nav>
+
+    <!-- Header -->
+    <div class="text-center mb-12">
+      <h1 class="text-4xl md:text-5xl font-bold text-[var(--text)] mb-4">
+        Blog o meninách
+      </h1>
+      <p class="text-xl text-[var(--muted)] mb-8">
+        Tipy, tradície a zaujímavosti o meninách na Slovensku
+      </p>
+    </div>
+
+    <!-- Blog Posts -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+      {blogPosts.map(post => (
+        <article class="card p-6 hover:scale-105 transition-transform">
+          <div class="mb-4">
+            <time class="text-sm text-[var(--muted)]">
+              {new Date(post.data.pubDate).toLocaleDateString('sk-SK')}
+            </time>
+            <h2 class="text-xl font-semibold text-[var(--text)] mt-2 mb-3">
+              <a href={`/sk/blog/${post.slug}`} class="hover:text-[var(--brand)] transition-colors">
+                {post.data.title}
+              </a>
+            </h2>
+            <p class="text-[var(--muted)] text-sm leading-relaxed">
+              {post.data.description}
+            </p>
+          </div>
+          
+          <div class="flex flex-wrap gap-2 mb-4">
+            {post.data.tags?.map(tag => (
+              <span class="px-2 py-1 bg-[var(--brand)]/20 text-[var(--brand)] rounded text-xs">
+                {tag}
+              </span>
+            ))}
+          </div>
+          
+          <a 
+            href={`/sk/blog/${post.slug}`}
+            class="btn btn-primary btn-sm"
+          >
+            Čítať viac
+          </a>
+        </article>
+      ))}
+    </div>
+
+    <!-- Categories -->
+    <div class="card p-8 mb-12">
+      <h2 class="text-2xl font-semibold text-[var(--text)] mb-6">Kategórie článkov</h2>
+      
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <a href="/sk/blog?kategoria=tradicie" class="p-4 border border-[var(--border)] rounded-lg hover:bg-[var(--hover)] transition-colors text-center">
+          <div class="text-2xl mb-2">🏛️</div>
+          <div class="font-medium text-[var(--text)]">Tradície</div>
+        </a>
+        
+        <a href="/sk/blog?kategoria=darceky" class="p-4 border border-[var(--border)] rounded-lg hover:bg-[var(--hover)] transition-colors text-center">
+          <div class="text-2xl mb-2">🎁</div>
+          <div class="font-medium text-[var(--text)]">Darčeky</div>
+        </a>
+        
+        <a href="/sk/blog?kategoria=tipy" class="p-4 border border-[var(--border)] rounded-lg hover:bg-[var(--hover)] transition-colors text-center">
+          <div class="text-2xl mb-2">💡</div>
+          <div class="font-medium text-[var(--text)]">Tipy</div>
+        </a>
+        
+        <a href="/sk/blog?kategoria=zaujimavosti" class="p-4 border border-[var(--border)] rounded-lg hover:bg-[var(--hover)] transition-colors text-center">
+          <div class="text-2xl mb-2">🔍</div>
+          <div class="font-medium text-[var(--text)]">Zaujímavosti</div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Newsletter Signup -->
+    <div class="card p-8 mb-12 bg-gradient-to-r from-[var(--brand)]/10 to-[var(--accent)]/10">
+      <div class="text-center">
+        <h2 class="text-2xl font-semibold text-[var(--text)] mb-4">
+          Nechajte si posielať novinky
+        </h2>
+        <p class="text-[var(--muted)] mb-6">
+          Prihláste sa na odber a dostávajte najnovšie články o meninách priamo do vašej schránky.
+        </p>
+        
+        <div class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+          <input 
+            type="email" 
+            placeholder="Váš e-mail"
+            class="flex-1 px-4 py-2 border border-[var(--border)] rounded-lg bg-[var(--card)] text-[var(--text)] focus:ring-2 focus:ring-[var(--brand)] focus:border-transparent"
+          />
+          <button class="btn btn-primary">
+            Prihlásiť sa
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Related Links -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <a href="/sk" class="card p-6 hover:scale-105 transition-transform">
+        <h3 class="text-xl font-semibold text-[var(--text)] mb-2">📅 Dnes má meniny</h3>
+        <p class="text-[var(--muted)]">Zistite kto má dnes meniny</p>
+      </a>
+      
+      <a href="/sk/populárne-mená" class="card p-6 hover:scale-105 transition-transform">
+        <h3 class="text-xl font-semibold text-[var(--text)] mb-2">🔥 Populárne mená</h3>
+        <p class="text-[var(--muted)]">Zistite ktoré mená sú najpopulárnejšie</p>
+      </a>
+      
+      <a href="/sk/návrhy-mena" class="card p-6 hover:scale-105 transition-transform">
+        <h3 class="text-xl font-semibold text-[var(--text)] mb-2">💡 Návrhy mien</h3>
+        <p class="text-[var(--muted)]">Nájdite perfektné meno pre vaše dieťa</p>
+      </a>
+    </div>
+  </div>
+</Layout>

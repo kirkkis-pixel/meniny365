@@ -1,0 +1,248 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { getDatesByName, getAllNames, getNextOccurrence, getPrevOccurrence } from '../../../lib/meniny';
+import { toSlug, fromSlug } from '../../../lib/slug';
+import { formatDateSlovak } from '../../../lib/date';
+
+export async function getStaticPaths() {
+  // Get all names and generate paths
+  const allNames = await getAllNames();
+  
+  return allNames.map(name => ({
+    params: {
+      slug: toSlug(name)
+    }
+  }));
+}
+
+const { slug } = Astro.params;
+
+if (!slug) {
+  return Astro.redirect('/sk');
+}
+
+// Find the actual name from the slug
+const allNames = await getAllNames();
+const actualName = allNames.find(name => toSlug(name) === slug);
+
+if (!actualName) {
+  return Astro.redirect('/sk');
+}
+
+const dates = await getDatesByName(actualName);
+const nextOccurrence = await getNextOccurrence(actualName, new Date());
+const prevOccurrence = await getPrevOccurrence(actualName, new Date());
+
+// Generate structured data
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": `${actualName} - meniny, pôvod, darčeky`,
+  "description": `Meno ${actualName} má meniny ${dates.length} krát do roka. Zistite kedy, nájdite darčekové nápady a viac informácií.`,
+  "url": `https://meniny365.sk/sk/meno/${slug}`,
+  "mainEntity": {
+    "@type": "Person",
+    "name": actualName,
+    "description": `Meno ${actualName} má meniny ${dates.length} krát do roka`,
+    "birthDate": dates[0] || null
+  }
+};
+---
+
+<Layout 
+  title={`${actualName} - meniny, pôvod, darčeky | meniny365`}
+  description={`Meno ${actualName} má meniny ${dates.length} krát do roka. Zistite kedy, nájdite darčekové nápady a viac informácií o pôvode mena.`}
+  canonical={`https://meniny365.sk/sk/meno/${slug}`}
+  structuredData={structuredData}
+>
+  <div class="container py-8">
+    <!-- Breadcrumbs -->
+    <nav class="mb-8">
+      <ol class="flex items-center space-x-2 text-sm text-[var(--muted)]">
+        <li><a href="/sk" class="hover:text-[var(--brand)] transition-colors">Dnes</a></li>
+        <li>/</li>
+        <li class="text-[var(--text)]">{actualName}</li>
+      </ol>
+    </nav>
+
+    <!-- Name Header -->
+    <div class="text-center mb-12">
+      <h1 class="text-4xl md:text-5xl font-bold text-[var(--text)] mb-4">
+        {actualName}
+      </h1>
+      
+      <div class="flex justify-center items-center space-x-4 mb-8">
+        <span class="px-4 py-2 bg-[var(--brand)]/20 text-[var(--brand)] rounded-full text-sm font-medium">
+          Meniny
+        </span>
+        <span class="px-4 py-2 bg-[var(--accent)]/20 text-[var(--accent)] rounded-full text-sm font-medium">
+          {dates.length} krát do roka
+        </span>
+      </div>
+      
+      <div class="card p-6 max-w-2xl mx-auto">
+        <a 
+          href={`/api/ical?name=${encodeURIComponent(actualName)}`}
+          class="btn btn-primary text-lg px-6 py-3"
+          download={`${actualName}-meniny.ics`}
+        >
+          📅 Pridať do kalendára
+        </a>
+      </div>
+    </div>
+
+    <!-- Dátumy menín -->
+    <div class="card p-8 mb-12">
+      <h2 class="text-2xl font-semibold text-[var(--text)] mb-6">Dátumy menín</h2>
+      
+      {dates.length > 0 ? (
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {dates.map(dateStr => {
+            const date = new Date(dateStr);
+            const isUpcoming = date >= new Date();
+            
+            return (
+              <a
+                href={`/sk/den/${dateStr.split('-')[0]}/${dateStr.split('-')[1]}/${dateStr.split('-')[2]}`}
+                class={`
+                  p-4 rounded-lg border transition-all
+                  ${isUpcoming 
+                    ? 'bg-[var(--brand)]/10 border-[var(--brand)] hover:bg-[var(--brand)]/20' 
+                    : 'bg-[var(--card)] border-[var(--border)] hover:bg-[var(--hover)]'
+                  }
+                `}
+              >
+                <div class="text-lg font-semibold text-[var(--text)]">
+                  {formatDateSlovak(date)}
+                </div>
+                {isUpcoming && (
+                  <div class="text-sm text-[var(--brand)] mt-1">
+                    Najbližší termín
+                  </div>
+                )}
+              </a>
+            );
+          })}
+        </div>
+      ) : (
+        <p class="text-[var(--muted)]">Žiadne dátumy menín nie sú dostupné.</p>
+      )}
+    </div>
+
+    <!-- Darčekové nápady -->
+    <div class="card p-8 mb-12">
+      <h2 class="text-2xl font-semibold text-[var(--text)] mb-6">Darčekové nápady pre {actualName}</h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="p-4 border border-[var(--border)] rounded-lg">
+          <h3 class="font-semibold text-[var(--text)] mb-2">Tradičné darčeky</h3>
+          <ul class="text-sm text-[var(--muted)] space-y-1">
+            <li>• Kvetiny</li>
+            <li>• Čokoláda</li>
+            <li>• Kniha</li>
+            <li>• Parfém</li>
+          </ul>
+        </div>
+        
+        <div class="p-4 border border-[var(--border)] rounded-lg">
+          <h3 class="font-semibold text-[var(--text)] mb-2">Moderné darčeky</h3>
+          <ul class="text-sm text-[var(--muted)] space-y-1">
+            <li>• Gadgety</li>
+            <li>• Skúsenosti</li>
+            <li>• Digitálne darčeky</li>
+            <li>• Personalizované predmety</li>
+          </ul>
+        </div>
+        
+        <div class="p-4 border border-[var(--border)] rounded-lg">
+          <h3 class="font-semibold text-[var(--text)] mb-2">Podľa rozpočtu</h3>
+          <ul class="text-sm text-[var(--muted)] space-y-1">
+            <li>• Do 20€ - malé darčeky</li>
+            <li>• 20-50€ - stredné darčeky</li>
+            <li>• 50-100€ - drahšie darčeky</li>
+            <li>• 100€+ - luxusné darčeky</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pôvod & význam -->
+    <div class="card p-8 mb-12">
+      <h2 class="text-2xl font-semibold text-[var(--text)] mb-6">Pôvod & význam</h2>
+      
+      <div class="prose prose-lg text-[var(--text)]">
+        <p class="text-[var(--muted)] leading-relaxed">
+          Meno {actualName} má bohatú históriu a zaujímavý pôvod. Je to {dates.length > 1 ? 'jedno z mien, ktoré sa oslavuje viackrát do roka' : 'meno, ktoré sa oslavuje raz do roka'} 
+          a patrí medzi {dates.length > 3 ? 'najčastejšie oslavované mená' : 'mená s menej častými meninami'} na Slovensku.
+        </p>
+        
+        <h3 class="text-xl font-semibold mt-6 mb-4">Zaujímavosti o mene {actualName}</h3>
+        <ul class="text-[var(--muted)] space-y-2">
+          <li>• Meno sa oslavuje {dates.length} krát do roka</li>
+          <li>• Patrí medzi {dates.length > 3 ? 'populárne' : 'menej časté'} mená na Slovensku</li>
+          <li>• {nextOccurrence ? `Najbližšie meniny budú ${formatDateSlovak(nextOccurrence)}` : 'Meniny už boli tento rok'}</li>
+          <li>• Meno má {actualName.length} písmen</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Podobné mená -->
+    <div class="card p-8 mb-12">
+      <h2 class="text-2xl font-semibold text-[var(--text)] mb-6">Podobné mená</h2>
+      
+      <div class="flex flex-wrap gap-3">
+        {allNames
+          .filter(name => 
+            name !== actualName && 
+            (name.toLowerCase().includes(actualName.toLowerCase().slice(0, 3)) ||
+             actualName.toLowerCase().includes(name.toLowerCase().slice(0, 3)))
+          )
+          .slice(0, 8)
+          .map(name => (
+            <a
+              href={`/sk/meno/${toSlug(name)}`}
+              class="px-4 py-2 bg-[var(--card)] border border-[var(--border)] rounded-lg hover:bg-[var(--hover)] transition-colors"
+            >
+              {name}
+            </a>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- Súvisiace články -->
+    <div class="card p-8 mb-12">
+      <h2 class="text-2xl font-semibold text-[var(--text)] mb-6">Súvisiace články</h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <a href="/sk/blog/meniny-na-slovensku" class="p-4 border border-[var(--border)] rounded-lg hover:bg-[var(--hover)] transition-colors">
+          <h3 class="font-semibold text-[var(--text)] mb-2">Meniny na Slovensku: tradície a zvyky</h3>
+          <p class="text-sm text-[var(--muted)]">Zistite viac o tradíciách a zvykoch spojených s meninami na Slovensku.</p>
+        </a>
+        
+        <a href="/sk/blog/darceky-na-meniny" class="p-4 border border-[var(--border)] rounded-lg hover:bg-[var(--hover)] transition-colors">
+          <h3 class="font-semibold text-[var(--text)] mb-2">20 tipov na darčeky na meniny</h3>
+          <p class="text-sm text-[var(--muted)]">Nájdite perfektný darček pre každý rozpočet a príležitosť.</p>
+        </a>
+      </div>
+    </div>
+
+    <!-- Related Links -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <a href="/sk" class="card p-6 hover:scale-105 transition-transform">
+        <h3 class="text-xl font-semibold text-[var(--text)] mb-2">📅 Dnes má meniny</h3>
+        <p class="text-[var(--muted)]">Zistite kto má dnes meniny</p>
+      </a>
+      
+      <a href="/sk/populárne-mená" class="card p-6 hover:scale-105 transition-transform">
+        <h3 class="text-xl font-semibold text-[var(--text)] mb-2">🔥 Populárne mená</h3>
+        <p class="text-[var(--muted)]">Zistite ktoré mená sú najpopulárnejšie</p>
+      </a>
+      
+      <a href="/sk/návrhy-mena" class="card p-6 hover:scale-105 transition-transform">
+        <h3 class="text-xl font-semibold text-[var(--text)] mb-2">💡 Návrhy mien</h3>
+        <p class="text-[var(--muted)]">Nájdite perfektné meno pre vaše dieťa</p>
+      </a>
+    </div>
+  </div>
+</Layout>

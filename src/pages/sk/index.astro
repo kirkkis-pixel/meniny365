@@ -1,0 +1,136 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getTodayString, formatDateSlovak } from '../../lib/date';
+import { getNamesByDate } from '../../lib/meniny';
+import { toSlug } from '../../lib/slug';
+
+// Get today's date and names
+const today = getTodayString();
+const todayNames = await getNamesByDate(today);
+const todayFormatted = formatDateSlovak(today);
+
+// Generate structured data
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": `Kto má dnes meniny - ${todayFormatted}`,
+  "description": `Dnes ${todayFormatted} majú meniny: ${todayNames.join(', ')}`,
+  "url": `https://meniny365.sk/sk`,
+  "mainEntity": {
+    "@type": "ItemList",
+    "itemListElement": todayNames.map((name, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "name": name,
+      "url": `https://meniny365.sk/sk/meno/${toSlug(name)}`
+    }))
+  }
+};
+---
+
+<Layout 
+  title={`Kto má dnes meniny - ${todayFormatted} | meniny365`}
+  description={`Dnes ${todayFormatted} majú meniny: ${todayNames.join(', ')}. Zistite kto oslavuje meniny, nájdite darčekové nápady a viac informácií.`}
+  canonical="https://meniny365.sk/sk"
+  structuredData={structuredData}
+>
+  <div class="container py-8">
+    <!-- Hero Section -->
+    <div class="text-center mb-12">
+      <h1 class="text-4xl md:text-5xl font-bold text-[var(--text)] mb-4">
+        Kto má dnes meniny
+      </h1>
+      <p class="text-xl text-[var(--muted)] mb-8">
+        {todayFormatted}
+      </p>
+      
+      {todayNames.length > 0 ? (
+        <div class="card p-8 max-w-2xl mx-auto">
+          <h2 class="text-2xl font-semibold text-[var(--text)] mb-6">
+            Dnes majú meniny:
+          </h2>
+          <div class="flex flex-wrap gap-3 justify-center">
+            {todayNames.map(name => (
+              <a 
+                href={`/sk/meno/${toSlug(name)}`}
+                class="btn btn-primary text-lg px-6 py-3"
+              >
+                {name}
+              </a>
+            ))}
+          </div>
+          
+          <div class="mt-8">
+            <a 
+              href={`/api/ical?date=${today}`}
+              class="btn btn-secondary"
+              download={`meniny-${today}.ics`}
+            >
+              📅 Pridať do kalendára
+            </a>
+          </div>
+        </div>
+      ) : (
+        <div class="card p-8 max-w-2xl mx-auto">
+          <p class="text-[var(--muted)] text-lg">
+            Dnes nemá nikto meniny. Skúste pozrieť iný deň v kalendári.
+          </p>
+        </div>
+      )}
+    </div>
+
+    <!-- Navigation -->
+    <div class="flex justify-center space-x-4 mb-12">
+      <a href="/sk/kalendár" class="btn btn-secondary">
+        📅 Kalendár menín
+      </a>
+      <a href="/sk/populárne-mená" class="btn btn-secondary">
+        🔥 Populárne mená
+      </a>
+      <a href="/sk/návrhy-mena" class="btn btn-secondary">
+        💡 Návrhy mien
+      </a>
+    </div>
+
+    <!-- SEO Content -->
+    <div class="prose prose-lg max-w-4xl mx-auto text-[var(--text)]">
+      <h2 class="text-2xl font-semibold mb-4">Meniny na Slovensku</h2>
+      <p class="text-[var(--muted)] leading-relaxed">
+        Meniny sú dôležitou súčasťou slovenskej kultúry a tradície. Každý deň v roku má svoje mená, 
+        ktoré sa oslavujú namiesto narodenín. {todayNames.length > 0 ? `Dnes ${todayFormatted} majú meniny ${todayNames.join(', ')}. ` : ''}
+        Na našej stránke nájdete kompletný kalendár menín, darčekové nápady, pôvod mien a ďalšie užitočné informácie.
+      </p>
+      
+      <h3 class="text-xl font-semibold mt-8 mb-4">Ako fungujú meniny?</h3>
+      <p class="text-[var(--muted)] leading-relaxed">
+        Meniny sú tradične oslavované namiesto narodenín na Slovensku. Každý deň v roku má priradené 
+        konkrétne mená, ktoré sa môžu líšiť v závislosti od regiónu. Tieto mená sú často spojené s 
+        kresťanskými svätými alebo historickými osobnostami.
+      </p>
+      
+      <h3 class="text-xl font-semibold mt-8 mb-4">Darčekové nápady na meniny</h3>
+      <p class="text-[var(--muted)] leading-relaxed">
+        Hľadáte darček na meniny? Na našej stránke nájdete množstvo nápadov pre každý rozpočet a príležitosť. 
+        Od tradičných darčekov po moderné trendy - máme pre vás pripravené tipy pre každého.
+      </p>
+    </div>
+
+    <!-- Quick Links -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+      <a href="/sk/kalendár" class="card p-6 hover:scale-105 transition-transform">
+        <h3 class="text-xl font-semibold text-[var(--text)] mb-2">📅 Kalendár menín</h3>
+        <p class="text-[var(--muted)]">Pozrite si kompletný kalendár menín pre celý rok</p>
+      </a>
+      
+      <a href="/sk/populárne-mená" class="card p-6 hover:scale-105 transition-transform">
+        <h3 class="text-xl font-semibold text-[var(--text)] mb-2">🔥 Populárne mená</h3>
+        <p class="text-[var(--muted)]">Zistite ktoré mená sú najpopulárnejšie na Slovensku</p>
+      </a>
+      
+      <a href="/sk/návrhy-mena" class="card p-6 hover:scale-105 transition-transform">
+        <h3 class="text-xl font-semibold text-[var(--text)] mb-2">💡 Návrhy mien</h3>
+        <p class="text-[var(--muted)]">Nájdite perfektné meno pre vaše dieťa</p>
+      </a>
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,153 @@
+---
+export interface Props {
+  title: string;
+  description?: string;
+  canonical?: string;
+  noindex?: boolean;
+  structuredData?: any;
+}
+
+const { title, description = "Meniny na Slovensku - kto má dnes meniny, kalendár menín, darčekové nápady a viac", canonical, noindex = false, structuredData } = Astro.props;
+
+const canonicalUrl = canonical || new URL(Astro.url.pathname, Astro.site);
+---
+
+<!DOCTYPE html>
+<html lang="sk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonicalUrl} />
+    
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    
+    <title>{title}</title>
+    
+    <!-- Preload Inter font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Theme color -->
+    <meta name="theme-color" content="#7aa2ff" />
+    <meta name="color-scheme" content="dark light" />
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:site_name" content="meniny365.sk" />
+    <meta property="og:locale" content="sk_SK" />
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    
+    <!-- Structured Data -->
+    {structuredData && (
+      <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+    )}
+    
+    <!-- Global WebSite structured data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "meniny365.sk",
+        "url": "https://meniny365.sk",
+        "description": "Meniny na Slovensku - kto má dnes meniny, kalendár menín, darčekové nápady a viac",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://meniny365.sk/sk/návrhy-mena?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div id="app">
+      <header class="border-b border-[var(--border)] bg-[var(--card)] sticky top-0 z-50">
+        <div class="container">
+          <div class="flex items-center justify-between h-16">
+            <a href="/sk" class="flex items-center space-x-2">
+              <div class="w-8 h-8 bg-[var(--brand)] rounded-lg flex items-center justify-center">
+                <span class="text-white font-bold text-lg">M</span>
+              </div>
+              <span class="font-bold text-xl text-[var(--text)]">meniny365</span>
+            </a>
+            
+            <nav class="hidden md:flex items-center space-x-6">
+              <a href="/sk" class="text-[var(--text)] hover:text-[var(--brand)] transition-colors">Dnes</a>
+              <a href="/sk/kalendár" class="text-[var(--text)] hover:text-[var(--brand)] transition-colors">Kalendár</a>
+              <a href="/sk/populárne-mená" class="text-[var(--text)] hover:text-[var(--brand)] transition-colors">Populárne mená</a>
+              <a href="/sk/návrhy-mena" class="text-[var(--text)] hover:text-[var(--brand)] transition-colors">Návrhy mien</a>
+              <a href="/sk/blog" class="text-[var(--text)] hover:text-[var(--brand)] transition-colors">Blog</a>
+            </nav>
+            
+            <button class="md:hidden p-2" aria-label="Menu">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </header>
+      
+      <main>
+        <slot />
+      </main>
+      
+      <footer class="bg-[var(--card)] border-t border-[var(--border)] mt-20">
+        <div class="container py-12">
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+              <h3 class="font-semibold text-[var(--text)] mb-4">meniny365.sk</h3>
+              <p class="text-[var(--muted)] text-sm">
+                Najkompletnejší kalendár menín na Slovensku. Zistite kto má dnes meniny, nájdite darčekové nápady a objavte zaujímavosti o menách.
+              </p>
+            </div>
+            
+            <div>
+              <h4 class="font-semibold text-[var(--text)] mb-4">Navigácia</h4>
+              <ul class="space-y-2 text-sm">
+                <li><a href="/sk" class="text-[var(--muted)] hover:text-[var(--brand)] transition-colors">Dnes má meniny</a></li>
+                <li><a href="/sk/kalendár" class="text-[var(--muted)] hover:text-[var(--brand)] transition-colors">Kalendár menín</a></li>
+                <li><a href="/sk/populárne-mená" class="text-[var(--muted)] hover:text-[var(--brand)] transition-colors">Populárne mená</a></li>
+                <li><a href="/sk/návrhy-mena" class="text-[var(--muted)] hover:text-[var(--brand)] transition-colors">Návrhy mien</a></li>
+              </ul>
+            </div>
+            
+            <div>
+              <h4 class="font-semibold text-[var(--text)] mb-4">Informácie</h4>
+              <ul class="space-y-2 text-sm">
+                <li><a href="/sk/blog" class="text-[var(--muted)] hover:text-[var(--brand)] transition-colors">Blog</a></li>
+                <li><a href="/sk/o-nás" class="text-[var(--muted)] hover:text-[var(--brand)] transition-colors">O nás</a></li>
+                <li><a href="/sk/kontakt" class="text-[var(--muted)] hover:text-[var(--brand)] transition-colors">Kontakt</a></li>
+              </ul>
+            </div>
+            
+            <div>
+              <h4 class="font-semibold text-[var(--text)] mb-4">Právne</h4>
+              <ul class="space-y-2 text-sm">
+                <li><a href="/sk/ochrana-súkromia" class="text-[var(--muted)] hover:text-[var(--brand)] transition-colors">Ochrana súkromia</a></li>
+                <li><a href="/sk/obchodné-podmienky" class="text-[var(--muted)] hover:text-[var(--brand)] transition-colors">Obchodné podmienky</a></li>
+                <li><a href="/sk/zdroje" class="text-[var(--muted)] hover:text-[var(--brand)] transition-colors">Zdroje</a></li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="border-t border-[var(--border)] mt-8 pt-8 text-center text-sm text-[var(--muted)]">
+            <p>&copy; 2025 meniny365.sk. Všetky práva vyhradené.</p>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <!-- Consent Manager will be injected here -->
+    <div id="consent-manager"></div>
+  </body>
+</html>

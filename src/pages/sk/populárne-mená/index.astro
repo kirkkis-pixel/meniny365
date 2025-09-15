@@ -1,0 +1,186 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { getAllNames } from '../../../lib/meniny';
+
+// Get all names and create popularity data (demo)
+const allNames = await getAllNames();
+
+// Create demo popularity data
+const popularityData = allNames.map((name, index) => ({
+  name,
+  rank: index + 1,
+  gender: Math.random() > 0.5 ? 'mužské' : 'ženské',
+  trend: Math.random() > 0.5 ? 'up' : 'down'
+})).sort((a, b) => a.rank - b.rank);
+
+// Generate structured data
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Najpopulárnejšie mená na Slovensku",
+  "description": "Zistite ktoré mená sú najpopulárnejšie na Slovensku. Kompletný zoznam najčastejšie používaných mien.",
+  "url": "https://meniny365.sk/sk/populárne-mená",
+  "mainEntity": {
+    "@type": "ItemList",
+    "itemListElement": popularityData.slice(0, 20).map((item, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "name": item.name,
+      "url": `https://meniny365.sk/sk/meno/${item.name.toLowerCase().replace(/[áä]/g, 'a').replace(/[č]/g, 'c').replace(/[ď]/g, 'd').replace(/[ľĺ]/g, 'l').replace(/[ň]/g, 'n').replace(/[óô]/g, 'o').replace(/[ŕ]/g, 'r').replace(/[š]/g, 's').replace(/[ť]/g, 't').replace(/[ú]/g, 'u').replace(/[ý]/g, 'y').replace(/[ž]/g, 'z').replace(/[^a-z0-9]/g, '-')}`
+    }))
+  }
+};
+---
+
+<Layout 
+  title="Najpopulárnejšie mená na Slovensku | meniny365"
+  description="Zistite ktoré mená sú najpopulárnejšie na Slovensku. Kompletný zoznam najčastejšie používaných mien s trendmi a štatistikami."
+  canonical="https://meniny365.sk/sk/populárne-mená"
+  structuredData={structuredData}
+>
+  <div class="container py-8">
+    <!-- Breadcrumbs -->
+    <nav class="mb-8">
+      <ol class="flex items-center space-x-2 text-sm text-[var(--muted)]">
+        <li><a href="/sk" class="hover:text-[var(--brand)] transition-colors">Dnes</a></li>
+        <li>/</li>
+        <li class="text-[var(--text)]">Populárne mená</li>
+      </ol>
+    </nav>
+
+    <!-- Header -->
+    <div class="text-center mb-12">
+      <h1 class="text-4xl md:text-5xl font-bold text-[var(--text)] mb-4">
+        Najpopulárnejšie mená na Slovensku
+      </h1>
+      <p class="text-xl text-[var(--muted)] mb-8">
+        Zistite ktoré mená sú najčastejšie používané na Slovensku
+      </p>
+    </div>
+
+    <!-- Filters -->
+    <div class="card p-6 mb-8">
+      <div class="flex flex-wrap gap-4 items-center">
+        <div class="flex items-center space-x-2">
+          <label class="text-sm font-medium text-[var(--text)]">Filtrovať:</label>
+          <select class="px-3 py-2 border border-[var(--border)] rounded-lg bg-[var(--card)] text-[var(--text)]">
+            <option value="all">Všetky mená</option>
+            <option value="male">Mužské mená</option>
+            <option value="female">Ženské mená</option>
+          </select>
+        </div>
+        
+        <div class="flex items-center space-x-2">
+          <label class="text-sm font-medium text-[var(--text)]">Zobraziť:</label>
+          <select class="px-3 py-2 border border-[var(--border)] rounded-lg bg-[var(--card)] text-[var(--text)]">
+            <option value="20">Top 20</option>
+            <option value="50">Top 50</option>
+            <option value="100">Top 100</option>
+            <option value="all">Všetky</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Popularity List -->
+    <div class="card p-6 mb-12">
+      <h2 class="text-2xl font-semibold text-[var(--text)] mb-6">Rebríček populárnych mien</h2>
+      
+      <div class="space-y-4">
+        {popularityData.slice(0, 20).map((item, index) => (
+          <div class="flex items-center justify-between p-4 border border-[var(--border)] rounded-lg hover:bg-[var(--hover)] transition-colors">
+            <div class="flex items-center space-x-4">
+              <div class="flex items-center justify-center w-8 h-8 bg-[var(--brand)] text-white rounded-full font-bold text-sm">
+                {index + 1}
+              </div>
+              
+              <div>
+                <a 
+                  href={`/sk/meno/${item.name.toLowerCase().replace(/[áä]/g, 'a').replace(/[č]/g, 'c').replace(/[ď]/g, 'd').replace(/[ľĺ]/g, 'l').replace(/[ň]/g, 'n').replace(/[óô]/g, 'o').replace(/[ŕ]/g, 'r').replace(/[š]/g, 's').replace(/[ť]/g, 't').replace(/[ú]/g, 'u').replace(/[ý]/g, 'y').replace(/[ž]/g, 'z').replace(/[^a-z0-9]/g, '-')}`}
+                  class="text-lg font-semibold text-[var(--text)] hover:text-[var(--brand)] transition-colors"
+                >
+                  {item.name}
+                </a>
+                <div class="text-sm text-[var(--muted)]">
+                  {item.gender} • {item.trend === 'up' ? '↗️ Rastúci trend' : '↘️ Klesajúci trend'}
+                </div>
+              </div>
+            </div>
+            
+            <div class="flex items-center space-x-2">
+              <div class="w-16 h-2 bg-[var(--border)] rounded-full overflow-hidden">
+                <div 
+                  class="h-full bg-[var(--brand)] rounded-full"
+                  style={`width: ${Math.max(20, 100 - index * 4)}%`}
+                ></div>
+              </div>
+              <span class="text-sm text-[var(--muted)]">
+                {Math.max(20, 100 - index * 4)}%
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Statistics -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+      <div class="card p-6 text-center">
+        <div class="text-3xl font-bold text-[var(--brand)] mb-2">
+          {popularityData.length}
+        </div>
+        <div class="text-[var(--muted)]">Celkovo mien</div>
+      </div>
+      
+      <div class="card p-6 text-center">
+        <div class="text-3xl font-bold text-[var(--accent)] mb-2">
+          {Math.round(popularityData.filter(item => item.gender === 'mužské').length / popularityData.length * 100)}%
+        </div>
+        <div class="text-[var(--muted)]">Mužské mená</div>
+      </div>
+      
+      <div class="card p-6 text-center">
+        <div class="text-3xl font-bold text-[var(--text)] mb-2">
+          {Math.round(popularityData.filter(item => item.gender === 'ženské').length / popularityData.length * 100)}%
+        </div>
+        <div class="text-[var(--muted)]">Ženské mená</div>
+      </div>
+    </div>
+
+    <!-- SEO Content -->
+    <div class="prose prose-lg max-w-4xl mx-auto text-[var(--text)] mb-12">
+      <h2 class="text-2xl font-semibold mb-4">Trendy v menách na Slovensku</h2>
+      <p class="text-[var(--muted)] leading-relaxed">
+        Mená na Slovensku sa neustále vyvíjajú a odrážajú súčasné trendy v spoločnosti. 
+        Tradičné slovenské mená stále dominujú, ale stále viac rodičov sa rozhoduje pre 
+        medzinárodné mená alebo moderné varianty klasických mien.
+      </p>
+      
+      <h3 class="text-xl font-semibold mt-8 mb-4">Najpopulárnejšie kategórie mien</h3>
+      <ul class="text-[var(--muted)] space-y-2">
+        <li>• <strong>Tradičné slovenské mená:</strong> Ján, Peter, Jozef, Mária, Anna, Zuzana</li>
+        <li>• <strong>Kresťanské mená:</strong> Michal, Gabriel, Rafael, Angelika, Veronika</li>
+        <li>• <strong>Medzinárodné mená:</strong> Alexander, Daniel, Kristína, Natália</li>
+        <li>• <strong>Moderné mená:</strong> Adam, Samuel, Emma, Sofia</li>
+      </ul>
+    </div>
+
+    <!-- Related Links -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <a href="/sk" class="card p-6 hover:scale-105 transition-transform">
+        <h3 class="text-xl font-semibold text-[var(--text)] mb-2">📅 Dnes má meniny</h3>
+        <p class="text-[var(--muted)]">Zistite kto má dnes meniny</p>
+      </a>
+      
+      <a href="/sk/návrhy-mena" class="card p-6 hover:scale-105 transition-transform">
+        <h3 class="text-xl font-semibold text-[var(--text)] mb-2">💡 Návrhy mien</h3>
+        <p class="text-[var(--muted)]">Nájdite perfektné meno pre vaše dieťa</p>
+      </a>
+      
+      <a href="/sk/kalendár" class="card p-6 hover:scale-105 transition-transform">
+        <h3 class="text-xl font-semibold text-[var(--text)] mb-2">📅 Kalendár menín</h3>
+        <p class="text-[var(--muted)]">Pozrite si kompletný kalendár menín</p>
+      </a>
+    </div>
+  </div>
+</Layout>
