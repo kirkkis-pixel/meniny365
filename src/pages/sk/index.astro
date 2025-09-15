@@ -37,14 +37,14 @@ const structuredData = {
   structuredData={structuredData}
 >
   <!-- Hero Section - Clean Minimal Style -->
-  <section class="relative pt-20 pb-32 overflow-hidden">
+  <section class="relative min-h-screen flex items-center overflow-hidden">
     <!-- Subtle Background Overlay -->
     <div class="absolute inset-0 bg-gradient-to-br from-white/90 via-white/95 to-indigo-50/60"></div>
     
-    <div class="container relative z-10 text-center max-w-4xl">
-      <!-- New Badge - Like Reference -->
+    <div class="container relative z-10 text-center max-w-4xl mx-auto px-4">
+      <!-- AI-Powered Badge -->
       <div class="inline-flex items-center bg-gradient-to-r from-slate-100 to-indigo-100 rounded-full px-4 py-2 mb-8 animate-fade-in-up shadow-sm">
-        <span class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-xs font-medium px-2 py-1 rounded-full mr-3">New</span>
+        <span class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-xs font-medium px-2 py-1 rounded-full mr-3">AI-powered</span>
         <span class="text-sm text-slate-700">Prvý kalendár menín na Slovensku</span>
         <svg class="w-4 h-4 ml-2 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -52,25 +52,25 @@ const structuredData = {
       </div>
       
       <!-- Main Heading - Clean & Bold -->
-      <h1 class="text-7xl font-bold text-black mb-8 leading-tight animate-fade-in-up" style="animation-delay: 0.2s;">
+      <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold text-black mb-6 leading-tight animate-fade-in-up" style="animation-delay: 0.2s;">
         Kto má dnes meniny?
       </h1>
       
       <!-- Subtitle - Clean Description -->
-      <p class="text-xl text-gray-600 mb-12 max-w-2xl mx-auto leading-relaxed tracking-tight animate-fade-in-up" style="animation-delay: 0.4s;">
+      <p class="text-lg md:text-xl text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed tracking-tight animate-fade-in-up" style="animation-delay: 0.4s;">
         Prvý kalendár menín na Slovensku s inteligentným vyhľadávaním, 
         návrhmi darčekov a personalizovanými skúsenosťami.
       </p>
       
           <!-- Today's Names Display - Super Clear & Focused -->
-          <div class="bg-gradient-to-br from-slate-100 via-white to-indigo-50 rounded-2xl p-12 max-w-2xl mx-auto mb-20 animate-fade-in-up shadow-lg border border-slate-200/50" style="animation-delay: 0.8s;">
+          <div class="bg-gradient-to-br from-slate-100 via-white to-indigo-50 rounded-2xl p-8 md:p-10 max-w-2xl mx-auto mb-12 animate-fade-in-up shadow-lg border border-slate-200/50" style="animation-delay: 0.8s;">
             <div class="text-center">
-              <h2 class="text-2xl font-semibold text-black mb-8">{todayFormatted}</h2>
+              <h2 class="text-xl md:text-2xl font-semibold text-black mb-6">{todayFormatted}</h2>
               
               {todayNames.length > 0 ? (
                 <div>
-                  <p class="text-lg text-gray-700 mb-8">Dnes majú meniny:</p>
-                  <div class="flex flex-wrap justify-center gap-4 mb-8">
+                  <p class="text-base md:text-lg text-gray-700 mb-6">Dnes majú meniny:</p>
+                  <div class="flex flex-wrap justify-center gap-3 mb-6">
                     {todayNames.map(name => (
                       <a 
                         href={`/sk/meno/${toSlug(name)}`}
@@ -82,7 +82,7 @@ const structuredData = {
                   </div>
                   
                   <!-- CTA Buttons -->
-                  <div class="flex flex-row gap-4 justify-center">
+                  <div class="flex flex-col sm:flex-row gap-3 justify-center">
                     <a 
                       href="/sk/darceky" 
                       class="inline-flex items-center justify-center bg-gradient-to-r from-slate-800 to-slate-900 text-white px-8 py-4 rounded-2xl font-semibold hover:from-slate-900 hover:to-black transition-all duration-200 transform hover:scale-105 shadow-xl border border-slate-700/50"
