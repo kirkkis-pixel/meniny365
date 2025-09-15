@@ -34,38 +34,37 @@ const structuredData = {
   canonical="https://meniny365.sk/sk"
   structuredData={structuredData}
 >
-  <!-- Hero Section -->
+  <!-- Hero Section - Award-Winning Centered Layout -->
   <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
-    <!-- Premium Background Gradient -->
-    <div class="absolute inset-0 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100"></div>
-    <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/30 to-transparent"></div>
+    <!-- Subtle Background -->
+    <div class="absolute inset-0 bg-gradient-to-br from-slate-50 via-gray-50 to-zinc-100"></div>
     
-    <!-- Floating Elements -->
-    <div class="absolute top-20 left-10 w-16 h-16 bg-gradient-to-r from-blue-400/20 to-purple-400/20 rounded-full blur-xl animate-pulse"></div>
-    <div class="absolute top-40 right-20 w-12 h-12 bg-gradient-to-r from-purple-400/20 to-pink-400/20 rounded-full blur-xl animate-pulse" style="animation-delay: 1s;"></div>
-    <div class="absolute bottom-20 left-1/4 w-8 h-8 bg-gradient-to-r from-indigo-400/20 to-blue-400/20 rounded-full blur-xl animate-pulse" style="animation-delay: 2s;"></div>
+    <!-- Floating Elements - Subtle -->
+    <div class="absolute top-20 left-10 w-12 h-12 bg-gradient-to-r from-blue-400/10 to-purple-400/10 rounded-full blur-xl"></div>
+    <div class="absolute top-40 right-20 w-8 h-8 bg-gradient-to-r from-purple-400/10 to-pink-400/10 rounded-full blur-xl"></div>
+    <div class="absolute bottom-20 left-1/4 w-6 h-6 bg-gradient-to-r from-indigo-400/10 to-blue-400/10 rounded-full blur-xl"></div>
     
-    <div class="container relative z-10">
-      <!-- AI Badge -->
-      <div class="ai-badge mx-auto mb-8 animate-fade-in-up">
-        <span>🤖</span>
-        <span>AI-Powered</span>
+    <div class="container relative z-10 text-center">
+      <!-- AI Badge - Refined -->
+      <div class="badge mx-auto mb-12 animate-fade-in-up">
+        <span>AI</span>
+        <span>Powered</span>
       </div>
       
-      <!-- Main Heading -->
-      <h1 class="text-display text-center mb-6 animate-fade-in-up" style="animation-delay: 0.2s;">
+      <!-- Main Heading - Award-Winning Typography -->
+      <h1 class="text-display font-light mb-8 animate-fade-in-up" style="animation-delay: 0.2s;">
         Kto má dnes meniny?
       </h1>
       
-      <!-- Date -->
-      <p class="text-subtitle text-center mb-12 animate-fade-in-up" style="animation-delay: 0.4s;">
+      <!-- Date - Refined -->
+      <p class="text-subtitle mb-16 animate-fade-in-up" style="animation-delay: 0.4s;">
         {todayFormatted}
       </p>
       
-      <!-- Today's Names Display -->
+      <!-- Today's Names Display - Centered with Generous Spacing -->
       {todayNames.length > 0 ? (
-        <div class="card-elevated p-12 max-w-4xl mx-auto mb-16 animate-fade-in-up" style="animation-delay: 0.6s;">
-          <h2 class="text-title text-center mb-8">Dnes majú meniny:</h2>
+        <div class="card-elevated p-16 max-w-2xl mx-auto mb-24 animate-fade-in-up" style="animation-delay: 0.6s;">
+          <h2 class="text-title font-light mb-12">Dnes majú meniny</h2>
           <div class="flex flex-wrap justify-center gap-4">
             {todayNames.map(name => (
               <a 
@@ -78,49 +77,49 @@ const structuredData = {
           </div>
         </div>
       ) : (
-        <div class="card-elevated p-12 max-w-2xl mx-auto mb-16 animate-fade-in-up" style="animation-delay: 0.6s;">
-          <p class="text-body text-center text-xl">
+        <div class="card-elevated p-16 max-w-xl mx-auto mb-24 animate-fade-in-up" style="animation-delay: 0.6s;">
+          <p class="text-body text-xl">
             Dnes nemá nikto meniny. Skúste pozrieť iný deň v kalendári.
           </p>
         </div>
       )}
       
-      <!-- Call to Actions -->
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20 animate-fade-in-up" style="animation-delay: 0.8s;">
+      <!-- Call to Actions - Refined Spacing -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-6 mb-32 animate-fade-in-up" style="animation-delay: 0.8s;">
         <a 
           href={`/api/ical?date=${today}`}
           class="btn btn-secondary btn-lg"
           download={`meniny-${today}.ics`}
         >
-          📅 Pridať do kalendára
+          Pridať do kalendára
         </a>
         <a href="/sk/kalendár" class="btn btn-ghost btn-lg">
-          Pozrieť celý kalendár
+          Pozrieť kalendár
         </a>
         <a href="/sk/návrhy-mena" class="btn btn-ghost btn-lg">
-          💡 Návrhy mien
+          Návrhy mien
         </a>
       </div>
       
-      <!-- Horizontal Swipable Months -->
-      <div class="mb-16 animate-fade-in-up" style="animation-delay: 1s;">
-        <h3 class="text-title text-center mb-8">Prehľad mesiacov</h3>
+      <!-- Horizontal Swipable Months - Refined -->
+      <div class="mb-24 animate-fade-in-up" style="animation-delay: 1s;">
+        <h3 class="text-title font-light mb-12">Prehľad mesiacov</h3>
         <div class="months-container" id="monthsContainer">
           <!-- Months will be populated by JavaScript -->
         </div>
       </div>
       
-      <!-- Premium Calendar View -->
-      <div class="calendar-container max-w-6xl mx-auto animate-fade-in-up" style="animation-delay: 1.2s;">
+      <!-- Premium Calendar View - Award-Winning Design -->
+      <div class="calendar-container animate-fade-in-up" style="animation-delay: 1.2s;">
         <div class="calendar-header">
           <div class="calendar-nav">
             <button class="calendar-nav-btn" id="prevMonth">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <polyline points="15,18 9,12 15,6"></polyline>
               </svg>
             </button>
             <button class="calendar-nav-btn" id="nextMonth">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <polyline points="9,18 15,12 9,6"></polyline>
               </svg>
             </button>
@@ -137,45 +136,45 @@ const structuredData = {
     </div>
   </section>
 
-  <!-- Features Section -->
-  <section class="py-20 bg-gradient-to-b from-transparent to-slate-50">
+  <!-- Features Section - Award-Winning Spacing -->
+  <section class="py-32 bg-gradient-to-b from-transparent to-slate-50">
     <div class="container">
-      <div class="text-center mb-16">
-        <h2 class="text-headline mb-6">AI-Powered funkcie</h2>
-        <p class="text-body text-xl max-w-3xl mx-auto">
+      <div class="text-center mb-24">
+        <h2 class="text-headline font-light mb-8">AI-Powered funkcie</h2>
+        <p class="text-body text-xl max-w-2xl mx-auto">
           Prvý kalendár menín na Slovensku s umelou inteligenciou. 
           Inteligentné vyhľadávanie, návrhy darčekov a personalizované skúsenosti.
         </p>
       </div>
       
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="card p-8 text-center group hover:scale-105 transition-transform">
-          <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+        <div class="card p-12 text-center group hover:scale-105 transition-transform">
+          <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl flex items-center justify-center mx-auto mb-8">
             <span class="text-2xl">🔍</span>
           </div>
-          <h3 class="text-title mb-4">Inteligentné vyhľadávanie</h3>
+          <h3 class="text-title font-light mb-6">Inteligentné vyhľadávanie</h3>
           <p class="text-body">
             AI-powered vyhľadávanie menín s návrhmi a podobnosťami. 
             Nájdite perfektné meno pre vaše dieťa.
           </p>
         </div>
         
-        <div class="card p-8 text-center group hover:scale-105 transition-transform">
-          <div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
+        <div class="card p-12 text-center group hover:scale-105 transition-transform">
+          <div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-8">
             <span class="text-2xl">🎁</span>
           </div>
-          <h3 class="text-title mb-4">Návrhy darčekov</h3>
+          <h3 class="text-title font-light mb-6">Návrhy darčekov</h3>
           <p class="text-body">
             Personalizované návrhy darčekov na základe mena a preferencií. 
             AI analyzuje trendy a navrhuje najlepšie možnosti.
           </p>
         </div>
         
-        <div class="card p-8 text-center group hover:scale-105 transition-transform">
-          <div class="w-16 h-16 bg-gradient-to-r from-green-500 to-blue-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
+        <div class="card p-12 text-center group hover:scale-105 transition-transform">
+          <div class="w-16 h-16 bg-gradient-to-r from-green-500 to-blue-500 rounded-2xl flex items-center justify-center mx-auto mb-8">
             <span class="text-2xl">📊</span>
           </div>
-          <h3 class="text-title mb-4">Analytika menín</h3>
+          <h3 class="text-title font-light mb-6">Analytika menín</h3>
           <p class="text-body">
             Štatistiky popularít mien, trendy a predpovede. 
             Zistite, ktoré mená sú najpopulárnejšie.
@@ -185,37 +184,37 @@ const structuredData = {
     </div>
   </section>
 
-  <!-- Quick Actions -->
-  <section class="py-20">
+  <!-- Quick Actions - Refined -->
+  <section class="py-32">
     <div class="container">
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <a href="/sk/kalendár" class="card p-6 text-center group hover:scale-105 transition-transform">
-          <div class="text-4xl mb-4">📅</div>
-          <h3 class="text-xl font-semibold mb-2 group-hover:text-brand transition-colors">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <a href="/sk/kalendár" class="card p-8 text-center group hover:scale-105 transition-transform">
+          <div class="text-3xl mb-6">📅</div>
+          <h3 class="text-xl font-medium mb-3 group-hover:text-brand transition-colors">
             Kalendár menín
           </h3>
           <p class="text-caption">Kompletný kalendár pre celý rok</p>
         </a>
         
-        <a href="/sk/populárne-mená" class="card p-6 text-center group hover:scale-105 transition-transform">
-          <div class="text-4xl mb-4">🔥</div>
-          <h3 class="text-xl font-semibold mb-2 group-hover:text-brand transition-colors">
+        <a href="/sk/populárne-mená" class="card p-8 text-center group hover:scale-105 transition-transform">
+          <div class="text-3xl mb-6">🔥</div>
+          <h3 class="text-xl font-medium mb-3 group-hover:text-brand transition-colors">
             Populárne mená
           </h3>
           <p class="text-caption">Najpopulárnejšie mená na Slovensku</p>
         </a>
         
-        <a href="/sk/návrhy-mena" class="card p-6 text-center group hover:scale-105 transition-transform">
-          <div class="text-4xl mb-4">💡</div>
-          <h3 class="text-xl font-semibold mb-2 group-hover:text-brand transition-colors">
+        <a href="/sk/návrhy-mena" class="card p-8 text-center group hover:scale-105 transition-transform">
+          <div class="text-3xl mb-6">💡</div>
+          <h3 class="text-xl font-medium mb-3 group-hover:text-brand transition-colors">
             Návrhy mien
           </h3>
           <p class="text-caption">AI-powered návrhy pre vaše dieťa</p>
         </a>
         
-        <a href="/sk/blog" class="card p-6 text-center group hover:scale-105 transition-transform">
-          <div class="text-4xl mb-4">📝</div>
-          <h3 class="text-xl font-semibold mb-2 group-hover:text-brand transition-colors">
+        <a href="/sk/blog" class="card p-8 text-center group hover:scale-105 transition-transform">
+          <div class="text-3xl mb-6">📝</div>
+          <h3 class="text-xl font-medium mb-3 group-hover:text-brand transition-colors">
             Blog
           </h3>
           <p class="text-caption">Články o menách a tradíciách</p>
