@@ -1,17 +1,12 @@
 ---
-import '../styles/global.css';
-
 export interface Props {
   title: string;
-  description?: string;
+  description: string;
   canonical?: string;
-  noindex?: boolean;
   structuredData?: any;
 }
 
-const { title, description = "Meniny na Slovensku - kto má dnes meniny, kalendár menín, darčekové nápady a viac", canonical, noindex = false, structuredData } = Astro.props;
-
-const canonicalUrl = canonical || new URL(Astro.url.pathname, Astro.site);
+const { title, description, canonical, structuredData } = Astro.props;
 ---
 
 <!DOCTYPE html>
@@ -21,155 +16,69 @@ const canonicalUrl = canonical || new URL(Astro.url.pathname, Astro.site);
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="canonical" href={canonicalUrl} />
+    <link rel="canonical" href={canonical || 'https://meniny365.sk'} />
     
-    {noindex && <meta name="robots" content="noindex, nofollow" />}
-    
-    <title>{title}</title>
-    
-    <!-- Preload Inter font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Theme color -->
-    <meta name="theme-color" content="#7aa2ff" />
-    <meta name="color-scheme" content="dark light" />
-    
-    <!-- Open Graph -->
+    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical || 'https://meniny365.sk'} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:url" content={canonicalUrl} />
-    <meta property="og:site_name" content="meniny365.sk" />
-    <meta property="og:locale" content="sk_SK" />
-    
+    <meta property="og:image" content="https://meniny365.sk/og-image.jpg" />
+
     <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonical || 'https://meniny365.sk'} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content="https://meniny365.sk/og-image.jpg" />
+
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <!-- Inter font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     
     <!-- Structured Data -->
     {structuredData && (
       <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
     )}
     
-    <!-- Global WebSite structured data -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        "name": "meniny365.sk",
-        "url": "https://meniny365.sk",
-        "description": "Meniny na Slovensku - kto má dnes meniny, kalendár menín, darčekové nápady a viac",
-        "potentialAction": {
-          "@type": "SearchAction",
-          "target": "https://meniny365.sk/sk/návrhy-mena?q={search_term_string}",
-          "query-input": "required name=search_term_string"
-        }
-      }
-    </script>
+    <title>{title}</title>
   </head>
   <body>
-    <div id="app">
-      <!-- Apple-inspired Header -->
-      <header class="sticky top-0 z-50 backdrop-blur-xl bg-white/80 dark:bg-black/80 border-b border-[var(--border-light)]">
-        <div class="container">
-          <div class="flex items-center justify-between h-20">
-            <!-- Logo with Apple-style design -->
-            <a href="/sk" class="flex items-center space-x-3 group">
-              <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105">
-                <span class="text-white font-bold text-xl">M</span>
-              </div>
-              <span class="text-2xl font-bold text-[var(--text)] group-hover:text-[var(--brand)] transition-colors duration-300">meniny365</span>
-            </a>
-            
-            <!-- Navigation with Apple-style spacing -->
-            <nav class="hidden md:flex items-center space-x-8">
-              <a href="/sk" class="text-[var(--text-secondary)] hover:text-[var(--text)] transition-colors duration-300 font-medium text-lg">Dnes</a>
-              <a href="/sk/kalendár" class="text-[var(--text-secondary)] hover:text-[var(--text)] transition-colors duration-300 font-medium text-lg">Kalendár</a>
-              <a href="/sk/populárne-mená" class="text-[var(--text-secondary)] hover:text-[var(--text)] transition-colors duration-300 font-medium text-lg">Populárne mená</a>
-              <a href="/sk/návrhy-mena" class="text-[var(--text-secondary)] hover:text-[var(--text)] transition-colors duration-300 font-medium text-lg">Návrhy mien</a>
-              <a href="/sk/blog" class="text-[var(--text-secondary)] hover:text-[var(--text)] transition-colors duration-300 font-medium text-lg">Blog</a>
-            </nav>
-            
-            <!-- Mobile menu button with Apple-style design -->
-            <button class="md:hidden p-3 rounded-2xl bg-[var(--accent)] hover:bg-[var(--card-hover)] transition-all duration-300" aria-label="Menu">
-              <svg class="w-6 h-6 text-[var(--text)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            </button>
-          </div>
-        </div>
-      </header>
-      
-      <main>
-        <slot />
-      </main>
-      
-      <!-- Apple-inspired Footer -->
-      <footer class="mt-32 bg-gradient-to-b from-transparent to-[var(--accent)] border-t border-[var(--border-light)]">
-        <div class="container py-20">
-          <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
-            <!-- Brand section -->
-            <div class="md:col-span-1">
-              <div class="flex items-center space-x-3 mb-6">
-                <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center">
-                  <span class="text-white font-bold text-sm">M</span>
-                </div>
-                <span class="text-xl font-bold text-[var(--text)]">meniny365</span>
-              </div>
-              <p class="text-[var(--text-secondary)] text-lg leading-relaxed max-w-sm">
-                Najkompletnejší kalendár menín na Slovensku. Zistite kto má dnes meniny, nájdite darčekové nápady a objavte zaujímavosti o menách.
-              </p>
-            </div>
-            
-            <!-- Navigation -->
-            <div>
-              <h4 class="font-semibold text-[var(--text)] mb-6 text-lg">Navigácia</h4>
-              <ul class="space-y-4">
-                <li><a href="/sk" class="text-[var(--text-secondary)] hover:text-[var(--text)] transition-colors duration-300 text-lg">Dnes má meniny</a></li>
-                <li><a href="/sk/kalendár" class="text-[var(--text-secondary)] hover:text-[var(--text)] transition-colors duration-300 text-lg">Kalendár menín</a></li>
-                <li><a href="/sk/populárne-mená" class="text-[var(--text-secondary)] hover:text-[var(--text)] transition-colors duration-300 text-lg">Populárne mená</a></li>
-                <li><a href="/sk/návrhy-mena" class="text-[var(--text-secondary)] hover:text-[var(--text)] transition-colors duration-300 text-lg">Návrhy mien</a></li>
-              </ul>
-            </div>
-            
-            <!-- Information -->
-            <div>
-              <h4 class="font-semibold text-[var(--text)] mb-6 text-lg">Informácie</h4>
-              <ul class="space-y-4">
-                <li><a href="/sk/blog" class="text-[var(--text-secondary)] hover:text-[var(--text)] transition-colors duration-300 text-lg">Blog</a></li>
-                <li><a href="/sk/o-nás" class="text-[var(--text-secondary)] hover:text-[var(--text)] transition-colors duration-300 text-lg">O nás</a></li>
-                <li><a href="/sk/kontakt" class="text-[var(--text-secondary)] hover:text-[var(--text)] transition-colors duration-300 text-lg">Kontakt</a></li>
-              </ul>
-            </div>
-            
-            <!-- Legal -->
-            <div>
-              <h4 class="font-semibold text-[var(--text)] mb-6 text-lg">Právne</h4>
-              <ul class="space-y-4">
-                <li><a href="/sk/ochrana-súkromia" class="text-[var(--text-secondary)] hover:text-[var(--text)] transition-colors duration-300 text-lg">Ochrana súkromia</a></li>
-                <li><a href="/sk/obchodné-podmienky" class="text-[var(--text-secondary)] hover:text-[var(--text)] transition-colors duration-300 text-lg">Obchodné podmienky</a></li>
-                <li><a href="/sk/zdroje" class="text-[var(--text-secondary)] hover:text-[var(--text)] transition-colors duration-300 text-lg">Zdroje</a></li>
-              </ul>
-            </div>
-          </div>
-          
-          <!-- Copyright with Apple-style design -->
-          <div class="border-t border-[var(--border-light)] mt-16 pt-8">
-            <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-              <p class="text-[var(--text-tertiary)] text-lg">&copy; 2025 meniny365.sk. Všetky práva vyhradené.</p>
-              <div class="flex items-center space-x-6">
-                <span class="text-[var(--text-tertiary)] text-lg">Vytvorené s ❤️ na Slovensku</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </footer>
-    </div>
+    <main>
+      <slot />
+    </main>
     
-    <!-- Consent Manager will be injected here -->
-    <div id="consent-manager"></div>
+    <!-- Footer -->
+    <footer class="mt-32 bg-gradient-to-b from-transparent to-[var(--bg-secondary)] border-t border-[var(--border-light)]">
+      <div class="container py-16">
+        <div class="text-center">
+          <div class="ai-badge mx-auto mb-6">
+            <span>🤖</span>
+            <span>AI-Powered</span>
+          </div>
+          <h3 class="text-title mb-4">meniny365.sk</h3>
+          <p class="text-body mb-8 max-w-2xl mx-auto">
+            Prvý AI-powered kalendár menín na Slovensku. 
+            Inteligentné vyhľadávanie, návrhy darčekov a personalizované skúsenosti.
+          </p>
+          <div class="flex flex-col md:flex-row items-center justify-center gap-6 text-caption">
+            <a href="/sk/kalendár" class="hover:text-brand transition-colors">Kalendár</a>
+            <a href="/sk/populárne-mená" class="hover:text-brand transition-colors">Populárne mená</a>
+            <a href="/sk/návrhy-mena" class="hover:text-brand transition-colors">Návrhy mien</a>
+            <a href="/sk/blog" class="hover:text-brand transition-colors">Blog</a>
+          </div>
+          <div class="mt-8 pt-8 border-t border-[var(--border-light)] text-caption">
+            <p>&copy; 2025 meniny365.sk - Všetky práva vyhradené</p>
+          </div>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>
+
+<style>
+  @import '../styles/global.css';
+</style>

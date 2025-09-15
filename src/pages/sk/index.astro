@@ -13,8 +13,8 @@ const todayFormatted = formatDateSlovak(today);
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  "name": `Kto má dnes meniny - ${todayFormatted}`,
-  "description": `Dnes ${todayFormatted} majú meniny: ${todayNames.join(', ')}`,
+  "name": `AI-Powered Name Days - ${todayFormatted}`,
+  "description": `Dnes ${todayFormatted} majú meniny: ${todayNames.join(', ')}. Prvý AI-powered kalendár menín na Slovensku.`,
   "url": `https://meniny365.sk/sk`,
   "mainEntity": {
     "@type": "ItemList",
@@ -29,151 +29,239 @@ const structuredData = {
 ---
 
 <Layout 
-  title={`Kto má dnes meniny - ${todayFormatted} | meniny365`}
-  description={`Dnes ${todayFormatted} majú meniny: ${todayNames.join(', ')}. Zistite kto oslavuje meniny, nájdite darčekové nápady a viac informácií.`}
+  title={`AI-Powered Name Days - ${todayFormatted} | meniny365`}
+  description={`Dnes ${todayFormatted} majú meniny: ${todayNames.join(', ')}. Prvý AI-powered kalendár menín na Slovensku s inteligentným vyhľadávaním a návrhmi darčekov.`}
   canonical="https://meniny365.sk/sk"
   structuredData={structuredData}
 >
-  <!-- Apple-inspired Hero Section -->
-  <section class="relative overflow-hidden">
-    <!-- Background gradient -->
-    <div class="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-black dark:to-purple-900"></div>
+  <!-- Hero Section -->
+  <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <!-- Background Gradient -->
+    <div class="absolute inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50"></div>
+    <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/20 to-transparent"></div>
     
-    <div class="relative container py-24 md:py-32">
-      <div class="text-center max-w-4xl mx-auto">
-        <!-- Main heading with Apple-style typography -->
-        <h1 class="text-display mb-6 animate-fade-in-up">
-          Kto má dnes meniny
-        </h1>
-        
-        <!-- Date with subtle styling -->
-        <p class="text-subtitle mb-12 animate-fade-in-up" style="animation-delay: 0.1s">
-          {todayFormatted}
-        </p>
-        
-        <!-- Names display with Apple-style cards -->
-        {todayNames.length > 0 ? (
-          <div class="card p-12 max-w-3xl mx-auto mb-16 animate-fade-in-scale" style="animation-delay: 0.2s">
-            <h2 class="text-title mb-8 text-[var(--text)]">Dnes oslavujú meniny</h2>
-            <div class="flex flex-wrap justify-center gap-4">
-              {todayNames.map((name, index) => (
-                <a 
-                  href={`/sk/meno/${toSlug(name)}`}
-                  class="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-2xl font-semibold text-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 animate-fade-in-up" 
-                  style={`animation-delay: ${0.3 + index * 0.1}s`}
-                >
-                  {name}
-                </a>
-              ))}
-            </div>
-            
-            <!-- iCal download button -->
-            <div class="mt-8">
-              <a 
-                href={`/api/ical?date=${today}`}
-                class="btn btn-secondary text-lg px-8 py-4"
-                download={`meniny-${today}.ics`}
-              >
-                📅 Pridať do kalendára
-              </a>
-            </div>
-          </div>
-        ) : (
-          <div class="card p-12 max-w-3xl mx-auto mb-16 animate-fade-in-scale" style="animation-delay: 0.2s">
-            <div class="text-center">
-              <div class="w-16 h-16 bg-gradient-to-br from-gray-400 to-gray-500 rounded-full flex items-center justify-center mx-auto mb-6">
-                <span class="text-white text-2xl">📅</span>
-              </div>
-              <p class="text-body text-[var(--text-secondary)]">
-                Dnes nemá nikto meniny. Skúste pozrieť iný deň v kalendári.
-              </p>
-            </div>
-          </div>
-        )}
-
-        <!-- Navigation buttons with Apple-style design -->
-        <div class="flex flex-col sm:flex-row justify-center gap-4 mb-20 animate-fade-in-up" style="animation-delay: 0.4s">
-          <a href="/sk/kalendár" class="btn btn-primary text-lg px-8 py-4">
-            📅 Kalendár menín
-          </a>
-          <a href="/sk/populárne-mená" class="btn btn-secondary text-lg px-8 py-4">
-            🔥 Populárne mená
-          </a>
-          <a href="/sk/návrhy-mena" class="btn btn-ghost text-lg px-8 py-4">
-            💡 Návrhy mien
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Apple-inspired Content Section -->
-  <section class="py-20 bg-gradient-to-b from-transparent to-[var(--accent)]">
-    <div class="container">
-      <div class="max-w-4xl mx-auto text-center">
-        <h2 class="text-headline mb-8 text-[var(--text)]">Meniny na Slovensku</h2>
-        <p class="text-body mb-12 leading-relaxed">
-          Meniny sú dôležitou súčasťou slovenskej kultúry a tradície. Každý deň v roku má svoje mená, 
-          ktoré sa oslavujú namiesto narodenín. 
-          {todayNames.length > 0 ? `Dnes ${todayFormatted} majú meniny ${todayNames.join(', ')}. ` : ''}
-          Na našej stránke nájdete kompletný kalendár menín, darčekové nápady, pôvod mien a ďalšie užitočné informácie.
-        </p>
-        
-        <div class="grid md:grid-cols-2 gap-12 text-left">
-          <div class="card p-8">
-            <h3 class="text-title mb-4 text-[var(--text)]">Ako fungujú meniny?</h3>
-            <p class="text-body leading-relaxed">
-              Meniny sú tradične oslavované namiesto narodenín na Slovensku. Každý deň v roku má priradené 
-              konkrétne mená, ktoré sa môžu líšiť v závislosti od regiónu. Tieto mená sú často spojené s 
-              kresťanskými svätými alebo historickými osobnostami.
-            </p>
-          </div>
-          
-          <div class="card p-8">
-            <h3 class="text-title mb-4 text-[var(--text)]">Darčekové nápady</h3>
-            <p class="text-body leading-relaxed">
-              Hľadáte darček na meniny? Na našej stránke nájdete množstvo nápadov pre každý rozpočet a príležitosť. 
-              Od tradičných darčekov po moderné trendy - máme pre vás pripravené tipy pre každého.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Apple-inspired Quick Links -->
-  <section class="py-20">
-    <div class="container">
-      <div class="text-center mb-16">
-        <h2 class="text-headline mb-4 text-[var(--text)]">Objavte viac</h2>
-        <p class="text-subtitle">Všetko čo potrebujete vedieť o meninách na jednom mieste</p>
+    <!-- Floating Elements -->
+    <div class="absolute top-20 left-10 w-20 h-20 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full opacity-20 animate-pulse"></div>
+    <div class="absolute top-40 right-20 w-16 h-16 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full opacity-20 animate-pulse" style="animation-delay: 1s;"></div>
+    <div class="absolute bottom-20 left-1/4 w-12 h-12 bg-gradient-to-r from-indigo-400 to-blue-400 rounded-full opacity-20 animate-pulse" style="animation-delay: 2s;"></div>
+    
+    <div class="container relative z-10 text-center">
+      <!-- AI Badge -->
+      <div class="ai-badge mx-auto mb-8 animate-fade-in-up">
+        <span>🤖</span>
+        <span>AI-Powered</span>
       </div>
       
-      <div class="grid md:grid-cols-3 gap-8">
-        <a href="/sk/kalendár" class="card p-8 group hover:scale-105 transition-all duration-300 hover:shadow-hover">
-          <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-            <span class="text-white text-2xl">📅</span>
+      <!-- Main Heading -->
+      <h1 class="text-display gradient-text mb-6 animate-fade-in-up" style="animation-delay: 0.2s;">
+        Kto má dnes meniny?
+      </h1>
+      
+      <!-- Date -->
+      <p class="text-subtitle mb-12 animate-fade-in-up" style="animation-delay: 0.4s;">
+        {todayFormatted}
+      </p>
+      
+      <!-- Names Display -->
+      {todayNames.length > 0 ? (
+        <div class="animate-fade-in-up" style="animation-delay: 0.6s;">
+          <h2 class="text-title mb-8">Dnes majú meniny:</h2>
+          <div class="flex flex-wrap justify-center gap-4 mb-12">
+            {todayNames.map(name => (
+              <a 
+                href={`/sk/meno/${toSlug(name)}`}
+                class="btn btn-primary text-lg px-8 py-4"
+              >
+                {name}
+              </a>
+            ))}
           </div>
-          <h3 class="text-title mb-4 text-[var(--text)] group-hover:text-[var(--brand)] transition-colors duration-300">Kalendár menín</h3>
-          <p class="text-body">Pozrite si kompletný kalendár menín pre celý rok s krásnym dizajnom</p>
+        </div>
+      ) : (
+        <div class="animate-fade-in-up" style="animation-delay: 0.6s;">
+          <p class="text-body text-xl">
+            Dnes nemá nikto meniny. Skúste pozrieť iný deň v kalendári.
+          </p>
+        </div>
+      )}
+      
+      <!-- Calendar View -->
+      <div class="card p-8 max-w-4xl mx-auto animate-fade-in-up" style="animation-delay: 0.8s;">
+        <h3 class="text-title mb-6">Kalendár menín</h3>
+        <div class="calendar-grid">
+          <!-- Calendar will be populated by JavaScript -->
+        </div>
+      </div>
+      
+      <!-- CTA Buttons -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mt-12 animate-fade-in-up" style="animation-delay: 1s;">
+        <a 
+          href={`/api/ical?date=${today}`}
+          class="btn btn-secondary"
+          download={`meniny-${today}.ics`}
+        >
+          📅 Pridať do kalendára
+        </a>
+        <a href="/sk/kalendár" class="btn btn-ghost">
+          Pozrieť celý kalendár
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="py-20 bg-gradient-to-b from-transparent to-[var(--bg-secondary)]">
+    <div class="container">
+      <div class="text-center mb-16">
+        <h2 class="text-headline mb-6">AI-Powered funkcie</h2>
+        <p class="text-body text-xl max-w-3xl mx-auto">
+          Prvý kalendár menín na Slovensku s umelou inteligenciou. 
+          Inteligentné vyhľadávanie, návrhy darčekov a personalizované skúsenosti.
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="card p-8 text-center">
+          <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
+            <span class="text-2xl">🔍</span>
+          </div>
+          <h3 class="text-title mb-4">Inteligentné vyhľadávanie</h3>
+          <p class="text-body">
+            AI-powered vyhľadávanie menín s návrhmi a podobnosťami. 
+            Nájdite perfektné meno pre vaše dieťa.
+          </p>
+        </div>
+        
+        <div class="card p-8 text-center">
+          <div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
+            <span class="text-2xl">🎁</span>
+          </div>
+          <h3 class="text-title mb-4">Návrhy darčekov</h3>
+          <p class="text-body">
+            Personalizované návrhy darčekov na základe mena a preferencií. 
+            AI analyzuje trendy a navrhuje najlepšie možnosti.
+          </p>
+        </div>
+        
+        <div class="card p-8 text-center">
+          <div class="w-16 h-16 bg-gradient-to-r from-green-500 to-blue-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
+            <span class="text-2xl">📊</span>
+          </div>
+          <h3 class="text-title mb-4">Analytika menín</h3>
+          <p class="text-body">
+            Štatistiky popularít mien, trendy a predpovede. 
+            Zistite, ktoré mená sú najpopulárnejšie.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Actions -->
+  <section class="py-20">
+    <div class="container">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <a href="/sk/kalendár" class="card p-6 text-center group hover:scale-105 transition-transform">
+          <div class="text-4xl mb-4">📅</div>
+          <h3 class="text-xl font-semibold mb-2 group-hover:text-brand transition-colors">
+            Kalendár menín
+          </h3>
+          <p class="text-caption">Kompletný kalendár pre celý rok</p>
         </a>
         
-        <a href="/sk/populárne-mená" class="card p-8 group hover:scale-105 transition-all duration-300 hover:shadow-hover">
-          <div class="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-            <span class="text-white text-2xl">🔥</span>
-          </div>
-          <h3 class="text-title mb-4 text-[var(--text)] group-hover:text-[var(--brand)] transition-colors duration-300">Populárne mená</h3>
-          <p class="text-body">Zistite ktoré mená sú najpopulárnejšie na Slovensku</p>
+        <a href="/sk/populárne-mená" class="card p-6 text-center group hover:scale-105 transition-transform">
+          <div class="text-4xl mb-4">🔥</div>
+          <h3 class="text-xl font-semibold mb-2 group-hover:text-brand transition-colors">
+            Populárne mená
+          </h3>
+          <p class="text-caption">Najpopulárnejšie mená na Slovensku</p>
         </a>
         
-        <a href="/sk/návrhy-mena" class="card p-8 group hover:scale-105 transition-all duration-300 hover:shadow-hover">
-          <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-            <span class="text-white text-2xl">💡</span>
-          </div>
-          <h3 class="text-title mb-4 text-[var(--text)] group-hover:text-[var(--brand)] transition-colors duration-300">Návrhy mien</h3>
-          <p class="text-body">Nájdite perfektné meno pre vaše dieťa s našou databázou</p>
+        <a href="/sk/návrhy-mena" class="card p-6 text-center group hover:scale-105 transition-transform">
+          <div class="text-4xl mb-4">💡</div>
+          <h3 class="text-xl font-semibold mb-2 group-hover:text-brand transition-colors">
+            Návrhy mien
+          </h3>
+          <p class="text-caption">AI-powered návrhy pre vaše dieťa</p>
+        </a>
+        
+        <a href="/sk/blog" class="card p-6 text-center group hover:scale-105 transition-transform">
+          <div class="text-4xl mb-4">📝</div>
+          <h3 class="text-xl font-semibold mb-2 group-hover:text-brand transition-colors">
+            Blog
+          </h3>
+          <p class="text-caption">Články o menách a tradíciách</p>
         </a>
       </div>
     </div>
   </section>
 </Layout>
+
+<script>
+  // Calendar functionality
+  function generateCalendar() {
+    const calendarGrid = document.querySelector('.calendar-grid');
+    if (!calendarGrid) return;
+    
+    const today = new Date();
+    const currentMonth = today.getMonth();
+    const currentYear = today.getFullYear();
+    
+    // Get first day of month and number of days
+    const firstDay = new Date(currentYear, currentMonth, 1);
+    const lastDay = new Date(currentYear, currentMonth + 1, 0);
+    const daysInMonth = lastDay.getDate();
+    const startingDay = firstDay.getDay();
+    
+    // Month names in Slovak
+    const monthNames = [
+      'Január', 'Február', 'Marec', 'Apríl', 'Máj', 'Jún',
+      'Júl', 'August', 'September', 'Október', 'November', 'December'
+    ];
+    
+    // Add month header
+    const monthHeader = document.createElement('div');
+    monthHeader.className = 'col-span-7 text-center text-lg font-semibold mb-4';
+    monthHeader.textContent = `${monthNames[currentMonth]} ${currentYear}`;
+    calendarGrid.parentNode.insertBefore(monthHeader, calendarGrid);
+    
+    // Add day headers
+    const dayHeaders = ['Po', 'Ut', 'St', 'Št', 'Pia', 'So', 'Ne'];
+    dayHeaders.forEach(day => {
+      const dayHeader = document.createElement('div');
+      dayHeader.className = 'text-center text-sm font-medium text-text-tertiary py-2';
+      dayHeader.textContent = day;
+      calendarGrid.appendChild(dayHeader);
+    });
+    
+    // Add empty cells for days before month starts
+    for (let i = 0; i < startingDay; i++) {
+      const emptyDay = document.createElement('div');
+      emptyDay.className = 'calendar-day';
+      calendarGrid.appendChild(emptyDay);
+    }
+    
+    // Add days of month
+    for (let day = 1; day <= daysInMonth; day++) {
+      const dayElement = document.createElement('div');
+      dayElement.className = 'calendar-day';
+      dayElement.textContent = day;
+      
+      // Check if it's today
+      if (day === today.getDate()) {
+        dayElement.classList.add('today');
+      }
+      
+      // Add click handler
+      dayElement.addEventListener('click', () => {
+        const dateString = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+        window.location.href = `/sk/den/${currentYear}/${String(currentMonth + 1).padStart(2, '0')}/${String(day).padStart(2, '0')}`;
+      });
+      
+      calendarGrid.appendChild(dayElement);
+    }
+  }
+  
+  // Initialize calendar when page loads
+  document.addEventListener('DOMContentLoaded', generateCalendar);
+</script>

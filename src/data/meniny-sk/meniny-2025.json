@@ -1,92 +1,557 @@
 {
-  "2025-01-01": ["Gašpar", "Melchior", "Baltazar"],
-  "2025-01-02": ["Alexandra", "Karina", "Sandra"],
-  "2025-01-03": ["Daniel", "Danuša"],
-  "2025-01-04": ["Drahoslav", "Drahoš"],
-  "2025-01-05": ["Andrea", "Ondrej"],
-  "2025-01-06": ["Antónia", "Anton"],
-  "2025-01-07": ["Bohuslava", "Bohuslav"],
-  "2025-01-08": ["Severín", "Severián"],
-  "2025-01-09": ["Alexej", "Alexandra"],
-  "2025-01-10": ["Dáša", "Dáška"],
-  "2025-01-11": ["Malvína", "Malva"],
-  "2025-01-12": ["Ernest", "Ernesta"],
-  "2025-01-13": ["Rastislav", "Rastislava"],
-  "2025-01-14": ["Radovan", "Radovana"],
-  "2025-01-15": ["Dobroslav", "Dobroslava"],
-  "2025-01-16": ["Kristína", "Kristián"],
-  "2025-01-17": ["Nataša", "Nataľa"],
-  "2025-01-18": ["Bohdana", "Bohdan"],
-  "2025-01-19": ["Sára", "Sára"],
-  "2025-01-20": ["Dalibor", "Dalibora"],
-  "2025-01-21": ["Vincent", "Vincenta"],
-  "2025-01-22": ["Zora", "Zorana"],
-  "2025-01-23": ["Miloš", "Miloša"],
-  "2025-01-24": ["Timotej", "Timotea"],
-  "2025-01-25": ["Gejza", "Gejza"],
-  "2025-01-26": ["Tamara", "Tamara"],
-  "2025-01-27": ["Bohuš", "Bohuša"],
-  "2025-01-28": ["Alfonz", "Alfonza"],
-  "2025-01-29": ["Gašpar", "Gašpara"],
-  "2025-01-30": ["Emil", "Emília"],
-  "2025-01-31": ["Emil", "Emília"],
-  "2025-02-01": ["Tatiana", "Tatiana"],
-  "2025-02-02": ["Erik", "Erika"],
-  "2025-02-03": ["Blažej", "Blažej"],
-  "2025-02-04": ["Veronika", "Veronika"],
-  "2025-02-05": ["Agáta", "Agáta"],
-  "2025-02-06": ["Dorota", "Dorota"],
-  "2025-02-07": ["Vanda", "Vanda"],
-  "2025-02-08": ["Zoja", "Zoja"],
-  "2025-02-09": ["Zdenko", "Zdenka"],
-  "2025-02-10": ["Gabriela", "Gabriel"],
-  "2025-02-11": ["Dezider", "Dezidera"],
-  "2025-02-12": ["Perla", "Perla"],
-  "2025-02-13": ["Arpád", "Arpáda"],
-  "2025-02-14": ["Valentín", "Valentína"],
-  "2025-02-15": ["Pravoslav", "Pravoslava"],
-  "2025-02-16": ["Liana", "Liana"],
-  "2025-02-17": ["Miloslava", "Miloslav"],
-  "2025-02-18": ["Jaromír", "Jaromíra"],
-  "2025-02-19": ["Vlasta", "Vlastimil"],
-  "2025-02-20": ["Lívia", "Lívia"],
-  "2025-02-21": ["Eleonóra", "Eleonóra"],
-  "2025-02-22": ["Etela", "Etela"],
-  "2025-02-23": ["Roman", "Romana"],
-  "2025-02-24": ["Matej", "Mateja"],
-  "2025-02-25": ["Frederik", "Frederika"],
-  "2025-02-26": ["Viktor", "Viktória"],
-  "2025-02-27": ["Alexander", "Alexandra"],
-  "2025-02-28": ["Zlatica", "Zlatica"],
-  "2025-03-01": ["Albín", "Albína"],
-  "2025-03-02": ["Anežka", "Anežka"],
-  "2025-03-03": ["Bohumil", "Bohumila"],
-  "2025-03-04": ["Kazimír", "Kazimíra"],
-  "2025-03-05": ["Fridrich", "Fridricha"],
-  "2025-03-06": ["Radoslav", "Radoslava"],
-  "2025-03-07": ["Tomáš", "Tomáša"],
-  "2025-03-08": ["Alan", "Alana"],
-  "2025-03-09": ["Františka", "František"],
-  "2025-03-10": ["Branislav", "Branislava"],
-  "2025-03-11": ["Angela", "Angel"],
-  "2025-03-12": ["Gregor", "Gregora"],
-  "2025-03-13": ["Vlastimil", "Vlastimila"],
-  "2025-03-14": ["Matilda", "Matilda"],
-  "2025-03-15": ["Svetlana", "Svetlana"],
-  "2025-03-16": ["Boleslav", "Boleslava"],
-  "2025-03-17": ["Ľubica", "Ľubica"],
-  "2025-03-18": ["Eduard", "Eduarda"],
-  "2025-03-19": ["Jozef", "Jozefa"],
-  "2025-03-20": ["Víťazoslav", "Víťazoslava"],
-  "2025-03-21": ["Blahoslav", "Blahoslava"],
-  "2025-03-22": ["Beňadik", "Beňadika"],
-  "2025-03-23": ["Adrián", "Adriána"],
-  "2025-03-24": ["Gabriel", "Gabriela"],
-  "2025-03-25": ["Marián", "Mariána"],
-  "2025-03-26": ["Emanuel", "Emanuela"],
-  "2025-03-27": ["Alena", "Alena"],
-  "2025-03-28": ["Soňa", "Soňa"],
-  "2025-03-29": ["Miroslav", "Miroslava"],
-  "2025-03-30": ["Vieroslava", "Vieroslav"],
-  "2025-03-31": ["Benjamín", "Benjamína"]
+  "2025": {
+    "01": {
+      "10": [
+        "Agatón",
+        "Dalimil",
+        "Dalimír",
+        "Dalimila",
+        "Dalimíra",
+        "Daša"
+      ],
+      "11": [
+        "Honorát",
+        "Tasilo",
+        "Honoráta",
+        "Malvína"
+      ],
+      "12": [
+        "Arkád",
+        "Arnošt",
+        "Ernest",
+        "Arkádia",
+        "Arnoštka",
+        "Erna",
+        "Ernestína"
+      ],
+      "13": [
+        "Čistomil",
+        "Čistoslav",
+        "Rastic",
+        "Rastimír",
+        "Rastislav",
+        "Ratislav",
+        "Vidor",
+        "Čistomila",
+        "Čistoslava",
+        "Rastislava",
+        "Ratislava",
+        "Shane"
+      ],
+      "14": [
+        "Hilár",
+        "Radovan",
+        "Uriáš",
+        "Uriel",
+        "Hilária",
+        "Radovana"
+      ],
+      "15": [
+        "Dobroslav",
+        "Dobrotín",
+        "Domoslav",
+        "Loránt",
+        "Múdroslav",
+        "Domoslava"
+      ],
+      "16": [
+        "Kristína"
+      ],
+      "17": [
+        "Antal"
+      ],
+      "18": [
+        "Nataša"
+      ],
+      "19": [
+        "Priskus",
+        "Bohdana",
+        "Piroška",
+        "Priska"
+      ],
+      "20": [
+        "Mário",
+        "Márius",
+        "Drahomíra",
+        "Dúbravka",
+        "Sára"
+      ],
+      "21": [
+        "Dalibor"
+      ],
+      "22": [
+        "Fabián",
+        "Fábius",
+        "Sebastián",
+        "Šebastián",
+        "Fábia",
+        "Fabiána",
+        "Fabiola",
+        "Sebastiána"
+      ],
+      "23": [
+        "Vincent",
+        "Vincencia"
+      ],
+      "24": [
+        "Zora",
+        "Dorián",
+        "Sírius",
+        "Slavoľub",
+        "Slavomil",
+        "Zoran",
+        "Auróra",
+        "Cyntia",
+        "Doriána",
+        "Sinda",
+        "Slavomila",
+        "Zorana"
+      ],
+      "25": [
+        "Miloš",
+        "Miloň",
+        "Selma"
+      ],
+      "26": [
+        "Timotej",
+        "Ctiboh",
+        "Timotea"
+      ],
+      "27": [
+        "Gejza",
+        "Saul",
+        "Šavol"
+      ],
+      "28": [
+        "Tamara"
+      ],
+      "29": [
+        "Polykarp",
+        "Slavibor",
+        "Slavislav",
+        "Slaviboj",
+        "Slavoboj",
+        "Svätoboj",
+        "Svätobor",
+        "Xenofón",
+        "Žarko",
+        "Polykarpa"
+      ],
+      "30": [
+        "Bohuš",
+        "Pribislav",
+        "Pribiš"
+      ],
+      "31": [
+        "Alfonz",
+        "Manfréd",
+        "Alfonzia"
+      ],
+      "01": [
+        "Alexandra",
+        "Ábel",
+        "Makar",
+        "Karina",
+        "Kara",
+        "Kasandra",
+        "Sanda",
+        "Sandra",
+        "Saša",
+        "Senda"
+      ],
+      "02": [
+        "Daniela",
+        "Danila",
+        "Danuta",
+        "Genovéva",
+        "Radmila"
+      ],
+      "03": [
+        "Drahoľub",
+        "Drahomil",
+        "Drahoň",
+        "Drahoslav",
+        "Drahoš",
+        "Duchoslav",
+        "León",
+        "Títus",
+        "Drahoľuba",
+        "Drahomila",
+        "Duchoslava",
+        "Leóna",
+        "Leónia"
+      ],
+      "04": [
+        "Artúr",
+        "Arthur",
+        "Andrea"
+      ],
+      "05": [
+        "Melchior",
+        "Melichar",
+        "Menhaden"
+      ],
+      "06": [
+        "Antónia"
+      ],
+      "07": [
+        "Atila",
+        "Lucián",
+        "Bohuna",
+        "Bohuslava",
+        "Boleslava",
+        "Božislava",
+        "Luciána"
+      ],
+      "08": [
+        "Čestmír",
+        "Pravomil",
+        "Severín",
+        "Čestmíra",
+        "Pravomila",
+        "Severína"
+      ],
+      "09": [
+        "Alex",
+        "Alexej",
+        "Domoľub",
+        "Julián",
+        "Pravoľub",
+        "Vladan",
+        "Vladen",
+        "Alexia",
+        "Pravoľuba",
+        "Vladana",
+        "Vladena"
+      ]
+    },
+    "02": {
+      "10": [
+        "Gabriela",
+        "Omar",
+        "Várun",
+        "Scholastika",
+        "Školastika"
+      ],
+      "11": [
+        "Dezider",
+        "Želislav",
+        "Dezidera",
+        "Želislava"
+      ],
+      "12": [
+        "Ron",
+        "Ronald",
+        "Zoro",
+        "Zoroslav",
+        "Eulália",
+        "Perla",
+        "Slavena",
+        "Solveiga",
+        "Zoroslava"
+      ],
+      "13": [
+        "Arpád",
+        "Jordán",
+        "Jordána"
+      ],
+      "14": [
+        "Valentín",
+        "Velimír"
+      ],
+      "15": [
+        "Faust",
+        "Pravoslav",
+        "Faustína",
+        "Georgia",
+        "Georgína",
+        "Pravoslava"
+      ],
+      "16": [
+        "Pamfil",
+        "Ida",
+        "Liana",
+        "Pamfília"
+      ],
+      "17": [
+        "Flavián",
+        "Flávius",
+        "Silván",
+        "Silvín",
+        "Flávia",
+        "Milomíra",
+        "Miloslava",
+        "Miluša",
+        "Silvána"
+      ],
+      "18": [
+        "Jaromír",
+        "Simeon",
+        "Jaromíra",
+        "Konkordia"
+      ],
+      "19": [
+        "Konrád",
+        "Kurt",
+        "Vlasta"
+      ],
+      "20": [
+        "Aladár",
+        "Lívio",
+        "Lívius",
+        "Udo",
+        "Ulrich",
+        "Alma",
+        "Lívia",
+        "Ulrika",
+        "Ulriška"
+      ],
+      "21": [
+        "Eleonóra"
+      ],
+      "22": [
+        "Etela"
+      ],
+      "23": [
+        "Roman",
+        "Romana",
+        "Romina"
+      ],
+      "24": [
+        "Goran",
+        "Matej",
+        "Jazmína",
+        "Mateja",
+        "Matias"
+      ],
+      "25": [
+        "Frederik",
+        "Taras",
+        "Federika",
+        "Frederika"
+      ],
+      "26": [
+        "Viktor",
+        "Porfýr"
+      ],
+      "27": [
+        "Alexander",
+        "Leander",
+        "Sandro",
+        "Skender",
+        "Drahotína",
+        "Dražica",
+        "Leandra"
+      ],
+      "28": [
+        "Elemír",
+        "Elo",
+        "Lumír",
+        "Zlata",
+        "Zlatica"
+      ],
+      "01": [
+        "Hynek",
+        "Trifon",
+        "Táňa",
+        "Tatiana"
+      ],
+      "02": [
+        "Erik",
+        "Aida",
+        "Erika"
+      ],
+      "03": [
+        "Blažej",
+        "Celerín",
+        "Celerína"
+      ],
+      "04": [
+        "Nika",
+        "Verena",
+        "Verona",
+        "Veronika"
+      ],
+      "05": [
+        "Moderát",
+        "Modest",
+        "Agáta",
+        "Leda",
+        "Moderáta",
+        "Modesta"
+      ],
+      "06": [
+        "Dorisa",
+        "Dorota",
+        "Titanila"
+      ],
+      "07": [
+        "Romuald",
+        "Vanda"
+      ],
+      "08": [
+        "Aranka",
+        "Zoja"
+      ],
+      "09": [
+        "Rainold",
+        "Rinaldo",
+        "Zdenko",
+        "Zdeno",
+        "Apolena",
+        "Apoliena",
+        "Apolónia"
+      ]
+    },
+    "03": {
+      "10": [
+        "Branislav",
+        "Bratislav",
+        "Bruno",
+        "Branislava",
+        "Bratislava",
+        "Brunhilda"
+      ],
+      "11": [
+        "Angela",
+        "Angelika",
+        "Angelina"
+      ],
+      "12": [
+        "Gregor",
+        "Gregorius",
+        "Gregoria",
+        "Gregorína"
+      ],
+      "13": [
+        "Vlastimil",
+        "Vlastimila"
+      ],
+      "14": [
+        "Matilda"
+      ],
+      "15": [
+        "Svetlana",
+        "Svetla"
+      ],
+      "16": [
+        "Boleslav",
+        "Boleslava"
+      ],
+      "17": [
+        "Ľubica"
+      ],
+      "18": [
+        "Eduard",
+        "Eduarda"
+      ],
+      "19": [
+        "Jozef",
+        "Jozefa"
+      ],
+      "20": [
+        "Víťazoslav",
+        "Víťazoslava"
+      ],
+      "21": [
+        "Blahoslav",
+        "Blahoslava"
+      ],
+      "22": [
+        "Beňadik",
+        "Benedikt",
+        "Benjamín",
+        "Benjamína"
+      ],
+      "23": [
+        "Adrián",
+        "Adriána"
+      ],
+      "24": [
+        "Gabriel",
+        "Gabriela"
+      ],
+      "25": [
+        "Marián",
+        "Mariána",
+        "Marieta",
+        "Marietta"
+      ],
+      "26": [
+        "Emanuel",
+        "Emanuela"
+      ],
+      "27": [
+        "Alena"
+      ],
+      "28": [
+        "Soňa"
+      ],
+      "29": [
+        "Miroslav",
+        "Miroslava"
+      ],
+      "30": [
+        "Vieroslava",
+        "Viera"
+      ],
+      "31": [
+        "Benjamín",
+        "Benjamína"
+      ],
+      "01": [
+        "Albín"
+      ],
+      "02": [
+        "Anežka"
+      ],
+      "03": [
+        "Bohumil",
+        "Bohumila",
+        "Ticián",
+        "Ginda",
+        "Kunigunda",
+        "Ticiána"
+      ],
+      "04": [
+        "Gerazim",
+        "Kazimír",
+        "Romeo",
+        "Jadrana",
+        "Kazimíra"
+      ],
+      "05": [
+        "Fridrich",
+        "Lucius",
+        "Teofil",
+        "Friderika",
+        "Teofila"
+      ],
+      "06": [
+        "Fridolín",
+        "Koriolán",
+        "Radislav",
+        "Radoslav",
+        "Radovan",
+        "Felícia",
+        "Fridolína",
+        "Radislava",
+        "Radoslava"
+      ],
+      "07": [
+        "Tomáš",
+        "Tomislav",
+        "Tomáška",
+        "Tomislava"
+      ],
+      "08": [
+        "Alan",
+        "Alana",
+        "Erhard"
+      ],
+      "09": [
+        "Františka"
+      ]
+    }
+  }
 }
