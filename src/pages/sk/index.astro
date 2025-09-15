@@ -251,18 +251,24 @@ const structuredData = {
       <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
         <!-- Most Popular Names -->
         <div class="bg-white rounded-2xl p-12 border border-slate-200 group hover:shadow-lg transition-all duration-300">                                                                
-          <div class="flex items-start gap-6 mb-8">                                               
+          <div class="flex items-start justify-between mb-6">                                               
             <div class="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center flex-shrink-0">                                               
               <span class="text-xl">🔥</span>
             </div>
-            <div class="flex-1">
-              <h3 class="text-2xl font-semibold mb-4 text-slate-900">Najpopulárnejšie mená</h3>                                                                  
-              <p class="text-slate-600 text-lg leading-relaxed">
-                Zistite, ktoré mená sú najpopulárnejšie na Slovensku. 
-                Trendy a štatistiky pre lepšie rozhodovanie.
-              </p>
+            <div class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
+              Trendy
             </div>
           </div>
+          <h3 class="text-2xl font-semibold mb-4 text-slate-900">Najpopulárnejšie mená</h3>                                                                  
+          <p class="text-slate-600 text-lg leading-relaxed mb-6">
+            Zistite, ktoré mená sú najpopulárnejšie na Slovensku. 
+            Trendy a štatistiky pre lepšie rozhodovanie.
+          </p>
+          <ul class="text-sm text-slate-500 space-y-2 mb-8">
+            <li>• Aktuálne štatistiky popularít</li>
+            <li>• Trendy za posledné roky</li>
+            <li>• Porovnanie s inými krajinami</li>
+          </ul>
           <a href="/sk/populárne-mená" class="inline-flex items-center justify-center bg-slate-900 text-white px-8 py-4 rounded-xl font-semibold hover:bg-slate-800 transition-all duration-200">                                                      
             Zobraziť trendy
           </a>
@@ -270,18 +276,24 @@ const structuredData = {
         
         <!-- Emerging Names -->
         <div class="bg-white rounded-2xl p-12 border border-slate-200 group hover:shadow-lg transition-all duration-300">                                                              
-          <div class="flex items-start gap-6 mb-8">                                               
+          <div class="flex items-start justify-between mb-6">                                               
             <div class="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center flex-shrink-0">                                               
               <span class="text-xl">✨</span>
             </div>
-            <div class="flex-1">
-              <h3 class="text-2xl font-semibold mb-4 text-slate-900">Nové trendy mená</h3>
-              <p class="text-slate-600 text-lg leading-relaxed">
-                Objavte nové a rastúce mená, ktoré sa stávajú populárnymi. 
-                Buďte v predstihu pred trendmi.
-              </p>
+            <div class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium">
+              Nové
             </div>
           </div>
+          <h3 class="text-2xl font-semibold mb-4 text-slate-900">Nové trendy mená</h3>
+          <p class="text-slate-600 text-lg leading-relaxed mb-6">
+            Objavte nové a rastúce mená, ktoré sa stávajú populárnymi. 
+            Buďte v predstihu pred trendmi.
+          </p>
+          <ul class="text-sm text-slate-500 space-y-2 mb-8">
+            <li>• Rastúce mená 2025</li>
+            <li>• Medzinárodné vplyvy</li>
+            <li>• Predpovede budúcich trendov</li>
+          </ul>
           <a href="/sk/návrhy-mena" class="inline-flex items-center justify-center bg-slate-900 text-white px-8 py-4 rounded-xl font-semibold hover:bg-slate-800 transition-all duration-200">                                                         
             Objaviť nové mená
           </a>
@@ -289,18 +301,24 @@ const structuredData = {
         
         <!-- Gift Recommendations -->
         <div class="bg-white rounded-2xl p-12 border border-slate-200 group hover:shadow-lg transition-all duration-300">                                                               
-          <div class="flex items-start gap-6 mb-8">                                               
+          <div class="flex items-start justify-between mb-6">                                               
             <div class="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center flex-shrink-0">                                               
               <span class="text-xl">🎁</span>
             </div>
-            <div class="flex-1">
-              <h3 class="text-2xl font-semibold mb-4 text-slate-900">Návrhy darčekov</h3>
-              <p class="text-slate-600 text-lg leading-relaxed">
-                Personalizované návrhy darčekov na základe mena a preferencií.                                                                    
-                AI analyzuje trendy a navrhuje najlepšie možnosti.
-              </p>
+            <div class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">
+              AI-Powered
             </div>
           </div>
+          <h3 class="text-2xl font-semibold mb-4 text-slate-900">Návrhy darčekov</h3>
+          <p class="text-slate-600 text-lg leading-relaxed mb-6">
+            Personalizované návrhy darčekov na základe mena a preferencií.                                                                    
+            AI analyzuje trendy a navrhuje najlepšie možnosti.
+          </p>
+          <ul class="text-sm text-slate-500 space-y-2 mb-8">
+            <li>• Personalizované návrhy</li>
+            <li>• Cenové kategórie</li>
+            <li>• Vekové skupiny</li>
+          </ul>
           <a href="/sk/darceky" class="inline-flex items-center justify-center bg-slate-900 text-white px-8 py-4 rounded-xl font-semibold hover:bg-slate-800 transition-all duration-200">                                                             
             Generovať darčeky
           </a>
@@ -308,18 +326,24 @@ const structuredData = {
         
         <!-- Create Greeting Card -->
         <div class="bg-white rounded-2xl p-12 border border-slate-200 group hover:shadow-lg transition-all duration-300">                                                                  
-          <div class="flex items-start gap-6 mb-8">                                               
+          <div class="flex items-start justify-between mb-6">                                               
             <div class="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center flex-shrink-0">                                               
               <span class="text-xl">💌</span>
             </div>
-            <div class="flex-1">
-              <h3 class="text-2xl font-semibold mb-4 text-slate-900">Vytvoriť pohľadnicu</h3>                                                                    
-              <p class="text-slate-600 text-lg leading-relaxed">
-                Vytvorte krásnu e-pohľadnicu pre meniny. 
-                Personalizované dizajny a správy pre vašich blízkych.
-              </p>
+            <div class="bg-pink-100 text-pink-800 px-3 py-1 rounded-full text-sm font-medium">
+              Kreatívne
             </div>
           </div>
+          <h3 class="text-2xl font-semibold mb-4 text-slate-900">Vytvoriť pohľadnicu</h3>                                                                    
+          <p class="text-slate-600 text-lg leading-relaxed mb-6">
+            Vytvorte krásnu e-pohľadnicu pre meniny. 
+            Personalizované dizajny a správy pre vašich blízkych.
+          </p>
+          <ul class="text-sm text-slate-500 space-y-2 mb-8">
+            <li>• Rôzne dizajnové štýly</li>
+            <li>• Personalizované správy</li>
+            <li>• Jednoduché zdieľanie</li>
+          </ul>
           <button id="createCardBtn" class="inline-flex items-center justify-center bg-slate-900 text-white px-8 py-4 rounded-xl font-semibold hover:bg-slate-800 transition-all duration-200">                                                        
             Vytvoriť pohľadnicu
           </button>
