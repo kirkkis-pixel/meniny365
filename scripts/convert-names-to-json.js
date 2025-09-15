@@ -277,7 +277,7 @@ September
 12. Mária, Marián
 13. Ctibor, Ctibora
 14. Ľudomil, Ľudomila
-15. Svetlana, Svetla
+15. Jolana, Melisa, Melita
 16. Ľudmila, Ľudomil
 17. Olympia, Olymp
 18. Eugénia, Eugen
