@@ -72,26 +72,30 @@ const canonicalUrl = canonical || new URL(Astro.url.pathname, Astro.site);
   </head>
   <body>
     <div id="app">
-      <header class="border-b border-[var(--border)] bg-[var(--card)] sticky top-0 z-50">
+      <!-- Apple-inspired Header -->
+      <header class="sticky top-0 z-50 backdrop-blur-xl bg-white/80 dark:bg-black/80 border-b border-[var(--border-light)]">
         <div class="container">
-          <div class="flex items-center justify-between h-16">
-            <a href="/sk" class="flex items-center space-x-2">
-              <div class="w-8 h-8 bg-[var(--brand)] rounded-lg flex items-center justify-center">
-                <span class="text-white font-bold text-lg">M</span>
+          <div class="flex items-center justify-between h-20">
+            <!-- Logo with Apple-style design -->
+            <a href="/sk" class="flex items-center space-x-3 group">
+              <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105">
+                <span class="text-white font-bold text-xl">M</span>
               </div>
-              <span class="font-bold text-xl text-[var(--text)]">meniny365</span>
+              <span class="text-2xl font-bold text-[var(--text)] group-hover:text-[var(--brand)] transition-colors duration-300">meniny365</span>
             </a>
             
-            <nav class="hidden md:flex items-center space-x-6">
-              <a href="/sk" class="text-[var(--text)] hover:text-[var(--brand)] transition-colors">Dnes</a>
-              <a href="/sk/kalendár" class="text-[var(--text)] hover:text-[var(--brand)] transition-colors">Kalendár</a>
-              <a href="/sk/populárne-mená" class="text-[var(--text)] hover:text-[var(--brand)] transition-colors">Populárne mená</a>
-              <a href="/sk/návrhy-mena" class="text-[var(--text)] hover:text-[var(--brand)] transition-colors">Návrhy mien</a>
-              <a href="/sk/blog" class="text-[var(--text)] hover:text-[var(--brand)] transition-colors">Blog</a>
+            <!-- Navigation with Apple-style spacing -->
+            <nav class="hidden md:flex items-center space-x-8">
+              <a href="/sk" class="text-[var(--text-secondary)] hover:text-[var(--text)] transition-colors duration-300 font-medium text-lg">Dnes</a>
+              <a href="/sk/kalendár" class="text-[var(--text-secondary)] hover:text-[var(--text)] transition-colors duration-300 font-medium text-lg">Kalendár</a>
+              <a href="/sk/populárne-mená" class="text-[var(--text-secondary)] hover:text-[var(--text)] transition-colors duration-300 font-medium text-lg">Populárne mená</a>
+              <a href="/sk/návrhy-mena" class="text-[var(--text-secondary)] hover:text-[var(--text)] transition-colors duration-300 font-medium text-lg">Návrhy mien</a>
+              <a href="/sk/blog" class="text-[var(--text-secondary)] hover:text-[var(--text)] transition-colors duration-300 font-medium text-lg">Blog</a>
             </nav>
             
-            <button class="md:hidden p-2" aria-label="Menu">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <!-- Mobile menu button with Apple-style design -->
+            <button class="md:hidden p-3 rounded-2xl bg-[var(--accent)] hover:bg-[var(--card-hover)] transition-all duration-300" aria-label="Menu">
+              <svg class="w-6 h-6 text-[var(--text)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
               </svg>
             </button>
@@ -103,47 +107,63 @@ const canonicalUrl = canonical || new URL(Astro.url.pathname, Astro.site);
         <slot />
       </main>
       
-      <footer class="bg-[var(--card)] border-t border-[var(--border)] mt-20">
-        <div class="container py-12">
-          <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div>
-              <h3 class="font-semibold text-[var(--text)] mb-4">meniny365.sk</h3>
-              <p class="text-[var(--muted)] text-sm">
+      <!-- Apple-inspired Footer -->
+      <footer class="mt-32 bg-gradient-to-b from-transparent to-[var(--accent)] border-t border-[var(--border-light)]">
+        <div class="container py-20">
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+            <!-- Brand section -->
+            <div class="md:col-span-1">
+              <div class="flex items-center space-x-3 mb-6">
+                <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center">
+                  <span class="text-white font-bold text-sm">M</span>
+                </div>
+                <span class="text-xl font-bold text-[var(--text)]">meniny365</span>
+              </div>
+              <p class="text-[var(--text-secondary)] text-lg leading-relaxed max-w-sm">
                 Najkompletnejší kalendár menín na Slovensku. Zistite kto má dnes meniny, nájdite darčekové nápady a objavte zaujímavosti o menách.
               </p>
             </div>
             
+            <!-- Navigation -->
             <div>
-              <h4 class="font-semibold text-[var(--text)] mb-4">Navigácia</h4>
-              <ul class="space-y-2 text-sm">
-                <li><a href="/sk" class="text-[var(--muted)] hover:text-[var(--brand)] transition-colors">Dnes má meniny</a></li>
-                <li><a href="/sk/kalendár" class="text-[var(--muted)] hover:text-[var(--brand)] transition-colors">Kalendár menín</a></li>
-                <li><a href="/sk/populárne-mená" class="text-[var(--muted)] hover:text-[var(--brand)] transition-colors">Populárne mená</a></li>
-                <li><a href="/sk/návrhy-mena" class="text-[var(--muted)] hover:text-[var(--brand)] transition-colors">Návrhy mien</a></li>
+              <h4 class="font-semibold text-[var(--text)] mb-6 text-lg">Navigácia</h4>
+              <ul class="space-y-4">
+                <li><a href="/sk" class="text-[var(--text-secondary)] hover:text-[var(--text)] transition-colors duration-300 text-lg">Dnes má meniny</a></li>
+                <li><a href="/sk/kalendár" class="text-[var(--text-secondary)] hover:text-[var(--text)] transition-colors duration-300 text-lg">Kalendár menín</a></li>
+                <li><a href="/sk/populárne-mená" class="text-[var(--text-secondary)] hover:text-[var(--text)] transition-colors duration-300 text-lg">Populárne mená</a></li>
+                <li><a href="/sk/návrhy-mena" class="text-[var(--text-secondary)] hover:text-[var(--text)] transition-colors duration-300 text-lg">Návrhy mien</a></li>
               </ul>
             </div>
             
+            <!-- Information -->
             <div>
-              <h4 class="font-semibold text-[var(--text)] mb-4">Informácie</h4>
-              <ul class="space-y-2 text-sm">
-                <li><a href="/sk/blog" class="text-[var(--muted)] hover:text-[var(--brand)] transition-colors">Blog</a></li>
-                <li><a href="/sk/o-nás" class="text-[var(--muted)] hover:text-[var(--brand)] transition-colors">O nás</a></li>
-                <li><a href="/sk/kontakt" class="text-[var(--muted)] hover:text-[var(--brand)] transition-colors">Kontakt</a></li>
+              <h4 class="font-semibold text-[var(--text)] mb-6 text-lg">Informácie</h4>
+              <ul class="space-y-4">
+                <li><a href="/sk/blog" class="text-[var(--text-secondary)] hover:text-[var(--text)] transition-colors duration-300 text-lg">Blog</a></li>
+                <li><a href="/sk/o-nás" class="text-[var(--text-secondary)] hover:text-[var(--text)] transition-colors duration-300 text-lg">O nás</a></li>
+                <li><a href="/sk/kontakt" class="text-[var(--text-secondary)] hover:text-[var(--text)] transition-colors duration-300 text-lg">Kontakt</a></li>
               </ul>
             </div>
             
+            <!-- Legal -->
             <div>
-              <h4 class="font-semibold text-[var(--text)] mb-4">Právne</h4>
-              <ul class="space-y-2 text-sm">
-                <li><a href="/sk/ochrana-súkromia" class="text-[var(--muted)] hover:text-[var(--brand)] transition-colors">Ochrana súkromia</a></li>
-                <li><a href="/sk/obchodné-podmienky" class="text-[var(--muted)] hover:text-[var(--brand)] transition-colors">Obchodné podmienky</a></li>
-                <li><a href="/sk/zdroje" class="text-[var(--muted)] hover:text-[var(--brand)] transition-colors">Zdroje</a></li>
+              <h4 class="font-semibold text-[var(--text)] mb-6 text-lg">Právne</h4>
+              <ul class="space-y-4">
+                <li><a href="/sk/ochrana-súkromia" class="text-[var(--text-secondary)] hover:text-[var(--text)] transition-colors duration-300 text-lg">Ochrana súkromia</a></li>
+                <li><a href="/sk/obchodné-podmienky" class="text-[var(--text-secondary)] hover:text-[var(--text)] transition-colors duration-300 text-lg">Obchodné podmienky</a></li>
+                <li><a href="/sk/zdroje" class="text-[var(--text-secondary)] hover:text-[var(--text)] transition-colors duration-300 text-lg">Zdroje</a></li>
               </ul>
             </div>
           </div>
           
-          <div class="border-t border-[var(--border)] mt-8 pt-8 text-center text-sm text-[var(--muted)]">
-            <p>&copy; 2025 meniny365.sk. Všetky práva vyhradené.</p>
+          <!-- Copyright with Apple-style design -->
+          <div class="border-t border-[var(--border-light)] mt-16 pt-8">
+            <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+              <p class="text-[var(--text-tertiary)] text-lg">&copy; 2025 meniny365.sk. Všetky práva vyhradené.</p>
+              <div class="flex items-center space-x-6">
+                <span class="text-[var(--text-tertiary)] text-lg">Vytvorené s ❤️ na Slovensku</span>
+              </div>
+            </div>
           </div>
         </div>
       </footer>
