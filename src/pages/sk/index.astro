@@ -36,16 +36,16 @@ const structuredData = {
 >
   <!-- Hero Section -->
   <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
-    <!-- Background Gradient -->
-    <div class="absolute inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50"></div>
-    <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/20 to-transparent"></div>
+    <!-- Premium Background Gradient -->
+    <div class="absolute inset-0 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100"></div>
+    <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/30 to-transparent"></div>
     
     <!-- Floating Elements -->
-    <div class="absolute top-20 left-10 w-20 h-20 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full opacity-20 animate-pulse"></div>
-    <div class="absolute top-40 right-20 w-16 h-16 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full opacity-20 animate-pulse" style="animation-delay: 1s;"></div>
-    <div class="absolute bottom-20 left-1/4 w-12 h-12 bg-gradient-to-r from-indigo-400 to-blue-400 rounded-full opacity-20 animate-pulse" style="animation-delay: 2s;"></div>
+    <div class="absolute top-20 left-10 w-16 h-16 bg-gradient-to-r from-blue-400/20 to-purple-400/20 rounded-full blur-xl animate-pulse"></div>
+    <div class="absolute top-40 right-20 w-12 h-12 bg-gradient-to-r from-purple-400/20 to-pink-400/20 rounded-full blur-xl animate-pulse" style="animation-delay: 1s;"></div>
+    <div class="absolute bottom-20 left-1/4 w-8 h-8 bg-gradient-to-r from-indigo-400/20 to-blue-400/20 rounded-full blur-xl animate-pulse" style="animation-delay: 2s;"></div>
     
-    <div class="container relative z-10 text-center">
+    <div class="container relative z-10">
       <!-- AI Badge -->
       <div class="ai-badge mx-auto mb-8 animate-fade-in-up">
         <span>🤖</span>
@@ -53,24 +53,24 @@ const structuredData = {
       </div>
       
       <!-- Main Heading -->
-      <h1 class="text-display gradient-text mb-6 animate-fade-in-up" style="animation-delay: 0.2s;">
+      <h1 class="text-display text-center mb-6 animate-fade-in-up" style="animation-delay: 0.2s;">
         Kto má dnes meniny?
       </h1>
       
       <!-- Date -->
-      <p class="text-subtitle mb-12 animate-fade-in-up" style="animation-delay: 0.4s;">
+      <p class="text-subtitle text-center mb-12 animate-fade-in-up" style="animation-delay: 0.4s;">
         {todayFormatted}
       </p>
       
-      <!-- Names Display -->
+      <!-- Today's Names Display -->
       {todayNames.length > 0 ? (
-        <div class="animate-fade-in-up" style="animation-delay: 0.6s;">
-          <h2 class="text-title mb-8">Dnes majú meniny:</h2>
-          <div class="flex flex-wrap justify-center gap-4 mb-12">
+        <div class="card-elevated p-12 max-w-4xl mx-auto mb-16 animate-fade-in-up" style="animation-delay: 0.6s;">
+          <h2 class="text-title text-center mb-8">Dnes majú meniny:</h2>
+          <div class="flex flex-wrap justify-center gap-4">
             {todayNames.map(name => (
               <a 
                 href={`/sk/meno/${toSlug(name)}`}
-                class="btn btn-primary text-lg px-8 py-4"
+                class="btn btn-primary btn-lg"
               >
                 {name}
               </a>
@@ -78,39 +78,67 @@ const structuredData = {
           </div>
         </div>
       ) : (
-        <div class="animate-fade-in-up" style="animation-delay: 0.6s;">
-          <p class="text-body text-xl">
+        <div class="card-elevated p-12 max-w-2xl mx-auto mb-16 animate-fade-in-up" style="animation-delay: 0.6s;">
+          <p class="text-body text-center text-xl">
             Dnes nemá nikto meniny. Skúste pozrieť iný deň v kalendári.
           </p>
         </div>
       )}
       
-      <!-- Calendar View -->
-      <div class="card p-8 max-w-4xl mx-auto animate-fade-in-up" style="animation-delay: 0.8s;">
-        <h3 class="text-title mb-6">Kalendár menín</h3>
-        <div class="calendar-grid">
-          <!-- Calendar will be populated by JavaScript -->
-        </div>
-      </div>
-      
-      <!-- CTA Buttons -->
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mt-12 animate-fade-in-up" style="animation-delay: 1s;">
+      <!-- Call to Actions -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20 animate-fade-in-up" style="animation-delay: 0.8s;">
         <a 
           href={`/api/ical?date=${today}`}
-          class="btn btn-secondary"
+          class="btn btn-secondary btn-lg"
           download={`meniny-${today}.ics`}
         >
           📅 Pridať do kalendára
         </a>
-        <a href="/sk/kalendár" class="btn btn-ghost">
+        <a href="/sk/kalendár" class="btn btn-ghost btn-lg">
           Pozrieť celý kalendár
         </a>
+        <a href="/sk/návrhy-mena" class="btn btn-ghost btn-lg">
+          💡 Návrhy mien
+        </a>
+      </div>
+      
+      <!-- Horizontal Swipable Months -->
+      <div class="mb-16 animate-fade-in-up" style="animation-delay: 1s;">
+        <h3 class="text-title text-center mb-8">Prehľad mesiacov</h3>
+        <div class="months-container" id="monthsContainer">
+          <!-- Months will be populated by JavaScript -->
+        </div>
+      </div>
+      
+      <!-- Premium Calendar View -->
+      <div class="calendar-container max-w-6xl mx-auto animate-fade-in-up" style="animation-delay: 1.2s;">
+        <div class="calendar-header">
+          <div class="calendar-nav">
+            <button class="calendar-nav-btn" id="prevMonth">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="15,18 9,12 15,6"></polyline>
+              </svg>
+            </button>
+            <button class="calendar-nav-btn" id="nextMonth">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="9,18 15,12 9,6"></polyline>
+              </svg>
+            </button>
+          </div>
+          <h3 class="calendar-title" id="calendarTitle">Január 2025</h3>
+          <div class="calendar-nav">
+            <button class="btn btn-sm btn-ghost" id="todayBtn">Dnes</button>
+          </div>
+        </div>
+        <div class="calendar-grid" id="calendarGrid">
+          <!-- Calendar will be populated by JavaScript -->
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Features Section -->
-  <section class="py-20 bg-gradient-to-b from-transparent to-[var(--bg-secondary)]">
+  <section class="py-20 bg-gradient-to-b from-transparent to-slate-50">
     <div class="container">
       <div class="text-center mb-16">
         <h2 class="text-headline mb-6">AI-Powered funkcie</h2>
@@ -121,7 +149,7 @@ const structuredData = {
       </div>
       
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="card p-8 text-center">
+        <div class="card p-8 text-center group hover:scale-105 transition-transform">
           <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
             <span class="text-2xl">🔍</span>
           </div>
@@ -132,7 +160,7 @@ const structuredData = {
           </p>
         </div>
         
-        <div class="card p-8 text-center">
+        <div class="card p-8 text-center group hover:scale-105 transition-transform">
           <div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
             <span class="text-2xl">🎁</span>
           </div>
@@ -143,7 +171,7 @@ const structuredData = {
           </p>
         </div>
         
-        <div class="card p-8 text-center">
+        <div class="card p-8 text-center group hover:scale-105 transition-transform">
           <div class="w-16 h-16 bg-gradient-to-r from-green-500 to-blue-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
             <span class="text-2xl">📊</span>
           </div>
@@ -198,70 +226,229 @@ const structuredData = {
 </Layout>
 
 <script>
-  // Calendar functionality
+  // Name day data (simplified for demo)
+  const nameDayData = {
+    "2025": {
+      "01": {
+        "01": ["Alexandra", "Ábel", "Makar", "Karina"],
+        "02": ["Daniela", "Danila", "Danuta", "Genovéva"],
+        "03": ["Drahoľub", "Drahomil", "Drahoslav"],
+        "04": ["Artúr", "Arthur", "Andrea"],
+        "05": ["Melchior", "Melichar"],
+        "06": ["Antónia"],
+        "07": ["Atila", "Lucián", "Bohuslava"],
+        "08": ["Čestmír", "Pravomil", "Severín"],
+        "09": ["Alex", "Alexej", "Julián"],
+        "10": ["Agatón", "Dalimil", "Daša"],
+        "11": ["Honorát", "Tasilo", "Malvína"],
+        "12": ["Arkád", "Arnošt", "Ernest"],
+        "13": ["Čistomil", "Rastislav", "Vidor"],
+        "14": ["Hilár", "Radovan", "Uriáš"],
+        "15": ["Dobroslav", "Domoslav", "Loránt"],
+        "16": ["Kristína"],
+        "17": ["Antal"],
+        "18": ["Nataša"],
+        "19": ["Priskus", "Bohdana"],
+        "20": ["Mário", "Márius", "Drahomíra"],
+        "21": ["Dalibor"],
+        "22": ["Fabián", "Sebastián"],
+        "23": ["Vincent", "Vincencia"],
+        "24": ["Zora", "Dorián", "Slavomil"],
+        "25": ["Miloš", "Miloň", "Selma"],
+        "26": ["Timotej", "Ctiboh"],
+        "27": ["Gejza", "Saul", "Šavol"],
+        "28": ["Tamara"],
+        "29": ["Polykarp", "Slavibor", "Žarko"],
+        "30": ["Bohuš", "Pribislav"],
+        "31": ["Alfonz", "Manfréd"]
+      },
+      "02": {
+        "01": ["Hynek", "Trifon", "Tatiana"],
+        "02": ["Erik", "Aida", "Erika"],
+        "03": ["Blažej", "Celerín"],
+        "04": ["Nika", "Veronika"],
+        "05": ["Moderát", "Agáta"],
+        "06": ["Dorisa", "Dorota"],
+        "07": ["Romuald", "Vanda"],
+        "08": ["Aranka", "Zoja"],
+        "09": ["Rainold", "Zdenko"],
+        "10": ["Gabriela", "Omar"],
+        "11": ["Dezider", "Želislav"],
+        "12": ["Ron", "Ronald", "Perla"],
+        "13": ["Arpád", "Jordán"],
+        "14": ["Valentín", "Velimír"],
+        "15": ["Faust", "Pravoslav"],
+        "16": ["Pamfil", "Ida", "Liana"],
+        "17": ["Flavián", "Miloslava"],
+        "18": ["Jaromír", "Simeon"],
+        "19": ["Konrád", "Kurt", "Vlasta"],
+        "20": ["Aladár", "Lívia", "Ulrika"],
+        "21": ["Eleonóra"],
+        "22": ["Etela"],
+        "23": ["Roman", "Romana"],
+        "24": ["Goran", "Matej"],
+        "25": ["Frederik", "Taras"],
+        "26": ["Viktor", "Porfýr"],
+        "27": ["Alexander", "Leander"],
+        "28": ["Elemír", "Zlata"]
+      }
+    }
+  };
+
+  // Month names in Slovak
+  const monthNames = [
+    'Január', 'Február', 'Marec', 'Apríl', 'Máj', 'Jún',
+    'Júl', 'August', 'September', 'Október', 'November', 'December'
+  ];
+
+  let currentMonth = new Date().getMonth();
+  let currentYear = new Date().getFullYear();
+
+  // Generate horizontal months
+  function generateMonths() {
+    const container = document.getElementById('monthsContainer');
+    if (!container) return;
+
+    container.innerHTML = '';
+
+    for (let i = 0; i < 12; i++) {
+      const monthCard = document.createElement('div');
+      monthCard.className = `month-card ${i === currentMonth ? 'active' : ''}`;
+      
+      monthCard.innerHTML = `
+        <div class="month-header">
+          <div class="month-name">${monthNames[i]}</div>
+          <div class="month-year">${currentYear}</div>
+        </div>
+      `;
+
+      monthCard.addEventListener('click', () => {
+        currentMonth = i;
+        updateCalendar();
+        updateMonths();
+      });
+
+      container.appendChild(monthCard);
+    }
+  }
+
+  // Update months active state
+  function updateMonths() {
+    const monthCards = document.querySelectorAll('.month-card');
+    monthCards.forEach((card, index) => {
+      card.classList.toggle('active', index === currentMonth);
+    });
+  }
+
+  // Generate calendar
   function generateCalendar() {
-    const calendarGrid = document.querySelector('.calendar-grid');
-    if (!calendarGrid) return;
+    const calendarGrid = document.getElementById('calendarGrid');
+    const calendarTitle = document.getElementById('calendarTitle');
     
-    const today = new Date();
-    const currentMonth = today.getMonth();
-    const currentYear = today.getFullYear();
-    
-    // Get first day of month and number of days
-    const firstDay = new Date(currentYear, currentMonth, 1);
-    const lastDay = new Date(currentYear, currentMonth + 1, 0);
-    const daysInMonth = lastDay.getDate();
-    const startingDay = firstDay.getDay();
-    
-    // Month names in Slovak
-    const monthNames = [
-      'Január', 'Február', 'Marec', 'Apríl', 'Máj', 'Jún',
-      'Júl', 'August', 'September', 'Október', 'November', 'December'
-    ];
-    
-    // Add month header
-    const monthHeader = document.createElement('div');
-    monthHeader.className = 'col-span-7 text-center text-lg font-semibold mb-4';
-    monthHeader.textContent = `${monthNames[currentMonth]} ${currentYear}`;
-    calendarGrid.parentNode.insertBefore(monthHeader, calendarGrid);
-    
+    if (!calendarGrid || !calendarTitle) return;
+
+    // Update title
+    calendarTitle.textContent = `${monthNames[currentMonth]} ${currentYear}`;
+
+    // Clear grid
+    calendarGrid.innerHTML = '';
+
     // Add day headers
     const dayHeaders = ['Po', 'Ut', 'St', 'Št', 'Pia', 'So', 'Ne'];
     dayHeaders.forEach(day => {
       const dayHeader = document.createElement('div');
-      dayHeader.className = 'text-center text-sm font-medium text-text-tertiary py-2';
+      dayHeader.className = 'calendar-day-header';
       dayHeader.textContent = day;
       calendarGrid.appendChild(dayHeader);
     });
-    
+
+    // Get first day of month and number of days
+    const firstDay = new Date(currentYear, currentMonth, 1);
+    const lastDay = new Date(currentYear, currentMonth + 1, 0);
+    const daysInMonth = lastDay.getDate();
+    const startingDay = (firstDay.getDay() + 6) % 7; // Convert Sunday=0 to Monday=0
+
     // Add empty cells for days before month starts
     for (let i = 0; i < startingDay; i++) {
       const emptyDay = document.createElement('div');
       emptyDay.className = 'calendar-day';
       calendarGrid.appendChild(emptyDay);
     }
-    
+
     // Add days of month
     for (let day = 1; day <= daysInMonth; day++) {
       const dayElement = document.createElement('div');
-      dayElement.className = 'calendar-day';
-      dayElement.textContent = day;
+      const dayString = String(day).padStart(2, '0');
+      const monthString = String(currentMonth + 1).padStart(2, '0');
       
-      // Check if it's today
-      if (day === today.getDate()) {
-        dayElement.classList.add('today');
+      // Get names for this day
+      const names = nameDayData[currentYear]?.[monthString]?.[dayString] || [];
+      
+      dayElement.className = 'calendar-day';
+      if (names.length > 0) {
+        dayElement.classList.add('has-names');
       }
       
+      // Check if it's today
+      const today = new Date();
+      if (day === today.getDate() && currentMonth === today.getMonth() && currentYear === today.getFullYear()) {
+        dayElement.classList.add('today');
+      }
+
+      dayElement.innerHTML = `
+        <div class="calendar-day-number">${day}</div>
+        <div class="calendar-day-names">
+          ${names.slice(0, 2).map(name => `<div class="calendar-day-name">${name}</div>`).join('')}
+          ${names.length > 2 ? `<div class="calendar-day-name">+${names.length - 2}</div>` : ''}
+        </div>
+      `;
+
       // Add click handler
       dayElement.addEventListener('click', () => {
-        const dateString = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-        window.location.href = `/sk/den/${currentYear}/${String(currentMonth + 1).padStart(2, '0')}/${String(day).padStart(2, '0')}`;
+        window.location.href = `/sk/den/${currentYear}/${monthString}/${dayString}`;
       });
-      
+
       calendarGrid.appendChild(dayElement);
     }
   }
-  
-  // Initialize calendar when page loads
-  document.addEventListener('DOMContentLoaded', generateCalendar);
+
+  // Update calendar
+  function updateCalendar() {
+    generateCalendar();
+  }
+
+  // Navigation handlers
+  document.getElementById('prevMonth')?.addEventListener('click', () => {
+    currentMonth--;
+    if (currentMonth < 0) {
+      currentMonth = 11;
+      currentYear--;
+    }
+    updateCalendar();
+    updateMonths();
+  });
+
+  document.getElementById('nextMonth')?.addEventListener('click', () => {
+    currentMonth++;
+    if (currentMonth > 11) {
+      currentMonth = 0;
+      currentYear++;
+    }
+    updateCalendar();
+    updateMonths();
+  });
+
+  document.getElementById('todayBtn')?.addEventListener('click', () => {
+    const today = new Date();
+    currentMonth = today.getMonth();
+    currentYear = today.getFullYear();
+    updateCalendar();
+    updateMonths();
+  });
+
+  // Initialize when page loads
+  document.addEventListener('DOMContentLoaded', () => {
+    generateMonths();
+    generateCalendar();
+  });
 </script>
