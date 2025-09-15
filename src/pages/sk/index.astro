@@ -35,9 +35,9 @@ const structuredData = {
   structuredData={structuredData}
 >
   <!-- Hero Section - Clean Minimal Style -->
-  <section class="relative py-32 overflow-hidden">
-    <!-- Clean Background -->
-    <div class="absolute inset-0 bg-white"></div>
+  <section class="relative pt-20 pb-32 overflow-hidden">
+    <!-- Subtle Background Overlay -->
+    <div class="absolute inset-0 bg-gradient-to-br from-white/90 via-white/95 to-blue-50/80"></div>
     
     <div class="container relative z-10 text-center max-w-4xl">
       <!-- New Badge - Like Reference -->
@@ -55,13 +55,13 @@ const structuredData = {
       </h1>
       
       <!-- Subtitle - Clean Description -->
-      <p class="text-lg text-gray-600 mb-12 max-w-2xl mx-auto animate-fade-in-up" style="animation-delay: 0.4s;">
+      <p class="text-xl text-gray-600 mb-12 max-w-2xl mx-auto leading-relaxed tracking-tight animate-fade-in-up" style="animation-delay: 0.4s;">
         Prvý AI-powered kalendár menín na Slovensku s inteligentným vyhľadávaním, 
         návrhmi darčekov a personalizovanými skúsenosťami.
       </p>
       
       <!-- Today's Names Display - Super Clear & Focused -->
-      <div class="bg-gray-200 rounded-2xl p-12 max-w-2xl mx-auto mb-20 animate-fade-in-up" style="animation-delay: 0.8s;">
+      <div class="bg-gradient-to-br from-gray-100 via-gray-50 to-blue-100/50 rounded-2xl p-12 max-w-2xl mx-auto mb-20 animate-fade-in-up shadow-lg border border-gray-200/50" style="animation-delay: 0.8s;">
         <div class="text-center">
           <h2 class="text-2xl font-semibold text-black mb-8">{todayFormatted}</h2>
           
@@ -72,7 +72,7 @@ const structuredData = {
                 {todayNames.map(name => (
                   <a 
                     href={`/sk/meno/${toSlug(name)}`}
-                    class="bg-white text-black px-6 py-3 rounded-full font-medium hover:bg-gray-100 transition-colors border border-gray-300 shadow-sm hover:shadow-md"
+                    class="bg-gradient-to-r from-white to-gray-50 text-black px-6 py-3 rounded-full font-medium hover:from-gray-50 hover:to-gray-100 transition-all duration-200 border border-gray-200/50 shadow-sm hover:shadow-md hover:scale-105"
                   >
                     {name}
                   </a>
