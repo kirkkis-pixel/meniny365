@@ -90,28 +90,45 @@ const structuredData = {
       </div>
       
       
-      <!-- Premium Calendar View - Clean Design -->
-      <div class="calendar-container animate-fade-in-up" style="animation-delay: 1.2s;">
-        <div class="calendar-header">
-          <div class="calendar-nav">
-            <button class="calendar-nav-btn" id="prevMonth">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="15,18 9,12 15,6"></polyline>
-              </svg>
-            </button>
-            <button class="calendar-nav-btn" id="nextMonth">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="9,18 15,12 9,6"></polyline>
-              </svg>
-            </button>
+      <!-- Premium Calendar View - High Contrast Design -->
+      <div class="w-full max-w-6xl mx-auto animate-fade-in-up" style="animation-delay: 1.2s;">
+        <div class="bg-white rounded-3xl shadow-2xl border-2 border-black overflow-hidden">
+          <!-- Calendar Header -->
+          <div class="bg-black text-white px-8 py-6 flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+              <button class="p-3 bg-white/10 hover:bg-white/20 rounded-xl transition-colors" id="prevMonth">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="15,18 9,12 15,6"></polyline>
+                </svg>
+              </button>
+              <button class="p-3 bg-white/10 hover:bg-white/20 rounded-xl transition-colors" id="nextMonth">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="9,18 15,12 9,6"></polyline>
+                </svg>
+              </button>
+            </div>
+            <h3 class="text-2xl font-bold" id="calendarTitle">Január 2025</h3>
+            <button class="px-6 py-3 bg-white text-black rounded-xl font-medium hover:bg-gray-100 transition-colors" id="todayBtn">Dnes</button>
           </div>
-          <h3 class="calendar-title" id="calendarTitle">Január 2025</h3>
-          <div class="calendar-nav">
-            <button class="btn btn-sm btn-ghost" id="todayBtn">Dnes</button>
+          
+          <!-- Calendar Grid -->
+          <div class="p-8">
+            <!-- Day Headers -->
+            <div class="grid grid-cols-7 gap-2 mb-6">
+              <div class="text-center py-4 font-semibold text-gray-600 text-sm uppercase tracking-wider">Po</div>
+              <div class="text-center py-4 font-semibold text-gray-600 text-sm uppercase tracking-wider">Ut</div>
+              <div class="text-center py-4 font-semibold text-gray-600 text-sm uppercase tracking-wider">St</div>
+              <div class="text-center py-4 font-semibold text-gray-600 text-sm uppercase tracking-wider">Št</div>
+              <div class="text-center py-4 font-semibold text-gray-600 text-sm uppercase tracking-wider">Pia</div>
+              <div class="text-center py-4 font-semibold text-gray-600 text-sm uppercase tracking-wider">So</div>
+              <div class="text-center py-4 font-semibold text-gray-600 text-sm uppercase tracking-wider">Ne</div>
+            </div>
+            
+            <!-- Calendar Days -->
+            <div class="grid grid-cols-7 gap-2" id="calendarGrid">
+              <!-- Calendar will be populated by JavaScript -->
+            </div>
           </div>
-        </div>
-        <div class="calendar-grid" id="calendarGrid">
-          <!-- Calendar will be populated by JavaScript -->
         </div>
       </div>
     </div>
@@ -333,15 +350,6 @@ const structuredData = {
     // Clear grid
     calendarGrid.innerHTML = '';
 
-    // Add day headers
-    const dayHeaders = ['Po', 'Ut', 'St', 'Št', 'Pia', 'So', 'Ne'];
-    dayHeaders.forEach(day => {
-      const dayHeader = document.createElement('div');
-      dayHeader.className = 'calendar-day-header';
-      dayHeader.textContent = day;
-      calendarGrid.appendChild(dayHeader);
-    });
-
     // Get first day of month and number of days
     const firstDay = new Date(currentYear, currentMonth, 1);
     const lastDay = new Date(currentYear, currentMonth + 1, 0);
@@ -351,7 +359,7 @@ const structuredData = {
     // Add empty cells for days before month starts
     for (let i = 0; i < startingDay; i++) {
       const emptyDay = document.createElement('div');
-      emptyDay.className = 'calendar-day';
+      emptyDay.className = 'h-24 bg-gray-50 rounded-xl';
       calendarGrid.appendChild(emptyDay);
     }
 
@@ -364,22 +372,23 @@ const structuredData = {
       // Get names for this day
       const names = nameDayData[currentYear]?.[monthString]?.[dayString] || [];
       
-      dayElement.className = 'calendar-day';
-      if (names.length > 0) {
-        dayElement.classList.add('has-names');
-      }
-      
       // Check if it's today
       const today = new Date();
-      if (day === today.getDate() && currentMonth === today.getMonth() && currentYear === today.getFullYear()) {
-        dayElement.classList.add('today');
-      }
+      const isToday = day === today.getDate() && currentMonth === today.getMonth() && currentYear === today.getFullYear();
+      
+      dayElement.className = `h-24 rounded-xl p-3 cursor-pointer transition-all duration-200 hover:scale-105 ${
+        isToday 
+          ? 'bg-black text-white shadow-lg' 
+          : names.length > 0 
+            ? 'bg-gray-100 hover:bg-gray-200' 
+            : 'bg-white hover:bg-gray-50 border border-gray-200'
+      }`;
 
       dayElement.innerHTML = `
-        <div class="calendar-day-number">${day}</div>
-        <div class="calendar-day-names">
-          ${names.slice(0, 2).map(name => `<div class="calendar-day-name">${name}</div>`).join('')}
-          ${names.length > 2 ? `<div class="calendar-day-name">+${names.length - 2}</div>` : ''}
+        <div class="text-lg font-semibold mb-1">${day}</div>
+        <div class="text-xs space-y-1">
+          ${names.slice(0, 2).map(name => `<div class="truncate">${name}</div>`).join('')}
+          ${names.length > 2 ? `<div class="text-gray-500">+${names.length - 2}</div>` : ''}
         </div>
       `;
 
