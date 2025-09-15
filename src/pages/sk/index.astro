@@ -235,7 +235,7 @@ const structuredData = {
             <!-- Progress Bar -->
             <div class="w-full max-w-md mx-auto">
               <div class="bg-slate-200 rounded-full h-2 overflow-hidden">
-                <div id="progressBar" class="bg-gradient-to-r from-blue-500 to-indigo-600 h-full rounded-full transition-all duration-300 ease-out" style="width: 0%"></div>
+                <div id="progressBar" class="bg-gradient-to-r from-slate-600 to-slate-800 h-full rounded-full transition-all duration-300 ease-out" style="width: 0%"></div>
               </div>
             </div>
           </div>
@@ -768,6 +768,7 @@ const structuredData = {
       // Animated counter setup
       function setupAnimatedCounter() {
         const counterElement = document.getElementById('nameCounter');
+        const progressBar = document.getElementById('progressBar');
         const targetValue = 798;
         let hasAnimated = false;
 
@@ -776,7 +777,7 @@ const structuredData = {
           entries.forEach((entry) => {
             if (entry.isIntersecting && !hasAnimated) {
               hasAnimated = true;
-              animateCounter(counterElement, targetValue);
+              animateCounter(counterElement, progressBar, targetValue);
             }
           });
         }, {
@@ -791,7 +792,7 @@ const structuredData = {
       }
 
       // Animate counter from 0 to target value
-      function animateCounter(element, target) {
+      function animateCounter(element, progressBar, target) {
         const duration = 3000; // 3 seconds
         const startTime = performance.now();
         const startValue = 0;
@@ -807,11 +808,16 @@ const structuredData = {
           // Update counter display
           element.textContent = currentValue.toLocaleString();
           
+          // Update progress bar
+          const progressPercent = (currentValue / target) * 100;
+          progressBar.style.width = `${progressPercent}%`;
+          
           if (progress < 1) {
             requestAnimationFrame(updateCounter);
           } else {
-            // Ensure final value is exact
+            // Ensure final values are exact
             element.textContent = target.toLocaleString();
+            progressBar.style.width = '100%';
           }
         }
 
