@@ -7,7 +7,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "import:sk2025": "node -r esbuild-register scripts/fetch-meniny-sk-2025.ts && node scripts/merge-2025.ts"
+    "import:sk2025": "node -r esbuild-register scripts/fetch-meniny-sk-2025.ts && node scripts/merge-2025.ts",
+    "vercel-build": "npm run build"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.12",
