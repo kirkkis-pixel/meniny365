@@ -218,6 +218,30 @@ const structuredData = {
         </div>
       </section>
 
+      <!-- Animated Counter Section -->
+      <section class="py-24 bg-gradient-to-br from-slate-50 to-blue-50/30">
+        <div class="container mx-auto px-4 text-center">
+          <div class="max-w-4xl mx-auto">
+            <!-- Counter Display -->
+            <div class="mb-8">
+              <div id="nameCounter" class="text-6xl md:text-7xl font-bold text-slate-800 mb-4">
+                0
+              </div>
+              <div class="text-xl text-slate-600 font-medium">
+                Analysing unique Slovak names in the calendar
+              </div>
+            </div>
+            
+            <!-- Progress Bar -->
+            <div class="w-full max-w-md mx-auto">
+              <div class="bg-slate-200 rounded-full h-2 overflow-hidden">
+                <div id="progressBar" class="bg-gradient-to-r from-blue-500 to-indigo-600 h-full rounded-full transition-all duration-300 ease-out" style="width: 0%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
 
       <!-- E-Card Maker Modal -->
       <div id="cardModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4" style="display: none !important;">
@@ -732,9 +756,71 @@ const structuredData = {
         
         // Close modal with Escape key
         document.addEventListener('keydown', (e) => {
-          if (e.key === 'Escape' && cardModal && !cardModal.classList.contains('hidden')) {
+          if (e.key === 'Escape' && cardModal && !cardModal.classList.contains('hidden')) {                                                   
             hideModal();
           }
         });
+
+        // Animated counter functionality
+        setupAnimatedCounter();
       });
+
+      // Animated counter setup
+      function setupAnimatedCounter() {
+        const counterElement = document.getElementById('nameCounter');
+        const progressBar = document.getElementById('progressBar');
+        const targetValue = 798;
+        let hasAnimated = false;
+
+        // Intersection Observer to trigger animation when section comes into view
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting && !hasAnimated) {
+              hasAnimated = true;
+              animateCounter(counterElement, progressBar, targetValue);
+            }
+          });
+        }, {
+          threshold: 0.3 // Trigger when 30% of the section is visible
+        });
+
+        // Observe the counter section
+        const counterSection = document.querySelector('.py-24.bg-gradient-to-br');
+        if (counterSection) {
+          observer.observe(counterSection);
+        }
+      }
+
+      // Animate counter from 0 to target value
+      function animateCounter(element, progressBar, target) {
+        const duration = 3000; // 3 seconds
+        const startTime = performance.now();
+        const startValue = 0;
+
+        function updateCounter(currentTime) {
+          const elapsed = currentTime - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          
+          // Easing function for smooth animation
+          const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+          const currentValue = Math.floor(startValue + (target - startValue) * easeOutQuart);
+          
+          // Update counter display
+          element.textContent = currentValue.toLocaleString();
+          
+          // Update progress bar
+          const progressPercent = (currentValue / target) * 100;
+          progressBar.style.width = `${progressPercent}%`;
+          
+          if (progress < 1) {
+            requestAnimationFrame(updateCounter);
+          } else {
+            // Ensure final values are exact
+            element.textContent = target.toLocaleString();
+            progressBar.style.width = '100%';
+          }
+        }
+
+        requestAnimationFrame(updateCounter);
+      }
     </script>
