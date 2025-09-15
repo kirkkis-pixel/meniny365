@@ -378,7 +378,7 @@ const structuredData = {
         if (showMoreBtn) {
           showMoreBtn.addEventListener('click', (e) => {
             e.stopPropagation();
-            showAllNames(dayElement, names, isToday);
+            showAllNames(dayElement, names, isToday, e);
           });
         }
       }
@@ -387,13 +387,62 @@ const structuredData = {
     }
   }
 
-  // Show all names for a day
-  function showAllNames(dayElement, names, isToday) {
-    const namesContainer = dayElement.querySelector('.flex-1');
-    namesContainer.innerHTML = names.map(name => 
-      `<div class="text-xs font-medium truncate px-2 py-1 ${isToday ? 'bg-white/20 text-white rounded-full' : 'bg-slate-200/60 text-slate-700 rounded-full'} text-center">${name}</div>`
-    ).join('');
-  }
+      // Show all names in a popup
+      function showAllNames(dayElement, names, isToday, event) {
+        // Remove any existing popup
+        const existingPopup = document.querySelector('.names-popup');
+        if (existingPopup) {
+          existingPopup.remove();
+        }
+
+        // Create popup element
+        const popup = document.createElement('div');
+        popup.className = 'names-popup fixed z-50 bg-white rounded-2xl shadow-2xl border border-slate-200/50 p-4 max-w-xs animate-fade-in-up';
+        
+        // Position the popup near the clicked button
+        const rect = event.target.getBoundingClientRect();
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+        
+        popup.style.left = `${rect.left + scrollLeft - 50}px`;
+        popup.style.top = `${rect.bottom + scrollTop + 8}px`;
+        
+        // Create popup content
+        popup.innerHTML = `
+          <div class="flex items-center justify-between mb-3">
+            <h4 class="font-semibold text-slate-800 text-sm">Všetky mená</h4>
+            <button class="close-popup text-slate-400 hover:text-slate-600 transition-colors">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+            </button>
+          </div>
+          <div class="flex flex-wrap gap-1">
+            ${names.map(name => 
+              `<div class="text-xs font-medium px-2 py-1 ${isToday ? 'bg-slate-800 text-white' : 'bg-slate-100 text-slate-700'} rounded-full">${name}</div>`
+            ).join('')}
+          </div>
+        `;
+        
+        // Add to document
+        document.body.appendChild(popup);
+        
+        // Add close functionality
+        const closeBtn = popup.querySelector('.close-popup');
+        closeBtn.addEventListener('click', () => {
+          popup.remove();
+        });
+        
+        // Close on click outside
+        setTimeout(() => {
+          document.addEventListener('click', function closePopup(e) {
+            if (!popup.contains(e.target) && !event.target.contains(e.target)) {
+              popup.remove();
+              document.removeEventListener('click', closePopup);
+            }
+          });
+        }, 100);
+      }
 
   // Update calendar
   function updateCalendar() {
