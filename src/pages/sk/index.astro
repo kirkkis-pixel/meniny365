@@ -237,88 +237,77 @@ const structuredData = {
       </div>
 
       <!-- Features Section - ProspectPulse Style -->
-  <section class="py-40 bg-gray-50">
+  <!-- Intelligent Search Section - Pitchkit Style -->
+  <section class="py-40 bg-white">
     <div class="container">
       <div class="text-center mb-32">
-        <h2 class="text-headline font-light mb-12">AI-Powered funkcie</h2>
+        <h2 class="text-headline font-light mb-12">Inteligentné vyhľadávanie</h2>                                                             
         <p class="text-body text-xl max-w-2xl mx-auto">
           Prvý kalendár menín na Slovensku s umelou inteligenciou. 
-          Inteligentné vyhľadávanie, návrhy darčekov a personalizované skúsenosti.
+          Inteligentné vyhľadávanie, návrhy darčekov a personalizované skúsenosti.                                                            
         </p>
       </div>
       
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-16">
-        <div class="card p-16 text-center group hover:scale-105 transition-transform">
-          <div class="w-16 h-16 bg-blue-500 rounded-2xl flex items-center justify-center mx-auto mb-12">
-            <span class="text-2xl">🔍</span>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
+        <!-- Most Popular Names -->
+        <div class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-3xl p-12 text-white group hover:scale-105 transition-transform shadow-2xl">                                                        
+          <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mb-8">                                      
+            <span class="text-2xl">🔥</span>
           </div>
-          <h3 class="text-title font-light mb-8">Inteligentné vyhľadávanie</h3>
-          <p class="text-body">
-            AI-powered vyhľadávanie menín s návrhmi a podobnosťami. 
-            Nájdite perfektné meno pre vaše dieťa.
+          <h3 class="text-2xl font-semibold mb-6">Najpopulárnejšie mená</h3>                                                               
+          <p class="text-slate-300 mb-8 text-lg">
+            Zistite, ktoré mená sú najpopulárnejšie na Slovensku. 
+            Trendy a štatistiky pre lepšie rozhodovanie.
           </p>
+          <a href="/sk/populárne-mená" class="inline-flex items-center justify-center bg-white text-slate-900 px-8 py-4 rounded-2xl font-semibold hover:bg-slate-100 transition-all duration-200 transform hover:scale-105 shadow-xl">
+            Zobraziť trendy
+          </a>
         </div>
         
-        <div class="card p-16 text-center group hover:scale-105 transition-transform">
-          <div class="w-16 h-16 bg-purple-500 rounded-2xl flex items-center justify-center mx-auto mb-12">
+        <!-- Emerging Names -->
+        <div class="bg-gradient-to-br from-indigo-800 to-purple-900 rounded-3xl p-12 text-white group hover:scale-105 transition-transform shadow-2xl">                                                        
+          <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mb-8">                                    
+            <span class="text-2xl">✨</span>
+          </div>
+          <h3 class="text-2xl font-semibold mb-6">Nové trendy mená</h3>
+          <p class="text-slate-300 mb-8 text-lg">
+            Objavte nové a rastúce mená, ktoré sa stávajú populárnymi. 
+            Buďte v predstihu pred trendmi.
+          </p>
+          <a href="/sk/návrhy-mena" class="inline-flex items-center justify-center bg-white text-slate-900 px-8 py-4 rounded-2xl font-semibold hover:bg-slate-100 transition-all duration-200 transform hover:scale-105 shadow-xl">
+            Objaviť nové mená
+          </a>
+        </div>
+        
+        <!-- Gift Recommendations -->
+        <div class="bg-gradient-to-br from-emerald-800 to-teal-900 rounded-3xl p-12 text-white group hover:scale-105 transition-transform shadow-2xl">                                                        
+          <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mb-8">                                     
             <span class="text-2xl">🎁</span>
           </div>
-          <h3 class="text-title font-light mb-8">Návrhy darčekov</h3>
-          <p class="text-body">
+          <h3 class="text-2xl font-semibold mb-6">Návrhy darčekov</h3>
+          <p class="text-slate-300 mb-8 text-lg">
             Personalizované návrhy darčekov na základe mena a preferencií. 
             AI analyzuje trendy a navrhuje najlepšie možnosti.
           </p>
+          <a href="/sk/darceky" class="inline-flex items-center justify-center bg-white text-slate-900 px-8 py-4 rounded-2xl font-semibold hover:bg-slate-100 transition-all duration-200 transform hover:scale-105 shadow-xl">
+            Generovať darčeky
+          </a>
         </div>
         
-        <div class="card p-16 text-center group hover:scale-105 transition-transform">
-          <div class="w-16 h-16 bg-green-500 rounded-2xl flex items-center justify-center mx-auto mb-12">
-            <span class="text-2xl">📊</span>
+        <!-- Create Greeting Card -->
+        <div class="bg-gradient-to-br from-rose-800 to-pink-900 rounded-3xl p-12 text-white group hover:scale-105 transition-transform shadow-2xl">                                                        
+          <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mb-8">                                     
+            <span class="text-2xl">💌</span>
           </div>
-          <h3 class="text-title font-light mb-8">Analytika menín</h3>
-          <p class="text-body">
-            Štatistiky popularít mien, trendy a predpovede. 
-            Zistite, ktoré mená sú najpopulárnejšie.
+          <h3 class="text-2xl font-semibold mb-6">Vytvoriť pohľadnicu</h3>
+          <p class="text-slate-300 mb-8 text-lg">
+            Vytvorte krásnu e-pohľadnicu pre meniny. 
+            Personalizované dizajny a správy pre vašich blízkych.
           </p>
+          <button id="createCardBtn" class="inline-flex items-center justify-center bg-white text-slate-900 px-8 py-4 rounded-2xl font-semibold hover:bg-slate-100 transition-all duration-200 transform hover:scale-105 shadow-xl">
+            Vytvoriť pohľadnicu
+          </button>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Quick Actions - Clean -->
-  <section class="py-40">
-    <div class="container">
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-        <a href="/sk/kalendár" class="card p-12 text-center group hover:scale-105 transition-transform">
-          <div class="text-3xl mb-8">📅</div>
-          <h3 class="text-xl font-medium mb-4 group-hover:text-brand transition-colors">
-            Kalendár menín
-          </h3>
-          <p class="text-caption">Kompletný kalendár pre celý rok</p>
-        </a>
-        
-        <a href="/sk/populárne-mená" class="card p-12 text-center group hover:scale-105 transition-transform">
-          <div class="text-3xl mb-8">🔥</div>
-          <h3 class="text-xl font-medium mb-4 group-hover:text-brand transition-colors">
-            Populárne mená
-          </h3>
-          <p class="text-caption">Najpopulárnejšie mená na Slovensku</p>
-        </a>
-        
-        <a href="/sk/návrhy-mena" class="card p-12 text-center group hover:scale-105 transition-transform">
-          <div class="text-3xl mb-8">💡</div>
-          <h3 class="text-xl font-medium mb-4 group-hover:text-brand transition-colors">
-            Návrhy mien
-          </h3>
-          <p class="text-caption">AI-powered návrhy pre vaše dieťa</p>
-        </a>
-        
-        <a href="/sk/blog" class="card p-12 text-center group hover:scale-105 transition-transform">
-          <div class="text-3xl mb-8">📝</div>
-          <h3 class="text-xl font-medium mb-4 group-hover:text-brand transition-colors">
-            Blog
-          </h3>
-          <p class="text-caption">Články o menách a tradíciách</p>
-        </a>
       </div>
     </div>
   </section>
