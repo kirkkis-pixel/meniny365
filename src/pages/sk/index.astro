@@ -93,9 +93,9 @@ const structuredData = {
       
       <!-- Premium Calendar View - Soft Rounded Design -->
       <div class="w-full max-w-7xl mx-auto animate-fade-in-up" style="animation-delay: 1.2s;">
-        <div class="bg-gradient-to-br from-white to-purple-50/30 rounded-3xl shadow-xl border border-purple-100/50 overflow-hidden">
+        <div class="bg-gradient-to-br from-white to-slate-50/50 rounded-3xl shadow-xl border border-slate-200/50 overflow-hidden">
           <!-- Calendar Header -->
-          <div class="bg-gradient-to-r from-purple-600 via-purple-700 to-purple-800 text-white px-8 py-6 flex items-center justify-between rounded-t-3xl">
+          <div class="bg-gradient-to-r from-slate-800 via-slate-900 to-slate-800 text-white px-8 py-6 flex items-center justify-between rounded-t-3xl">
             <div class="flex items-center space-x-3">
               <button class="p-3 bg-white/15 hover:bg-white/25 rounded-2xl transition-all duration-200 hover:scale-105" id="prevMonth">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -114,14 +114,14 @@ const structuredData = {
                 type="text" 
                 id="calendarSearch" 
                 placeholder="Vyhľadať meno..." 
-                class="px-4 py-3 bg-white/20 text-white placeholder-white/70 rounded-2xl focus:outline-none focus:ring-2 focus:ring-white/30 focus:bg-white/30 transition-all duration-200 w-64"
+                class="px-4 py-3 bg-white/10 text-white placeholder-white/60 rounded-2xl focus:outline-none focus:ring-2 focus:ring-white/20 focus:bg-white/15 transition-all duration-200 w-64 border border-white/10"
               >
               <div class="absolute right-3 top-1/2 transform -translate-y-1/2">
                 <svg class="w-5 h-5 text-white/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                 </svg>
               </div>
-              <div id="calendarSearchResults" class="absolute top-full left-0 right-0 mt-2 bg-white rounded-2xl shadow-xl border border-purple-200/50 max-h-64 overflow-y-auto z-50 hidden">
+              <div id="calendarSearchResults" class="absolute top-full left-0 right-0 mt-2 bg-white rounded-2xl shadow-xl border border-slate-200/50 max-h-64 overflow-y-auto z-50 hidden">
                 <!-- Search results will appear here -->
               </div>
             </div>
@@ -131,13 +131,13 @@ const structuredData = {
           <div class="p-6">
             <!-- Day Headers -->
             <div class="grid grid-cols-7 gap-2 mb-4">
-              <div class="text-center py-3 font-semibold text-purple-600 text-sm uppercase tracking-wider bg-purple-50 rounded-xl">Po</div>
-              <div class="text-center py-3 font-semibold text-purple-600 text-sm uppercase tracking-wider bg-purple-50 rounded-xl">Ut</div>
-              <div class="text-center py-3 font-semibold text-purple-600 text-sm uppercase tracking-wider bg-purple-50 rounded-xl">St</div>
-              <div class="text-center py-3 font-semibold text-purple-600 text-sm uppercase tracking-wider bg-purple-50 rounded-xl">Št</div>
-              <div class="text-center py-3 font-semibold text-purple-600 text-sm uppercase tracking-wider bg-purple-50 rounded-xl">Pia</div>
-              <div class="text-center py-3 font-semibold text-purple-600 text-sm uppercase tracking-wider bg-purple-50 rounded-xl">So</div>
-              <div class="text-center py-3 font-semibold text-purple-600 text-sm uppercase tracking-wider bg-purple-50 rounded-xl">Ne</div>
+              <div class="text-center py-3 font-semibold text-slate-600 text-sm uppercase tracking-wider bg-slate-50 rounded-xl">Po</div>
+              <div class="text-center py-3 font-semibold text-slate-600 text-sm uppercase tracking-wider bg-slate-50 rounded-xl">Ut</div>
+              <div class="text-center py-3 font-semibold text-slate-600 text-sm uppercase tracking-wider bg-slate-50 rounded-xl">St</div>
+              <div class="text-center py-3 font-semibold text-slate-600 text-sm uppercase tracking-wider bg-slate-50 rounded-xl">Št</div>
+              <div class="text-center py-3 font-semibold text-slate-600 text-sm uppercase tracking-wider bg-slate-50 rounded-xl">Pia</div>
+              <div class="text-center py-3 font-semibold text-slate-600 text-sm uppercase tracking-wider bg-slate-50 rounded-xl">So</div>
+              <div class="text-center py-3 font-semibold text-slate-600 text-sm uppercase tracking-wider bg-slate-50 rounded-xl">Ne</div>
             </div>
             
             <!-- Calendar Days -->
@@ -310,7 +310,7 @@ const structuredData = {
     // Add empty cells for days before month starts
     for (let i = 0; i < startingDay; i++) {
       const emptyDay = document.createElement('div');
-      emptyDay.className = 'h-40 bg-purple-50/30 rounded-2xl';
+      emptyDay.className = 'h-40 bg-slate-50/30 rounded-2xl';
       calendarGrid.appendChild(emptyDay);
     }
 
@@ -330,10 +330,10 @@ const structuredData = {
       
       dayElement.className = `h-40 rounded-2xl p-3 cursor-pointer transition-all duration-200 hover:scale-105 ${
         isToday 
-          ? 'bg-gradient-to-br from-purple-500 to-pink-500 text-white shadow-lg' 
+          ? 'bg-gradient-to-br from-slate-800 to-slate-900 text-white shadow-lg' 
           : names.length > 0 
-            ? 'bg-gradient-to-br from-purple-50 to-pink-50 hover:from-purple-100 hover:to-pink-100 border border-purple-200/50' 
-            : 'bg-gradient-to-br from-white to-purple-50/20 hover:from-purple-50/30 hover:to-purple-100/30 border border-purple-100/50'
+            ? 'bg-gradient-to-br from-slate-50 to-slate-100 hover:from-slate-100 hover:to-slate-200 border border-slate-200/50' 
+            : 'bg-gradient-to-br from-white to-slate-50/30 hover:from-slate-50/40 hover:to-slate-100/40 border border-slate-200/30'
       }`;
 
       dayElement.innerHTML = `
@@ -342,10 +342,10 @@ const structuredData = {
           <div class="flex-1 flex flex-col space-y-0.5 overflow-hidden">
             ${names.length > 0 ? (
               names.map(name => 
-                `<div class="text-xs font-medium truncate px-2 py-1 ${isToday ? 'bg-white/20 text-white rounded-full' : 'bg-purple-100/50 text-purple-700 rounded-full'} text-center">${name}</div>`
+                `<div class="text-xs font-medium truncate px-2 py-1 ${isToday ? 'bg-white/20 text-white rounded-full' : 'bg-slate-200/60 text-slate-700 rounded-full'} text-center">${name}</div>`
               ).join('')
             ) : (
-              `<div class="text-xs ${isToday ? 'text-white/50' : 'text-purple-400'} text-center mt-2">-</div>`
+              `<div class="text-xs ${isToday ? 'text-white/50' : 'text-slate-400'} text-center mt-2">-</div>`
             )}
           </div>
         </div>
@@ -425,26 +425,26 @@ const structuredData = {
           if (results.length > 0) {
             searchResults.innerHTML = `
               <div class="p-4">
-                <h4 class="font-semibold text-gray-800 mb-3">Nájdené mená (${results.length} dní):</h4>
+                <h4 class="font-semibold text-slate-800 mb-3">Nájdené mená (${results.length} dní):</h4>
                 <div class="space-y-2">
                   ${results.slice(0, 8).map(result => `
-                    <div class="flex items-center justify-between p-3 bg-purple-50 rounded-xl hover:bg-purple-100 transition-colors">
+                    <div class="flex items-center justify-between p-3 bg-slate-50 rounded-xl hover:bg-slate-100 transition-colors">
                       <div>
-                        <div class="font-medium text-purple-800">${formatDateForDisplay(result.date)}</div>
-                        <div class="text-sm text-purple-600">${result.names.join(', ')}</div>
+                        <div class="font-medium text-slate-800">${formatDateForDisplay(result.date)}</div>
+                        <div class="text-sm text-slate-600">${result.names.join(', ')}</div>
                       </div>
-                      <button onclick="goToDate('${result.date}')" class="px-3 py-1 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-lg text-sm hover:from-purple-600 hover:to-pink-600 transition-all">
+                      <button onclick="goToDate('${result.date}')" class="px-3 py-1 bg-gradient-to-r from-slate-700 to-slate-800 text-white rounded-lg text-sm hover:from-slate-800 hover:to-slate-900 transition-all">
                         Zobraziť
                       </button>
                     </div>
                   `).join('')}
-                  ${results.length > 8 ? `<div class="text-sm text-purple-500 text-center pt-2">... a ${results.length - 8} ďalších</div>` : ''}
+                  ${results.length > 8 ? `<div class="text-sm text-slate-500 text-center pt-2">... a ${results.length - 8} ďalších</div>` : ''}
                 </div>
               </div>
             `;
             searchResults.classList.remove('hidden');
           } else {
-            searchResults.innerHTML = '<div class="p-4 text-purple-500 text-center">Žiadne mená sa nenašli</div>';
+            searchResults.innerHTML = '<div class="p-4 text-slate-500 text-center">Žiadne mená sa nenašli</div>';
             searchResults.classList.remove('hidden');
           }
         });
