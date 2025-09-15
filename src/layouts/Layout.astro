@@ -55,7 +55,14 @@ const { title, description, canonical, structuredData } = Astro.props;
         <nav class="flex items-center justify-between py-4">
           <!-- Logo -->
           <div class="flex items-center">
-            <a href="/sk" class="text-2xl font-bold text-black">meniny365</a>
+            <a href="/sk" class="flex items-center space-x-3 text-2xl font-bold text-black">
+              <div class="w-8 h-8 bg-slate-100 rounded-lg flex items-center justify-center">
+                <svg class="w-5 h-5 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+              </div>
+              <span>meniny365</span>
+            </a>                                                              
           </div>
           
           <!-- Navigation Links -->
