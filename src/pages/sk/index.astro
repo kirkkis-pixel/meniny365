@@ -228,7 +228,7 @@ const structuredData = {
                 0
               </div>
               <div class="text-xl text-slate-600 font-medium">
-                Analysing unique Slovak names in the calendar
+                Analýza jedinečných slovenských mien v kalendári
               </div>
             </div>
             
@@ -768,7 +768,6 @@ const structuredData = {
       // Animated counter setup
       function setupAnimatedCounter() {
         const counterElement = document.getElementById('nameCounter');
-        const progressBar = document.getElementById('progressBar');
         const targetValue = 798;
         let hasAnimated = false;
 
@@ -777,7 +776,7 @@ const structuredData = {
           entries.forEach((entry) => {
             if (entry.isIntersecting && !hasAnimated) {
               hasAnimated = true;
-              animateCounter(counterElement, progressBar, targetValue);
+              animateCounter(counterElement, targetValue);
             }
           });
         }, {
@@ -792,7 +791,7 @@ const structuredData = {
       }
 
       // Animate counter from 0 to target value
-      function animateCounter(element, progressBar, target) {
+      function animateCounter(element, target) {
         const duration = 3000; // 3 seconds
         const startTime = performance.now();
         const startValue = 0;
@@ -808,16 +807,11 @@ const structuredData = {
           // Update counter display
           element.textContent = currentValue.toLocaleString();
           
-          // Update progress bar
-          const progressPercent = (currentValue / target) * 100;
-          progressBar.style.width = `${progressPercent}%`;
-          
           if (progress < 1) {
             requestAnimationFrame(updateCounter);
           } else {
-            // Ensure final values are exact
+            // Ensure final value is exact
             element.textContent = target.toLocaleString();
-            progressBar.style.width = '100%';
           }
         }
 
