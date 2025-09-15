@@ -223,74 +223,24 @@ const structuredData = {
 </Layout>
 
 <script>
-  // Name day data (simplified for demo)
-  const nameDayData = {
-    "2025": {
-      "01": {
-        "01": ["Alexandra", "Ábel", "Makar", "Karina"],
-        "02": ["Daniela", "Danila", "Danuta", "Genovéva"],
-        "03": ["Drahoľub", "Drahomil", "Drahoslav"],
-        "04": ["Artúr", "Arthur", "Andrea"],
-        "05": ["Melchior", "Melichar"],
-        "06": ["Antónia"],
-        "07": ["Atila", "Lucián", "Bohuslava"],
-        "08": ["Čestmír", "Pravomil", "Severín"],
-        "09": ["Alex", "Alexej", "Julián"],
-        "10": ["Agatón", "Dalimil", "Daša"],
-        "11": ["Honorát", "Tasilo", "Malvína"],
-        "12": ["Arkád", "Arnošt", "Ernest"],
-        "13": ["Čistomil", "Rastislav", "Vidor"],
-        "14": ["Hilár", "Radovan", "Uriáš"],
-        "15": ["Dobroslav", "Domoslav", "Loránt"],
-        "16": ["Kristína"],
-        "17": ["Antal"],
-        "18": ["Nataša"],
-        "19": ["Priskus", "Bohdana"],
-        "20": ["Mário", "Márius", "Drahomíra"],
-        "21": ["Dalibor"],
-        "22": ["Fabián", "Sebastián"],
-        "23": ["Vincent", "Vincencia"],
-        "24": ["Zora", "Dorián", "Slavomil"],
-        "25": ["Miloš", "Miloň", "Selma"],
-        "26": ["Timotej", "Ctiboh"],
-        "27": ["Gejza", "Saul", "Šavol"],
-        "28": ["Tamara"],
-        "29": ["Polykarp", "Slavibor", "Žarko"],
-        "30": ["Bohuš", "Pribislav"],
-        "31": ["Alfonz", "Manfréd"]
-      },
-      "02": {
-        "01": ["Hynek", "Trifon", "Tatiana"],
-        "02": ["Erik", "Aida", "Erika"],
-        "03": ["Blažej", "Celerín"],
-        "04": ["Nika", "Veronika"],
-        "05": ["Moderát", "Agáta"],
-        "06": ["Dorisa", "Dorota"],
-        "07": ["Romuald", "Vanda"],
-        "08": ["Aranka", "Zoja"],
-        "09": ["Rainold", "Zdenko"],
-        "10": ["Gabriela", "Omar"],
-        "11": ["Dezider", "Želislav"],
-        "12": ["Ron", "Ronald", "Perla"],
-        "13": ["Arpád", "Jordán"],
-        "14": ["Valentín", "Velimír"],
-        "15": ["Faust", "Pravoslav"],
-        "16": ["Pamfil", "Ida", "Liana"],
-        "17": ["Flavián", "Miloslava"],
-        "18": ["Jaromír", "Simeon"],
-        "19": ["Konrád", "Kurt", "Vlasta"],
-        "20": ["Aladár", "Lívia", "Ulrika"],
-        "21": ["Eleonóra"],
-        "22": ["Etela"],
-        "23": ["Roman", "Romana"],
-        "24": ["Goran", "Matej"],
-        "25": ["Frederik", "Taras"],
-        "26": ["Viktor", "Porfýr"],
-        "27": ["Alexander", "Leander"],
-        "28": ["Elemír", "Zlata"]
+  // Load name day data from the server
+  let nameDayData = {};
+  
+  // Fetch the actual data
+  async function loadNameDayData() {
+    try {
+      const response = await fetch('/src/data/meniny-sk/meniny-2025.json');
+      if (response.ok) {
+        nameDayData = await response.json();
+        console.log('Name day data loaded:', nameDayData);
       }
+    } catch (error) {
+      console.error('Error loading name day data:', error);
     }
-  };
+  }
+  
+  // Load data when page loads
+  loadNameDayData();
 
   // Month names in Slovak
   const monthNames = [
@@ -359,7 +309,7 @@ const structuredData = {
     // Add empty cells for days before month starts
     for (let i = 0; i < startingDay; i++) {
       const emptyDay = document.createElement('div');
-      emptyDay.className = 'h-24 bg-gray-50 rounded-xl';
+      emptyDay.className = 'h-32 bg-gray-50 rounded-xl';
       calendarGrid.appendChild(emptyDay);
     }
 
@@ -369,14 +319,14 @@ const structuredData = {
       const dayString = String(day).padStart(2, '0');
       const monthString = String(currentMonth + 1).padStart(2, '0');
       
-      // Get names for this day
+      // Get names for this day from the nested structure
       const names = nameDayData[currentYear]?.[monthString]?.[dayString] || [];
       
       // Check if it's today
       const today = new Date();
       const isToday = day === today.getDate() && currentMonth === today.getMonth() && currentYear === today.getFullYear();
       
-      dayElement.className = `h-24 rounded-xl p-3 cursor-pointer transition-all duration-200 hover:scale-105 ${
+      dayElement.className = `h-32 rounded-xl p-3 cursor-pointer transition-all duration-200 hover:scale-105 ${
         isToday 
           ? 'bg-black text-white shadow-lg' 
           : names.length > 0 
@@ -385,10 +335,18 @@ const structuredData = {
       }`;
 
       dayElement.innerHTML = `
-        <div class="text-lg font-semibold mb-1">${day}</div>
-        <div class="text-xs space-y-1">
-          ${names.slice(0, 2).map(name => `<div class="truncate">${name}</div>`).join('')}
-          ${names.length > 2 ? `<div class="text-gray-500">+${names.length - 2}</div>` : ''}
+        <div class="flex flex-col h-full">
+          <div class="text-lg font-bold mb-2 flex-shrink-0">${day}</div>
+          <div class="flex-1 flex flex-col justify-center space-y-1">
+            ${names.length > 0 ? (
+              names.slice(0, 3).map(name => 
+                `<div class="text-xs font-medium truncate px-2 py-1 ${isToday ? 'bg-white/30 text-white' : 'bg-black/10 text-black'} rounded-full text-center">${name}</div>`
+              ).join('') + 
+              (names.length > 3 ? `<div class="text-xs ${isToday ? 'text-white/70' : 'text-gray-500'} text-center">+${names.length - 3}</div>` : '')
+            ) : (
+              `<div class="text-xs ${isToday ? 'text-white/50' : 'text-gray-400'} text-center">-</div>`
+            )}
+          </div>
         </div>
       `;
 
@@ -436,7 +394,8 @@ const structuredData = {
   });
 
   // Initialize when page loads
-  document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener('DOMContentLoaded', async () => {
+    await loadNameDayData();
     generateMonths();
     generateCalendar();
   });
