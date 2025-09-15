@@ -1,35 +1,77 @@
 ---
 import { getNamesByDate, getDatesByName } from '../../lib/meniny';
-import { generateICS, generateICSForDate, getICSFilename } from '../../lib/ics';
+import { makeMeninyICS, generateICS, generateICSForDate, getICSFilename } from '../../lib/ics';
 
-const { searchParams } = Astro.url;
-const date = searchParams.get('date');
-const name = searchParams.get('name');
+const { request } = Astro;
 
-let icsContent = '';
-let filename = 'meniny.ics';
-
-if (date) {
-  // Generate ICS for a specific date
-  const names = await getNamesByDate(date);
-  icsContent = generateICSForDate(date, names);
-  filename = `meniny-${date}.ics`;
-} else if (name) {
-  // Generate ICS for a specific name
-  const dates = await getDatesByName(name);
-  icsContent = generateICS(name, dates);
-  filename = getICSFilename(name);
-} else {
-  // Return error
-  return new Response('Missing date or name parameter', { status: 400 });
-}
-
-return new Response(icsContent, {
-  status: 200,
-  headers: {
-    'Content-Type': 'text/calendar; charset=utf-8',
-    'Content-Disposition': `attachment; filename="${filename}"`,
-    'Cache-Control': 'public, max-age=3600'
+if (request.method === 'POST') {
+  // Handle POST request with concierge features
+  try {
+    const body = await request.json();
+    const { name, dates, withReminder = false, minutesBefore = 1440, wish } = body;
+    
+    if (!name || !dates || !Array.isArray(dates)) {
+      return new Response(JSON.stringify({ error: 'Missing required parameters' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
+    
+    const icsContent = makeMeninyICS({
+      name,
+      dates,
+      withReminder,
+      minutesBefore,
+      wish
+    });
+    
+    const filename = getICSFilename(name);
+    
+    return new Response(icsContent, {
+      headers: {
+        'Content-Type': 'text/calendar; charset=utf-8',
+        'Content-Disposition': `attachment; filename="${filename}"`,
+        'Cache-Control': 'public, max-age=3600'
+      }
+    });
+    
+  } catch (error) {
+    return new Response(JSON.stringify({ error: 'Invalid request body' }), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json' }
+    });
   }
-});
+} else {
+  // Handle GET request (legacy)
+  const { searchParams } = Astro.url;
+  const date = searchParams.get('date');
+  const name = searchParams.get('name');
+
+  let icsContent = '';
+  let filename = 'meniny.ics';
+
+  if (date) {
+    // Generate ICS for a specific date
+    const names = await getNamesByDate(date);
+    icsContent = generateICSForDate(date, names);
+    filename = `meniny-${date}.ics`;
+  } else if (name) {
+    // Generate ICS for a specific name
+    const dates = await getDatesByName(name);
+    icsContent = makeMeninyICS({ name, dates });
+    filename = getICSFilename(name);
+  } else {
+    // Return error
+    return new Response('Missing date or name parameter', { status: 400 });
+  }
+
+  return new Response(icsContent, {
+    status: 200,
+    headers: {
+      'Content-Type': 'text/calendar; charset=utf-8',
+      'Content-Disposition': `attachment; filename="${filename}"`,
+      'Cache-Control': 'public, max-age=3600'
+    }
+  });
+}
 ---

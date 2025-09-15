@@ -1,0 +1,103 @@
+{
+  "budgets": {
+    "low": { "min": 5, "max": 25, "label": "5-25€" },
+    "medium": { "min": 25, "max": 75, "label": "25-75€" },
+    "high": { "min": 75, "max": 200, "label": "75-200€" },
+    "premium": { "min": 200, "max": 500, "label": "200-500€" }
+  },
+  "relations": {
+    "rodina": { "label": "Rodina", "weight": 1.0 },
+    "priatel": { "label": "Priateľ/Priateľka", "weight": 0.9 },
+    "partner": { "label": "Partner/Partnerka", "weight": 0.95 },
+    "kolega": { "label": "Kolega/Kolegyňa", "weight": 0.7 },
+    "ucitel": { "label": "Učiteľ/Učiteľka", "weight": 0.8 },
+    "sused": { "label": "Sused/Susedka", "weight": 0.6 }
+  },
+  "styles": {
+    "klasicky": { "label": "Klasický", "tags": ["elegantny", "tradicny", "sofistikovany"] },
+    "moderny": { "label": "Moderný", "tags": ["trendy", "minimalisticky", "design"] },
+    "romanticky": { "label": "Romantický", "tags": ["romanticky", "intimny", "osobny"] },
+    "prakticky": { "label": "Praktický", "tags": ["uzitocny", "funkcny", "prakticky"] },
+    "zabavny": { "label": "Zábavný", "tags": ["zabavny", "vtipny", "originalny"] },
+    "luxusny": { "label": "Luxusný", "tags": ["luxusny", "premium", "exkluzivny"] }
+  },
+  "delivery": {
+    "dnes": { "label": "Dnes", "days": 0, "premium": 1.5 },
+    "2dni": { "label": "2 dni", "days": 2, "premium": 1.2 },
+    "tyzden": { "label": "Týždeň", "days": 7, "premium": 1.0 }
+  },
+  "categories": {
+    "kvetiny": {
+      "label": "Kvetiny",
+      "items": [
+        { "title": "Kytice červených ruží", "why": "Klasický symbol lásky a úcty", "vendor": "brasty", "basePrice": 25 },
+        { "title": "Orchidea v keramickom hrnci", "why": "Elegantná a dlhotrvajúca", "vendor": "brasty", "basePrice": 35 },
+        { "title": "Sušené kvetiny v sklenenej váze", "why": "Moderný a minimalistický", "vendor": "brasty", "basePrice": 45 },
+        { "title": "Bonsai stromček", "why": "Symbol harmónie a pokoja", "vendor": "brasty", "basePrice": 60 }
+      ]
+    },
+    "knihy": {
+      "label": "Knihy",
+      "items": [
+        { "title": "Biografia slávnej osobnosti", "why": "Inšpiratívne čítanie", "vendor": "mall", "basePrice": 15 },
+        { "title": "Kuchárska kniha s receptami", "why": "Praktická a užitočná", "vendor": "mall", "basePrice": 20 },
+        { "title": "Román od obľúbeného autora", "why": "Zábavné čítanie na voľné chvíle", "vendor": "mall", "basePrice": 12 },
+        { "title": "Motivačná kniha", "why": "Pomôže pri rozvoji osobnosti", "vendor": "mall", "basePrice": 18 }
+      ]
+    },
+    "kosmetika": {
+      "label": "Kozmetika",
+      "items": [
+        { "title": "Parfumový set", "why": "Elegantný a luxusný darček", "vendor": "mall", "basePrice": 40 },
+        { "title": "Pleťová kúra", "why": "Starostlivosť o pokožku", "vendor": "mall", "basePrice": 30 },
+        { "title": "Spa balíček", "why": "Relax a regenerácia", "vendor": "mall", "basePrice": 50 },
+        { "title": "Make-up set", "why": "Pre krásny vzhľad", "vendor": "mall", "basePrice": 25 }
+      ]
+    },
+    "elektronika": {
+      "label": "Elektronika",
+      "items": [
+        { "title": "Bluetooth slúchadlá", "why": "Pre hudbu a hovory", "vendor": "alza", "basePrice": 80 },
+        { "title": "Power bank", "why": "Praktický pre mobilné zariadenia", "vendor": "alza", "basePrice": 25 },
+        { "title": "Smart hodinky", "why": "Moderný a funkčný", "vendor": "alza", "basePrice": 150 },
+        { "title": "USB kábel set", "why": "Praktický pre všetky zariadenia", "vendor": "alza", "basePrice": 15 }
+      ]
+    },
+    "oblecenie": {
+      "label": "Oblečenie",
+      "items": [
+        { "title": "Bavlnené tričko", "why": "Pohodlné a kvalitné", "vendor": "bonami", "basePrice": 20 },
+        { "title": "Merino vlnený sveter", "why": "Teplý a elegantný", "vendor": "bonami", "basePrice": 60 },
+        { "title": "Kožené topánky", "why": "Kvalitné a dlhotrvajúce", "vendor": "bonami", "basePrice": 120 },
+        { "title": "Džínsy", "why": "Klasické a univerzálne", "vendor": "bonami", "basePrice": 45 }
+      ]
+    },
+    "domacnost": {
+      "label": "Domácnosť",
+      "items": [
+        { "title": "Keramické hrnčeky", "why": "Pekné a praktické", "vendor": "bonami", "basePrice": 30 },
+        { "title": "LED žiarovky", "why": "Úsporné a moderné", "vendor": "alza", "basePrice": 20 },
+        { "title": "Kuchynské nože set", "why": "Praktický pre každodenné použitie", "vendor": "bonami", "basePrice": 80 },
+        { "title": "Dekoratívna vaza", "why": "Krásna dekorácia do bytu", "vendor": "bonami", "basePrice": 35 }
+      ]
+    },
+    "zabava": {
+      "label": "Zábava",
+      "items": [
+        { "title": "Puzzle 1000 dielikov", "why": "Relaxujúce a zábavné", "vendor": "mall", "basePrice": 15 },
+        { "title": "Spoločenská hra", "why": "Pre zábavu s rodinou", "vendor": "mall", "basePrice": 25 },
+        { "title": "Kino lístky", "why": "Romantický večer", "vendor": "mall", "basePrice": 20 },
+        { "title": "Koncert lístky", "why": "Pre hudobných fanúšikov", "vendor": "mall", "basePrice": 40 }
+      ]
+    },
+    "osobne": {
+      "label": "Osobné",
+      "items": [
+        { "title": "Personalizovaný náramok", "why": "Jedinečný a osobný", "vendor": "mall", "basePrice": 35 },
+        { "title": "Fotokniha", "why": "Vzácne spomienky", "vendor": "mall", "basePrice": 50 },
+        { "title": "Ručne vyrobená sviečka", "why": "Romantická atmosféra", "vendor": "mall", "basePrice": 20 },
+        { "title": "Personalizovaný hrnieček", "why": "S vlastným textom", "vendor": "mall", "basePrice": 15 }
+      ]
+    }
+  }
+}

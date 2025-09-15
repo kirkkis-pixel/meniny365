@@ -1,9 +1,18 @@
-import { format, parseISO } from 'date-fns';
+import { format, parseISO, addMinutes } from 'date-fns';
+
+export interface MeninyICSOptions {
+  name: string;
+  dates: string[];
+  withReminder?: boolean;
+  minutesBefore?: number;
+  wish?: string;
+}
 
 /**
- * Generate iCal content for a name's meniny dates
+ * Generate iCal content for a name's meniny dates with AI concierge features
  */
-export function generateICS(name: string, dates: string[]): string {
+export function makeMeninyICS(options: MeninyICSOptions): string {
+  const { name, dates, withReminder = false, minutesBefore = 1440, wish } = options;
   const now = new Date();
   const uid = `meniny-${name.toLowerCase().replace(/\s+/g, '-')}-${Date.now()}@meniny365.sk`;
   
@@ -24,6 +33,12 @@ export function generateICS(name: string, dates: string[]): string {
     const dtstart = `${year}${month}${day}`;
     const dtstamp = format(now, 'yyyyMMddTHHmmssZ');
     
+    // Create description with wish if provided
+    let description = `Meniny pre meno ${name} na Slovensku`;
+    if (wish) {
+      description += `\\n\\n${wish}`;
+    }
+    
     ics.push(
       'BEGIN:VEVENT',
       `UID:${uid}-${dtstart}`,
@@ -31,15 +46,37 @@ export function generateICS(name: string, dates: string[]): string {
       `DTSTART;VALUE=DATE:${dtstart}`,
       `DTEND;VALUE=DATE:${dtstart}`,
       `SUMMARY:Meniny - ${name}`,
-      `DESCRIPTION:Meniny pre meno ${name} na Slovensku`,
-      'RRULE:FREQ=YEARLY',
-      'END:VEVENT'
+      `DESCRIPTION:${description}`,
+      'RRULE:FREQ=YEARLY'
     );
+
+    // Add reminder if requested
+    if (withReminder) {
+      const reminderTime = addMinutes(date, -minutesBefore);
+      const reminderFormatted = format(reminderTime, 'yyyyMMddTHHmmssZ');
+      
+      ics.push(
+        'BEGIN:VALARM',
+        'ACTION:DISPLAY',
+        `TRIGGER:-PT${minutesBefore}M`,
+        `DESCRIPTION:Pripomienka: ${name} má zajtra meniny${wish ? `\\n\\n${wish}` : ''}`,
+        'END:VALARM'
+      );
+    }
+
+    ics.push('END:VEVENT');
   });
 
   ics.push('END:VCALENDAR');
   
   return ics.join('\r\n');
+}
+
+/**
+ * Legacy function for backward compatibility
+ */
+export function generateICS(name: string, dates: string[]): string {
+  return makeMeninyICS({ name, dates });
 }
 
 /**

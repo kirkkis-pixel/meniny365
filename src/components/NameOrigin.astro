@@ -1,0 +1,69 @@
+---
+import { getOriginSummary, getSourceCitation, hasInsights, getFallbackText } from '../lib/insights';
+
+export interface Props {
+  name: string;
+}
+
+const { name } = Astro.props;
+
+const originSummary = getOriginSummary(name);
+const sourceUrl = getSourceCitation(name);
+const hasData = hasInsights(name);
+const fallbackText = getFallbackText(name);
+---
+
+<div class="name-origin bg-gradient-to-br from-slate-50 to-indigo-50 rounded-2xl p-6 border border-slate-200/50">
+  <div class="flex items-start space-x-4">
+    <div class="flex-shrink-0">
+      <div class="w-12 h-12 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-xl flex items-center justify-center">
+        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+        </svg>
+      </div>
+    </div>
+    
+    <div class="flex-1">
+      <h3 class="text-lg font-semibold text-slate-800 mb-3">Pôvod & význam</h3>
+      
+      {hasData ? (
+        <div>
+          <p class="text-slate-700 leading-relaxed mb-4">
+            {originSummary}
+          </p>
+          
+          {sourceUrl && (
+            <div class="flex items-center space-x-2">
+              <span class="text-sm text-slate-500">Zdroj:</span>
+              <a 
+                href={sourceUrl} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                class="text-sm text-indigo-600 hover:text-indigo-800 transition-colors underline"
+              >
+                Wikipedia
+              </a>
+            </div>
+          )}
+        </div>
+      ) : (
+        <div>
+          <p class="text-slate-600 leading-relaxed mb-4">
+            {fallbackText}
+          </p>
+          
+          <div class="bg-blue-50 border border-blue-200 rounded-lg p-3">
+            <div class="flex items-center space-x-2">
+              <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              <span class="text-sm text-blue-800">
+                Pripravujeme podrobné informácie o tomto mene
+              </span>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,150 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import GiftIdeasForm from '../../components/GiftIdeasForm.astro';
+import GiftIdeasResults from '../../components/GiftIdeasResults.astro';
+
+// Generate structured data
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "AI Generátor darčekových nápadov | meniny365",
+  "description": "Inteligentný generátor darčekových nápadov pre meniny. Nájdite perfektný darček na základe rozpočtu, vzťahu a štýlu.",
+  "url": "https://meniny365.sk/sk/darceky",
+  "mainEntity": {
+    "@type": "SoftwareApplication",
+    "name": "AI Generátor darčekových nápadov",
+    "description": "Generátor darčekových nápadov využívajúci umelú inteligenciu",
+    "applicationCategory": "LifestyleApplication",
+    "operatingSystem": "Web"
+  }
+};
+---
+
+<Layout 
+  title="AI Generátor darčekových nápadov | meniny365"
+  description="Inteligentný generátor darčekových nápadov pre meniny. Nájdite perfektný darček na základe rozpočtu, vzťahu a štýlu."
+  canonical="https://meniny365.sk/sk/darceky"
+  structuredData={structuredData}
+>
+  <!-- Hero Section -->
+  <section class="relative pt-20 pb-16 overflow-hidden">
+    <!-- Background Overlay -->
+    <div class="absolute inset-0 bg-gradient-to-br from-white/90 via-white/95 to-indigo-50/60"></div>
+    
+    <div class="container relative z-10 text-center max-w-4xl">
+      <!-- Badge -->
+      <div class="inline-flex items-center bg-gradient-to-r from-slate-100 to-indigo-100 rounded-full px-4 py-2 mb-8 animate-fade-in-up shadow-sm">
+        <span class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-xs font-medium px-2 py-1 rounded-full mr-3">AI</span>
+        <span class="text-sm text-slate-700">Inteligentný generátor darčekov</span>
+        <svg class="w-4 h-4 ml-2 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+        </svg>
+      </div>
+      
+      <!-- Main Heading -->
+      <h1 class="text-6xl font-bold text-black mb-8 leading-tight animate-fade-in-up" style="animation-delay: 0.2s;">
+        Nájdite perfektný darček
+      </h1>
+      
+      <!-- Subtitle -->
+      <p class="text-xl text-gray-600 mb-12 max-w-2xl mx-auto leading-relaxed tracking-tight animate-fade-in-up" style="animation-delay: 0.4s;">
+        AI-powered generátor darčekových nápadov pre meniny. 
+        Zadajte kritériá a získajte personalizované návrhy darčekov.
+      </p>
+    </div>
+  </section>
+
+  <!-- Gift Ideas Generator -->
+  <section class="py-16">
+    <div class="container max-w-4xl">
+      <GiftIdeasForm />
+      <GiftIdeasResults />
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="py-20 bg-gray-50">
+    <div class="container">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold text-slate-800 mb-6">Prečo si vybrať náš generátor?</h2>
+        <p class="text-xl text-slate-600 max-w-2xl mx-auto">
+          Inteligentný systém, ktorý berie do úvahy všetky dôležité faktory
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="text-center p-6">
+          <div class="w-16 h-16 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold text-slate-800 mb-4">AI-Powered</h3>
+          <p class="text-slate-600">
+            Využíva umelú inteligenciu na generovanie relevantných a personalizovaných návrhov darčekov.
+          </p>
+        </div>
+        
+        <div class="text-center p-6">
+          <div class="w-16 h-16 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold text-slate-800 mb-4">Rozpočet</h3>
+          <p class="text-slate-600">
+            Filtruje nápady podľa vášho rozpočtu a zobrazuje ceny s ohľadom na rýchlosť doručenia.
+          </p>
+        </div>
+        
+        <div class="text-center p-6">
+          <div class="w-16 h-16 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold text-slate-800 mb-4">Personalizované</h3>
+          <p class="text-slate-600">
+            Berie do úvahy vzťah, štýl a preferencie pre maximálne relevantné návrhy.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-20 bg-gradient-to-r from-indigo-600 to-purple-600">
+    <div class="container text-center">
+      <h2 class="text-4xl font-bold text-white mb-6">
+        Začnite hľadať darčeky ešte dnes
+      </h2>
+      <p class="text-xl text-indigo-100 mb-8 max-w-2xl mx-auto">
+        Vyplňte formulár vyššie a získajte personalizované návrhy darčekov za menej ako minútu.
+      </p>
+      <a 
+        href="#giftForm" 
+        class="inline-flex items-center bg-white text-indigo-600 px-8 py-4 rounded-xl font-semibold hover:bg-indigo-50 transition-all duration-200 transform hover:scale-105 shadow-lg"
+      >
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+        </svg>
+        Začať hľadať
+      </a>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out forwards;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>

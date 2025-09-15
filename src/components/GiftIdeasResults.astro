@@ -1,0 +1,120 @@
+---
+// No server-side logic needed for this component
+---
+
+<div id="giftResults" class="gift-ideas-results hidden">
+  <div class="bg-white rounded-2xl p-8 shadow-lg border border-slate-200/50">
+    <div class="flex items-center justify-between mb-6">
+      <h3 class="text-2xl font-bold text-slate-800">Darčekové nápady</h3>
+      <button 
+        id="closeResults" 
+        class="text-slate-400 hover:text-slate-600 transition-colors"
+        aria-label="Zavrieť výsledky"
+      >
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+    
+    <div id="resultsContent" class="space-y-4">
+      <!-- Results will be populated here -->
+    </div>
+    
+    <div class="mt-6 pt-6 border-t border-slate-200">
+      <button 
+        id="generateNew" 
+        class="w-full bg-gradient-to-r from-slate-600 to-slate-700 text-white py-3 px-6 rounded-xl font-medium hover:from-slate-700 hover:to-slate-800 transition-all duration-200"
+      >
+        Generovať nové nápady
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Listen for gift ideas generated event
+  document.addEventListener('giftIdeasGenerated', (event: CustomEvent) => {
+    const data = event.detail;
+    displayResults(data);
+  });
+  
+  function displayResults(data: any) {
+    const resultsDiv = document.getElementById('giftResults');
+    const contentDiv = document.getElementById('resultsContent');
+    
+    if (!resultsDiv || !contentDiv) return;
+    
+    // Show results
+    resultsDiv.classList.remove('hidden');
+    
+    // Populate content
+    contentDiv.innerHTML = data.ideas.map((idea: any, index: number) => `
+      <div class="gift-idea-card bg-gradient-to-r from-slate-50 to-indigo-50 rounded-xl p-6 border border-slate-200/50 hover:shadow-md transition-all duration-200">
+        <div class="flex items-start justify-between mb-3">
+          <h4 class="text-lg font-semibold text-slate-800">${idea.title}</h4>
+          <div class="flex items-center space-x-2">
+            <span class="text-sm font-medium text-indigo-600 bg-indigo-100 px-2 py-1 rounded-full">
+              ${idea.priceHint || 'Cena na požiadanie'}
+            </span>
+            <span class="text-xs text-slate-500 bg-slate-100 px-2 py-1 rounded-full">
+              ${idea.vendor}
+            </span>
+          </div>
+        </div>
+        
+        <p class="text-slate-600 mb-4">${idea.why}</p>
+        
+        <div class="flex flex-wrap gap-2 mb-4">
+          ${idea.tags.map((tag: string) => `
+            <span class="text-xs bg-white text-slate-600 px-2 py-1 rounded-full border border-slate-200">
+              ${tag}
+            </span>
+          `).join('')}
+        </div>
+        
+        <div class="flex items-center justify-between">
+          <span class="text-sm text-slate-500">Kategória: ${idea.category}</span>
+          <a 
+            href="${idea.affiliateUrl}" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 transform hover:scale-105"
+          >
+            Zobraziť ponuku
+          </a>
+        </div>
+      </div>
+    `).join('');
+    
+    // Scroll to results
+    resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  
+  // Close results
+  document.getElementById('closeResults')?.addEventListener('click', () => {
+    const resultsDiv = document.getElementById('giftResults');
+    if (resultsDiv) {
+      resultsDiv.classList.add('hidden');
+    }
+  });
+  
+  // Generate new ideas
+  document.getElementById('generateNew')?.addEventListener('click', () => {
+    const resultsDiv = document.getElementById('giftResults');
+    const formElement = document.getElementById('giftForm');
+    const loadingElement = document.getElementById('loadingState');
+    
+    if (resultsDiv) {
+      resultsDiv.classList.add('hidden');
+    }
+    
+    if (formElement && loadingElement) {
+      formElement.classList.remove('hidden');
+      loadingElement.classList.add('hidden');
+    }
+    
+    // Scroll to form
+    formElement?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+</script>

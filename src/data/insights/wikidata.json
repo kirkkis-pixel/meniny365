@@ -1,0 +1,152 @@
+{
+  "Ján": {
+    "name": "Ján",
+    "labels": {
+      "sk": "Ján",
+      "en": "John"
+    },
+    "description": {
+      "sk": "Mužské krstné meno hebrejského pôvodu",
+      "en": "Male given name of Hebrew origin"
+    },
+    "relatedNames": ["Johan", "Johannes", "Jean", "Giovanni", "Ivan"],
+    "gender": "male",
+    "languageOfOrigin": "Hebrew",
+    "sourceUrl": "https://sk.wikipedia.org/wiki/Ján"
+  },
+  "Jana": {
+    "name": "Jana",
+    "labels": {
+      "sk": "Jana",
+      "en": "Jane"
+    },
+    "description": {
+      "sk": "Ženské krstné meno hebrejského pôvodu",
+      "en": "Female given name of Hebrew origin"
+    },
+    "relatedNames": ["Jane", "Joanna", "Johanna", "Giovanna", "Ivana"],
+    "gender": "female",
+    "languageOfOrigin": "Hebrew",
+    "sourceUrl": "https://sk.wikipedia.org/wiki/Jana"
+  },
+  "Peter": {
+    "name": "Peter",
+    "labels": {
+      "sk": "Peter",
+      "en": "Peter"
+    },
+    "description": {
+      "sk": "Mužské krstné meno gréckeho pôvodu",
+      "en": "Male given name of Greek origin"
+    },
+    "relatedNames": ["Petr", "Pierre", "Pietro", "Pedro", "Péter"],
+    "gender": "male",
+    "languageOfOrigin": "Greek",
+    "sourceUrl": "https://sk.wikipedia.org/wiki/Peter"
+  },
+  "Mária": {
+    "name": "Mária",
+    "labels": {
+      "sk": "Mária",
+      "en": "Mary"
+    },
+    "description": {
+      "sk": "Ženské krstné meno hebrejského pôvodu",
+      "en": "Female given name of Hebrew origin"
+    },
+    "relatedNames": ["Mary", "Marie", "Maria", "Marija", "María"],
+    "gender": "female",
+    "languageOfOrigin": "Hebrew",
+    "sourceUrl": "https://sk.wikipedia.org/wiki/Mária"
+  },
+  "Michal": {
+    "name": "Michal",
+    "labels": {
+      "sk": "Michal",
+      "en": "Michael"
+    },
+    "description": {
+      "sk": "Mužské krstné meno hebrejského pôvodu",
+      "en": "Male given name of Hebrew origin"
+    },
+    "relatedNames": ["Michael", "Michel", "Michele", "Miguel", "Mihail"],
+    "gender": "male",
+    "languageOfOrigin": "Hebrew",
+    "sourceUrl": "https://sk.wikipedia.org/wiki/Michal"
+  },
+  "Anna": {
+    "name": "Anna",
+    "labels": {
+      "sk": "Anna",
+      "en": "Anna"
+    },
+    "description": {
+      "sk": "Ženské krstné meno hebrejského pôvodu",
+      "en": "Female given name of Hebrew origin"
+    },
+    "relatedNames": ["Anne", "Ana", "Anita", "Annette", "Hannah"],
+    "gender": "female",
+    "languageOfOrigin": "Hebrew",
+    "sourceUrl": "https://sk.wikipedia.org/wiki/Anna"
+  },
+  "Jozef": {
+    "name": "Jozef",
+    "labels": {
+      "sk": "Jozef",
+      "en": "Joseph"
+    },
+    "description": {
+      "sk": "Mužské krstné meno hebrejského pôvodu",
+      "en": "Male given name of Hebrew origin"
+    },
+    "relatedNames": ["Joseph", "Josef", "Giuseppe", "José", "Józef"],
+    "gender": "male",
+    "languageOfOrigin": "Hebrew",
+    "sourceUrl": "https://sk.wikipedia.org/wiki/Jozef"
+  },
+  "Alžbeta": {
+    "name": "Alžbeta",
+    "labels": {
+      "sk": "Alžbeta",
+      "en": "Elizabeth"
+    },
+    "description": {
+      "sk": "Ženské krstné meno hebrejského pôvodu",
+      "en": "Female given name of Hebrew origin"
+    },
+    "relatedNames": ["Elizabeth", "Elisabeth", "Elisabetta", "Isabel", "Elisabeta"],
+    "gender": "female",
+    "languageOfOrigin": "Hebrew",
+    "sourceUrl": "https://sk.wikipedia.org/wiki/Alžbeta"
+  },
+  "Pavol": {
+    "name": "Pavol",
+    "labels": {
+      "sk": "Pavol",
+      "en": "Paul"
+    },
+    "description": {
+      "sk": "Mužské krstné meno latinského pôvodu",
+      "en": "Male given name of Latin origin"
+    },
+    "relatedNames": ["Paul", "Paolo", "Pablo", "Pavel", "Pál"],
+    "gender": "male",
+    "languageOfOrigin": "Latin",
+    "sourceUrl": "https://sk.wikipedia.org/wiki/Pavol"
+  },
+  "Katarína": {
+    "name": "Katarína",
+    "labels": {
+      "sk": "Katarína",
+      "en": "Catherine"
+    },
+    "description": {
+      "sk": "Ženské krstné meno gréckeho pôvodu",
+      "en": "Female given name of Greek origin"
+    },
+    "relatedNames": ["Catherine", "Katarina", "Caterina", "Catalina", "Katalin"],
+    "gender": "female",
+    "languageOfOrigin": "Greek",
+    "sourceUrl": "https://sk.wikipedia.org/wiki/Katarína"
+  }
+}

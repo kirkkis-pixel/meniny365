@@ -1,0 +1,81 @@
+---
+import { getInternationalVariants } from '../lib/insights';
+
+export interface Props {
+  name: string;
+}
+
+const { name } = Astro.props;
+
+const variants = getInternationalVariants(name);
+---
+
+<div class="international-variants bg-gradient-to-br from-slate-50 to-indigo-50 rounded-2xl p-6 border border-slate-200/50">
+  <div class="flex items-start space-x-4">
+    <div class="flex-shrink-0">
+      <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
+        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path>
+        </svg>
+      </div>
+    </div>
+    
+    <div class="flex-1">
+      <h3 class="text-lg font-semibold text-slate-800 mb-3">Medzinárodné varianty</h3>
+      
+      {variants.length > 0 ? (
+        <div>
+          <p class="text-slate-600 text-sm mb-4">
+            Medzinárodné varianty mena <span class="font-medium text-slate-800">{name}</span>:
+          </p>
+          
+          <div class="space-y-2">
+            {variants.map((variant, index) => (
+              <div class="flex items-center justify-between bg-white rounded-lg p-3 border border-slate-200 hover:border-indigo-300 transition-colors">
+                <div class="flex items-center space-x-3">
+                  <div class="w-8 h-8 bg-gradient-to-r from-indigo-100 to-purple-100 rounded-lg flex items-center justify-center">
+                    <span class="text-xs font-semibold text-indigo-600">
+                      {variant.language.charAt(0)}
+                    </span>
+                  </div>
+                  <div>
+                    <div class="font-medium text-slate-800">{variant.name}</div>
+                    <div class="text-sm text-slate-500">
+                      {variant.language}
+                      {variant.country && ` • ${variant.country}`}
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="text-xs text-slate-400">
+                  {index + 1}
+                </div>
+              </div>
+            ))}
+          </div>
+          
+          <div class="mt-4 text-xs text-slate-500">
+            Tieto varianty sa používajú v rôznych krajinách a jazykoch
+          </div>
+        </div>
+      ) : (
+        <div>
+          <p class="text-slate-600 text-sm mb-4">
+            Pre meno <span class="font-medium text-slate-800">{name}</span> sme nenašli medzinárodné varianty.
+          </p>
+          
+          <div class="bg-slate-100 rounded-lg p-3">
+            <div class="flex items-center space-x-2">
+              <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              <span class="text-sm text-slate-600">
+                Informácie o medzinárodných variantoch sa pripravujú
+              </span>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,275 @@
+---
+// No server-side logic needed for this component
+---
+
+<div class="ecard-maker bg-white rounded-2xl p-8 shadow-lg border border-slate-200/50">
+  <h3 class="text-2xl font-bold text-slate-800 mb-6 text-center">Vytvoriť e-pohľadnicu</h3>
+  
+  <form id="cardForm" class="space-y-6">
+    <!-- Name Input -->
+    <div>
+      <label for="cardName" class="block text-sm font-medium text-slate-700 mb-2">
+        Meno pre pohľadnicu
+      </label>
+      <input 
+        type="text" 
+        id="cardName" 
+        name="name"
+        required
+        class="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors"
+        placeholder="Zadajte meno..."
+        aria-label="Meno pre e-pohľadnicu"
+      >
+    </div>
+    
+    <!-- Message Input -->
+    <div>
+      <label for="cardMessage" class="block text-sm font-medium text-slate-700 mb-2">
+        Správa (voliteľné)
+      </label>
+      <textarea 
+        id="cardMessage" 
+        name="message"
+        rows="3"
+        class="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors resize-none"
+        placeholder="Všetko najlepšie k meninám!"
+        aria-label="Správa pre e-pohľadnicu"
+      ></textarea>
+    </div>
+    
+    <!-- Style Selection -->
+    <div>
+      <label class="block text-sm font-medium text-slate-700 mb-2">
+        Štýl pohľadnice
+      </label>
+      <div class="grid grid-cols-2 gap-3">
+        <label class="flex items-center space-x-3 cursor-pointer p-3 border border-slate-300 rounded-xl hover:border-indigo-500 transition-colors">
+          <input type="radio" name="style" value="minimal" class="text-indigo-600 focus:ring-indigo-500" checked>
+          <div>
+            <div class="font-medium text-slate-800">Minimalistický</div>
+            <div class="text-sm text-slate-600">Čistý a jednoduchý</div>
+          </div>
+        </label>
+        <label class="flex items-center space-x-3 cursor-pointer p-3 border border-slate-300 rounded-xl hover:border-indigo-500 transition-colors">
+          <input type="radio" name="style" value="ornamental" class="text-indigo-600 focus:ring-indigo-500">
+          <div>
+            <div class="font-medium text-slate-800">Ozdobný</div>
+            <div class="text-sm text-slate-600">S dekoratívnymi prvkami</div>
+          </div>
+        </label>
+      </div>
+    </div>
+    
+    <!-- Color Palette -->
+    <div>
+      <label class="block text-sm font-medium text-slate-700 mb-2">
+        Farbová paleta
+      </label>
+      <div class="grid grid-cols-2 gap-3">
+        <label class="flex items-center space-x-3 cursor-pointer p-3 border border-slate-300 rounded-xl hover:border-indigo-500 transition-colors">
+          <input type="radio" name="palette" value="classic" class="text-indigo-600 focus:ring-indigo-500" checked>
+          <div class="flex space-x-1">
+            <div class="w-4 h-4 rounded-full bg-slate-800"></div>
+            <div class="w-4 h-4 rounded-full bg-blue-500"></div>
+            <div class="w-4 h-4 rounded-full bg-white border border-slate-300"></div>
+          </div>
+          <span class="text-sm font-medium text-slate-800">Klasická</span>
+        </label>
+        <label class="flex items-center space-x-3 cursor-pointer p-3 border border-slate-300 rounded-xl hover:border-indigo-500 transition-colors">
+          <input type="radio" name="palette" value="romantic" class="text-indigo-600 focus:ring-indigo-500">
+          <div class="flex space-x-1">
+            <div class="w-4 h-4 rounded-full bg-pink-700"></div>
+            <div class="w-4 h-4 rounded-full bg-pink-300"></div>
+            <div class="w-4 h-4 rounded-full bg-yellow-100"></div>
+          </div>
+          <span class="text-sm font-medium text-slate-800">Romantická</span>
+        </label>
+        <label class="flex items-center space-x-3 cursor-pointer p-3 border border-slate-300 rounded-xl hover:border-indigo-500 transition-colors">
+          <input type="radio" name="palette" value="elegant" class="text-indigo-600 focus:ring-indigo-500">
+          <div class="flex space-x-1">
+            <div class="w-4 h-4 rounded-full bg-gray-700"></div>
+            <div class="w-4 h-4 rounded-full bg-purple-500"></div>
+            <div class="w-4 h-4 rounded-full bg-gray-100"></div>
+          </div>
+          <span class="text-sm font-medium text-slate-800">Elegantná</span>
+        </label>
+        <label class="flex items-center space-x-3 cursor-pointer p-3 border border-slate-300 rounded-xl hover:border-indigo-500 transition-colors">
+          <input type="radio" name="palette" value="modern" class="text-indigo-600 focus:ring-indigo-500">
+          <div class="flex space-x-1">
+            <div class="w-4 h-4 rounded-full bg-slate-900"></div>
+            <div class="w-4 h-4 rounded-full bg-cyan-500"></div>
+            <div class="w-4 h-4 rounded-full bg-slate-100"></div>
+          </div>
+          <span class="text-sm font-medium text-slate-800">Moderná</span>
+        </label>
+      </div>
+    </div>
+    
+    <!-- Generate Button -->
+    <button 
+      type="submit" 
+      class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-4 px-6 rounded-xl font-semibold hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 transform hover:scale-105 shadow-lg"
+      aria-label="Vygenerovať e-pohľadnicu"
+    >
+      <span class="flex items-center justify-center space-x-2">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+        </svg>
+        <span>Vygenerovať kartu</span>
+      </span>
+    </button>
+  </form>
+  
+  <!-- Loading State -->
+  <div id="loadingState" class="hidden text-center py-8">
+    <div class="inline-flex items-center space-x-3">
+      <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-indigo-600"></div>
+      <span class="text-slate-600">Generujem pohľadnicu...</span>
+    </div>
+  </div>
+  
+  <!-- Preview and Results -->
+  <div id="cardPreview" class="hidden mt-8">
+    <div class="bg-slate-50 rounded-xl p-6">
+      <h4 class="text-lg font-semibold text-slate-800 mb-4 text-center">Náhľad pohľadnice</h4>
+      <div id="previewImage" class="text-center">
+        <!-- Preview will be shown here -->
+      </div>
+      <div class="flex flex-col sm:flex-row gap-3 mt-6">
+        <a 
+          id="downloadBtn" 
+          href="#" 
+          class="flex-1 bg-gradient-to-r from-slate-600 to-slate-700 text-white py-3 px-6 rounded-xl font-medium hover:from-slate-700 hover:to-slate-800 transition-all duration-200 text-center"
+        >
+          <span class="flex items-center justify-center space-x-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+            <span>Stiahnuť PNG</span>
+          </span>
+        </a>
+        <button 
+          id="shareBtn" 
+          class="flex-1 bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3 px-6 rounded-xl font-medium hover:from-indigo-700 hover:to-purple-700 transition-all duration-200"
+        >
+          <span class="flex items-center justify-center space-x-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z"></path>
+            </svg>
+            <span>Zdieľať</span>
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Color palette mappings
+  const PALETTES = {
+    classic: ['#1e293b', '#3b82f6', '#ffffff'],
+    romantic: ['#be185d', '#f472b6', '#fef3c7'],
+    elegant: ['#374151', '#8b5cf6', '#f3f4f6'],
+    festive: ['#dc2626', '#f59e0b', '#fef3c7'],
+    modern: ['#0f172a', '#06b6d4', '#f1f5f9']
+  };
+
+  document.getElementById('cardForm')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const form = e.target as HTMLFormElement;
+    const formData = new FormData(form);
+    
+    // Collect form data
+    const cardData = {
+      name: formData.get('name') as string,
+      message: formData.get('message') as string || undefined,
+      style: formData.get('style') as string || 'minimal',
+      palette: PALETTES[formData.get('palette') as keyof typeof PALETTES] || PALETTES.classic
+    };
+    
+    // Show loading state
+    const formElement = document.getElementById('cardForm');
+    const loadingElement = document.getElementById('loadingState');
+    const previewElement = document.getElementById('cardPreview');
+    
+    if (formElement && loadingElement) {
+      formElement.classList.add('hidden');
+      loadingElement.classList.remove('hidden');
+    }
+    
+    try {
+      // Call API
+      const response = await fetch('/api/ai/card', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(cardData)
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to generate e-card');
+      }
+      
+      const data = await response.json();
+      
+      // Show preview
+      if (previewElement) {
+        const previewImage = document.getElementById('previewImage');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const shareBtn = document.getElementById('shareBtn');
+        
+        if (previewImage) {
+          previewImage.innerHTML = `
+            <img src="${data.imageUrl}" alt="E-card preview" class="max-w-full h-auto rounded-lg shadow-lg mx-auto" style="max-height: 400px;">
+          `;
+        }
+        
+        if (downloadBtn) {
+          downloadBtn.href = data.downloadUrl;
+        }
+        
+        if (shareBtn) {
+          shareBtn.addEventListener('click', () => {
+            if (navigator.share) {
+              navigator.share({
+                title: `E-pohľadnica pre ${cardData.name}`,
+                text: `Pozrite si túto krásnu e-pohľadnicu pre ${cardData.name}!`,
+                url: data.shareUrl
+              });
+            } else {
+              // Fallback: copy to clipboard
+              navigator.clipboard.writeText(data.shareUrl).then(() => {
+                alert('Odkaz na pohľadnicu bol skopírovaný do schránky!');
+              });
+            }
+          });
+        }
+        
+        previewElement.classList.remove('hidden');
+      }
+      
+      // Hide loading, show form again
+      if (loadingElement) {
+        loadingElement.classList.add('hidden');
+      }
+      if (formElement) {
+        formElement.classList.remove('hidden');
+      }
+      
+    } catch (error) {
+      console.error('Error generating e-card:', error);
+      
+      // Show error message
+      const errorDiv = document.createElement('div');
+      errorDiv.className = 'bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl text-center';
+      errorDiv.textContent = 'Chyba pri generovaní pohľadnice. Skúste to znova.';
+      
+      if (loadingElement) {
+        loadingElement.innerHTML = '';
+        loadingElement.appendChild(errorDiv);
+      }
+    }
+  });
+</script>

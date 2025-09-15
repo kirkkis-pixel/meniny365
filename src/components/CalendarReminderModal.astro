@@ -1,0 +1,243 @@
+---
+// No server-side logic needed for this component
+---
+
+<div id="calendarModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+  <div class="bg-white rounded-2xl max-w-md w-full">
+    <div class="p-6">
+      <div class="flex items-center justify-between mb-6">
+        <h3 class="text-xl font-semibold text-slate-800">Pridať do kalendára</h3>
+        <button id="closeCalendarModal" class="text-slate-400 hover:text-slate-600 transition-colors">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+      
+      <form id="calendarForm" class="space-y-6">
+        <!-- Reminder Checkbox -->
+        <div class="flex items-center space-x-3">
+          <input 
+            type="checkbox" 
+            id="withReminder" 
+            name="withReminder"
+            checked
+            class="w-5 h-5 text-indigo-600 bg-gray-100 border-gray-300 rounded focus:ring-indigo-500 focus:ring-2"
+          >
+          <label for="withReminder" class="text-sm font-medium text-slate-700">
+            Chcem pripomienku
+          </label>
+        </div>
+        
+        <!-- Reminder Time -->
+        <div id="reminderOptions" class="space-y-4">
+          <div>
+            <label for="reminderTime" class="block text-sm font-medium text-slate-700 mb-2">
+              Kedy chcete pripomienku?
+            </label>
+            <select 
+              id="reminderTime" 
+              name="reminderTime"
+              class="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+            >
+              <option value="1440">1 deň pred (štandardné)</option>
+              <option value="720">12 hodín pred</option>
+              <option value="60">1 hodina pred</option>
+              <option value="30">30 minút pred</option>
+              <option value="15">15 minút pred</option>
+            </select>
+          </div>
+          
+          <div>
+            <label for="reminderTimeOfDay" class="block text-sm font-medium text-slate-700 mb-2">
+              Čas pripomienky
+            </label>
+            <select 
+              id="reminderTimeOfDay" 
+              name="reminderTimeOfDay"
+              class="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+            >
+              <option value="10:00">10:00 (ráno)</option>
+              <option value="12:00">12:00 (obed)</option>
+              <option value="18:00">18:00 (večer)</option>
+              <option value="20:00">20:00 (večer)</option>
+            </select>
+          </div>
+        </div>
+        
+        <!-- Wish Message -->
+        <div>
+          <label for="wishMessage" class="block text-sm font-medium text-slate-700 mb-2">
+            Krátke prianie (voliteľné)
+          </label>
+          <select 
+            id="wishMessage" 
+            name="wishMessage"
+            class="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+          >
+            <option value="">Bez priania</option>
+            <option value="Všetko najlepšie k meninám!">Všetko najlepšie k meninám!</option>
+            <option value="Gratulujem k meninám!">Gratulujem k meninám!</option>
+            <option value="Krásne meniny!">Krásne meniny!</option>
+            <option value="Nech ti meniny prinesú veľa radosti!">Nech ti meniny prinesú veľa radosti!</option>
+            <option value="Prajem ti šťastné meniny!">Prajem ti šťastné meniny!</option>
+            <option value="Všetko najlepšie a veľa zdravia!">Všetko najlepšie a veľa zdravia!</option>
+          </select>
+        </div>
+        
+        <!-- Custom Message -->
+        <div>
+          <label for="customMessage" class="block text-sm font-medium text-slate-700 mb-2">
+            Vlastné prianie
+          </label>
+          <textarea 
+            id="customMessage" 
+            name="customMessage"
+            rows="3"
+            class="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 resize-none"
+            placeholder="Napíšte vlastné prianie..."
+          ></textarea>
+        </div>
+        
+        <!-- Action Buttons -->
+        <div class="flex flex-col sm:flex-row gap-3">
+          <button 
+            type="button" 
+            id="downloadICS" 
+            class="flex-1 bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3 px-6 rounded-xl font-semibold hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 transform hover:scale-105"
+          >
+            <span class="flex items-center justify-center space-x-2">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+              </svg>
+              <span>Stiahnuť .ics</span>
+            </span>
+          </button>
+          
+          <button 
+            type="button" 
+            id="cancelCalendar" 
+            class="flex-1 bg-slate-200 text-slate-700 py-3 px-6 rounded-xl font-semibold hover:bg-slate-300 transition-all duration-200"
+          >
+            Zrušiť
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Calendar modal data
+  let calendarData: {
+    name: string;
+    dates: string[];
+  } | null = null;
+
+  // Listen for calendar modal open event
+  document.addEventListener('openCalendarModal', (event: CustomEvent) => {
+    calendarData = event.detail;
+    const modal = document.getElementById('calendarModal');
+    if (modal) {
+      modal.classList.remove('hidden');
+    }
+  });
+
+  // Close modal
+  document.getElementById('closeCalendarModal')?.addEventListener('click', closeModal);
+  document.getElementById('cancelCalendar')?.addEventListener('click', closeModal);
+
+  function closeModal() {
+    const modal = document.getElementById('calendarModal');
+    if (modal) {
+      modal.classList.add('hidden');
+    }
+  }
+
+  // Toggle reminder options
+  document.getElementById('withReminder')?.addEventListener('change', (e) => {
+    const reminderOptions = document.getElementById('reminderOptions');
+    if (reminderOptions) {
+      if ((e.target as HTMLInputElement).checked) {
+        reminderOptions.classList.remove('hidden');
+      } else {
+        reminderOptions.classList.add('hidden');
+      }
+    }
+  });
+
+  // Handle custom message
+  document.getElementById('wishMessage')?.addEventListener('change', (e) => {
+    const customMessage = document.getElementById('customMessage') as HTMLTextAreaElement;
+    if (customMessage) {
+      if ((e.target as HTMLSelectElement).value === '') {
+        customMessage.disabled = false;
+        customMessage.placeholder = 'Napíšte vlastné prianie...';
+      } else {
+        customMessage.disabled = true;
+        customMessage.value = '';
+        customMessage.placeholder = 'Vyberte prianie z ponuky vyššie...';
+      }
+    }
+  });
+
+  // Download ICS
+  document.getElementById('downloadICS')?.addEventListener('click', async () => {
+    if (!calendarData) return;
+
+    const form = document.getElementById('calendarForm') as HTMLFormElement;
+    const formData = new FormData(form);
+
+    const withReminder = formData.get('withReminder') === 'on';
+    const reminderTime = parseInt(formData.get('reminderTime') as string) || 1440;
+    const wishMessage = formData.get('wishMessage') as string;
+    const customMessage = formData.get('customMessage') as string;
+    
+    const wish = customMessage.trim() || wishMessage;
+
+    try {
+      const response = await fetch('/api/ical', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: calendarData.name,
+          dates: calendarData.dates,
+          withReminder,
+          minutesBefore: reminderTime,
+          wish: wish || undefined
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to generate calendar file');
+      }
+
+      // Download the file
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${calendarData.name.toLowerCase().replace(/\s+/g, '-')}-meniny.ics`;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+
+      // Close modal
+      closeModal();
+
+    } catch (error) {
+      console.error('Error downloading calendar file:', error);
+      alert('Chyba pri sťahovaní kalendára. Skúste to znova.');
+    }
+  });
+
+  // Close modal when clicking outside
+  document.getElementById('calendarModal')?.addEventListener('click', (e) => {
+    if (e.target === document.getElementById('calendarModal')) {
+      closeModal();
+    }
+  });
+</script>

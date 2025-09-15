@@ -13,6 +13,7 @@
   "dependencies": {
     "@astrojs/rss": "^4.0.12",
     "@astrojs/sitemap": "^3.5.1",
+    "@astrojs/vercel": "^8.2.7",
     "@tailwindcss/vite": "^4.1.13",
     "@types/node": "^24.4.0",
     "astro": "^5.13.7",

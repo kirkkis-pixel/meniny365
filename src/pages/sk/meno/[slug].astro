@@ -1,8 +1,14 @@
 ---
+export const prerender = false; // Server-render on demand to reduce build size
+
 import Layout from '../../../layouts/Layout.astro';
 import { getDatesByName, getAllNames, getNextOccurrence, getPrevOccurrence } from '../../../lib/meniny';
 import { toSlug, fromSlug } from '../../../lib/slug';
 import { formatDateSlovak } from '../../../lib/date';
+import NameOrigin from '../../../components/NameOrigin.astro';
+import SimilarNames from '../../../components/SimilarNames.astro';
+import InternationalVariants from '../../../components/InternationalVariants.astro';
+import CalendarReminderModal from '../../../components/CalendarReminderModal.astro';
 
 export async function getStaticPaths() {
   // Get all names and generate paths
@@ -81,13 +87,12 @@ const structuredData = {
       </div>
       
       <div class="card p-6 max-w-2xl mx-auto">
-        <a 
-          href={`/api/ical?name=${encodeURIComponent(actualName)}`}
-          class="btn btn-primary text-lg px-6 py-3"
-          download={`${actualName}-meniny.ics`}
+        <button 
+          id="addToCalendar"
+          class="btn btn-primary text-lg px-6 py-3 w-full"
         >
           📅 Pridať do kalendára
-        </a>
+        </button>
       </div>
     </div>
 
@@ -104,6 +109,7 @@ const structuredData = {
             return (
               <a
                 href={`/sk/den/${dateStr.split('-')[0]}/${dateStr.split('-')[1]}/${dateStr.split('-')[2]}`}
+                data-date={dateStr}
                 class={`
                   p-4 rounded-lg border transition-all
                   ${isUpcoming 
@@ -129,9 +135,28 @@ const structuredData = {
       )}
     </div>
 
+    <!-- Insight Blocks -->
+    <div class="space-y-8 mb-12">
+      <NameOrigin name={actualName} />
+      <SimilarNames name={actualName} />
+      <InternationalVariants name={actualName} />
+    </div>
+
     <!-- Darčekové nápady -->
     <div class="card p-8 mb-12">
       <h2 class="text-2xl font-semibold text-[var(--text)] mb-6">Darčekové nápady pre {actualName}</h2>
+      
+      <div class="text-center mb-6">
+        <a 
+          href="/sk/darceky" 
+          class="inline-flex items-center bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-3 rounded-xl font-semibold hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 transform hover:scale-105"
+        >
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+          </svg>
+          Generovať darčekové nápady
+        </a>
+      </div>
       
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <div class="p-4 border border-[var(--border)] rounded-lg">
@@ -163,50 +188,6 @@ const structuredData = {
             <li>• 100€+ - luxusné darčeky</li>
           </ul>
         </div>
-      </div>
-    </div>
-
-    <!-- Pôvod & význam -->
-    <div class="card p-8 mb-12">
-      <h2 class="text-2xl font-semibold text-[var(--text)] mb-6">Pôvod & význam</h2>
-      
-      <div class="prose prose-lg text-[var(--text)]">
-        <p class="text-[var(--muted)] leading-relaxed">
-          Meno {actualName} má bohatú históriu a zaujímavý pôvod. Je to {dates.length > 1 ? 'jedno z mien, ktoré sa oslavuje viackrát do roka' : 'meno, ktoré sa oslavuje raz do roka'} 
-          a patrí medzi {dates.length > 3 ? 'najčastejšie oslavované mená' : 'mená s menej častými meninami'} na Slovensku.
-        </p>
-        
-        <h3 class="text-xl font-semibold mt-6 mb-4">Zaujímavosti o mene {actualName}</h3>
-        <ul class="text-[var(--muted)] space-y-2">
-          <li>• Meno sa oslavuje {dates.length} krát do roka</li>
-          <li>• Patrí medzi {dates.length > 3 ? 'populárne' : 'menej časté'} mená na Slovensku</li>
-          <li>• {nextOccurrence ? `Najbližšie meniny budú ${formatDateSlovak(nextOccurrence)}` : 'Meniny už boli tento rok'}</li>
-          <li>• Meno má {actualName.length} písmen</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- Podobné mená -->
-    <div class="card p-8 mb-12">
-      <h2 class="text-2xl font-semibold text-[var(--text)] mb-6">Podobné mená</h2>
-      
-      <div class="flex flex-wrap gap-3">
-        {allNames
-          .filter(name => 
-            name !== actualName && 
-            (name.toLowerCase().includes(actualName.toLowerCase().slice(0, 3)) ||
-             actualName.toLowerCase().includes(name.toLowerCase().slice(0, 3)))
-          )
-          .slice(0, 8)
-          .map(name => (
-            <a
-              href={`/sk/meno/${toSlug(name)}`}
-              class="px-4 py-2 bg-[var(--card)] border border-[var(--border)] rounded-lg hover:bg-[var(--hover)] transition-colors"
-            >
-              {name}
-            </a>
-          ))
-        }
       </div>
     </div>
 
@@ -244,5 +225,37 @@ const structuredData = {
         <p class="text-[var(--muted)]">Nájdite perfektné meno pre vaše dieťa</p>
       </a>
     </div>
+
+    <!-- Calendar Reminder Modal -->
+    <CalendarReminderModal />
   </div>
 </Layout>
+
+<script>
+  // Handle "Pridať do kalendára" button
+  document.addEventListener('DOMContentLoaded', () => {
+    const addToCalendarBtn = document.getElementById('addToCalendar');
+    
+    if (addToCalendarBtn) {
+      addToCalendarBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        // Get name and dates from the page
+        const name = document.querySelector('h1')?.textContent?.trim() || '';
+        const dates = Array.from(document.querySelectorAll('[data-date]')).map(el => 
+          el.getAttribute('data-date')
+        ).filter(Boolean);
+        
+        if (dates.length > 0) {
+          // Dispatch event to open calendar modal
+          const event = new CustomEvent('openCalendarModal', {
+            detail: { name, dates }
+          });
+          document.dispatchEvent(event);
+        } else {
+          alert('Žiadne dátumy menín nie sú dostupné.');
+        }
+      });
+    }
+  });
+</script>

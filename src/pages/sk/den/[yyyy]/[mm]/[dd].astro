@@ -1,4 +1,6 @@
 ---
+export const prerender = false; // Server-render on demand to reduce build size
+
 import Layout from '../../../../../layouts/Layout.astro';
 import { formatDateSlovak, getMonthNameSlovak, getAdjacentDay } from '../../../../../lib/date';
 import { getNamesByDate } from '../../../../../lib/meniny';
