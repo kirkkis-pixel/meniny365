@@ -7,7 +7,7 @@ import meninyData from '../../data/meniny-sk/meniny-2025-simple.json';
 
 // Get today's date and names
 const today = getTodayString();
-const todayNames = await getNamesByDate(today);
+const todayNames = getNamesByDate(today);
 const todayFormatted = formatDateSlovak(today);
 
 // Generate structured data

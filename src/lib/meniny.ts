@@ -1,41 +1,23 @@
 import { formatDateForUrl, parseDateFromUrl } from './date';
 import { addDays, subDays } from 'date-fns';
+import meninyData from '../data/meniny-sk/meniny-2025-simple.json';
 
 export interface MeninyData {
   [date: string]: string[];
 }
 
-let meninyCache: MeninyData | null = null;
-
 /**
- * Load meniny data from JSON files
+ * Load meniny data from imported JSON
  */
-async function loadMeninyData(): Promise<MeninyData> {
-  if (meninyCache) {
-    return meninyCache;
-  }
-
-  try {
-    // Try to load the simple 2025 data first
-    const response = await fetch('/src/data/meniny-sk/meniny-2025-simple.json');
-    if (response.ok) {
-      meninyCache = await response.json();
-      return meninyCache!;
-    }
-  } catch (error) {
-    console.warn('Could not load simple meniny data, using fallback');
-  }
-
-  // Fallback: create empty data structure
-  meninyCache = {};
-  return meninyCache;
+function loadMeninyData(): MeninyData {
+  return meninyData as MeninyData;
 }
 
 /**
  * Get names for a specific date
  */
-export async function getNamesByDate(isoDate: string): Promise<string[]> {
-  const data = await loadMeninyData();
+export function getNamesByDate(isoDate: string): string[] {
+  const data = loadMeninyData();
   return data[isoDate] || [];
 }
 
