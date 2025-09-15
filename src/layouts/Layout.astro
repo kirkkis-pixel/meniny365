@@ -1,4 +1,6 @@
 ---
+import '../styles/global.css';
+
 export interface Props {
   title: string;
   description: string;
@@ -78,7 +80,3 @@ const { title, description, canonical, structuredData } = Astro.props;
     </footer>
   </body>
 </html>
-
-<style>
-  @import '../styles/global.css';
-</style>
