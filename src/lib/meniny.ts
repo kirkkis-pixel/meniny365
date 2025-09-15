@@ -16,28 +16,14 @@ async function loadMeninyData(): Promise<MeninyData> {
   }
 
   try {
-    // Try to load the merged 2025 data first
-    const response = await fetch('/src/data/meniny-sk/meniny-2025.json');
+    // Try to load the simple 2025 data first
+    const response = await fetch('/src/data/meniny-sk/meniny-2025-simple.json');
     if (response.ok) {
-      const rawData = await response.json();
-      
-      // Convert nested structure to flat structure
-      meninyCache = {};
-      
-      // Process 2025 data
-      if (rawData['2025']) {
-        for (const [month, monthData] of Object.entries(rawData['2025'])) {
-          for (const [day, names] of Object.entries(monthData as Record<string, string[]>)) {
-            const dateStr = `2025-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
-            meninyCache![dateStr] = names;
-          }
-        }
-      }
-      
+      meninyCache = await response.json();
       return meninyCache!;
     }
   } catch (error) {
-    console.warn('Could not load merged meniny data, using fallback');
+    console.warn('Could not load simple meniny data, using fallback');
   }
 
   // Fallback: create empty data structure
