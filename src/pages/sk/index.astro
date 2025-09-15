@@ -35,7 +35,7 @@ const structuredData = {
   structuredData={structuredData}
 >
   <!-- Hero Section - Clean Minimal Style -->
-  <section class="relative py-20 overflow-hidden">
+  <section class="relative py-32 overflow-hidden">
     <!-- Clean Background -->
     <div class="absolute inset-0 bg-white"></div>
     
@@ -61,18 +61,18 @@ const structuredData = {
       </p>
       
       <!-- Today's Names Display - Super Clear & Focused -->
-      <div class="bg-gray-50 rounded-2xl p-8 max-w-2xl mx-auto mb-16 animate-fade-in-up" style="animation-delay: 0.8s;">
+      <div class="bg-gray-200 rounded-2xl p-12 max-w-2xl mx-auto mb-20 animate-fade-in-up" style="animation-delay: 0.8s;">
         <div class="text-center">
-          <h2 class="text-2xl font-semibold text-black mb-6">{todayFormatted}</h2>
+          <h2 class="text-2xl font-semibold text-black mb-8">{todayFormatted}</h2>
           
           {todayNames.length > 0 ? (
             <div>
-              <p class="text-lg text-gray-600 mb-6">Dnes majú meniny:</p>
-              <div class="flex flex-wrap justify-center gap-3">
+              <p class="text-lg text-gray-700 mb-8">Dnes majú meniny:</p>
+              <div class="flex flex-wrap justify-center gap-4">
                 {todayNames.map(name => (
                   <a 
                     href={`/sk/meno/${toSlug(name)}`}
-                    class="bg-white text-black px-4 py-2 rounded-full font-medium hover:bg-gray-100 transition-colors border border-gray-200 shadow-sm hover:shadow-md"
+                    class="bg-white text-black px-6 py-3 rounded-full font-medium hover:bg-gray-100 transition-colors border border-gray-300 shadow-sm hover:shadow-md"
                   >
                     {name}
                   </a>
@@ -81,7 +81,7 @@ const structuredData = {
             </div>
           ) : (
             <div>
-              <p class="text-lg text-gray-600">
+              <p class="text-lg text-gray-700">
                 Dnes nemá nikto meniny. Skúste pozrieť iný deň v kalendári.
               </p>
             </div>
