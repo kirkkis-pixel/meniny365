@@ -163,4 +163,4 @@ For support, please open an issue on GitHub or contact us at [meniny365.sk](http
 
 ---
 
-Built with ❤️ for the Slovak community
+Built with ❤️ for the Slovak community# Trigger Vercel deployment
