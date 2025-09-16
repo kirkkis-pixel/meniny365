@@ -1,32 +1,26 @@
-/**
- * Format rank with ordinal suffix
- */
-export function formatRank(rank: number): string {
-  const j = rank % 10;
-  const k = rank % 100;
-  
-  if (j === 1 && k !== 11) {
-    return rank + ".";
-  }
-  if (j === 2 && k !== 12) {
-    return rank + ".";
-  }
-  if (j === 3 && k !== 13) {
-    return rank + ".";
-  }
-  return rank + ".";
+export function toSlug(name) {
+  return name.toLowerCase()
+             .replace(/á/g, 'a')
+             .replace(/ä/g, 'a')
+             .replace(/č/g, 'c')
+             .replace(/ď/g, 'd')
+             .replace(/é/g, 'e')
+             .replace(/í/g, 'i')
+             .replace(/ľ/g, 'l')
+             .replace(/ň/g, 'n')
+             .replace(/ó/g, 'o')
+             .replace(/ô/g, 'o')
+             .replace(/ŕ/g, 'r')
+             .replace(/š/g, 's')
+             .replace(/ť/g, 't')
+             .replace(/ú/g, 'u')
+             .replace(/ý/g, 'y')
+             .replace(/ž/g, 'z')
+             .replace(/[^a-z0-9 -]/g, '') // remove invalid chars
+             .replace(/\s+/g, '-') // collapse whitespace and replace by -
+             .replace(/-+/g, '-'); // collapse dashes
 }
 
-/**
- * Format name for URL slug
- */
-export function toSlug(name: string): string {
-  return name
-    .toLowerCase()
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '') // Remove diacritics
-    .replace(/[^a-z0-9\s-]/g, '') // Remove special chars
-    .replace(/\s+/g, '-') // Replace spaces with hyphens
-    .replace(/-+/g, '-') // Replace multiple hyphens with single
-    .trim();
+export function getProgressWidth(score) {
+  return `${Math.max(0, Math.min(100, score))}%`;
 }
