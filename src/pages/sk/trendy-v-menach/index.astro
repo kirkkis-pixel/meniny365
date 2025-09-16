@@ -136,45 +136,50 @@ const structuredData = {
   <div class="min-h-screen bg-gradient-to-br from-slate-50/95 via-white to-indigo-50/40">
     <div class="container mx-auto px-4 py-16">
       <div class="max-w-4xl mx-auto">
-        <SectionHeader
-          eyebrow="Aktualizované týždenne"
-          title="Trendy v menách"
-          subtitle="Analýza trendov na základe Google Trends a Wikimedia Pageviews API"
-        />
-
-        <!-- Pill Badge -->
-        <div class="text-center mb-8">
-          <div class="inline-flex items-center bg-slate-100 rounded-full px-4 py-2">
+        <!-- Header with Pill Badge -->
+        <div class="text-center mb-12">
+          <!-- Pill Badge -->
+          <div class="inline-flex items-center bg-slate-100 rounded-full px-4 py-2 mb-6">
             <svg class="w-4 h-4 text-slate-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
             </svg>
             <span class="text-sm font-medium text-slate-700">Aktualizované týždenne</span>
           </div>
+          
+          <!-- Title -->
+          <h1 class="text-4xl font-bold text-slate-900 mb-4">Trendy v menách</h1>
+          
+          <!-- Subtitle -->
+          <p class="text-lg text-slate-600 max-w-2xl mx-auto">
+            Analýza trendov na základe Google Trends a Wikimedia Pageviews
+          </p>
         </div>
 
         <!-- Search and Controls -->
         <div class="mb-8 space-y-6">
-          <!-- Full-width Search Bar -->
-          <div class="relative w-full">
-            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-              <svg class="h-5 w-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-              </svg>
+          <!-- Narrower Search Bar (50% width) -->
+          <div class="flex justify-center">
+            <div class="relative w-full max-w-md">
+              <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                <svg class="h-5 w-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+              </div>
+              <input 
+                type="text" 
+                id="nameSearch" 
+                placeholder="Hľadať meno..." 
+                class="block w-full pl-12 pr-4 py-4 border border-slate-300 rounded-lg text-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white shadow-sm"
+              />
             </div>
-            <input 
-              type="text" 
-              id="nameSearch" 
-              placeholder="Hľadať meno..." 
-              class="block w-full pl-12 pr-4 py-4 border border-slate-300 rounded-lg text-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white shadow-sm"
-            />
           </div>
           
-          <!-- Filter Tags -->
-          <div class="space-y-4">
+          <!-- Centered Filter Tags -->
+          <div class="space-y-6">
             <!-- Trend Filter Tags -->
-            <div>
+            <div class="text-center">
               <label class="block text-sm font-medium text-slate-700 mb-3">Trendy:</label>
-              <div class="flex flex-wrap gap-2">
+              <div class="flex flex-wrap justify-center gap-2">
                 <button 
                   id="trendAll" 
                   class="trend-filter px-4 py-2 rounded-full text-sm font-medium bg-indigo-600 text-white hover:bg-indigo-700 transition-colors"
@@ -207,9 +212,9 @@ const structuredData = {
             </div>
 
             <!-- Gender Filter Tags -->
-            <div>
+            <div class="text-center">
               <label class="block text-sm font-medium text-slate-700 mb-3">Pohlavie:</label>
-              <div class="flex flex-wrap gap-2">
+              <div class="flex flex-wrap justify-center gap-2">
                 <button 
                   id="genderAll" 
                   class="gender-filter px-4 py-2 rounded-full text-sm font-medium bg-indigo-600 text-white hover:bg-indigo-700 transition-colors"
@@ -380,8 +385,8 @@ const structuredData = {
       let currentVisible = 10;
       let allItems = Array.from(trendingItems);
       let filteredItems = [...allItems];
-      let currentTrendFilter = 'all';
-      let currentGenderFilter = 'all';
+      let selectedTrendFilters = ['all'];
+      let selectedGenderFilters = ['all'];
       
       // Initialize - show only top 10
       updateVisibility();
@@ -443,8 +448,8 @@ const structuredData = {
           const itemGender = genderBadge?.textContent?.includes('♀') ? 'F' : 
                            genderBadge?.textContent?.includes('♂') ? 'M' : 'U';
           
-          const matchesTrend = currentTrendFilter === 'all' || label === currentTrendFilter;
-          const matchesGender = currentGenderFilter === 'all' || itemGender === currentGenderFilter;
+          const matchesTrend = selectedTrendFilters.includes('all') || selectedTrendFilters.includes(label);
+          const matchesGender = selectedGenderFilters.includes('all') || selectedGenderFilters.includes(itemGender);
           const matchesSearch = name.includes(searchTerm);
           
           return matchesTrend && matchesGender && matchesSearch;
@@ -474,36 +479,100 @@ const structuredData = {
         updateVisibility();
       }
       
-      // Trend filter event listeners
+      // Trend filter event listeners with multi-select
       trendFilters.forEach(button => {
         button.addEventListener('click', () => {
-          // Update active state
-          trendFilters.forEach(btn => {
-            btn.classList.remove('bg-indigo-600', 'text-white');
-            btn.classList.add('bg-slate-100', 'text-slate-700');
-          });
-          button.classList.remove('bg-slate-100', 'text-slate-700');
-          button.classList.add('bg-indigo-600', 'text-white');
+          const filter = button.getAttribute('data-filter') || 'all';
           
-          // Update filter
-          currentTrendFilter = button.getAttribute('data-filter') || 'all';
+          if (filter === 'all') {
+            // If "all" is clicked, clear other selections
+            selectedTrendFilters = ['all'];
+            trendFilters.forEach(btn => {
+              btn.classList.remove('bg-indigo-600', 'text-white');
+              btn.classList.add('bg-slate-100', 'text-slate-700');
+            });
+            button.classList.remove('bg-slate-100', 'text-slate-700');
+            button.classList.add('bg-indigo-600', 'text-white');
+          } else {
+            // Remove "all" from selection if specific filter is clicked
+            selectedTrendFilters = selectedTrendFilters.filter(f => f !== 'all');
+            
+            if (selectedTrendFilters.includes(filter)) {
+              // Remove filter if already selected
+              selectedTrendFilters = selectedTrendFilters.filter(f => f !== filter);
+              button.classList.remove('bg-indigo-600', 'text-white');
+              button.classList.add('bg-slate-100', 'text-slate-700');
+            } else {
+              // Add filter if not selected
+              selectedTrendFilters.push(filter);
+              button.classList.remove('bg-slate-100', 'text-slate-700');
+              button.classList.add('bg-indigo-600', 'text-white');
+            }
+            
+            // If no filters selected, select "all"
+            if (selectedTrendFilters.length === 0) {
+              selectedTrendFilters = ['all'];
+              trendFilters.forEach(btn => {
+                btn.classList.remove('bg-indigo-600', 'text-white');
+                btn.classList.add('bg-slate-100', 'text-slate-700');
+              });
+              const allButton = document.getElementById('trendAll');
+              if (allButton) {
+                allButton.classList.remove('bg-slate-100', 'text-slate-700');
+                allButton.classList.add('bg-indigo-600', 'text-white');
+              }
+            }
+          }
+          
           filterItems();
         });
       });
       
-      // Gender filter event listeners
+      // Gender filter event listeners with multi-select
       genderFilters.forEach(button => {
         button.addEventListener('click', () => {
-          // Update active state
-          genderFilters.forEach(btn => {
-            btn.classList.remove('bg-indigo-600', 'text-white');
-            btn.classList.add('bg-slate-100', 'text-slate-700');
-          });
-          button.classList.remove('bg-slate-100', 'text-slate-700');
-          button.classList.add('bg-indigo-600', 'text-white');
+          const filter = button.getAttribute('data-filter') || 'all';
           
-          // Update filter
-          currentGenderFilter = button.getAttribute('data-filter') || 'all';
+          if (filter === 'all') {
+            // If "all" is clicked, clear other selections
+            selectedGenderFilters = ['all'];
+            genderFilters.forEach(btn => {
+              btn.classList.remove('bg-indigo-600', 'text-white');
+              btn.classList.add('bg-slate-100', 'text-slate-700');
+            });
+            button.classList.remove('bg-slate-100', 'text-slate-700');
+            button.classList.add('bg-indigo-600', 'text-white');
+          } else {
+            // Remove "all" from selection if specific filter is clicked
+            selectedGenderFilters = selectedGenderFilters.filter(f => f !== 'all');
+            
+            if (selectedGenderFilters.includes(filter)) {
+              // Remove filter if already selected
+              selectedGenderFilters = selectedGenderFilters.filter(f => f !== filter);
+              button.classList.remove('bg-indigo-600', 'text-white');
+              button.classList.add('bg-slate-100', 'text-slate-700');
+            } else {
+              // Add filter if not selected
+              selectedGenderFilters.push(filter);
+              button.classList.remove('bg-slate-100', 'text-slate-700');
+              button.classList.add('bg-indigo-600', 'text-white');
+            }
+            
+            // If no filters selected, select "all"
+            if (selectedGenderFilters.length === 0) {
+              selectedGenderFilters = ['all'];
+              genderFilters.forEach(btn => {
+                btn.classList.remove('bg-indigo-600', 'text-white');
+                btn.classList.add('bg-slate-100', 'text-slate-700');
+              });
+              const allButton = document.getElementById('genderAll');
+              if (allButton) {
+                allButton.classList.remove('bg-slate-100', 'text-slate-700');
+                allButton.classList.add('bg-indigo-600', 'text-white');
+              }
+            }
+          }
+          
           filterItems();
         });
       });
