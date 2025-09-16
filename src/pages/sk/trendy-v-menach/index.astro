@@ -1,22 +1,76 @@
 ---
+export const prerender = true;
+
 import Layout from '../../../layouts/Layout.astro';
 import SectionHeader from '../../../components/SectionHeader.astro';
 import Card from '../../../components/Card.astro';
 import StatBadge from '../../../components/StatBadge.astro';
+import { formatDelta, getTrendIcon } from '../../../lib/TrendDelta.js';
+import { createSparkline } from '../../../lib/InlineSparkline.js';
+import { toSlug, getProgressWidth } from '../../../lib/visuals.js';
 
-// Sample trending data
-const trendingData = [
-  { name: "Luna", trendScore: 95, trendsDelta: 45, viewsDelta: 38, label: "rising" },
-  { name: "Nina", trendScore: 87, trendsDelta: 32, viewsDelta: 28, label: "rising" },
-  { name: "Zoe", trendScore: 82, trendsDelta: 28, viewsDelta: 25, label: "rising" },
-  { name: "Mia", trendScore: 78, trendsDelta: 22, viewsDelta: 20, label: "rising" },
-  { name: "Emma", trendScore: 75, trendsDelta: 18, viewsDelta: 16, label: "rising" }
-];
+// Fetch trending names data
+let trendingData;
+try {
+  const response = await fetch(`${Astro.site}/api/trending`);
+  trendingData = await response.json();
+} catch (error) {
+  console.error('Error fetching trending names data:', error);
+  trendingData = { items: [] };
+}
+
+// Gender detection based on common Slovak names
+function detectGender(name: string): 'M' | 'F' | 'U' {
+  const femaleEndings = ['a', 'ia', 'ina', 'ka', 'la', 'na', 'ra', 'sa', 'ta', 'va', 'za'];
+  const maleEndings = ['o', 'ko', 'lo', 'no', 'ro', 'so', 'to', 'vo', 'zo'];
+  
+  // Common female names
+  const femaleNames = ['Luna', 'Nina', 'Zoe', 'Mia', 'Emma', 'Sofia', 'Eva', 'Anna', 'Maria', 'Jana', 'Zuzana', 'Martina', 'Petra', 'Monika', 'Lucia', 'Katarina', 'Barbora', 'Veronika', 'Jana', 'Alena', 'Jana', 'Jana'];
+  const maleNames = ['Adam', 'Martin', 'Peter', 'Juraj', 'Michal', 'Lukas', 'Tomas', 'Jakub', 'Samuel', 'Filip', 'Daniel', 'Matej', 'David', 'Patrik', 'Simon', 'Andrej', 'Richard', 'Marek', 'Robert', 'Jozef', 'Pavel', 'Milan'];
+  
+  if (femaleNames.includes(name)) return 'F';
+  if (maleNames.includes(name)) return 'M';
+  
+  // Check by ending
+  const lastChar = name.slice(-1).toLowerCase();
+  if (femaleEndings.includes(lastChar)) return 'F';
+  if (maleEndings.includes(lastChar)) return 'M';
+  
+  return 'U'; // Unknown
+}
+
+// Generate sample sparkline data and add gender for each trending item
+const itemsWithSparklines = trendingData.items.map((item: any) => ({
+  ...item,
+  gender: detectGender(item.name),
+  sparklineData: Array.from({ length: 7 }, (_, i) => 
+    Math.random() * 100 * (item.trendScore / 100)
+  )
+}));
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Trendy v menách - stúpajúce mená",
+  "description": "Zoznam mien s najvyšším trendom na Slovensku",
+  "numberOfItems": trendingData.items.length,
+  "itemListElement": trendingData.items.slice(0, 10).map((item: any, index: number) => ({
+    "@type": "ListItem",
+    "position": index + 1,
+    "item": {
+      "@type": "Thing",
+      "name": item.name,
+      "description": `Trending name with ${item.trendScore}% trend score`
+    }
+  }))
+};
 ---
 
 <Layout 
   title="Trendy v menách – stúpajúce mená | meniny365"
-  description="Aktuálne trendy v menách na Slovensku. Zistite, ktoré mená sú najpopulárnejšie."
+  description="Aktuálne trendy v menách na Slovensku. Zistite, ktoré mená sú najpopulárnejšie a stúpajú v rebríčkoch."
+  canonical="https://meniny365.sk/sk/trendy-v-menach"
+  structuredData={structuredData}
 >
   <div class="min-h-screen bg-gradient-to-br from-slate-50/95 via-white to-indigo-50/40">
     <div class="container mx-auto px-4 py-16">
@@ -27,61 +81,154 @@ const trendingData = [
           subtitle="Analýza trendov na základe Google Trends a Wikimedia Pageviews API"
         />
 
+        <!-- Search and Controls -->
+        <div class="mb-8 space-y-4">
+          <!-- Search Bar -->
+          <div class="relative max-w-md">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <svg class="h-5 w-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+              </svg>
+            </div>
+            <input 
+              type="text" 
+              id="nameSearch" 
+              placeholder="Hľadať meno..." 
+              class="block w-full pl-10 pr-3 py-3 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white"
+            />
+          </div>
+          
+          <!-- Filter Controls -->
+          <div class="flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+              <label class="text-sm font-medium text-slate-700">Filtrovať:</label>
+              <select id="trendFilter" class="px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                <option value="all">Všetky trendy</option>
+                <option value="rising">Iba stúpajúce</option>
+                <option value="stable">Stabilné</option>
+                <option value="cooling">Klesajúce</option>
+              </select>
+              <select id="genderFilter" class="px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                <option value="all">Všetky pohlavia</option>
+                <option value="F">Ženské mená</option>
+                <option value="M">Mužské mená</option>
+              </select>
+            </div>
+            <div class="text-sm text-slate-600">
+              Zobrazené: <span id="visibleCount">10</span> z <span id="totalCount">{trendingData.items.length}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- No Results Message -->
+        <div id="noResults" class="hidden text-center py-12">
+          <div class="text-slate-400 mb-4">
+            <svg class="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6-4h6m2 5.291A7.962 7.962 0 0112 15c-2.34 0-4.29-1.009-5.824-2.709M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-medium text-slate-900 mb-2">Žiadne výsledky</h3>
+          <p class="text-slate-600">Skúste zmeniť vyhľadávací výraz alebo filter.</p>
+        </div>
+
         <!-- Trending Leaderboard -->
-        <div class="space-y-4">
-          {trendingData.map((item: any, index: number) => (
-            <Card interactive={true} class="trending-item" data-label={item.label}>
-              <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-4">
-                  <div class="text-2xl font-bold text-slate-400 w-8">
-                    {index + 1}
-                  </div>
-                  
-                  <div>
-                    <div class="flex items-center space-x-2 mb-1">
-                      <h3 class="text-lg font-semibold text-slate-900">
-                        <a href={`/sk/meno/${item.name.toLowerCase()}`} class="hover:text-indigo-600 transition-colors">
-                          {item.name}
-                        </a>
-                      </h3>
-                      <StatBadge 
-                        label={item.label === 'rising' ? 'Stúpa' : item.label === 'cooling' ? 'Klesá' : 'Stabilné'}
-                        tone={item.label === 'rising' ? 'accent' : item.label === 'cooling' ? 'muted' : 'brand'}
-                      />
+        <div id="trendingList" class="space-y-4">
+          {itemsWithSparklines.map((item: any, index: number) => {
+            const trendsDelta = formatDelta(item.trendsDelta);
+            const viewsDelta = formatDelta(item.viewsDelta);
+            
+            return (
+              <Card interactive={true} class="trending-item" data-label={item.label}>
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center space-x-4">
+                    <div class="text-2xl font-bold text-slate-400 w-8">
+                      {index + 1}
                     </div>
                     
-                    <div class="flex items-center space-x-4 text-sm text-slate-600">
-                      <div class="flex items-center space-x-1">
-                        <span class="text-green-600">↗</span>
-                        <span class="text-green-600">+{item.trendsDelta}% Trends</span>
+                    <div>
+                      <div class="flex items-center space-x-2 mb-1">
+                        <h3 class="text-lg font-semibold text-slate-900">
+                          <a href={`/sk/meno/${toSlug(item.name)}`} class="hover:text-indigo-600 transition-colors">
+                            {item.name}
+                          </a>
+                        </h3>
+                        <StatBadge 
+                          label={item.label === 'rising' ? 'Stúpa' : item.label === 'cooling' ? 'Klesá' : 'Stabilné'}
+                          tone={item.label === 'rising' ? 'accent' : item.label === 'cooling' ? 'muted' : 'brand'}
+                        />
+                        {item.gender !== 'U' && (
+                          <span class={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
+                            item.gender === 'F' 
+                              ? 'bg-pink-100 text-pink-800' 
+                              : 'bg-blue-100 text-blue-800'
+                          }`}>
+                            {item.gender === 'F' ? '♀' : '♂'}
+                          </span>
+                        )}
                       </div>
                       
-                      <div class="flex items-center space-x-1">
-                        <span class="text-green-600">↗</span>
-                        <span class="text-green-600">+{item.viewsDelta}% Návštevnosť</span>
+                      <div class="flex items-center space-x-4 text-sm text-slate-600">
+                        <div class="flex items-center space-x-1">
+                          <span class={trendsDelta.class}>
+                            {getTrendIcon(trendsDelta.icon)}
+                          </span>
+                          <span class={trendsDelta.class}>
+                            {trendsDelta.text} Trends
+                          </span>
+                        </div>
+                        
+                        <div class="flex items-center space-x-1">
+                          <span class={viewsDelta.class}>
+                            {getTrendIcon(viewsDelta.icon)}
+                          </span>
+                          <span class={viewsDelta.class}>
+                            {viewsDelta.text} Návštevnosť
+                          </span>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                
-                <div class="flex items-center space-x-4">
-                  <!-- Trend Score Bar -->
-                  <div class="w-24">
-                    <div class="flex justify-between text-xs text-slate-500 mb-1">
-                      <span>Trend</span>
-                      <span>{Math.round(item.trendScore)}%</span>
+                  
+                  <div class="flex items-center space-x-4">
+                    <!-- Trend Score Bar -->
+                    <div class="w-24">
+                      <div class="flex justify-between text-xs text-slate-500 mb-1">
+                        <span>Trend</span>
+                        <span>{Math.round(item.trendScore)}%</span>
+                      </div>
+                      <div class="w-full bg-slate-200 rounded-full h-2">
+                        <div 
+                          class="bg-gradient-to-r from-indigo-500 to-indigo-600 h-2 rounded-full transition-all duration-300"
+                          style={`width: ${getProgressWidth(item.trendScore)}`}
+                        ></div>
+                      </div>
                     </div>
-                    <div class="w-full bg-slate-200 rounded-full h-2">
+                    
+                    <!-- Sparkline -->
+                    <div class="w-16 h-8 flex items-center">
                       <div 
-                        class="bg-gradient-to-r from-indigo-500 to-indigo-600 h-2 rounded-full transition-all duration-300"
-                        style={`width: ${(item.trendScore / 100) * 100}%`}
+                        class="sparkline"
+                        set:html={createSparkline(item.sparklineData, 60, 20, '#10b981')}
                       ></div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </Card>
-          ))}
+              </Card>
+            );
+          })}
+        </div>
+
+        <!-- Show More Button -->
+        <div class="text-center mt-8">
+          <button 
+            id="showMoreBtn" 
+            class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-indigo-600 to-indigo-700 text-white font-medium rounded-lg hover:from-indigo-700 hover:to-indigo-800 transition-all duration-200 transform hover:scale-105 shadow-lg"
+          >
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+            Zobraziť viac
+          </button>
         </div>
 
         <!-- Attribution -->
@@ -89,8 +236,132 @@ const trendingData = [
           <p class="text-sm text-slate-500">
             Google Trends, Wikimedia Pageviews — spracované meniny365
           </p>
+          <p class="text-xs text-slate-400 mt-1">
+            Posledná aktualizácia: {new Date(trendingData.lastUpdated).toLocaleDateString('sk-SK')}
+          </p>
         </div>
       </div>
     </div>
   </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const filterSelect = document.getElementById('trendFilter');
+      const genderFilter = document.getElementById('genderFilter');
+      const searchInput = document.getElementById('nameSearch');
+      const showMoreBtn = document.getElementById('showMoreBtn');
+      const visibleCountSpan = document.getElementById('visibleCount');
+      const totalCountSpan = document.getElementById('totalCount');
+      const noResultsDiv = document.getElementById('noResults');
+      const trendingListDiv = document.getElementById('trendingList');
+      const trendingItems = document.querySelectorAll('.trending-item');
+      
+      let currentVisible = 10;
+      let allItems = Array.from(trendingItems);
+      let filteredItems = [...allItems];
+      
+      // Initialize - show only top 10
+      updateVisibility();
+      
+      function updateVisibility() {
+        const itemsToShow = filteredItems.slice(0, currentVisible);
+        
+        allItems.forEach((item, index) => {
+          const isVisible = itemsToShow.includes(item);
+          (item as HTMLElement).style.display = isVisible ? 'block' : 'none';
+          
+          // Update ranking number
+          if (isVisible) {
+            const rankElement = item.querySelector('.text-2xl.font-bold');
+            if (rankElement) {
+              rankElement.textContent = (itemsToShow.indexOf(item) + 1).toString();
+            }
+          }
+        });
+        
+        // Update counters
+        if (visibleCountSpan) {
+          visibleCountSpan.textContent = itemsToShow.length.toString();
+        }
+        
+        // Show/hide "Show More" button
+        if (showMoreBtn) {
+          showMoreBtn.style.display = currentVisible < filteredItems.length ? 'inline-flex' : 'none';
+        }
+        
+        // Show/hide "No results" message
+        if (noResultsDiv && trendingListDiv) {
+          if (filteredItems.length === 0) {
+            noResultsDiv.classList.remove('hidden');
+            trendingListDiv.classList.add('hidden');
+          } else {
+            noResultsDiv.classList.add('hidden');
+            trendingListDiv.classList.remove('hidden');
+          }
+        }
+      }
+      
+      function highlightSearchTerm(text: string, searchTerm: string) {
+        if (!searchTerm) return text;
+        const regex = new RegExp(`(${searchTerm})`, 'gi');
+        return text.replace(regex, '<mark class="bg-yellow-200 px-1 rounded">$1</mark>');
+      }
+      
+      function filterItems() {
+        const filter = (filterSelect as HTMLSelectElement)?.value || 'all';
+        const gender = (genderFilter as HTMLSelectElement)?.value || 'all';
+        const searchTerm = (searchInput as HTMLInputElement)?.value.toLowerCase() || '';
+        
+        filteredItems = allItems.filter(item => {
+          const label = item.getAttribute('data-label');
+          const nameElement = item.querySelector('h3 a');
+          const name = nameElement?.textContent?.toLowerCase() || '';
+          
+          // Get gender from the gender badge
+          const genderBadge = item.querySelector('span[class*="bg-pink-100"], span[class*="bg-blue-100"]');
+          const itemGender = genderBadge?.textContent?.includes('♀') ? 'F' : 
+                           genderBadge?.textContent?.includes('♂') ? 'M' : 'U';
+          
+          const matchesFilter = filter === 'all' || label === filter;
+          const matchesGender = gender === 'all' || itemGender === gender;
+          const matchesSearch = name.includes(searchTerm);
+          
+          return matchesFilter && matchesGender && matchesSearch;
+        });
+        
+        // Apply search highlighting
+        if (searchTerm) {
+          allItems.forEach(item => {
+            const nameElement = item.querySelector('h3 a');
+            if (nameElement) {
+              const originalText = nameElement.textContent || '';
+              nameElement.innerHTML = highlightSearchTerm(originalText, searchTerm);
+            }
+          });
+        } else {
+          // Remove highlighting when search is cleared
+          allItems.forEach(item => {
+            const nameElement = item.querySelector('h3 a');
+            if (nameElement) {
+              const originalText = nameElement.textContent || '';
+              nameElement.innerHTML = originalText;
+            }
+          });
+        }
+        
+        currentVisible = 10;
+        updateVisibility();
+      }
+      
+      // Event listeners
+      filterSelect?.addEventListener('change', filterItems);
+      genderFilter?.addEventListener('change', filterItems);
+      searchInput?.addEventListener('input', filterItems);
+      
+      showMoreBtn?.addEventListener('click', () => {
+        currentVisible += 10;
+        updateVisibility();
+      });
+    });
+  </script>
 </Layout>
