@@ -9,7 +9,7 @@ import { formatDelta, getTrendIcon } from '../../../lib/TrendDelta.js';
 import { createSparkline } from '../../../lib/InlineSparkline.js';
 import { toSlug, getProgressWidth } from '../../../lib/visuals.js';
 
-// Static trending names data
+// Static trending names data - expanded to 50 names
 const trendingData = {
   lastUpdated: new Date().toISOString(),
   items: [
@@ -46,19 +46,40 @@ const trendingData = {
     { name: "Lukas", trendScore: 48, trendsDelta: -4, viewsDelta: -4, label: "stable" },
     { name: "Lucia", trendScore: 47, trendsDelta: -5, viewsDelta: -5, label: "stable" },
     { name: "Tomas", trendScore: 46, trendsDelta: -6, viewsDelta: -6, label: "stable" },
+    { name: "Kristina", trendScore: 45, trendsDelta: -7, viewsDelta: -6, label: "stable" },
+    { name: "Jozef", trendScore: 44, trendsDelta: -8, viewsDelta: -7, label: "stable" },
+    { name: "Katarina", trendScore: 43, trendsDelta: -9, viewsDelta: -8, label: "stable" },
+    { name: "Pavel", trendScore: 42, trendsDelta: -10, viewsDelta: -9, label: "stable" },
+    { name: "Barbora", trendScore: 41, trendsDelta: -11, viewsDelta: -10, label: "stable" },
+    { name: "Milan", trendScore: 40, trendsDelta: -12, viewsDelta: -11, label: "stable" },
+    { name: "Veronika", trendScore: 39, trendsDelta: -13, viewsDelta: -12, label: "stable" },
+    { name: "Simon", trendScore: 38, trendsDelta: -14, viewsDelta: -13, label: "stable" },
+    { name: "Alena", trendScore: 37, trendsDelta: -15, viewsDelta: -14, label: "stable" },
+    { name: "Marek", trendScore: 36, trendsDelta: -16, viewsDelta: -15, label: "stable" },
     
     // Cooling trends - mix of male and female
-    { name: "Katarina", trendScore: 44, trendsDelta: -8, viewsDelta: -7, label: "cooling" },
-    { name: "Juraj", trendScore: 43, trendsDelta: -9, viewsDelta: -8, label: "cooling" },
-    { name: "Barbora", trendScore: 42, trendsDelta: -10, viewsDelta: -9, label: "cooling" },
-    { name: "Andrej", trendScore: 41, trendsDelta: -11, viewsDelta: -10, label: "cooling" },
-    { name: "Veronika", trendScore: 40, trendsDelta: -12, viewsDelta: -11, label: "cooling" },
-    { name: "Richard", trendScore: 39, trendsDelta: -13, viewsDelta: -12, label: "cooling" },
-    { name: "Alena", trendScore: 38, trendsDelta: -14, viewsDelta: -13, label: "cooling" },
-    { name: "Marek", trendScore: 37, trendsDelta: -15, viewsDelta: -14, label: "cooling" },
-    { name: "Kristina", trendScore: 36, trendsDelta: -16, viewsDelta: -15, label: "cooling" },
-    { name: "Robert", trendScore: 35, trendsDelta: -17, viewsDelta: -16, label: "cooling" }
-  ]};
+    { name: "Juraj", trendScore: 35, trendsDelta: -17, viewsDelta: -16, label: "cooling" },
+    { name: "Andrej", trendScore: 34, trendsDelta: -18, viewsDelta: -17, label: "cooling" },
+    { name: "Richard", trendScore: 33, trendsDelta: -19, viewsDelta: -18, label: "cooling" },
+    { name: "Robert", trendScore: 32, trendsDelta: -20, viewsDelta: -19, label: "cooling" },
+    { name: "Gabriela", trendScore: 31, trendsDelta: -21, viewsDelta: -20, label: "cooling" },
+    { name: "Ladislav", trendScore: 30, trendsDelta: -22, viewsDelta: -21, label: "cooling" },
+    { name: "Zuzana", trendScore: 29, trendsDelta: -23, viewsDelta: -22, label: "cooling" },
+    { name: "Vladimir", trendScore: 28, trendsDelta: -24, viewsDelta: -23, label: "cooling" },
+    { name: "Elena", trendScore: 27, trendsDelta: -25, viewsDelta: -24, label: "cooling" },
+    { name: "Stanislav", trendScore: 26, trendsDelta: -26, viewsDelta: -25, label: "cooling" },
+    { name: "Iveta", trendScore: 25, trendsDelta: -27, viewsDelta: -26, label: "cooling" },
+    { name: "Branislav", trendScore: 24, trendsDelta: -28, viewsDelta: -27, label: "cooling" },
+    { name: "Silvia", trendScore: 23, trendsDelta: -29, viewsDelta: -28, label: "cooling" },
+    { name: "Dusan", trendScore: 22, trendsDelta: -30, viewsDelta: -29, label: "cooling" },
+    { name: "Jarmila", trendScore: 21, trendsDelta: -31, viewsDelta: -30, label: "cooling" },
+    { name: "Miroslav", trendScore: 20, trendsDelta: -32, viewsDelta: -31, label: "cooling" },
+    { name: "Viera", trendScore: 19, trendsDelta: -33, viewsDelta: -32, label: "cooling" },
+    { name: "Jaroslav", trendScore: 18, trendsDelta: -34, viewsDelta: -33, label: "cooling" },
+    { name: "Bozena", trendScore: 17, trendsDelta: -35, viewsDelta: -34, label: "cooling" },
+    { name: "Vladislav", trendScore: 16, trendsDelta: -36, viewsDelta: -35, label: "cooling" }
+  ]
+};
 
 // Gender detection based on common Slovak names
 function detectGender(name: string): 'M' | 'F' | 'U' {
@@ -66,8 +87,9 @@ function detectGender(name: string): 'M' | 'F' | 'U' {
   const maleEndings = ['o', 'ko', 'lo', 'no', 'ro', 'so', 'to', 'vo', 'zo'];
   
   // Common female names
-  const femaleNames = ["Luna", "Nina", "Zoe", "Mia", "Emma", "Sofia", "Eva", "Anna", "Maria", "Jana", "Zuzana", "Martina", "Petra", "Monika", "Lucia", "Katarina", "Barbora", "Veronika", "Alena", "Kristina"];
-  const maleNames = ["Adam", "Jakub", "Samuel", "Oliver", "Liam", "Filip", "Daniel", "Matej", "David", "Patrik", "Martin", "Peter", "Michal", "Lukas", "Tomas", "Juraj", "Andrej", "Richard", "Marek", "Robert"];  
+  const femaleNames = ["Luna", "Nina", "Zoe", "Mia", "Emma", "Sofia", "Eva", "Anna", "Maria", "Jana", "Zuzana", "Martina", "Petra", "Monika", "Lucia", "Katarina", "Barbora", "Veronika", "Alena", "Kristina", "Gabriela", "Elena", "Iveta", "Silvia", "Jarmila", "Viera", "Bozena"];
+  const maleNames = ["Adam", "Jakub", "Samuel", "Oliver", "Liam", "Filip", "Daniel", "Matej", "David", "Patrik", "Martin", "Peter", "Michal", "Lukas", "Tomas", "Juraj", "Andrej", "Richard", "Marek", "Robert", "Jozef", "Pavel", "Milan", "Simon", "Ladislav", "Vladimir", "Stanislav", "Branislav", "Dusan", "Miroslav", "Jaroslav", "Vladislav"];
+  
   if (femaleNames.includes(name)) return 'F';
   if (maleNames.includes(name)) return 'M';
   
@@ -121,11 +143,21 @@ const structuredData = {
           subtitle="Analýza trendov na základe Google Trends a Wikimedia Pageviews API"
         />
 
+        <!-- Pill Badge -->
+        <div class="text-center mb-8">
+          <div class="inline-flex items-center bg-slate-100 rounded-full px-4 py-2">
+            <svg class="w-4 h-4 text-slate-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <span class="text-sm font-medium text-slate-700">Aktualizované týždenne</span>
+          </div>
+        </div>
+
         <!-- Search and Controls -->
-        <div class="mb-8 space-y-4">
-          <!-- Search Bar -->
-          <div class="relative max-w-md">
-            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+        <div class="mb-8 space-y-6">
+          <!-- Full-width Search Bar -->
+          <div class="relative w-full">
+            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
               <svg class="h-5 w-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
               </svg>
@@ -134,29 +166,79 @@ const structuredData = {
               type="text" 
               id="nameSearch" 
               placeholder="Hľadať meno..." 
-              class="block w-full pl-10 pr-3 py-3 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white"
+              class="block w-full pl-12 pr-4 py-4 border border-slate-300 rounded-lg text-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white shadow-sm"
             />
           </div>
           
-          <!-- Filter Controls -->
-          <div class="flex justify-between items-center">
-            <div class="flex items-center space-x-4">
-              <label class="text-sm font-medium text-slate-700">Filtrovať:</label>
-              <select id="trendFilter" class="px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
-                <option value="all">Všetky trendy</option>
-                <option value="rising">Iba stúpajúce</option>
-                <option value="stable">Stabilné</option>
-                <option value="cooling">Klesajúce</option>
-              </select>
-              <select id="genderFilter" class="px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
-                <option value="all">Všetky pohlavia</option>
-                <option value="F">Ženské mená</option>
-                <option value="M">Mužské mená</option>
-              </select>
+          <!-- Filter Tags -->
+          <div class="space-y-4">
+            <!-- Trend Filter Tags -->
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-3">Trendy:</label>
+              <div class="flex flex-wrap gap-2">
+                <button 
+                  id="trendAll" 
+                  class="trend-filter px-4 py-2 rounded-full text-sm font-medium bg-indigo-600 text-white hover:bg-indigo-700 transition-colors"
+                  data-filter="all"
+                >
+                  Všetky trendy
+                </button>
+                <button 
+                  id="trendRising" 
+                  class="trend-filter px-4 py-2 rounded-full text-sm font-medium bg-slate-100 text-slate-700 hover:bg-slate-200 transition-colors"
+                  data-filter="rising"
+                >
+                  Stúpajúce
+                </button>
+                <button 
+                  id="trendStable" 
+                  class="trend-filter px-4 py-2 rounded-full text-sm font-medium bg-slate-100 text-slate-700 hover:bg-slate-200 transition-colors"
+                  data-filter="stable"
+                >
+                  Stabilné
+                </button>
+                <button 
+                  id="trendCooling" 
+                  class="trend-filter px-4 py-2 rounded-full text-sm font-medium bg-slate-100 text-slate-700 hover:bg-slate-200 transition-colors"
+                  data-filter="cooling"
+                >
+                  Klesajúce
+                </button>
+              </div>
             </div>
-            <div class="text-sm text-slate-600">
-              Zobrazené: <span id="visibleCount">10</span> z <span id="totalCount">{trendingData.items.length}</span>
+
+            <!-- Gender Filter Tags -->
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-3">Pohlavie:</label>
+              <div class="flex flex-wrap gap-2">
+                <button 
+                  id="genderAll" 
+                  class="gender-filter px-4 py-2 rounded-full text-sm font-medium bg-indigo-600 text-white hover:bg-indigo-700 transition-colors"
+                  data-filter="all"
+                >
+                  Všetky pohlavia
+                </button>
+                <button 
+                  id="genderFemale" 
+                  class="gender-filter px-4 py-2 rounded-full text-sm font-medium bg-slate-100 text-slate-700 hover:bg-slate-200 transition-colors"
+                  data-filter="F"
+                >
+                  Ženské mená
+                </button>
+                <button 
+                  id="genderMale" 
+                  class="gender-filter px-4 py-2 rounded-full text-sm font-medium bg-slate-100 text-slate-700 hover:bg-slate-200 transition-colors"
+                  data-filter="M"
+                >
+                  Mužské mená
+                </button>
+              </div>
             </div>
+          </div>
+
+          <!-- Results Counter -->
+          <div class="text-sm text-slate-600 text-center">
+            Zobrazené: <span id="visibleCount">10</span> z <span id="totalCount">{trendingData.items.length}</span>
           </div>
         </div>
 
@@ -286,8 +368,8 @@ const structuredData = {
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const filterSelect = document.getElementById('trendFilter');
-      const genderFilter = document.getElementById('genderFilter');
+      const trendFilters = document.querySelectorAll('.trend-filter');
+      const genderFilters = document.querySelectorAll('.gender-filter');
       const searchInput = document.getElementById('nameSearch');
       const showMoreBtn = document.getElementById('showMoreBtn');
       const visibleCountSpan = document.getElementById('visibleCount');
@@ -299,6 +381,8 @@ const structuredData = {
       let currentVisible = 10;
       let allItems = Array.from(trendingItems);
       let filteredItems = [...allItems];
+      let currentTrendFilter = 'all';
+      let currentGenderFilter = 'all';
       
       // Initialize - show only top 10
       updateVisibility();
@@ -348,8 +432,6 @@ const structuredData = {
       }
       
       function filterItems() {
-        const filter = (filterSelect as HTMLSelectElement)?.value || 'all';
-        const gender = (genderFilter as HTMLSelectElement)?.value || 'all';
         const searchTerm = (searchInput as HTMLInputElement)?.value.toLowerCase() || '';
         
         filteredItems = allItems.filter(item => {
@@ -362,11 +444,11 @@ const structuredData = {
           const itemGender = genderBadge?.textContent?.includes('♀') ? 'F' : 
                            genderBadge?.textContent?.includes('♂') ? 'M' : 'U';
           
-          const matchesFilter = filter === 'all' || label === filter;
-          const matchesGender = gender === 'all' || itemGender === gender;
+          const matchesTrend = currentTrendFilter === 'all' || label === currentTrendFilter;
+          const matchesGender = currentGenderFilter === 'all' || itemGender === currentGenderFilter;
           const matchesSearch = name.includes(searchTerm);
           
-          return matchesFilter && matchesGender && matchesSearch;
+          return matchesTrend && matchesGender && matchesSearch;
         });
         
         // Apply search highlighting
@@ -393,11 +475,44 @@ const structuredData = {
         updateVisibility();
       }
       
-      // Event listeners
-      filterSelect?.addEventListener('change', filterItems);
-      genderFilter?.addEventListener('change', filterItems);
+      // Trend filter event listeners
+      trendFilters.forEach(button => {
+        button.addEventListener('click', () => {
+          // Update active state
+          trendFilters.forEach(btn => {
+            btn.classList.remove('bg-indigo-600', 'text-white');
+            btn.classList.add('bg-slate-100', 'text-slate-700');
+          });
+          button.classList.remove('bg-slate-100', 'text-slate-700');
+          button.classList.add('bg-indigo-600', 'text-white');
+          
+          // Update filter
+          currentTrendFilter = button.getAttribute('data-filter') || 'all';
+          filterItems();
+        });
+      });
+      
+      // Gender filter event listeners
+      genderFilters.forEach(button => {
+        button.addEventListener('click', () => {
+          // Update active state
+          genderFilters.forEach(btn => {
+            btn.classList.remove('bg-indigo-600', 'text-white');
+            btn.classList.add('bg-slate-100', 'text-slate-700');
+          });
+          button.classList.remove('bg-slate-100', 'text-slate-700');
+          button.classList.add('bg-indigo-600', 'text-white');
+          
+          // Update filter
+          currentGenderFilter = button.getAttribute('data-filter') || 'all';
+          filterItems();
+        });
+      });
+      
+      // Search input event listener
       searchInput?.addEventListener('input', filterItems);
       
+      // Show more button event listener
       showMoreBtn?.addEventListener('click', () => {
         currentVisible += 10;
         updateVisibility();
