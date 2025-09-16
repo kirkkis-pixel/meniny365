@@ -1,0 +1,36 @@
+---
+export interface Props {
+  title: string;
+  eyebrow?: string;
+  subtitle?: string;
+  actions?: any;
+}
+
+const { title, eyebrow, subtitle, actions } = Astro.props;
+---
+
+<div class="text-center mb-12">
+  {eyebrow && (
+    <div class="text-sm font-medium text-slate-500 mb-3 tracking-wide uppercase">
+      {eyebrow}
+    </div>
+  )}
+  
+  <h1 class="text-4xl font-bold text-slate-900 mb-6 tracking-tight">
+    {title}
+  </h1>
+  
+  {subtitle && (
+    <p class="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed tracking-tight">
+      {subtitle}
+    </p>
+  )}
+  
+  {actions && (
+    <div class="mt-8">
+      <slot name="actions" />
+    </div>
+  )}
+  
+  <div class="mt-8 border-b border-slate-200/50"></div>
+</div>

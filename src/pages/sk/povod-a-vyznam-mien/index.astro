@@ -1,0 +1,185 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import SectionHeader from '../../../components/SectionHeader.astro';
+import Card from '../../../components/Card.astro';
+import StatBadge from '../../../components/StatBadge.astro';
+
+// Sample origin data
+const originData = [
+  {
+    name: "Adam",
+    slug: "adam",
+    description: "Adam je mužské krstné meno hebrejského pôvodu. V Biblii je Adam prvý človek, ktorého stvoril Boh.",
+    originLangs: ["hebrejské"],
+    variants: ["Adám", "Adamek"],
+    gender: "M"
+  },
+  {
+    name: "Emma",
+    slug: "emma", 
+    description: "Emma je ženské krstné meno germánskeho pôvodu. Pochádza zo starogermánskeho slova 'ermen' znamenajúceho 'univerzálny' alebo 'celý'.",
+    originLangs: ["germánske", "starogermánske"],
+    variants: ["Ema", "Emka"],
+    gender: "F"
+  },
+  {
+    name: "Jakub",
+    slug: "jakub",
+    description: "Jakub je mužské krstné meno hebrejského pôvodu. V Biblii je Jakub syn Izáka a vnuk Abraháma.",
+    originLangs: ["hebrejské"],
+    variants: ["Jakob", "Kuba", "Kubko"],
+    gender: "M"
+  },
+  {
+    name: "Sofia",
+    slug: "sofia",
+    description: "Sofia je ženské krstné meno gréckeho pôvodu. Pochádza z gréckeho slova 'sophia' znamenajúceho 'múdrosť'.",
+    originLangs: ["grécke"],
+    variants: ["Sofie", "Sofka", "Sofinka"],
+    gender: "F"
+  }
+];
+---
+
+<Layout 
+  title="Pôvod a význam slovenských mien | meniny365"
+  description="Zistite pôvod a význam slovenských mien. Databáza mien s informáciami o ich histórii a pôvode."
+>
+  <div class="min-h-screen bg-gradient-to-br from-slate-50/95 via-white to-indigo-50/40">
+    <div class="container mx-auto px-4 py-16">
+      <div class="max-w-4xl mx-auto">
+        <SectionHeader
+          eyebrow="Wikidata & Wikipedia"
+          title="Pôvod a význam mien"
+          subtitle="Databáza slovenských mien s informáciami o ich pôvode, význame a histórii"
+        />
+
+        <!-- Search -->
+        <div class="mb-8">
+          <div class="relative max-w-md mx-auto">
+            <input 
+              type="text" 
+              id="nameSearch"
+              placeholder="Hľadať meno..."
+              class="w-full px-4 py-3 pl-10 pr-4 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+            />
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <svg class="h-5 w-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Names Grid -->
+        <div id="namesGrid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {originData.map((entry: any) => (
+            <Card interactive={true} class="name-card" data-name={entry.name.toLowerCase()}>
+              <div class="space-y-3">
+                <!-- Header -->
+                <div class="flex items-start justify-between">
+                  <div>
+                    <h3 class="text-lg font-semibold text-slate-900 mb-1">
+                      <a href={`/sk/meno/${entry.slug}`} class="hover:text-indigo-600 transition-colors">
+                        {entry.name}
+                      </a>
+                    </h3>
+                    {entry.gender && (
+                      <StatBadge 
+                        label={entry.gender === 'M' ? 'Mužské' : entry.gender === 'F' ? 'Ženské' : 'Univerzálne'}
+                        tone="brand"
+                      />
+                    )}
+                  </div>
+                </div>
+
+                <!-- Origin Languages -->
+                {entry.originLangs && entry.originLangs.length > 0 && (
+                  <div class="flex flex-wrap gap-2">
+                    {entry.originLangs.map((lang: string) => (
+                      <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-slate-100 text-slate-700">
+                        {lang}
+                      </span>
+                    ))}
+                  </div>
+                )}
+
+                <!-- Description -->
+                {entry.description && (
+                  <p class="text-sm text-slate-600 leading-relaxed">
+                    {entry.description.length > 120 
+                      ? `${entry.description.substring(0, 120)}...` 
+                      : entry.description
+                    }
+                  </p>
+                )}
+
+                <!-- Variants -->
+                {entry.variants && entry.variants.length > 0 && (
+                  <div class="pt-2 border-t border-slate-100">
+                    <div class="flex flex-wrap gap-1">
+                      <span class="text-xs text-slate-500 mr-2">Varianty:</span>
+                      {entry.variants.slice(0, 3).map((variant: string) => (
+                        <span class="inline-flex items-center px-2 py-1 rounded text-xs bg-indigo-50 text-indigo-700">
+                          {variant}
+                        </span>
+                      ))}
+                      {entry.variants.length > 3 && (
+                        <span class="text-xs text-slate-400">
+                          +{entry.variants.length - 3} ďalších
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </Card>
+          ))}
+        </div>
+
+        <!-- No Results Message -->
+        <div id="noResults" class="hidden text-center py-12">
+          <div class="text-slate-400 mb-4">
+            <svg class="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-medium text-slate-900 mb-2">Nenašli sa žiadne mená</h3>
+          <p class="text-slate-600">Skúste zmeniť vyhľadávací výraz</p>
+        </div>
+
+        <!-- Attribution -->
+        <div class="text-center mt-12">
+          <p class="text-sm text-slate-500">
+            <strong>Licencie:</strong> Wikidata (CC0), Wikipedia (CC BY-SA)
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const searchInput = document.getElementById('nameSearch');
+      const nameCards = document.querySelectorAll('.name-card');
+      const noResults = document.getElementById('noResults');
+      
+      searchInput?.addEventListener('input', (e) => {
+        const query = (e.target as HTMLInputElement).value.toLowerCase().trim();
+        let visibleCount = 0;
+        
+        nameCards.forEach(card => {
+          const name = card.getAttribute('data-name') || '';
+          const shouldShow = name.includes(query);
+          
+          (card as HTMLElement).style.display = shouldShow ? 'block' : 'none';
+          if (shouldShow) visibleCount++;
+        });
+        
+        if (noResults) {
+          noResults.classList.toggle('hidden', visibleCount > 0);
+        }
+      });
+    });
+  </script>
+</Layout>

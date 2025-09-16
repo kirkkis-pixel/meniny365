@@ -1,0 +1,27 @@
+---
+export interface Props {
+  tabs: Array<{ id: string; label: string; href?: string }>;
+  activeTab: string;
+  class?: string;
+}
+
+const { tabs, activeTab, class: className = "" } = Astro.props;
+---
+
+<div class={`flex space-x-1 bg-slate-100 rounded-full p-1 ${className}`} role="tablist">
+  {tabs.map((tab) => (
+    <a
+      href={tab.href || `#${tab.id}`}
+      class={`px-4 py-2 text-sm font-medium rounded-full transition-all duration-200 ${
+        activeTab === tab.id
+          ? "bg-white text-slate-900 shadow-sm"
+          : "text-slate-600 hover:text-slate-900 hover:bg-white/50"
+      }`}
+      role="tab"
+      aria-selected={activeTab === tab.id}
+      aria-controls={`${tab.id}-panel`}
+    >
+      {tab.label}
+    </a>
+  ))}
+</div>

@@ -1,0 +1,21 @@
+---
+export interface Props {
+  label: string;
+  tone?: "brand" | "accent" | "muted";
+  class?: string;
+}
+
+const { label, tone = "muted", class: className = "" } = Astro.props;
+
+const toneClasses = {
+  brand: "bg-indigo-100 text-indigo-800",
+  accent: "bg-green-100 text-green-800", 
+  muted: "bg-slate-100 text-slate-700"
+};
+
+const baseClasses = `inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${toneClasses[tone]} ${className}`;
+---
+
+<span class={baseClasses}>
+  {label}
+</span>

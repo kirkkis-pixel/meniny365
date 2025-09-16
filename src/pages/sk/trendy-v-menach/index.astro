@@ -1,0 +1,96 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import SectionHeader from '../../../components/SectionHeader.astro';
+import Card from '../../../components/Card.astro';
+import StatBadge from '../../../components/StatBadge.astro';
+
+// Sample trending data
+const trendingData = [
+  { name: "Luna", trendScore: 95, trendsDelta: 45, viewsDelta: 38, label: "rising" },
+  { name: "Nina", trendScore: 87, trendsDelta: 32, viewsDelta: 28, label: "rising" },
+  { name: "Zoe", trendScore: 82, trendsDelta: 28, viewsDelta: 25, label: "rising" },
+  { name: "Mia", trendScore: 78, trendsDelta: 22, viewsDelta: 20, label: "rising" },
+  { name: "Emma", trendScore: 75, trendsDelta: 18, viewsDelta: 16, label: "rising" }
+];
+---
+
+<Layout 
+  title="Trendy v menách – stúpajúce mená | meniny365"
+  description="Aktuálne trendy v menách na Slovensku. Zistite, ktoré mená sú najpopulárnejšie."
+>
+  <div class="min-h-screen bg-gradient-to-br from-slate-50/95 via-white to-indigo-50/40">
+    <div class="container mx-auto px-4 py-16">
+      <div class="max-w-4xl mx-auto">
+        <SectionHeader
+          eyebrow="Aktualizované týždenne"
+          title="Trendy v menách"
+          subtitle="Analýza trendov na základe Google Trends a Wikimedia Pageviews API"
+        />
+
+        <!-- Trending Leaderboard -->
+        <div class="space-y-4">
+          {trendingData.map((item: any, index: number) => (
+            <Card interactive={true} class="trending-item" data-label={item.label}>
+              <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                  <div class="text-2xl font-bold text-slate-400 w-8">
+                    {index + 1}
+                  </div>
+                  
+                  <div>
+                    <div class="flex items-center space-x-2 mb-1">
+                      <h3 class="text-lg font-semibold text-slate-900">
+                        <a href={`/sk/meno/${item.name.toLowerCase()}`} class="hover:text-indigo-600 transition-colors">
+                          {item.name}
+                        </a>
+                      </h3>
+                      <StatBadge 
+                        label={item.label === 'rising' ? 'Stúpa' : item.label === 'cooling' ? 'Klesá' : 'Stabilné'}
+                        tone={item.label === 'rising' ? 'accent' : item.label === 'cooling' ? 'muted' : 'brand'}
+                      />
+                    </div>
+                    
+                    <div class="flex items-center space-x-4 text-sm text-slate-600">
+                      <div class="flex items-center space-x-1">
+                        <span class="text-green-600">↗</span>
+                        <span class="text-green-600">+{item.trendsDelta}% Trends</span>
+                      </div>
+                      
+                      <div class="flex items-center space-x-1">
+                        <span class="text-green-600">↗</span>
+                        <span class="text-green-600">+{item.viewsDelta}% Návštevnosť</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                  <!-- Trend Score Bar -->
+                  <div class="w-24">
+                    <div class="flex justify-between text-xs text-slate-500 mb-1">
+                      <span>Trend</span>
+                      <span>{Math.round(item.trendScore)}%</span>
+                    </div>
+                    <div class="w-full bg-slate-200 rounded-full h-2">
+                      <div 
+                        class="bg-gradient-to-r from-indigo-500 to-indigo-600 h-2 rounded-full transition-all duration-300"
+                        style={`width: ${(item.trendScore / 100) * 100}%`}
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Card>
+          ))}
+        </div>
+
+        <!-- Attribution -->
+        <div class="text-center mt-12">
+          <p class="text-sm text-slate-500">
+            Google Trends, Wikimedia Pageviews — spracované meniny365
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
