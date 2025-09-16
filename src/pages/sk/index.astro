@@ -282,14 +282,14 @@ const structuredData = {
       
       <div class="grid grid-cols-1 gap-8 max-w-6xl mx-auto">
         <!-- Most Popular Names -->
-        <div class="bg-white rounded-3xl p-8 border border-slate-200/60 shadow-sm hover:shadow-xl transition-all duration-300 group">
+        <div class="bg-white rounded-3xl p-8 border border-slate-200/60 shadow-xl hover:shadow-2xl transition-all duration-300 group transform hover:-translate-y-1">
           <div class="flex items-start justify-between mb-6">
             <div class="w-16 h-16 bg-gradient-to-br from-orange-100 to-orange-200 rounded-2xl flex items-center justify-center flex-shrink-0">
               <svg class="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
               </svg>
             </div>
-            <div class="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-4 py-2 rounded-full text-sm font-semibold">
+            <div class="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
               Trendy
             </div>
           </div>
@@ -301,7 +301,7 @@ const structuredData = {
           </p>
           
           <!-- Feature Screenshot Placeholder -->
-          <div class="bg-gradient-to-br from-slate-50 to-slate-100 rounded-2xl p-6 mb-6 border border-slate-200/50">
+          <div class="bg-gradient-to-br from-slate-50 to-slate-100 rounded-2xl p-6 mb-6 border border-slate-200/50 shadow-inner">
             <div class="bg-white rounded-xl p-4 shadow-sm">
               <div class="flex items-center space-x-3 mb-4">
                 <div class="w-3 h-3 bg-red-400 rounded-full"></div>
@@ -323,7 +323,24 @@ const structuredData = {
                       <span class="text-green-600">↗ +38% Návštevnosť</span>
                     </div>
                   </div>
-                  <div class="w-16 h-8 bg-gradient-to-r from-indigo-500 to-indigo-600 rounded"></div>
+                  <div class="flex items-center space-x-3">
+                    <!-- Trend Score Bar -->
+                    <div class="w-20">
+                      <div class="flex justify-between text-xs text-slate-500 mb-1">
+                        <span>Trend</span>
+                        <span>95%</span>
+                      </div>
+                      <div class="w-full bg-slate-200 rounded-full h-2">
+                        <div class="bg-gradient-to-r from-indigo-500 to-indigo-600 h-2 rounded-full" style="width: 95%"></div>
+                      </div>
+                    </div>
+                    <!-- Sparkline -->
+                    <div class="w-12 h-6 flex items-center">
+                      <svg width="48" height="24" viewBox="0 0 48 24" preserveAspectRatio="none" class="text-green-500">
+                        <polyline fill="none" stroke="currentColor" stroke-width="2" points="0,20 8,12 16,16 24,8 32,14 40,6 48,10"></polyline>
+                      </svg>
+                    </div>
+                  </div>
                 </div>
                 <div class="flex items-center space-x-4 p-3 bg-slate-50 rounded-lg">
                   <div class="text-2xl font-bold text-slate-400 w-8">2</div>
@@ -338,7 +355,24 @@ const structuredData = {
                       <span class="text-green-600">↗ +35% Návštevnosť</span>
                     </div>
                   </div>
-                  <div class="w-16 h-8 bg-gradient-to-r from-indigo-500 to-indigo-600 rounded"></div>
+                  <div class="flex items-center space-x-3">
+                    <!-- Trend Score Bar -->
+                    <div class="w-20">
+                      <div class="flex justify-between text-xs text-slate-500 mb-1">
+                        <span>Trend</span>
+                        <span>92%</span>
+                      </div>
+                      <div class="w-full bg-slate-200 rounded-full h-2">
+                        <div class="bg-gradient-to-r from-indigo-500 to-indigo-600 h-2 rounded-full" style="width: 92%"></div>
+                      </div>
+                    </div>
+                    <!-- Sparkline -->
+                    <div class="w-12 h-6 flex items-center">
+                      <svg width="48" height="24" viewBox="0 0 48 24" preserveAspectRatio="none" class="text-green-500">
+                        <polyline fill="none" stroke="currentColor" stroke-width="2" points="0,18 8,10 16,14 24,6 32,12 40,4 48,8"></polyline>
+                      </svg>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -371,14 +405,14 @@ const structuredData = {
         </div>
         
         <!-- Emerging Names -->
-        <div class="bg-white rounded-3xl p-8 border border-slate-200/60 shadow-sm hover:shadow-xl transition-all duration-300 group">
+        <div class="bg-white rounded-3xl p-8 border border-slate-200/60 shadow-xl hover:shadow-2xl transition-all duration-300 group transform hover:-translate-y-1">
           <div class="flex items-start justify-between mb-6">
             <div class="w-16 h-16 bg-gradient-to-br from-purple-100 to-purple-200 rounded-2xl flex items-center justify-center flex-shrink-0">
               <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
               </svg>
             </div>
-            <div class="bg-gradient-to-r from-purple-500 to-purple-600 text-white px-4 py-2 rounded-full text-sm font-semibold">
+            <div class="bg-gradient-to-r from-purple-500 to-purple-600 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
               Nové
             </div>
           </div>
@@ -390,7 +424,7 @@ const structuredData = {
           </p>
           
           <!-- Feature Screenshot Placeholder -->
-          <div class="bg-gradient-to-br from-slate-50 to-slate-100 rounded-2xl p-6 mb-6 border border-slate-200/50">
+          <div class="bg-gradient-to-br from-slate-50 to-slate-100 rounded-2xl p-6 mb-6 border border-slate-200/50 shadow-inner">
             <div class="bg-white rounded-xl p-4 shadow-sm">
               <div class="flex items-center space-x-3 mb-4">
                 <div class="w-3 h-3 bg-red-400 rounded-full"></div>
@@ -399,19 +433,19 @@ const structuredData = {
                 <div class="text-sm text-slate-500 ml-4">meniny365.sk/sk/najcastejsie-mena</div>
               </div>
               <div class="grid grid-cols-2 gap-4">
-                <div class="text-center p-4 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl">
+                <div class="text-center p-4 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl shadow-sm">
                   <div class="text-2xl font-bold text-indigo-600 mb-1">1,247</div>
                   <div class="text-sm text-slate-600">Adam</div>
                 </div>
-                <div class="text-center p-4 bg-gradient-to-br from-pink-50 to-rose-50 rounded-xl">
+                <div class="text-center p-4 bg-gradient-to-br from-pink-50 to-rose-50 rounded-xl shadow-sm">
                   <div class="text-2xl font-bold text-pink-600 mb-1">1,189</div>
                   <div class="text-sm text-slate-600">Jakub</div>
                 </div>
-                <div class="text-center p-4 bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl">
+                <div class="text-center p-4 bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl shadow-sm">
                   <div class="text-2xl font-bold text-green-600 mb-1">1,156</div>
                   <div class="text-sm text-slate-600">Samuel</div>
                 </div>
-                <div class="text-center p-4 bg-gradient-to-br from-orange-50 to-amber-50 rounded-xl">
+                <div class="text-center p-4 bg-gradient-to-br from-orange-50 to-amber-50 rounded-xl shadow-sm">
                   <div class="text-2xl font-bold text-orange-600 mb-1">1,098</div>
                   <div class="text-sm text-slate-600">Oliver</div>
                 </div>
@@ -446,14 +480,14 @@ const structuredData = {
         </div>
         
         <!-- Gift Recommendations -->
-        <div class="bg-white rounded-3xl p-8 border border-slate-200/60 shadow-sm hover:shadow-xl transition-all duration-300 group">
+        <div class="bg-white rounded-3xl p-8 border border-slate-200/60 shadow-xl hover:shadow-2xl transition-all duration-300 group transform hover:-translate-y-1">
           <div class="flex items-start justify-between mb-6">
             <div class="w-16 h-16 bg-gradient-to-br from-green-100 to-green-200 rounded-2xl flex items-center justify-center flex-shrink-0">
               <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"></path>
               </svg>
             </div>
-            <div class="bg-gradient-to-r from-green-500 to-green-600 text-white px-4 py-2 rounded-full text-sm font-semibold">
+            <div class="bg-gradient-to-r from-green-500 to-green-600 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
               AI-powered
             </div>
           </div>
@@ -465,7 +499,7 @@ const structuredData = {
           </p>
           
           <!-- Feature Screenshot Placeholder -->
-          <div class="bg-gradient-to-br from-slate-50 to-slate-100 rounded-2xl p-6 mb-6 border border-slate-200/50">
+          <div class="bg-gradient-to-br from-slate-50 to-slate-100 rounded-2xl p-6 mb-6 border border-slate-200/50 shadow-inner">
             <div class="bg-white rounded-xl p-4 shadow-sm">
               <div class="flex items-center space-x-3 mb-4">
                 <div class="w-3 h-3 bg-red-400 rounded-full"></div>
@@ -474,7 +508,7 @@ const structuredData = {
                 <div class="text-sm text-slate-500 ml-4">meniny365.sk/sk/darceky</div>
               </div>
               <div class="space-y-3">
-                <div class="p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl">
+                <div class="p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl shadow-sm">
                   <div class="flex items-center space-x-3">
                     <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
                       <span class="text-2xl">🎁</span>
@@ -485,7 +519,7 @@ const structuredData = {
                     </div>
                   </div>
                 </div>
-                <div class="p-4 bg-gradient-to-r from-pink-50 to-rose-50 rounded-xl">
+                <div class="p-4 bg-gradient-to-r from-pink-50 to-rose-50 rounded-xl shadow-sm">
                   <div class="flex items-center space-x-3">
                     <div class="w-12 h-12 bg-pink-100 rounded-lg flex items-center justify-center">
                       <span class="text-2xl">💎</span>
@@ -527,14 +561,14 @@ const structuredData = {
         </div>
         
         <!-- Greeting Cards -->
-        <div class="bg-white rounded-3xl p-8 border border-slate-200/60 shadow-sm hover:shadow-xl transition-all duration-300 group">
+        <div class="bg-white rounded-3xl p-8 border border-slate-200/60 shadow-xl hover:shadow-2xl transition-all duration-300 group transform hover:-translate-y-1">
           <div class="flex items-start justify-between mb-6">
             <div class="w-16 h-16 bg-gradient-to-br from-pink-100 to-pink-200 rounded-2xl flex items-center justify-center flex-shrink-0">
               <svg class="w-8 h-8 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
               </svg>
             </div>
-            <div class="bg-gradient-to-r from-pink-500 to-pink-600 text-white px-4 py-2 rounded-full text-sm font-semibold">
+            <div class="bg-gradient-to-r from-pink-500 to-pink-600 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
               Nové
             </div>
           </div>
@@ -546,7 +580,7 @@ const structuredData = {
           </p>
           
           <!-- Feature Screenshot Placeholder -->
-          <div class="bg-gradient-to-br from-slate-50 to-slate-100 rounded-2xl p-6 mb-6 border border-slate-200/50">
+          <div class="bg-gradient-to-br from-slate-50 to-slate-100 rounded-2xl p-6 mb-6 border border-slate-200/50 shadow-inner">
             <div class="bg-white rounded-xl p-4 shadow-sm">
               <div class="flex items-center space-x-3 mb-4">
                 <div class="w-3 h-3 bg-red-400 rounded-full"></div>
@@ -554,7 +588,7 @@ const structuredData = {
                 <div class="w-3 h-3 bg-green-400 rounded-full"></div>
                 <div class="text-sm text-slate-500 ml-4">meniny365.sk/sk/pohladnice</div>
               </div>
-              <div class="bg-gradient-to-br from-pink-50 to-rose-50 rounded-xl p-6 text-center">
+              <div class="bg-gradient-to-br from-pink-50 to-rose-50 rounded-xl p-6 text-center shadow-sm">
                 <div class="text-4xl mb-2">🎉</div>
                 <h4 class="font-bold text-slate-900 text-lg mb-1">Šťastné meniny!</h4>
                 <p class="text-slate-600 text-sm">Všetko najlepšie k meninám</p>
@@ -588,446 +622,4 @@ const structuredData = {
             Vytvoriť pohľadnicu
           </a>
         </div>
-      </div>    </div>
-  </section>
-</Layout>
-
-    <script define:vars={{ meninyData }}>
-      // Use the imported data directly
-      let nameDayData = meninyData;
-
-  // Month names in Slovak
-  const monthNames = [
-    'Január', 'Február', 'Marec', 'Apríl', 'Máj', 'Jún',
-    'Júl', 'August', 'September', 'Október', 'November', 'December'
-  ];
-
-  let currentMonth = new Date().getMonth();
-  let currentYear = new Date().getFullYear();
-
-  // Generate horizontal months
-  function generateMonths() {
-    const container = document.getElementById('monthsContainer');
-    if (!container) return;
-
-    container.innerHTML = '';
-
-    for (let i = 0; i < 12; i++) {
-      const monthCard = document.createElement('div');
-      monthCard.className = `month-card ${i === currentMonth ? 'active' : ''}`;
-      
-      monthCard.innerHTML = `
-        <div class="month-header">
-          <div class="month-name">${monthNames[i]}</div>
-          <div class="month-year">${currentYear}</div>
-        </div>
-      `;
-
-      monthCard.addEventListener('click', () => {
-        currentMonth = i;
-        updateCalendar();
-        updateMonths();
-      });
-
-      container.appendChild(monthCard);
-    }
-  }
-
-  // Update months active state
-  function updateMonths() {
-    const monthCards = document.querySelectorAll('.month-card');
-    monthCards.forEach((card, index) => {
-      card.classList.toggle('active', index === currentMonth);
-    });
-  }
-
-  // Generate calendar
-  function generateCalendar() {
-    const calendarGrid = document.getElementById('calendarGrid');
-    const calendarTitle = document.getElementById('calendarTitle');
-    
-    if (!calendarGrid || !calendarTitle) return;
-
-    // Update title
-    calendarTitle.textContent = `${monthNames[currentMonth]} ${currentYear}`;
-
-    // Clear grid
-    calendarGrid.innerHTML = '';
-
-    // Get first day of month and number of days
-    const firstDay = new Date(currentYear, currentMonth, 1);
-    const lastDay = new Date(currentYear, currentMonth + 1, 0);
-    const daysInMonth = lastDay.getDate();
-    const startingDay = (firstDay.getDay() + 6) % 7; // Convert Sunday=0 to Monday=0
-
-    // Add empty cells for days before month starts
-    for (let i = 0; i < startingDay; i++) {
-      const emptyDay = document.createElement('div');
-      emptyDay.className = 'h-48 bg-slate-50/30 rounded-2xl';
-      calendarGrid.appendChild(emptyDay);
-    }
-
-    // Add days of month
-    for (let day = 1; day <= daysInMonth; day++) {
-      const dayElement = document.createElement('div');
-      const dayString = String(day).padStart(2, '0');
-      const monthString = String(currentMonth + 1).padStart(2, '0');
-      
-      // Get names for this day from the flat structure
-      const dateKey = `${currentYear}-${monthString}-${dayString}`;
-      const names = nameDayData[dateKey] || [];
-      
-      // Check if it's today
-      const today = new Date();
-      const isToday = day === today.getDate() && currentMonth === today.getMonth() && currentYear === today.getFullYear();
-      
-      dayElement.className = `h-48 rounded-2xl p-3 cursor-pointer transition-all duration-200 hover:scale-105 ${
-        isToday 
-          ? 'bg-gradient-to-br from-slate-800 to-slate-900 text-white shadow-lg' 
-          : names.length > 0 
-            ? 'bg-gradient-to-br from-slate-50 to-slate-100 hover:from-slate-100 hover:to-slate-200 border border-slate-200/50' 
-            : 'bg-gradient-to-br from-white to-slate-50/30 hover:from-slate-50/40 hover:to-slate-100/40 border border-slate-200/30'
-      }`;
-
-      // Show up to 6 names initially, then "show more" if there are more
-      const maxInitialNames = 6;
-      const hasMoreNames = names.length > maxInitialNames;
-      const initialNames = names.slice(0, maxInitialNames);
-      const remainingNames = names.slice(maxInitialNames);
-      
-      dayElement.innerHTML = `
-        <div class="flex flex-col h-full">
-          <div class="text-sm font-bold mb-1 flex-shrink-0">${day}</div>
-          <div class="flex-1 flex flex-col space-y-0.5 overflow-hidden">
-            ${names.length > 0 ? (
-              initialNames.map(name => 
-                `<div class="text-xs font-medium truncate px-2 py-1 ${isToday ? 'bg-white/20 text-white rounded-full' : 'bg-slate-200/60 text-slate-700 rounded-full'} text-center">${name}</div>`
-              ).join('') +
-              (hasMoreNames ? 
-                `<button class="text-xs px-2 py-1 ${isToday ? 'bg-white/10 text-white hover:bg-white/20' : 'bg-slate-100/80 text-slate-600 hover:bg-slate-200/80'} rounded-full text-center transition-colors show-more-btn" data-day="${day}" data-month="${currentMonth}" data-year="${currentYear}">
-                  +${remainingNames.length} viac
-                </button>` : ''
-              )
-            ) : (
-              `<div class="text-xs ${isToday ? 'text-white/50' : 'text-slate-400'} text-center mt-2">-</div>`
-            )}
-          </div>
-        </div>
-      `;
-
-      // Add click handler for the day
-      dayElement.addEventListener('click', (e) => {
-        // Don't navigate if clicking the "show more" button
-        if (e.target.classList.contains('show-more-btn')) {
-          e.stopPropagation();
-          return;
-        }
-        window.location.href = `/sk/den/${currentYear}/${monthString}/${dayString}`;
-      });
-      
-      // Add click handler for "show more" button
-      if (hasMoreNames) {
-        const showMoreBtn = dayElement.querySelector('.show-more-btn');
-        if (showMoreBtn) {
-          showMoreBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            showAllNames(dayElement, names, isToday, e);
-          });
-        }
-      }
-
-      calendarGrid.appendChild(dayElement);
-    }
-  }
-
-      // Show all names in a popup
-      function showAllNames(dayElement, names, isToday, event) {
-        // Remove any existing popup
-        const existingPopup = document.querySelector('.names-popup');
-        if (existingPopup) {
-          existingPopup.remove();
-        }
-
-        // Create popup element
-        const popup = document.createElement('div');
-        popup.className = 'names-popup fixed z-50 bg-white rounded-2xl shadow-2xl border border-slate-200/50 p-4 max-w-xs animate-fade-in-up';
-        
-        // Position the popup near the clicked button
-        const rect = event.target.getBoundingClientRect();
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
-        
-        popup.style.left = `${rect.left + scrollLeft - 50}px`;
-        popup.style.top = `${rect.bottom + scrollTop + 8}px`;
-        
-        // Create popup content
-        popup.innerHTML = `
-          <div class="flex items-center justify-between mb-3">
-            <h4 class="font-semibold text-slate-800 text-sm">Všetky mená</h4>
-            <button class="close-popup text-slate-400 hover:text-slate-600 transition-colors">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-              </svg>
-            </button>
-          </div>
-          <div class="flex flex-wrap gap-1">
-            ${names.map(name => 
-              `<div class="text-xs font-medium px-2 py-1 ${isToday ? 'bg-slate-800 text-white' : 'bg-slate-100 text-slate-700'} rounded-full">${name}</div>`
-            ).join('')}
-          </div>
-        `;
-        
-        // Add to document
-        document.body.appendChild(popup);
-        
-        // Add close functionality
-        const closeBtn = popup.querySelector('.close-popup');
-        closeBtn.addEventListener('click', () => {
-          popup.remove();
-        });
-        
-        // Close on click outside
-        setTimeout(() => {
-          document.addEventListener('click', function closePopup(e) {
-            if (!popup.contains(e.target) && !event.target.contains(e.target)) {
-              popup.remove();
-              document.removeEventListener('click', closePopup);
-            }
-          });
-        }, 100);
-      }
-
-  // Update calendar
-  function updateCalendar() {
-    generateCalendar();
-  }
-
-  // Navigation handlers
-  document.getElementById('prevMonth')?.addEventListener('click', () => {
-    currentMonth--;
-    if (currentMonth < 0) {
-      currentMonth = 11;
-      currentYear--;
-    }
-    updateCalendar();
-    updateMonths();
-  });
-
-  document.getElementById('nextMonth')?.addEventListener('click', () => {
-    currentMonth++;
-    if (currentMonth > 11) {
-      currentMonth = 0;
-      currentYear++;
-    }
-    updateCalendar();
-    updateMonths();
-  });
-
-  document.getElementById('todayBtn')?.addEventListener('click', () => {
-    const today = new Date();
-    currentMonth = today.getMonth();
-    currentYear = today.getFullYear();
-    updateCalendar();
-    updateMonths();
-  });
-
-      // Calendar search functionality
-      function setupCalendarSearch() {
-        const searchInput = document.getElementById('calendarSearch');
-        const searchResults = document.getElementById('calendarSearchResults');
-        
-        searchInput.addEventListener('input', (e) => {
-          const query = e.target.value.toLowerCase().trim();
-          
-          if (query.length < 2) {
-            searchResults.classList.add('hidden');
-            return;
-          }
-          
-          const results = [];
-          for (const [date, names] of Object.entries(nameDayData)) {
-            const matchingNames = names.filter(name => 
-              name.toLowerCase().includes(query)
-            );
-            
-            if (matchingNames.length > 0) {
-              results.push({
-                date,
-                names: matchingNames,
-                allNames: names
-              });
-            }
-          }
-          
-          if (results.length > 0) {
-            searchResults.innerHTML = `
-              <div class="p-4">
-                <h4 class="font-semibold text-slate-800 mb-3">Nájdené mená (${results.length} dní):</h4>
-                <div class="space-y-2">
-                  ${results.slice(0, 8).map(result => `
-                    <div class="flex items-center justify-between p-3 bg-slate-50 rounded-xl hover:bg-slate-100 transition-colors">
-                      <div>
-                        <div class="font-medium text-slate-800">${formatDateForDisplay(result.date)}</div>
-                        <div class="text-sm text-slate-600">${result.names.join(', ')}</div>
-                      </div>
-                      <button onclick="goToDate('${result.date}')" class="px-3 py-1 bg-gradient-to-r from-slate-700 to-slate-800 text-white rounded-lg text-sm hover:from-slate-800 hover:to-slate-900 transition-all">
-                        Zobraziť
-                      </button>
-                    </div>
-                  `).join('')}
-                  ${results.length > 8 ? `<div class="text-sm text-slate-500 text-center pt-2">... a ${results.length - 8} ďalších</div>` : ''}
-                </div>
-              </div>
-            `;
-            searchResults.classList.remove('hidden');
-          } else {
-            searchResults.innerHTML = '<div class="p-4 text-slate-500 text-center">Žiadne mená sa nenašli</div>';
-            searchResults.classList.remove('hidden');
-          }
-        });
-        
-        // Hide results when clicking outside
-        document.addEventListener('click', (e) => {
-          if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
-            searchResults.classList.add('hidden');
-          }
-        });
-      }
-  
-  function formatDateForDisplay(dateStr) {
-    const [year, month, day] = dateStr.split('-');
-    const monthNames = [
-      'Január', 'Február', 'Marec', 'Apríl', 'Máj', 'Jún',
-      'Júl', 'August', 'September', 'Október', 'November', 'December'
-    ];
-    return `${day}. ${monthNames[parseInt(month) - 1]} ${year}`;
-  }
-  
-  function goToDate(dateStr) {
-    const [year, month, day] = dateStr.split('-');
-    currentYear = parseInt(year);
-    currentMonth = parseInt(month) - 1;
-    updateCalendar();
-    updateMonths();
-    document.getElementById('searchResults').classList.add('hidden');
-    document.getElementById('nameSearch').value = '';
-  }
-  
-  // Make goToDate globally available
-  window.goToDate = goToDate;
-
-      // Initialize when page loads
-      document.addEventListener('DOMContentLoaded', () => {
-        generateCalendar();
-        setupCalendarSearch();
-        
-        // Handle card creation button
-        const createCardBtn = document.getElementById('createCardBtn');
-        const cardModal = document.getElementById('cardModal');
-        const closeCardModal = document.getElementById('closeCardModal');
-        
-        // Function to show modal
-        function showModal() {
-          if (cardModal) {
-            cardModal.classList.remove('hidden');
-            cardModal.style.display = 'flex';
-            document.body.style.overflow = 'hidden'; // Prevent background scrolling
-          }
-        }
-        
-        // Function to hide modal
-        function hideModal() {
-          if (cardModal) {
-            cardModal.classList.add('hidden');
-            cardModal.style.display = 'none';
-            document.body.style.overflow = ''; // Restore scrolling
-          }
-        }
-        
-        createCardBtn?.addEventListener('click', (e) => {
-          e.preventDefault();
-          showModal();
-        });
-        
-        closeCardModal?.addEventListener('click', (e) => {
-          e.preventDefault();
-          hideModal();
-        });
-        
-        // Close modal when clicking outside
-        cardModal?.addEventListener('click', (e) => {
-          if (e.target === cardModal) {
-            hideModal();
-          }
-        });
-        
-        // Close modal with Escape key
-        document.addEventListener('keydown', (e) => {
-          if (e.key === 'Escape' && cardModal && !cardModal.classList.contains('hidden')) {                                                   
-            hideModal();
-          }
-        });
-
-        // Animated counter functionality
-        setupAnimatedCounter();
-      });
-
-      // Animated counter setup
-      function setupAnimatedCounter() {
-        const counterElement = document.getElementById('nameCounter');
-        const progressBar = document.getElementById('progressBar');
-        const targetValue = 798;
-        let hasAnimated = false;
-
-        // Intersection Observer to trigger animation when section comes into view
-        const observer = new IntersectionObserver((entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting && !hasAnimated) {
-              hasAnimated = true;
-              animateCounter(counterElement, progressBar, targetValue);
-            }
-          });
-        }, {
-          threshold: 0.3 // Trigger when 30% of the section is visible
-        });
-
-        // Observe the counter section
-        const counterSection = document.querySelector('.py-24.bg-gradient-to-br');
-        if (counterSection) {
-          observer.observe(counterSection);
-        }
-      }
-
-      // Animate counter from 0 to target value
-      function animateCounter(element, progressBar, target) {
-        const duration = 3000; // 3 seconds
-        const startTime = performance.now();
-        const startValue = 0;
-
-        function updateCounter(currentTime) {
-          const elapsed = currentTime - startTime;
-          const progress = Math.min(elapsed / duration, 1);
-          
-          // Easing function for smooth animation
-          const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-          const currentValue = Math.floor(startValue + (target - startValue) * easeOutQuart);
-          
-          // Update counter display
-          element.textContent = currentValue.toLocaleString();
-          
-          // Update progress bar
-          const progressPercent = (currentValue / target) * 100;
-          progressBar.style.width = `${progressPercent}%`;
-          
-          if (progress < 1) {
-            requestAnimationFrame(updateCounter);
-          } else {
-            // Ensure final values are exact
-            element.textContent = target.toLocaleString();
-            progressBar.style.width = '100%';
-          }
-        }
-
-        requestAnimationFrame(updateCounter);
-      }
-    </script>// Force deployment Tue Sep 16 09:46:37 CEST 2025
+      </div>
