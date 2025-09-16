@@ -1,0 +1,90 @@
+{
+  "lastUpdated": "2025-09-16T06:16:36.342Z",
+  "period": "7 days vs previous 28 days",
+  "items": [
+    {
+      "name": "Luna",
+      "trendScore": 95,
+      "trendsDelta": 45,
+      "viewsDelta": 38,
+      "label": "rising",
+      "wikiTitle": "Luna_(meno)"
+    },
+    {
+      "name": "Nina",
+      "trendScore": 87,
+      "trendsDelta": 32,
+      "viewsDelta": 28,
+      "label": "rising",
+      "wikiTitle": "Nina_(meno)"
+    },
+    {
+      "name": "Zoe",
+      "trendScore": 82,
+      "trendsDelta": 28,
+      "viewsDelta": 25,
+      "label": "rising",
+      "wikiTitle": "Zoe_(meno)"
+    },
+    {
+      "name": "Mia",
+      "trendScore": 78,
+      "trendsDelta": 22,
+      "viewsDelta": 20,
+      "label": "rising",
+      "wikiTitle": "Mia_(meno)"
+    },
+    {
+      "name": "Emma",
+      "trendScore": 75,
+      "trendsDelta": 18,
+      "viewsDelta": 16,
+      "label": "rising",
+      "wikiTitle": "Emma_(meno)"
+    },
+    {
+      "name": "Oliver",
+      "trendScore": 65,
+      "trendsDelta": 12,
+      "viewsDelta": 10,
+      "label": "stable",
+      "wikiTitle": "Oliver_(meno)"
+    },
+    {
+      "name": "Liam",
+      "trendScore": 58,
+      "trendsDelta": 8,
+      "viewsDelta": 6,
+      "label": "stable",
+      "wikiTitle": "Liam_(meno)"
+    },
+    {
+      "name": "Adam",
+      "trendScore": 45,
+      "trendsDelta": -5,
+      "viewsDelta": -3,
+      "label": "stable",
+      "wikiTitle": "Adam_(meno)"
+    },
+    {
+      "name": "Jakub",
+      "trendScore": 35,
+      "trendsDelta": -12,
+      "viewsDelta": -8,
+      "label": "cooling",
+      "wikiTitle": "Jakub_(meno)"
+    },
+    {
+      "name": "Samuel",
+      "trendScore": 28,
+      "trendsDelta": -18,
+      "viewsDelta": -12,
+      "label": "cooling",
+      "wikiTitle": "Samuel_(meno)"
+    }
+  ],
+  "sources": {
+    "trends": "Google Trends API",
+    "pageviews": "Wikimedia Pageviews API"
+  }
+}
