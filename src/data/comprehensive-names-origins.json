@@ -45,29 +45,6 @@
     "numbers": "1, 5, 9",
     "compatibility": "Najlepšie sa zhoduje s menami: Mária, Anna, Ján, Peter, Michal"
   },
-  "Štefan": {
-    "name": "Štefan",
-    "slug": "-tefan",
-    "description": "Krásne meno Štefan má slovenský pôvod a je veľmi populárne na Slovensku.",
-    "originLangs": [
-      "grécke"
-    ],
-    "variants": [
-      "Štefan"
-    ],
-    "gender": "M",
-    "frequency": 4,
-    "origin": "slovenský",
-    "meaning": "krásne meno",
-    "characteristics": "Je to charizmatická osobnosť s prirodzeným šarmom.",
-    "personality": "Má silný charakter a je veľmi lojálny k svojim blízkym.",
-    "behavior": "Rád sa stara o rodinu a priateľov. Je spoľahlivý a vždy pomôže, keď je potreba.",
-    "astrology": "Ovplyvňuje ho/ju planéta Slnko.",
-    "stones": "Jeho/jej ochranné kamene sú kremeň a ametyst.",
-    "colors": "Modrá, zelená",
-    "numbers": "1, 5, 9",
-    "compatibility": "Najlepšie sa zhoduje s menami: Mária, Anna, Ján, Peter, Michal"
-  },
   "Zdenko": {
     "name": "Zdenko",
     "slug": "zdenko",
@@ -616,29 +593,6 @@
     "numbers": "1, 5, 9",
     "compatibility": "Najlepšie sa zhoduje s menami: Mária, Anna, Ján, Peter, Michal"
   },
-  "Robert": {
-    "name": "Robert",
-    "slug": "robert",
-    "description": "Krásne meno Robert má slovenský pôvod a je veľmi populárne na Slovensku.",
-    "originLangs": [
-      "germánske"
-    ],
-    "variants": [
-      "Robert"
-    ],
-    "gender": "M",
-    "frequency": 2,
-    "origin": "slovenský",
-    "meaning": "krásne meno",
-    "characteristics": "Je to charizmatická osobnosť s prirodzeným šarmom.",
-    "personality": "Má silný charakter a je veľmi lojálny k svojim blízkym.",
-    "behavior": "Rád sa stara o rodinu a priateľov. Je spoľahlivý a vždy pomôže, keď je potreba.",
-    "astrology": "Ovplyvňuje ho/ju planéta Slnko.",
-    "stones": "Jeho/jej ochranné kamene sú kremeň a ametyst.",
-    "colors": "Modrá, zelená",
-    "numbers": "1, 5, 9",
-    "compatibility": "Najlepšie sa zhoduje s menami: Mária, Anna, Ján, Peter, Michal"
-  },
   "Pavel": {
     "name": "Pavel",
     "slug": "pavel",
@@ -731,29 +685,6 @@
     "numbers": "1, 5, 9",
     "compatibility": "Najlepšie sa zhoduje s menami: Mária, Anna, Ján, Peter, Michal"
   },
-  "Vladimir": {
-    "name": "Vladimir",
-    "slug": "vladimir",
-    "description": "Krásne meno Vladimir má slovenský pôvod a je veľmi populárne na Slovensku.",
-    "originLangs": [
-      "slovanské"
-    ],
-    "variants": [
-      "Vladimir"
-    ],
-    "gender": "M",
-    "frequency": 2,
-    "origin": "slovenský",
-    "meaning": "krásne meno",
-    "characteristics": "Je to charizmatická osobnosť s prirodzeným šarmom.",
-    "personality": "Má silný charakter a je veľmi lojálny k svojim blízkym.",
-    "behavior": "Rád sa stara o rodinu a priateľov. Je spoľahlivý a vždy pomôže, keď je potreba.",
-    "astrology": "Ovplyvňuje ho/ju planéta Slnko.",
-    "stones": "Jeho/jej ochranné kamene sú kremeň a ametyst.",
-    "colors": "Modrá, zelená",
-    "numbers": "1, 5, 9",
-    "compatibility": "Najlepšie sa zhoduje s menami: Mária, Anna, Ján, Peter, Michal"
-  },
   "Stanislav": {
     "name": "Stanislav",
     "slug": "stanislav",
@@ -788,29 +719,6 @@
       "Branislav"
     ],
     "gender": "M",
-    "origin": "slovenský",
-    "meaning": "krásne meno",
-    "characteristics": "Je to charizmatická osobnosť s prirodzeným šarmom.",
-    "personality": "Má silný charakter a je veľmi lojálny k svojim blízkym.",
-    "behavior": "Rád sa stara o rodinu a priateľov. Je spoľahlivý a vždy pomôže, keď je potreba.",
-    "astrology": "Ovplyvňuje ho/ju planéta Slnko.",
-    "stones": "Jeho/jej ochranné kamene sú kremeň a ametyst.",
-    "colors": "Modrá, zelená",
-    "numbers": "1, 5, 9",
-    "compatibility": "Najlepšie sa zhoduje s menami: Mária, Anna, Ján, Peter, Michal"
-  },
-  "Dusan": {
-    "name": "Dusan",
-    "slug": "dusan",
-    "description": "Krásne meno Dusan má slovenský pôvod a je veľmi populárne na Slovensku.",
-    "originLangs": [
-      "slovanské"
-    ],
-    "variants": [
-      "Dusan"
-    ],
-    "gender": "M",
-    "frequency": 2,
     "origin": "slovenský",
     "meaning": "krásne meno",
     "characteristics": "Je to charizmatická osobnosť s prirodzeným šarmom.",
@@ -877,29 +785,6 @@
     ],
     "variants": [
       "Vladislav"
-    ],
-    "gender": "M",
-    "frequency": 2,
-    "origin": "slovenský",
-    "meaning": "krásne meno",
-    "characteristics": "Je to charizmatická osobnosť s prirodzeným šarmom.",
-    "personality": "Má silný charakter a je veľmi lojálny k svojim blízkym.",
-    "behavior": "Rád sa stara o rodinu a priateľov. Je spoľahlivý a vždy pomôže, keď je potreba.",
-    "astrology": "Ovplyvňuje ho/ju planéta Slnko.",
-    "stones": "Jeho/jej ochranné kamene sú kremeň a ametyst.",
-    "colors": "Modrá, zelená",
-    "numbers": "1, 5, 9",
-    "compatibility": "Najlepšie sa zhoduje s menami: Mária, Anna, Ján, Peter, Michal"
-  },
-  "Frantisek": {
-    "name": "Frantisek",
-    "slug": "frantisek",
-    "description": "Krásne meno Frantisek má slovenský pôvod a je veľmi populárne na Slovensku.",
-    "originLangs": [
-      "germánske"
-    ],
-    "variants": [
-      "Frantisek"
     ],
     "gender": "M",
     "frequency": 2,
