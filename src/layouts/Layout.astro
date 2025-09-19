@@ -6,40 +6,150 @@ export interface Props {
   description: string;
   canonical?: string;
   structuredData?: any;
+  keywords?: string;
+  author?: string;
+  publishedTime?: string;
+  modifiedTime?: string;
+  image?: string;
+  type?: string;
+  locale?: string;
+  alternate?: string;
 }
 
-const { title, description, canonical, structuredData } = Astro.props;
+const { 
+  title, 
+  description, 
+  canonical, 
+  structuredData, 
+  keywords = "meniny, kalendár menín, slovenské mená, meniny 2025, pôvod mien, darčeky k meninám, pohľadnice",
+  author = "meniny365.sk",
+  publishedTime,
+  modifiedTime,
+  image = "https://meniny365.sk/og-image.jpg",
+  type = "website",
+  locale = "sk_SK",
+  alternate
+} = Astro.props;
 ---
 
 <!DOCTYPE html>
-<html lang="sk">
+<html lang="sk" class="min-h-full">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="theme-color" content="#f8fafc" />
+    <meta name="msapplication-TileColor" content="#f8fafc" />
+    <meta name="apple-mobile-web-app-title" content="Meniny365" />
     <meta name="description" content={description} />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="keywords" content={keywords} />
+    <meta name="author" content={author} />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow" />
+    <meta name="bingbot" content="index, follow" />
+    
+    <!-- Canonical URL -->
     <link rel="canonical" href={canonical || 'https://meniny365.sk'} />
     
+    <!-- Language and Locale -->
+    <meta name="language" content="Slovak" />
+    <meta name="geo.region" content="SK" />
+    <meta name="geo.country" content="Slovakia" />
+    
+    <!-- Favicon and Icons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    
     <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={type} />
     <meta property="og:url" content={canonical || 'https://meniny365.sk'} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content="https://meniny365.sk/og-image.jpg" />
+    <meta property="og:image" content={image} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={title} />
+    <meta property="og:site_name" content="meniny365.sk" />
+    <meta property="og:locale" content={locale} />
+    {publishedTime && <meta property="article:published_time" content={publishedTime} />}
+    {modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
+    <meta property="article:author" content={author} />
 
     <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content={canonical || 'https://meniny365.sk'} />
-    <meta property="twitter:title" content={title} />
-    <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content="https://meniny365.sk/og-image.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonical || 'https://meniny365.sk'} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image} />
+    <meta name="twitter:image:alt" content={title} />
+    <meta name="twitter:site" content="@meniny365" />
+    <meta name="twitter:creator" content="@meniny365" />
+    
+    <!-- Additional Meta Tags -->
+    <meta name="theme-color" content="#1e293b" />
+    <meta name="msapplication-TileColor" content="#1e293b" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="meniny365.sk" />
+    
+    <!-- Alternate Language -->
+    {alternate && <link rel="alternate" hreflang="en" href={alternate} />}
+    
+    <!-- DNS Prefetch -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+    <link rel="dns-prefetch" href="//www.google-analytics.com" />
+    
+    <!-- Performance Hints -->
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    
+    <!-- Critical CSS for above-the-fold content -->
+    <style>
+      /* Critical CSS for immediate rendering */
+      body { margin: 0; font-family: Inter, system-ui, -apple-system, sans-serif; }
+      .container { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
+      .min-h-screen { min-height: 100vh; }
+      .py-20 { padding-top: 5rem; padding-bottom: 5rem; }
+      .text-center { text-align: center; }
+      .text-4xl { font-size: 2.25rem; line-height: 2.5rem; }
+      .font-bold { font-weight: 700; }
+      .text-slate-900 { color: #0f172a; }
+      .mb-6 { margin-bottom: 1.5rem; }
+      .bg-white { background-color: #ffffff; }
+      .rounded-xl { border-radius: 0.75rem; }
+      .shadow-sm { box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05); }
+      .p-6 { padding: 1.5rem; }
+      .grid { display: grid; }
+      .grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+      .gap-6 { gap: 1.5rem; }
+      .flex { display: flex; }
+      .items-center { align-items: center; }
+      .justify-center { justify-content: center; }
+      .space-x-4 > :not([hidden]) ~ :not([hidden]) { margin-left: 1rem; }
+      .px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .py-3 { padding-top: 0.75rem; padding-bottom: 0.75rem; }
+      .rounded-lg { border-radius: 0.5rem; }
+      .font-semibold { font-weight: 600; }
+      .text-white { color: #ffffff; }
+      .bg-blue-600 { background-color: #2563eb; }
+      .hover\:bg-blue-700:hover { background-color: #1d4ed8; }
+      .transition-colors { transition-property: color, background-color, border-color, text-decoration-color, fill, stroke; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 150ms; }
+    </style>
 
     <!-- Preconnect to external domains -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     
-    <!-- Inter font -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <!-- Google Fonts - Optimized -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Dancing+Script:wght@400;500;600;700&family=Great+Vibes&family=Pacifico&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Dancing+Script:wght@400;500;600;700&family=Great+Vibes&family=Pacifico&display=swap" rel="stylesheet" /></noscript>
     
     <!-- Structured Data -->
     {structuredData && (
@@ -48,11 +158,21 @@ const { title, description, canonical, structuredData } = Astro.props;
     
     <title>{title}</title>
   </head>
-  <body class="bg-gradient-to-br from-slate-50/95 via-white to-indigo-50/40 min-h-screen">
+  <body class="min-h-screen">
+    <!-- Full-bleed background layer -->
+    <div
+      class="fixed inset-0 -z-10 bg-no-repeat bg-cover"
+      style="
+        background:
+          radial-gradient(75% 60% at 50% -10%, rgba(98,212,179,.22) 0%, transparent 60%),
+          linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+        background-attachment: fixed;
+      "
+    />
     <!-- Clean Navigation Header -->
-    <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-sm border-b border-gray-200/50">
+    <header id="navbar" class="sticky top-0 z-50 bg-white/80 backdrop-blur-sm transition-all duration-300">
       <div class="container">
-        <nav class="flex items-center justify-between py-4">
+        <nav class="flex items-center justify-between py-6">
           <!-- Logo -->
           <div class="flex items-center">
             <a href="/sk" class="flex items-center space-x-3 text-2xl font-bold text-black">
@@ -66,44 +186,47 @@ const { title, description, canonical, structuredData } = Astro.props;
           </div>
           
           <!-- Navigation Links -->
-          <div class="hidden md:flex items-center space-x-8">
-            <a href="/sk" class="text-gray-600 hover:text-black transition-colors">Domov</a>
-            <a href="/sk/kalendár" class="text-gray-600 hover:text-black transition-colors">Kalendár</a>
-            <a href="/sk/populárne-mená" class="text-gray-600 hover:text-black transition-colors">Populárne mená</a>
-            <a href="/sk/návrhy-mena" class="text-gray-600 hover:text-black transition-colors">Návrhy mien</a>
-            <a href="/sk/blog" class="text-gray-600 hover:text-black transition-colors">Blog</a>
+          <div class="hidden md:flex items-center space-x-10">
+            <a href="/sk#kalendar" class="text-gray-600 hover:text-black transition-colors font-medium">Kalendár</a>
+            <a href="/sk/trendy-v-menach" class="text-gray-600 hover:text-black transition-colors font-medium">Populárne mená</a>
+            <a href="/sk/povod-a-vyznam-mien" class="text-gray-600 hover:text-black transition-colors font-medium">Pôvod mien</a>
+            <a href="/sk/pohladnice" class="text-gray-600 hover:text-black transition-colors font-medium">Pohľadnice</a>
+            <a href="/sk/darceky" class="text-gray-600 hover:text-black transition-colors font-medium">Darčeky</a>
           </div>
           
           <!-- Right Side -->
           <div class="flex items-center space-x-4">
-            <!-- Theme Toggle -->
-            <button class="p-2 text-gray-600 hover:text-black transition-colors">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-button" class="md:hidden p-2 text-gray-600 hover:text-black transition-colors">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
               </svg>
             </button>
-            
-            <!-- Sign In -->
-            <a href="/sk/návrhy-mena" class="text-gray-600 hover:text-black transition-colors font-medium">
-              Prihlásiť sa
-            </a>
-            
-            <!-- Sign Up -->
-            <a href="/sk/kalendár" class="bg-black text-white px-4 py-2 rounded-lg font-medium hover:bg-gray-800 transition-colors">
-              Začať
-            </a>
           </div>
         </nav>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white border-t border-gray-200">
+          <div class="px-4 py-6 space-y-4">
+            <a href="/sk#kalendar" class="block text-gray-600 hover:text-black transition-colors font-medium py-2">Kalendár</a>
+            <a href="/sk/trendy-v-menach" class="block text-gray-600 hover:text-black transition-colors font-medium py-2">Populárne mená</a>
+            <a href="/sk/povod-a-vyznam-mien" class="block text-gray-600 hover:text-black transition-colors font-medium py-2">Pôvod mien</a>
+            <a href="/sk/pohladnice" class="block text-gray-600 hover:text-black transition-colors font-medium py-2">Pohľadnice</a>
+            <a href="/sk/darceky" class="block text-gray-600 hover:text-black transition-colors font-medium py-2">Darčeky</a>
+          </div>
+        </div>
       </div>
     </header>
 
-    <main>
+    <main class="relative z-10 min-h-screen">
       <slot />
     </main>
     
     <!-- Premium Dark Footer -->
-    <footer class="mt-32 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
-      <div class="container mx-auto px-4 py-20">
+    <footer class="relative mt-32 text-white">
+      <!-- Full Width Background -->
+      <div class="absolute inset-0 w-screen left-1/2 transform -translate-x-1/2 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900"></div>
+      <div class="container relative z-10 mx-auto px-4 py-20">
         <!-- Main Footer Content -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           <!-- Brand Section -->
@@ -130,33 +253,51 @@ const { title, description, canonical, structuredData } = Astro.props;
             </div>
           </div>
 
-          <!-- Quick Links -->
+          <!-- Navigation -->
           <div>
-            <h4 class="text-lg font-semibold text-white mb-6">Rýchle odkazy</h4>
+            <h4 class="text-lg font-semibold text-white mb-6">Navigácia</h4>
             <ul class="space-y-4">
               <li><a href="/sk" class="text-slate-300 hover:text-white transition-colors duration-200 flex items-center group">
                 <svg class="w-4 h-4 mr-2 text-slate-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                </svg>
+                Domov
+              </a></li>
+              <li><a href="/sk#kalendar" class="text-slate-300 hover:text-white transition-colors duration-200 flex items-center group">
+                <svg class="w-4 h-4 mr-2 text-slate-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                 </svg>
-                Dnes má meniny
+                Kalendár
               </a></li>
-              <li><a href="/sk/kalendár" class="text-slate-300 hover:text-white transition-colors duration-200 flex items-center group">
-                <svg class="w-4 h-4 mr-2 text-slate-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-                </svg>
-                Kalendár menín
-              </a></li>
-              <li><a href="/sk/populárne-mená" class="text-slate-300 hover:text-white transition-colors duration-200 flex items-center group">
+              <li><a href="/sk/trendy-v-menach" class="text-slate-300 hover:text-white transition-colors duration-200 flex items-center group">
                 <svg class="w-4 h-4 mr-2 text-slate-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
                 </svg>
                 Populárne mená
               </a></li>
-              <li><a href="/sk/návrhy-mena" class="text-slate-300 hover:text-white transition-colors duration-200 flex items-center group">
+              <li><a href="/sk/povod-a-vyznam-mien" class="text-slate-300 hover:text-white transition-colors duration-200 flex items-center group">
                 <svg class="w-4 h-4 mr-2 text-slate-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
                 </svg>
-                Návrhy mien
+                Pôvod mien
+              </a></li>
+              <li><a href="/sk/pohladnice" class="text-slate-300 hover:text-white transition-colors duration-200 flex items-center group">
+                <svg class="w-4 h-4 mr-2 text-slate-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+                Pohľadnice
+              </a></li>
+              <li><a href="/sk/darceky" class="text-slate-300 hover:text-white transition-colors duration-200 flex items-center group">
+                <svg class="w-4 h-4 mr-2 text-slate-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+                </svg>
+                Darčeky
+              </a></li>
+              <li><a href="/sk/blog" class="text-slate-300 hover:text-white transition-colors duration-200 flex items-center group">
+                <svg class="w-4 h-4 mr-2 text-slate-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
+                </svg>
+                Blog
               </a></li>
             </ul>
           </div>
@@ -167,27 +308,27 @@ const { title, description, canonical, structuredData } = Astro.props;
             <ul class="space-y-4">
               <li><a href="/sk/darceky" class="text-slate-300 hover:text-white transition-colors duration-200 flex items-center group">
                 <svg class="w-4 h-4 mr-2 text-slate-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
                 </svg>
                 AI Darčeky
               </a></li>
-              <li><a href="#" class="text-slate-300 hover:text-white transition-colors duration-200 flex items-center group">
+              <li><a href="/sk/pohladnice" class="text-slate-300 hover:text-white transition-colors duration-200 flex items-center group">
                 <svg class="w-4 h-4 mr-2 text-slate-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                 </svg>
                 E-pohľadnice
               </a></li>
-              <li><a href="#" class="text-slate-300 hover:text-white transition-colors duration-200 flex items-center group">
+              <li><a href="/sk/povod-a-vyznam-mien" class="text-slate-300 hover:text-white transition-colors duration-200 flex items-center group">
                 <svg class="w-4 h-4 mr-2 text-slate-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
                 </svg>
-                Pripomienky
+                AI Analýzy
               </a></li>
-              <li><a href="/sk/blog" class="text-slate-300 hover:text-white transition-colors duration-200 flex items-center group">
+              <li><a href="/sk/trendy-v-menach" class="text-slate-300 hover:text-white transition-colors duration-200 flex items-center group">
                 <svg class="w-4 h-4 mr-2 text-slate-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
                 </svg>
-                Blog & Články
+                Trendy mená
               </a></li>
             </ul>
           </div>
@@ -208,5 +349,76 @@ const { title, description, canonical, structuredData } = Astro.props;
         </div>
       </div>
     </footer>
+
+    <!-- Navigation Scripts - Optimized -->
+    <script>
+      // Optimized navigation with immediate execution
+      (function() {
+        'use strict';
+        
+        // Mobile Menu Toggle
+        function initMobileMenu() {
+          const mobileMenuButton = document.getElementById('mobile-menu-button');
+          const mobileMenu = document.getElementById('mobile-menu');
+          
+          if (mobileMenuButton && mobileMenu) {
+            mobileMenuButton.addEventListener('click', function() {
+              mobileMenu.classList.toggle('hidden');
+            });
+          }
+        }
+
+        // Scroll-based Navigation Fade - Throttled
+        function initScrollNavbar() {
+          const navbar = document.getElementById('navbar');
+          if (!navbar) return;
+          
+          let lastScrollY = window.scrollY;
+          let isScrollingUp = false;
+          let ticking = false;
+
+          function updateNavbar() {
+            const currentScrollY = window.scrollY;
+            isScrollingUp = currentScrollY < lastScrollY;
+            
+            if (currentScrollY > 100) {
+              if (isScrollingUp) {
+                navbar.classList.remove('opacity-0', '-translate-y-full');
+                navbar.classList.add('opacity-100', 'translate-y-0');
+              } else {
+                navbar.classList.remove('opacity-100', 'translate-y-0');
+                navbar.classList.add('opacity-0', '-translate-y-full');
+              }
+            } else {
+              navbar.classList.remove('opacity-0', '-translate-y-full');
+              navbar.classList.add('opacity-100', 'translate-y-0');
+            }
+            
+            lastScrollY = currentScrollY;
+            ticking = false;
+          }
+
+          function onScroll() {
+            if (!ticking) {
+              requestAnimationFrame(updateNavbar);
+              ticking = true;
+            }
+          }
+
+          window.addEventListener('scroll', onScroll, { passive: true });
+        }
+
+        // Initialize when DOM is ready
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', function() {
+            initMobileMenu();
+            initScrollNavbar();
+          });
+        } else {
+          initMobileMenu();
+          initScrollNavbar();
+        }
+      })();
+    </script>
   </body>
 </html>

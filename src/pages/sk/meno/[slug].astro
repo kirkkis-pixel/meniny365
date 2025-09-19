@@ -1,261 +1,440 @@
 ---
-export const prerender = false; // Server-render on demand to reduce build size
+export const prerender = true;
 
 import Layout from '../../../layouts/Layout.astro';
-import { getDatesByName, getAllNames, getNextOccurrence, getPrevOccurrence } from '../../../lib/meniny';
-import { toSlug, fromSlug } from '../../../lib/slug';
-import { formatDateSlovak } from '../../../lib/date';
-import NameOrigin from '../../../components/NameOrigin.astro';
-import SimilarNames from '../../../components/SimilarNames.astro';
-import InternationalVariants from '../../../components/InternationalVariants.astro';
-import CalendarReminderModal from '../../../components/CalendarReminderModal.astro';
+import SectionHeader from '../../../components/SectionHeader.astro';
+import Card from '../../../components/Card.astro';
+import StatBadge from '../../../components/StatBadge.astro';
+import { toSlug } from '../../../lib/slug';
+import meninyData from '../../../data/meniny-sk/meniny-2025-simple.json';
+import namesOrigins from '../../../data/names-origins.json';
+import trendingData from '../../../data/public/trending-weekly.json';
 
 export async function getStaticPaths() {
-  // Get all names and generate paths
-  const allNames = await getAllNames();
+  // Get all unique names from calendar data
+  const allNames = Object.values(meninyData).flat();
+  const uniqueNames = [...new Set(allNames)];
   
-  return allNames.map(name => ({
-    params: {
-      slug: toSlug(name)
-    }
+  return uniqueNames.map((name) => ({
+    params: { slug: toSlug(name) },
+    props: { name }
   }));
 }
 
-const { slug } = Astro.params;
+const { name } = Astro.props;
 
-if (!slug) {
-  return Astro.redirect('/sk');
-}
-
-// Find the actual name from the slug
-const allNames = await getAllNames();
-const actualName = allNames.find(name => toSlug(name) === slug);
-
-if (!actualName) {
-  return Astro.redirect('/sk');
-}
-
-const dates = await getDatesByName(actualName);
-const nextOccurrence = await getNextOccurrence(actualName, new Date());
-const prevOccurrence = await getPrevOccurrence(actualName, new Date());
-
-// Generate structured data
-const structuredData = {
-  "@context": "https://schema.org",
-  "@type": "WebPage",
-  "name": `${actualName} - meniny, pôvod, darčeky`,
-  "description": `Meno ${actualName} má meniny ${dates.length} krát do roka. Zistite kedy, nájdite darčekové nápady a viac informácií.`,
-  "url": `https://meniny365.sk/sk/meno/${slug}`,
-  "mainEntity": {
-    "@type": "Person",
-    "name": actualName,
-    "description": `Meno ${actualName} má meniny ${dates.length} krát do roka`,
-    "birthDate": dates[0] || null
-  }
+// Get name data from our origins database
+const nameData = namesOrigins[name] || {
+  name: name,
+  slug: toSlug(name),
+  description: `Informácie o pôvode a význame mena ${name} sa práve pripravujú.`,
+  originLangs: [],
+  variants: [],
+  gender: "U"
 };
+
+// Calculate frequency in calendar
+const allNames = Object.values(meninyData).flat();
+const nameCounts: {[key: string]: number} = {};
+allNames.forEach(n => {
+  nameCounts[n] = (nameCounts[n] || 0) + 1;
+});
+
+const frequency = nameCounts[name] || 0;
+
+// Get trending data for this name
+const trendingInfo = trendingData.items.find(item => item.name === name);
+
+// Estimate popularity in Slovakia (rough calculation based on calendar frequency)
+const getPopularityStats = (freq: number) => {
+  if (freq >= 10) return { level: 'Veľmi populárne', percentage: 'Top 5%', color: 'green' };
+  if (freq >= 5) return { level: 'Populárne', percentage: 'Top 15%', color: 'blue' };
+  if (freq >= 2) return { level: 'Stredne populárne', percentage: 'Top 30%', color: 'yellow' };
+  if (freq === 1) return { level: 'Menej časté', percentage: 'Top 50%', color: 'orange' };
+  return { level: 'Vzácne', percentage: 'Menej ako 50%', color: 'red' };
+};
+
+const popularityStats = getPopularityStats(frequency);
+
+// Find all dates when this name appears
+const nameDates: string[] = [];
+Object.entries(meninyData).forEach(([date, names]) => {
+  if (names.includes(name)) {
+    nameDates.push(date);
+  }
+});
+
+// Get next occurrence
+const today = new Date();
+const currentYear = today.getFullYear();
+const nextOccurrence = nameDates.find(date => {
+  const [year, month, day] = date.split('-').map(Number);
+  const nameDate = new Date(currentYear, month - 1, day);
+  return nameDate >= today;
+});
+
+// If no occurrence this year, get first occurrence next year
+const nextYearOccurrence = nameDates.find(date => {
+  const [year, month, day] = date.split('-').map(Number);
+  const nameDate = new Date(currentYear + 1, month - 1, day);
+  return true;
+});
+
+const nextNameDay = nextOccurrence || nextYearOccurrence;
+
+// Format next occurrence date
+let nextOccurrenceFormatted = '';
+if (nextNameDay) {
+  const [year, month, day] = nextNameDay.split('-').map(Number);
+  const nameDate = new Date(year, month - 1, day);
+  nextOccurrenceFormatted = nameDate.toLocaleDateString('sk-SK', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  });
+}
+
+// Generate gift ideas based on name characteristics
+const getGiftIdeas = (name: string, gender: string) => {
+  const baseIdeas = [
+    'Personalizovaný darček s menom',
+    'Kvetinová kytka',
+    'Čokoládové bonbóny',
+    'Kniha s venovaním'
+  ];
+  
+  if (gender === 'F') {
+    return [...baseIdeas, 'Šperky s menom', 'Parfum', 'Kozmetický set', 'Ružové kvety'];
+  } else if (gender === 'M') {
+    return [...baseIdeas, 'Hodinky', 'Parfum pre mužov', 'Gadget', 'Modré kvety'];
+  }
+  
+  return baseIdeas;
+};
+
+const giftIdeas = getGiftIdeas(name, nameData.gender);
+
+// Generate greeting card messages
+const getGreetingMessages = (name: string) => [
+  `Všetko najlepšie k meninám, ${name}! 🎉`,
+  `${name}, prajem Ti krásny deň menín! 🌟`,
+  `Všetko najlepšie k meninám, drahý/á ${name}! 💝`,
+  `${name}, nech sa Ti darí v novom roku života! 🎂`,
+  `Srdečné gratulácie k meninám, ${name}! 🎈`
+];
 ---
 
 <Layout 
-  title={`${actualName} - meniny, pôvod, darčeky | meniny365`}
-  description={`Meno ${actualName} má meniny ${dates.length} krát do roka. Zistite kedy, nájdite darčekové nápady a viac informácií o pôvode mena.`}
-  canonical={`https://meniny365.sk/sk/meno/${slug}`}
-  structuredData={structuredData}
+  title={`${name} - Pôvod, význam a meniny | meniny365`}
+  description={`Všetko o mene ${name}: pôvod, význam, meniny, darčekové nápady a gratulácie. Zistite, kedy má ${name} meniny v roku 2025.`}
 >
-  <div class="container py-8">
-    <!-- Breadcrumbs -->
-    <nav class="mb-8">
-      <ol class="flex items-center space-x-2 text-sm text-[var(--muted)]">
-        <li><a href="/sk" class="hover:text-[var(--brand)] transition-colors">Dnes</a></li>
-        <li>/</li>
-        <li class="text-[var(--text)]">{actualName}</li>
-      </ol>
-    </nav>
+  <div class="min-h-screen bg-gradient-to-br from-slate-50/95 via-white to-indigo-50/40">
+    <div class="container mx-auto px-4 py-16">
+      <div class="max-w-5xl mx-auto">
+        <!-- Hero Section -->
+        <div class="text-center mb-16">
+          <h1 class="text-5xl font-bold text-slate-900 mb-6 tracking-tight">{name}</h1>
+          
+          <!-- Key Stats Row -->
+          <div class="flex flex-wrap justify-center gap-4 mb-8">
+            {nameData.gender && nameData.gender !== 'U' && (
+              <StatBadge 
+                label={nameData.gender === 'M' ? 'Mužské meno' : nameData.gender === 'F' ? 'Ženské meno' : 'Univerzálne meno'}
+                tone="brand"
+              />
+            )}
+            {trendingInfo && (
+              <StatBadge 
+                label={`Trend: ${trendingInfo.label === 'rising' ? 'Stúpa' : trendingInfo.label === 'stable' ? 'Stabilný' : 'Klesá'}`}
+                tone={trendingInfo.label === 'rising' ? 'success' : trendingInfo.label === 'stable' ? 'neutral' : 'warning'}
+              />
+            )}
+            <StatBadge 
+              label={popularityStats.level}
+              tone={popularityStats.color as any}
+            />
+          </div>
 
-    <!-- Name Header -->
-    <div class="text-center mb-12">
-      <h1 class="text-4xl md:text-5xl font-bold text-[var(--text)] mb-4">
-        {actualName}
-      </h1>
-      
-      <div class="flex justify-center items-center space-x-4 mb-8">
-        <span class="px-4 py-2 bg-[var(--brand)]/20 text-[var(--brand)] rounded-full text-sm font-medium">
-          Meniny
-        </span>
-        <span class="px-4 py-2 bg-[var(--accent)]/20 text-[var(--accent)] rounded-full text-sm font-medium">
-          {dates.length} krát do roka
-        </span>
-      </div>
-      
-      <div class="card p-6 max-w-2xl mx-auto">
-        <button 
-          id="addToCalendar"
-          class="btn btn-primary text-lg px-6 py-3 w-full"
-        >
-          📅 Pridať do kalendára
-        </button>
-      </div>
-    </div>
+          <!-- Next Name Day - More Prominent -->
+          {nextOccurrenceFormatted && (
+            <div class="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl px-8 py-6 mb-8 text-center shadow-lg">
+              <div class="flex items-center justify-center mb-2">
+                <svg class="w-6 h-6 text-white mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+                <span class="text-white text-lg font-medium">Ďalšie meniny</span>
+              </div>
+              <div class="text-3xl font-bold text-white">
+                {nextOccurrenceFormatted}
+              </div>
+            </div>
+          )}
+        </div>
 
-    <!-- Dátumy menín -->
-    <div class="card p-8 mb-12">
-      <h2 class="text-2xl font-semibold text-[var(--text)] mb-6">Dátumy menín</h2>
-      
-      {dates.length > 0 ? (
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {dates.map(dateStr => {
-            const date = new Date(dateStr);
-            const isUpcoming = date >= new Date();
+        <!-- Origin and Meaning -->
+        <Card class="mb-8">
+          <div class="space-y-6">
+            <div class="text-center">
+              <h2 class="text-2xl font-bold text-slate-900 mb-2">Pôvod a význam</h2>
+              <p class="text-slate-600">História a význam mena</p>
+            </div>
             
-            return (
-              <a
-                href={`/sk/den/${dateStr.split('-')[0]}/${dateStr.split('-')[1]}/${dateStr.split('-')[2]}`}
-                data-date={dateStr}
-                class={`
-                  p-4 rounded-lg border transition-all
-                  ${isUpcoming 
-                    ? 'bg-[var(--brand)]/10 border-[var(--brand)] hover:bg-[var(--brand)]/20' 
-                    : 'bg-[var(--card)] border-[var(--border)] hover:bg-[var(--hover)]'
-                  }
-                `}
-              >
-                <div class="text-lg font-semibold text-[var(--text)]">
-                  {formatDateSlovak(date)}
+            {nameData.originLangs && nameData.originLangs.length > 0 && (
+              <div class="flex flex-wrap justify-center gap-2">
+                {nameData.originLangs.map((lang: string) => (
+                  <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-slate-100 text-slate-700">
+                    {lang}
+                  </span>
+                ))}
+              </div>
+            )}
+            
+            <div class="text-center">
+              <p class="text-slate-700 leading-relaxed text-lg max-w-4xl mx-auto">
+                {nameData.description}
+              </p>
+            </div>
+            
+            {nameData.variants && nameData.variants.length > 0 && (
+              <div class="text-center">
+                <h3 class="text-lg font-semibold text-slate-900 mb-4">Varianty mena</h3>
+                <div class="flex flex-wrap justify-center gap-2">
+                  {nameData.variants.map((variant: string) => (
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm bg-slate-100 text-slate-700 hover:bg-slate-200 transition-colors">
+                      {variant}
+                    </span>
+                  ))}
                 </div>
-                {isUpcoming && (
-                  <div class="text-sm text-[var(--brand)] mt-1">
-                    Najbližší termín
+              </div>
+            )}
+          </div>
+        </Card>
+
+        <!-- Trending Data -->
+        {trendingInfo && (
+          <Card class="mb-8">
+            <div class="space-y-6">
+              <div class="text-center">
+                <h2 class="text-2xl font-bold text-slate-900 mb-2 flex items-center justify-center">
+                  <svg class="w-6 h-6 text-slate-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                  </svg>
+                  Trend v menách
+                </h2>
+              </div>
+              
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="text-center p-4 bg-slate-50 rounded-lg">
+                  <div class="text-2xl font-bold text-slate-900 mb-1">{trendingInfo.trendScore}%</div>
+                  <div class="text-sm text-slate-600">Trend skóre</div>
+                </div>
+                
+                <div class="text-center p-4 bg-slate-50 rounded-lg">
+                  <div class={`text-2xl font-bold mb-1 ${trendingInfo.trendsDelta > 0 ? 'text-green-600' : trendingInfo.trendsDelta < 0 ? 'text-red-600' : 'text-slate-600'}`}>
+                    {trendingInfo.trendsDelta > 0 ? '+' : ''}{trendingInfo.trendsDelta}%
                   </div>
-                )}
+                  <div class="text-sm text-slate-600">Zmena trendu</div>
+                </div>
+                
+                <div class="text-center p-4 bg-slate-50 rounded-lg">
+                  <div class={`text-2xl font-bold mb-1 ${trendingInfo.viewsDelta > 0 ? 'text-green-600' : trendingInfo.viewsDelta < 0 ? 'text-red-600' : 'text-slate-600'}`}>
+                    {trendingInfo.viewsDelta > 0 ? '+' : ''}{trendingInfo.viewsDelta}%
+                  </div>
+                  <div class="text-sm text-slate-600">Zmena návštevnosti</div>
+                </div>
+              </div>
+            </div>
+          </Card>
+        )}
+
+        <!-- Popularity Stats -->
+        <Card class="mb-8">
+          <div class="space-y-6">
+            <div class="text-center">
+              <h2 class="text-2xl font-bold text-slate-900 mb-2 flex items-center justify-center">
+                <svg class="w-6 h-6 text-slate-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                </svg>
+                Popularita na Slovensku
+              </h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div class="text-center p-4 bg-slate-50 rounded-lg">
+                <div class={`text-2xl font-bold mb-1 text-${popularityStats.color}-600`}>{popularityStats.level}</div>
+                <div class="text-sm text-slate-600">Úroveň popularity</div>
+              </div>
+              
+              <div class="text-center p-4 bg-slate-50 rounded-lg">
+                <div class="text-2xl font-bold text-slate-900 mb-1">{popularityStats.percentage}</div>
+                <div class="text-sm text-slate-600">Pozícia</div>
+              </div>
+              
+              <div class="text-center p-4 bg-slate-50 rounded-lg">
+                <div class="text-2xl font-bold text-slate-900 mb-1">{frequency}x</div>
+                <div class="text-sm text-slate-600">V kalendári ročne</div>
+              </div>
+            </div>
+          </div>
+        </Card>
+
+
+        <!-- Calendar Integration - Full Width -->
+        <Card class="mb-8">
+          <div class="text-center space-y-6">
+            <div class="flex items-center justify-center">
+              <svg class="w-8 h-8 text-slate-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+              </svg>
+              <h2 class="text-2xl font-bold text-slate-900">Pridať do kalendára</h2>
+            </div>
+            <p class="text-slate-600 text-lg">Nezabudnite na meniny</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl mx-auto">
+              <button 
+                id="addToGoogleCalendar"
+                class="flex items-center justify-center p-4 bg-slate-50 text-slate-700 rounded-lg hover:bg-slate-100 transition-colors"
+              >
+                <svg class="w-6 h-6 mr-3" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/>
+                </svg>
+                <span class="font-semibold">Google Calendar</span>
+              </button>
+              
+              <button 
+                id="addToOutlook"
+                class="flex items-center justify-center p-4 bg-slate-50 text-slate-700 rounded-lg hover:bg-slate-100 transition-colors"
+              >
+                <svg class="w-6 h-6 mr-3" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M7 2h10a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm0 2v16h10V4H7zm1 1h8v2H8V5zm0 3h8v2H8V8zm0 3h8v2H8v-2z"/>
+                </svg>
+                <span class="font-semibold">Outlook</span>
+              </button>
+            </div>
+          </div>
+        </Card>
+
+        <!-- Prominent Call-to-Action Buttons -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+          <!-- Gift Ideas CTA -->
+          <Card class="overflow-hidden">
+            <div class="bg-gradient-to-r from-orange-500 to-red-600 p-8 text-center">
+              <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"></path>
+                </svg>
+              </div>
+              <h2 class="text-2xl font-bold text-white mb-2">Darčekové nápady</h2>
+              <p class="text-orange-100 mb-6">Čo darovať na meniny</p>
+              <a 
+                href="/sk/pohladnice" 
+                class="inline-flex items-center px-8 py-4 bg-white text-orange-600 font-bold rounded-lg hover:bg-orange-50 transition-all duration-200 transform hover:scale-105 shadow-lg"
+              >
+                <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"></path>
+                </svg>
+                Zobraziť nápady
               </a>
-            );
-          })}
-        </div>
-      ) : (
-        <p class="text-[var(--muted)]">Žiadne dátumy menín nie sú dostupné.</p>
-      )}
-    </div>
+            </div>
+          </Card>
 
-    <!-- Insight Blocks -->
-    <div class="space-y-8 mb-12">
-      <NameOrigin name={actualName} />
-      <SimilarNames name={actualName} />
-      <InternationalVariants name={actualName} />
-    </div>
+          <!-- E-Card CTA -->
+          <Card class="overflow-hidden">
+            <div class="bg-gradient-to-r from-pink-500 to-purple-600 p-8 text-center">
+              <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                </svg>
+              </div>
+              <h2 class="text-2xl font-bold text-white mb-2">Vytvoriť e-kartu</h2>
+              <p class="text-pink-100 mb-6">Personalizovaná gratulácia</p>
+              <a 
+                href="/sk/pohladnice"
+                class="inline-flex items-center px-8 py-4 bg-white text-pink-600 font-bold rounded-lg hover:bg-pink-50 transition-all duration-200 transform hover:scale-105 shadow-lg"
+              >
+                <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                </svg>
+                Vytvoriť kartu
+              </a>
+            </div>
+          </Card>
+        </div>
 
-    <!-- Darčekové nápady -->
-    <div class="card p-8 mb-12">
-      <h2 class="text-2xl font-semibold text-[var(--text)] mb-6">Darčekové nápady pre {actualName}</h2>
-      
-      <div class="text-center mb-6">
-        <a 
-          href="/sk/darceky" 
-          class="inline-flex items-center bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-3 rounded-xl font-semibold hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 transform hover:scale-105"
-        >
-          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
-          </svg>
-          Generovať darčekové nápady
-        </a>
-      </div>
-      
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div class="p-4 border border-[var(--border)] rounded-lg">
-          <h3 class="font-semibold text-[var(--text)] mb-2">Tradičné darčeky</h3>
-          <ul class="text-sm text-[var(--muted)] space-y-1">
-            <li>• Kvetiny</li>
-            <li>• Čokoláda</li>
-            <li>• Kniha</li>
-            <li>• Parfém</li>
-          </ul>
-        </div>
-        
-        <div class="p-4 border border-[var(--border)] rounded-lg">
-          <h3 class="font-semibold text-[var(--text)] mb-2">Moderné darčeky</h3>
-          <ul class="text-sm text-[var(--muted)] space-y-1">
-            <li>• Gadgety</li>
-            <li>• Skúsenosti</li>
-            <li>• Digitálne darčeky</li>
-            <li>• Personalizované predmety</li>
-          </ul>
-        </div>
-        
-        <div class="p-4 border border-[var(--border)] rounded-lg">
-          <h3 class="font-semibold text-[var(--text)] mb-2">Podľa rozpočtu</h3>
-          <ul class="text-sm text-[var(--muted)] space-y-1">
-            <li>• Do 20€ - malé darčeky</li>
-            <li>• 20-50€ - stredné darčeky</li>
-            <li>• 50-100€ - drahšie darčeky</li>
-            <li>• 100€+ - luxusné darčeky</li>
-          </ul>
-        </div>
+        <!-- Related Names -->
+        <Card>
+          <div class="space-y-6">
+            <div class="text-center">
+              <h2 class="text-2xl font-bold text-slate-900 mb-2">Podobné mená</h2>
+              <p class="text-slate-600">Mená s podobným pôvodom alebo významom</p>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {Object.values(namesOrigins)
+                .filter(entry => 
+                  entry.name !== name && 
+                  (entry.originLangs?.some(lang => nameData.originLangs?.includes(lang)) ||
+                   entry.gender === nameData.gender)
+                )
+                .slice(0, 8)
+                .map(entry => (
+                  <a 
+                    href={`/sk/meno/${entry.slug}`}
+                    class="p-4 text-center bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors group"
+                  >
+                    <div class="font-semibold text-slate-900 group-hover:text-slate-600 transition-colors">{entry.name}</div>
+                    <div class="text-xs text-slate-500 mt-2">
+                      {entry.originLangs?.[0] || 'Slovenské'}
+                    </div>
+                  </a>
+                ))}
+            </div>
+          </div>
+        </Card>
       </div>
     </div>
-
-    <!-- Súvisiace články -->
-    <div class="card p-8 mb-12">
-      <h2 class="text-2xl font-semibold text-[var(--text)] mb-6">Súvisiace články</h2>
-      
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <a href="/sk/blog/meniny-na-slovensku" class="p-4 border border-[var(--border)] rounded-lg hover:bg-[var(--hover)] transition-colors">
-          <h3 class="font-semibold text-[var(--text)] mb-2">Meniny na Slovensku: tradície a zvyky</h3>
-          <p class="text-sm text-[var(--muted)]">Zistite viac o tradíciách a zvykoch spojených s meninami na Slovensku.</p>
-        </a>
-        
-        <a href="/sk/blog/darceky-na-meniny" class="p-4 border border-[var(--border)] rounded-lg hover:bg-[var(--hover)] transition-colors">
-          <h3 class="font-semibold text-[var(--text)] mb-2">20 tipov na darčeky na meniny</h3>
-          <p class="text-sm text-[var(--muted)]">Nájdite perfektný darček pre každý rozpočet a príležitosť.</p>
-        </a>
-      </div>
-    </div>
-
-    <!-- Related Links -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <a href="/sk" class="card p-6 hover:scale-105 transition-transform">
-        <h3 class="text-xl font-semibold text-[var(--text)] mb-2">📅 Dnes má meniny</h3>
-        <p class="text-[var(--muted)]">Zistite kto má dnes meniny</p>
-      </a>
-      
-      <a href="/sk/populárne-mená" class="card p-6 hover:scale-105 transition-transform">
-        <h3 class="text-xl font-semibold text-[var(--text)] mb-2">🔥 Populárne mená</h3>
-        <p class="text-[var(--muted)]">Zistite ktoré mená sú najpopulárnejšie</p>
-      </a>
-      
-      <a href="/sk/návrhy-mena" class="card p-6 hover:scale-105 transition-transform">
-        <h3 class="text-xl font-semibold text-[var(--text)] mb-2">💡 Návrhy mien</h3>
-        <p class="text-[var(--muted)]">Nájdite perfektné meno pre vaše dieťa</p>
-      </a>
-    </div>
-
-    <!-- Calendar Reminder Modal -->
-    <CalendarReminderModal />
   </div>
-</Layout>
 
-<script>
-  // Handle "Pridať do kalendára" button
-  document.addEventListener('DOMContentLoaded', () => {
-    const addToCalendarBtn = document.getElementById('addToCalendar');
-    
-    if (addToCalendarBtn) {
-      addToCalendarBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        
-        // Get name and dates from the page
-        const name = document.querySelector('h1')?.textContent?.trim() || '';
-        const dates = Array.from(document.querySelectorAll('[data-date]')).map(el => 
-          el.getAttribute('data-date')
-        ).filter(Boolean);
-        
-        if (dates.length > 0) {
-          // Dispatch event to open calendar modal
-          const event = new CustomEvent('openCalendarModal', {
-            detail: { name, dates }
-          });
-          document.dispatchEvent(event);
-        } else {
-          alert('Žiadne dátumy menín nie sú dostupné.');
-        }
+  <script>
+    // Copy to clipboard functionality
+    document.addEventListener('DOMContentLoaded', () => {
+      // Copy greeting messages
+      document.querySelectorAll('[onclick*="navigator.clipboard.writeText"]').forEach(element => {
+        element.addEventListener('click', async (e) => {
+          const message = e.currentTarget.querySelector('span').textContent;
+          try {
+            await navigator.clipboard.writeText(message);
+            const button = e.currentTarget.querySelector('button');
+            const originalText = button.textContent;
+            button.textContent = 'Skopírované!';
+            setTimeout(() => {
+              button.textContent = originalText;
+            }, 2000);
+          } catch (err) {
+            console.error('Failed to copy text: ', err);
+          }
+        });
       });
-    }
-  });
-</script>
+
+      // Generate greeting card
+      document.getElementById('generateCard')?.addEventListener('click', () => {
+        // This would open a modal or redirect to card generator
+        window.location.href = `/sk/generate-card?name=${encodeURIComponent('{name}')}`;
+      });
+
+      // Add to calendar functionality
+      document.getElementById('addToGoogleCalendar')?.addEventListener('click', () => {
+        const eventTitle = `Meniny - {name}`;
+        const eventDate = '{nextOccurrenceFormatted}';
+        const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(eventTitle)}&dates=${eventDate}`;
+        window.open(googleCalendarUrl, '_blank');
+      });
+
+      document.getElementById('addToOutlook')?.addEventListener('click', () => {
+        const eventTitle = `Meniny - {name}`;
+        const eventDate = '{nextOccurrenceFormatted}';
+        const outlookUrl = `https://outlook.live.com/calendar/0/deeplink/compose?subject=${encodeURIComponent(eventTitle)}&startdt=${eventDate}`;
+        window.open(outlookUrl, '_blank');
+      });
+    });
+  </script>
+</Layout>

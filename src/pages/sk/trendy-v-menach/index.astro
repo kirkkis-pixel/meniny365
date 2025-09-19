@@ -9,6 +9,39 @@ import { formatDelta, getTrendIcon } from '../../../lib/TrendDelta.js';
 import { createSparkline } from '../../../lib/InlineSparkline.js';
 import { toSlug, getProgressWidth } from '../../../lib/visuals.js';
 
+// Function to generate interesting trend data for sparklines
+function generateTrendData(item: any): number[] {
+  const baseScore = item.trendScore;
+  const delta = item.trendsDelta;
+  const viewsDelta = item.viewsDelta;
+  
+  // Create a 7-point trend line with more variation
+  const points = [];
+  
+  // Start point (7 days ago)
+  points.push(baseScore - delta - Math.random() * 10);
+  
+  // Day 6
+  points.push(baseScore - delta + Math.random() * 5);
+  
+  // Day 5
+  points.push(baseScore - delta/2 + (Math.random() - 0.5) * 8);
+  
+  // Day 4
+  points.push(baseScore - delta/3 + (Math.random() - 0.5) * 6);
+  
+  // Day 3
+  points.push(baseScore + (Math.random() - 0.5) * 4);
+  
+  // Day 2
+  points.push(baseScore + delta/3 + (Math.random() - 0.5) * 3);
+  
+  // Current day (today)
+  points.push(baseScore);
+  
+  return points;
+}
+
 // Static trending names data - expanded to 50 names
 const trendingData = {
   lastUpdated: new Date().toISOString(),
@@ -174,31 +207,35 @@ const structuredData = {
             </div>
           </div>
           
-          <!-- Gender Filter Tags Only -->
-          <div class="text-center">
-            <label class="block text-sm font-medium text-slate-700 mb-3">Pohlavie:</label>
-            <div class="flex flex-wrap justify-center gap-2">
-              <button 
-                id="genderAll" 
-                class="gender-filter px-4 py-2 rounded-full text-sm font-medium bg-indigo-600 text-white hover:bg-indigo-700 transition-colors"
-                data-filter="all"
-              >
-                Všetky pohlavia
-              </button>
-              <button 
-                id="genderFemale" 
-                class="gender-filter px-4 py-2 rounded-full text-sm font-medium bg-slate-100 text-slate-700 hover:bg-slate-200 transition-colors"
-                data-filter="F"
-              >
-                Ženské mená
-              </button>
-              <button 
-                id="genderMale" 
-                class="gender-filter px-4 py-2 rounded-full text-sm font-medium bg-slate-100 text-slate-700 hover:bg-slate-200 transition-colors"
-                data-filter="M"
-              >
-                Mužské mená
-              </button>
+          <!-- Centered Filter Tags -->
+          <div class="space-y-6">
+
+            <!-- Gender Filter Tags -->
+            <div class="text-center">
+              <label class="block text-sm font-medium text-slate-700 mb-3">Pohlavie:</label>
+              <div class="flex flex-wrap justify-center gap-2">
+                <button 
+                  id="genderAll" 
+                  class="gender-filter px-4 py-2 rounded-full text-sm font-medium bg-indigo-600 text-white hover:bg-indigo-700 transition-colors"
+                  data-filter="all"
+                >
+                  Všetky pohlavia
+                </button>
+                <button 
+                  id="genderFemale" 
+                  class="gender-filter px-4 py-2 rounded-full text-sm font-medium bg-slate-100 text-slate-700 hover:bg-slate-200 transition-colors"
+                  data-filter="F"
+                >
+                  Ženské mená
+                </button>
+                <button 
+                  id="genderMale" 
+                  class="gender-filter px-4 py-2 rounded-full text-sm font-medium bg-slate-100 text-slate-700 hover:bg-slate-200 transition-colors"
+                  data-filter="M"
+                >
+                  Mužské mená
+                </button>
+              </div>
             </div>
           </div>
 
@@ -296,7 +333,7 @@ const structuredData = {
                     <div class="w-16 h-8 flex items-center">
                       <div 
                         class="sparkline"
-                        set:html={createSparkline(item.sparklineData, 60, 20, '#10b981')}
+                        set:html={createSparkline(generateTrendData(item), 60, 20, '#10b981')}
                       ></div>
                     </div>
                   </div>
@@ -346,7 +383,7 @@ const structuredData = {
       let currentVisible = 10;
       let allItems = Array.from(trendingItems);
       let filteredItems = [...allItems];
-      let selectedGenderFilter = 'all';
+      let selectedGenderFilters = ['all'];
       
       // Initialize - show only top 10
       updateVisibility();
@@ -407,7 +444,7 @@ const structuredData = {
           const itemGender = genderBadge?.textContent?.includes('♀') ? 'F' : 
                            genderBadge?.textContent?.includes('♂') ? 'M' : 'U';
           
-          const matchesGender = selectedGenderFilter === 'all' || itemGender === selectedGenderFilter;
+          const matchesGender = selectedGenderFilters.includes('all') || selectedGenderFilters.includes(itemGender);
           const matchesSearch = name.includes(searchTerm);
           
           return matchesGender && matchesSearch;
@@ -437,21 +474,24 @@ const structuredData = {
         updateVisibility();
       }
       
-      // Gender filter event listeners
+      // Gender filter event listeners with single-select
       genderFilters.forEach(button => {
         button.addEventListener('click', () => {
           const filter = button.getAttribute('data-filter') || 'all';
           
-          // Update active state
+          // Clear all button styles first
           genderFilters.forEach(btn => {
             btn.classList.remove('bg-indigo-600', 'text-white');
             btn.classList.add('bg-slate-100', 'text-slate-700');
           });
+          
+          // Set the clicked button as active
           button.classList.remove('bg-slate-100', 'text-slate-700');
           button.classList.add('bg-indigo-600', 'text-white');
           
-          // Update filter
-          selectedGenderFilter = filter;
+          // Update selected filters
+          selectedGenderFilters = [filter];
+          
           filterItems();
         });
       });

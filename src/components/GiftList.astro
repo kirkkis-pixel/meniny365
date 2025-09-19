@@ -1,0 +1,140 @@
+---
+export interface Props {
+  gifts: Array<{
+    title: string;
+    why: string;
+    vendor: 'alza' | 'mall' | 'bonami' | 'brasty';
+    affiliateUrl: string;
+    tags: string[];
+    imageUrl?: string;
+  }>;
+}
+
+const { gifts = [] } = Astro.props;
+
+const vendorLogos = {
+  alza: {
+    name: 'Alza',
+    color: 'bg-red-500',
+    logo: 'A'
+  },
+  mall: {
+    name: 'Mall.sk',
+    color: 'bg-blue-500',
+    logo: 'M'
+  },
+  bonami: {
+    name: 'Bonami',
+    color: 'bg-green-500',
+    logo: 'B'
+  },
+  brasty: {
+    name: 'Brasty',
+    color: 'bg-purple-500',
+    logo: 'B'
+  }
+};
+
+const tagColors = {
+  'eco': 'bg-green-100 text-green-800',
+  'minimalistický': 'bg-gray-100 text-gray-800',
+  'luxusný': 'bg-yellow-100 text-yellow-800',
+  'hravý': 'bg-pink-100 text-pink-800',
+  'romantický': 'bg-red-100 text-red-800',
+  'fyzický darček': 'bg-blue-100 text-blue-800',
+  'digitálne': 'bg-indigo-100 text-indigo-800',
+  'zážitok': 'bg-orange-100 text-orange-800'
+};
+---
+
+<div class="gift-list">
+  {gifts.length > 0 ? (
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {gifts.map((gift) => {
+        const vendor = vendorLogos[gift.vendor];
+        return (
+          <div class="gift-card bg-white rounded-xl shadow-sm border border-slate-200 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 overflow-hidden">
+            <!-- Image Placeholder -->
+            <div class="h-48 bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center relative">
+              {gift.imageUrl ? (
+                <img 
+                  src={gift.imageUrl} 
+                  alt={gift.title}
+                  class="w-full h-full object-cover"
+                />
+              ) : (
+                <div class="text-6xl text-slate-400">🎁</div>
+              )}
+              
+              <!-- Vendor Logo -->
+              <div class={`absolute top-3 right-3 w-8 h-8 ${vendor.color} rounded-full flex items-center justify-center text-white font-bold text-sm`}>
+                {vendor.logo}
+              </div>
+            </div>
+            
+            <!-- Content -->
+            <div class="p-6">
+              <h3 class="text-lg font-semibold text-slate-900 mb-2 line-clamp-2">
+                {gift.title}
+              </h3>
+              
+              <p class="text-slate-600 text-sm mb-4 line-clamp-3">
+                {gift.why}
+              </p>
+              
+              <!-- Tags -->
+              <div class="flex flex-wrap gap-2 mb-4">
+                {gift.tags.slice(0, 3).map((tag) => (
+                  <span class={`px-2 py-1 rounded-full text-xs font-medium ${tagColors[tag] || 'bg-slate-100 text-slate-800'}`}>
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              
+              <!-- Action Button -->
+              <a
+                href={gift.affiliateUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="w-full inline-flex items-center justify-center bg-slate-900 text-white py-2 px-4 rounded-lg font-medium hover:bg-slate-800 transition-colors duration-200"
+              >
+                Pozri darček
+                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                </svg>
+              </a>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  ) : (
+    <!-- Empty State -->
+    <div class="text-center py-12">
+      <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
+        <svg class="w-8 h-8 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+        </svg>
+      </div>
+      <h3 class="text-lg font-semibold text-slate-900 mb-2">Vyplň filtre a nájdeme ti tipy</h3>
+      <p class="text-slate-600">Zadajte preferencie a my vám navrhneme perfektné darčeky.</p>
+    </div>
+  )}
+</div>
+
+<style>
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>
+

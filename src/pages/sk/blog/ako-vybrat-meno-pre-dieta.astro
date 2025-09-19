@@ -1,0 +1,278 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Card from '../../../components/Card.astro';
+
+const nameCategories = [
+  { category: 'Klasické', examples: ['Ján', 'Mária', 'Peter', 'Anna'], description: 'Časom overené mená s hlbokou tradíciou' },
+  { category: 'Moderné', examples: ['Emma', 'Lukáš', 'Sofia', 'Jakub'], description: 'Súčasné trendy mená' },
+  { category: 'Unikátne', examples: ['Aria', 'Theo', 'Luna', 'Noah'], description: 'Vzácne a originálne mená' },
+  { category: 'Rodinné', examples: ['Dedinské mená', 'Tradičné mená'], description: 'Mená z rodinnej tradície' }
+];
+
+const considerations = [
+  { 
+    title: 'Význam mena', 
+    icon: '💭',
+    description: 'Každé meno má svoj jedinečný význam. Vyberte meno, ktorého význam rezonuje s vašimi hodnotami.',
+    tips: ['Skúmajte pôvod mena', 'Zvážte symbolický význam', 'Pozrite si históriu mena']
+  },
+  { 
+    title: 'Výslovnosť', 
+    icon: '🗣️',
+    description: 'Meno by malo byť ľahko vysloviteľné v slovenčine aj v iných jazykoch.',
+    tips: ['Testujte výslovnosť nahlas', 'Skúste rôzne prízvuky', 'Zvážte medzinárodnú zrozumiteľnosť']
+  },
+  { 
+    title: 'Spoločenský kontext', 
+    icon: '👥',
+    description: 'Zvážte, ako bude meno vnímané v škole, práci a spoločnosti.',
+    tips: ['Vyhnite sa problematickým menám', 'Zvážte trendy vs. trvalosť', 'Testujte v rôznych situáciách']
+  },
+  { 
+    title: 'Rodinné tradície', 
+    icon: '👨‍👩‍👧‍👦',
+    description: 'Mnoho rodín má tradície v pomenovávaní detí.',
+    tips: ['Konzultujte s rodinou', 'Zvážte pokračovanie tradícií', 'Alebo začnite nové tradície']
+  }
+];
+---
+
+<Layout 
+  title="Ako vybrať perfektné meno pre dieťa: Kompletný sprievodca | Meniny365.sk" 
+  description="Praktické tipy a rady na výber mena pre vaše dieťa. Kompletný sprievodca s častými chybami, ktorým sa vyhnúť, a užitočnými nástrojmi."
+>
+  <div class="min-h-screen bg-gradient-to-br from-slate-50 to-indigo-50">
+    <!-- Article Header -->
+    <div class="bg-white border-b border-slate-200">
+      <div class="max-w-4xl mx-auto px-4 py-12">
+        <div class="text-center">
+          <div class="inline-flex items-center px-3 py-1 bg-green-100 text-green-700 text-sm font-medium rounded-full mb-4">
+            <span class="mr-2">💡</span>
+            Rady
+          </div>
+          <h1 class="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
+            Ako vybrať perfektné meno pre dieťa: Kompletný sprievodca
+          </h1>
+          <p class="text-xl text-slate-600 max-w-3xl mx-auto mb-6">
+            Praktické tipy a rady na výber mena pre vaše dieťa. Kompletný sprievodca s častými chybami, 
+            ktorým sa vyhnúť, a užitočnými nástrojmi.
+          </p>
+          <div class="flex items-center justify-center gap-4 text-sm text-slate-500">
+            <span>10. január 2025</span>
+            <span>•</span>
+            <span>5 min čítania</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="max-w-4xl mx-auto px-4 py-12">
+      <!-- Article Content -->
+      <article class="prose prose-lg max-w-none">
+        <div class="bg-gradient-to-r from-green-50 to-blue-50 rounded-2xl p-8 mb-8">
+          <h2 class="text-2xl font-bold text-slate-900 mb-4">Výber mena je dôležité rozhodnutie</h2>
+          <p class="text-slate-700 leading-relaxed">
+            Meno je prvý dar, ktorý dáte svojmu dieťaťu. Je to identita, ktorá ho bude sprevádzať celý život. 
+            Preto je dôležité zvážiť všetky aspekty a vybrať meno, ktoré bude pre vaše dieťa perfektné.
+          </p>
+        </div>
+
+        <h2 class="text-3xl font-bold text-slate-900 mb-6">📋 Kategórie mien</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          {nameCategories.map(category => (
+            <Card class="p-6 hover:shadow-lg transition-shadow">
+              <h3 class="text-lg font-bold text-slate-900 mb-3">{category.category}</h3>
+              <p class="text-slate-600 text-sm mb-4">{category.description}</p>
+              <div class="space-y-1">
+                {category.examples.map(example => (
+                  <span class="inline-block px-2 py-1 bg-slate-100 text-slate-700 text-xs rounded mr-2 mb-1">
+                    {example}
+                  </span>
+                ))}
+              </div>
+            </Card>
+          ))}
+        </div>
+
+        <h2 class="text-3xl font-bold text-slate-900 mb-6">⚖️ Kľúčové aspekty na zváženie</h2>
+        
+        <div class="space-y-8 mb-8">
+          {considerations.map((consideration, index) => (
+            <div class="flex items-start gap-6">
+              <div class="w-12 h-12 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold text-lg flex-shrink-0">
+                {index + 1}
+              </div>
+              <div class="flex-1">
+                <div class="flex items-center gap-3 mb-3">
+                  <span class="text-2xl">{consideration.icon}</span>
+                  <h3 class="text-xl font-bold text-slate-900">{consideration.title}</h3>
+                </div>
+                <p class="text-slate-600 mb-4">{consideration.description}</p>
+                <div class="bg-slate-50 rounded-lg p-4">
+                  <h4 class="font-semibold text-slate-900 mb-2">Praktické tipy:</h4>
+                  <ul class="space-y-1">
+                    {consideration.tips.map(tip => (
+                      <li class="flex items-center text-sm text-slate-600">
+                        <svg class="w-4 h-4 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        {tip}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <h2 class="text-3xl font-bold text-slate-900 mb-6">❌ Časté chyby, ktorým sa vyhnúť</h2>
+        
+        <div class="bg-red-50 border border-red-200 rounded-xl p-6 mb-8">
+          <div class="space-y-4">
+            <div class="flex items-start gap-3">
+              <div class="w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0 mt-0.5">
+                ✕
+              </div>
+              <div>
+                <h4 class="font-semibold text-red-800 mb-1">Príliš trendy mená</h4>
+                <p class="text-red-700 text-sm">Mená, ktoré sú populárne len krátko, môžu byť zastarané, keď dieťa dospieje.</p>
+              </div>
+            </div>
+            
+            <div class="flex items-start gap-3">
+              <div class="w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0 mt-0.5">
+                ✕
+              </div>
+              <div>
+                <h4 class="font-semibold text-red-800 mb-1">Ťažko vysloviteľné mená</h4>
+                <p class="text-red-700 text-sm">Mená, ktoré sú ťažké na výslovnosť, môžu spôsobiť problémy v škole a práci.</p>
+              </div>
+            </div>
+            
+            <div class="flex items-start gap-3">
+              <div class="w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0 mt-0.5">
+                ✕
+              </div>
+              <div>
+                <h4 class="font-semibold text-red-800 mb-1">Negatívne asociácie</h4>
+                <p class="text-red-700 text-sm">Mená spojené s negatívnymi udalosťami alebo osobami môžu spôsobiť problémy.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h2 class="text-3xl font-bold text-slate-900 mb-6">🛠️ Praktické nástroje a metódy</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          <Card class="p-6">
+            <h3 class="text-lg font-bold text-slate-900 mb-3">Metóda "Top 10"</h3>
+            <p class="text-slate-600 text-sm mb-4">
+              Každý z rodičov napíše svojich 10 obľúbených mien, potom spoločne diskutujú a zúžujú výber.
+            </p>
+            <div class="text-xs text-slate-500">
+              Tip: Použite naše vyhľadávanie mien na získanie inšpirácie
+            </div>
+          </Card>
+          
+          <Card class="p-6">
+            <h3 class="text-lg font-bold text-slate-900 mb-3">Testovanie v praxi</h3>
+            <p class="text-slate-600 text-sm mb-4">
+              Hovorte vybrané mená nahlas, skúmajte ich v rôznych situáciách a kontextoch.
+            </p>
+            <div class="text-xs text-slate-500">
+              Tip: Testujte mená s priezviskom a stredným menom
+            </div>
+          </Card>
+        </div>
+
+        <div class="bg-gradient-to-r from-indigo-600 to-purple-700 rounded-2xl p-8 text-white mb-8">
+          <h2 class="text-2xl font-bold mb-4">💡 Zlaté pravidlo</h2>
+          <p class="text-indigo-100 leading-relaxed mb-4">
+            Vyberte meno, ktoré sa vám páči, má pozitívny význam a je v súlade s vašimi hodnotami. 
+            Pamätajte, že vaše dieťa bude toto meno nosiť celý život.
+          </p>
+          <div class="bg-white/20 rounded-lg p-4">
+            <p class="text-sm font-medium">
+              "Najlepšie meno je to, ktoré vyvoláva úsmev na tvári, keď ho vyslovíte."
+            </p>
+          </div>
+        </div>
+
+        <h2 class="text-3xl font-bold text-slate-900 mb-6">📊 Štatistiky a trendy</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          <Card class="text-center p-6">
+            <div class="text-3xl font-bold text-indigo-600 mb-2">73%</div>
+            <p class="text-slate-600">Rodičov si vyberá meno do 6. mesiaca tehotenstva</p>
+          </Card>
+          <Card class="text-center p-6">
+            <div class="text-3xl font-bold text-indigo-600 mb-2">45%</div>
+            <p class="text-slate-600">Zvažuje rodinné tradície pri výbere mena</p>
+          </Card>
+          <Card class="text-center p-6">
+            <div class="text-3xl font-bold text-indigo-600 mb-2">82%</div>
+            <p class="text-slate-600">Testuje meno s priezviskom pred rozhodnutím</p>
+          </Card>
+        </div>
+      </article>
+
+      <!-- CTA Section -->
+      <div class="mt-12">
+        <Card class="bg-gradient-to-r from-green-600 to-blue-700 text-white">
+          <div class="p-8 text-center">
+            <h2 class="text-2xl font-bold mb-4">
+              Potrebujete inšpiráciu na mená?
+            </h2>
+            <p class="text-green-100 mb-6 max-w-2xl mx-auto">
+              Objavte naše rozsiahle databázy slovenských mien s detailnými informáciami o pôvode, 
+              význame a histórii. Vyhľadávajte podľa kategórií, trendov alebo významu.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+              <a 
+                href="/sk/povod-a-vyznam-mien"
+                class="inline-flex items-center px-6 py-3 bg-white text-green-600 font-semibold rounded-lg hover:bg-green-50 transition-colors"
+              >
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+                Vyhľadať mená
+              </a>
+              <a 
+                href="/sk/trendy-v-menach"
+                class="inline-flex items-center px-6 py-3 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-400 transition-colors"
+              >
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                </svg>
+                Trendy mená
+              </a>
+            </div>
+          </div>
+        </Card>
+      </div>
+
+      <!-- Related Articles -->
+      <div class="mt-12">
+        <h2 class="text-2xl font-bold text-slate-900 mb-6">Súvisiace články</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <Card class="p-6 hover:shadow-lg transition-shadow">
+            <h3 class="text-lg font-bold text-slate-900 mb-2">Najkrajšie slovenské mená 2025</h3>
+            <p class="text-slate-600 text-sm mb-3">Objavte najkrajšie slovenské mená, ktoré budú trendy v roku 2025.</p>
+            <a href="/sk/blog/najkrajsie-slovenske-mena-2025" class="text-indigo-600 hover:text-indigo-800 font-medium text-sm">
+              Čítať viac →
+            </a>
+          </Card>
+          <Card class="p-6 hover:shadow-lg transition-shadow">
+            <h3 class="text-lg font-bold text-slate-900 mb-2">Pôvod slovenských mien</h3>
+            <p class="text-slate-600 text-sm mb-3">Pozrite sa do histórie slovenských mien a ich fascinujúceho pôvodu.</p>
+            <a href="/sk/blog/povod-slovenskych-mien-historia" class="text-indigo-600 hover:text-indigo-800 font-medium text-sm">
+              Čítať viac →
+            </a>
+          </Card>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

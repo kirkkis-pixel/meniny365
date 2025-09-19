@@ -1,2 +1,16 @@
 @import './tokens.css';
 @import "tailwindcss";
+
+/* Scale down entire site by 10% */
+html {
+  transform: scale(0.9);
+  transform-origin: center top;
+  width: 100vw; /* Use viewport width to prevent horizontal overflow */
+  height: 100vh; /* Use viewport height */
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+body {
+  overflow-x: hidden; /* Ensure body doesn't allow horizontal scroll */
+  width: 100%; /* Ensure body takes full width */
+}

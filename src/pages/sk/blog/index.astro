@@ -1,158 +1,278 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
-import { getCollection } from 'astro:content';
+import Card from '../../../components/Card.astro';
+import SectionHeader from '../../../components/SectionHeader.astro';
 
-// Get blog posts
-const blogPosts = await getCollection('pages/sk/blog');
-
-// Generate structured data
-const structuredData = {
-  "@context": "https://schema.org",
-  "@type": "WebPage",
-  "name": "Blog o meninách - tipy, tradície a zaujímavosti",
-  "description": "Čítajte zaujímavé články o meninách, tradíciách, darčekoch a všetkom, čo súvisí s oslavami menín na Slovensku.",
-  "url": "https://meniny365.sk/sk/blog",
-  "mainEntity": {
-    "@type": "ItemList",
-    "itemListElement": blogPosts.map((post, index) => ({
-      "@type": "ListItem",
-      "position": index + 1,
-      "name": post.data.title,
-      "description": post.data.description,
-      "url": `https://meniny365.sk/sk/blog/${post.slug}`
-    }))
+const blogPosts = [
+  {
+    slug: 'najkrajsie-slovenske-mena-2025',
+    title: 'Najkrajšie slovenské mená 2025: Trendy a inšpirácie',
+    excerpt: 'Objavte najkrajšie slovenské mená, ktoré budú trendy v roku 2025. Klasické aj moderné mená s hlbokým významom.',
+    date: '2025-01-15',
+    readTime: '3 min',
+    category: 'Trendy',
+    image: '/images/blog/beautiful-names.jpg'
+  },
+  {
+    slug: 'povod-slovenskych-mien-historia',
+    title: 'Pôvod slovenských mien: Fascinujúca história a tradície',
+    excerpt: 'Pozrite sa do histórie slovenských mien. Od starých slovanských koreňov až po moderné trendy.',
+    date: '2025-01-12',
+    readTime: '4 min',
+    category: 'História',
+    image: '/images/blog/name-history.jpg'
+  },
+  {
+    slug: 'ako-vybrat-meno-pre-dieta',
+    title: 'Ako vybrať perfektné meno pre dieťa: Kompletný sprievodca',
+    excerpt: 'Praktické tipy a rady na výber mena pre vaše dieťa. Čo zvážiť a čo sa vyhnúť.',
+    date: '2025-01-10',
+    readTime: '5 min',
+    category: 'Rady',
+    image: '/images/blog/choosing-name.jpg'
+  },
+  {
+    slug: 'najoblubenejsie-mena-slovensko',
+    title: 'Najobľúbenejšie mená na Slovensku: Štatistiky a trendy',
+    excerpt: 'Ktoré mená sú najpopulárnejšie na Slovensku? Pozrite si najnovšie štatistiky a trendy.',
+    date: '2025-01-08',
+    readTime: '3 min',
+    category: 'Štatistiky',
+    image: '/images/blog/popular-names.jpg'
+  },
+  {
+    slug: 'meniny-kalendar-2025',
+    title: 'Meniny kalendár 2025: Kompletný prehľad všetkých dátumov',
+    excerpt: 'Všetky meniny v roku 2025 na jednom mieste. Praktický kalendár s vyhľadávaním.',
+    date: '2025-01-05',
+    readTime: '2 min',
+    category: 'Kalendár',
+    image: '/images/blog/calendar-2025.jpg'
+  },
+  {
+    slug: 'vzacne-slovenske-mena',
+    title: 'Vzácne slovenské mená: Unikátne poklady našej kultúry',
+    excerpt: 'Objavte najvzácnejšie slovenské mená, ktoré sa dnes už takmer nepoužívajú.',
+    date: '2025-01-03',
+    readTime: '4 min',
+    category: 'Kultúra',
+    image: '/images/blog/rare-names.jpg'
   }
-};
+];
+
+const categories = ['Všetky', 'Trendy', 'História', 'Rady', 'Štatistiky', 'Kalendár', 'Kultúra'];
 ---
 
-<Layout 
-  title="Blog o meninách - tipy a zaujímavosti | meniny365"
-  description="Čítajte zaujímavé články o meninách, tradíciách, darčekoch a všetkom, čo súvisí s oslavami menín na Slovensku."
-  canonical="https://meniny365.sk/sk/blog"
-  structuredData={structuredData}
->
-  <div class="container py-8">
-    <!-- Breadcrumbs -->
-    <nav class="mb-8">
-      <ol class="flex items-center space-x-2 text-sm text-[var(--muted)]">
-        <li><a href="/sk" class="hover:text-[var(--brand)] transition-colors">Dnes</a></li>
-        <li>/</li>
-        <li class="text-[var(--text)]">Blog</li>
-      </ol>
-    </nav>
-
-    <!-- Header -->
-    <div class="text-center mb-12">
-      <h1 class="text-4xl md:text-5xl font-bold text-[var(--text)] mb-4">
-        Blog o meninách
-      </h1>
-      <p class="text-xl text-[var(--muted)] mb-8">
-        Tipy, tradície a zaujímavosti o meninách na Slovensku
-      </p>
-    </div>
-
-    <!-- Blog Posts -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-      {blogPosts.map(post => (
-        <article class="card p-6 hover:scale-105 transition-transform">
-          <div class="mb-4">
-            <time class="text-sm text-[var(--muted)]">
-              {new Date(post.data.pubDate).toLocaleDateString('sk-SK')}
-            </time>
-            <h2 class="text-xl font-semibold text-[var(--text)] mt-2 mb-3">
-              <a href={`/sk/blog/${post.slug}`} class="hover:text-[var(--brand)] transition-colors">
-                {post.data.title}
-              </a>
-            </h2>
-            <p class="text-[var(--muted)] text-sm leading-relaxed">
-              {post.data.description}
-            </p>
-          </div>
-          
-          <div class="flex flex-wrap gap-2 mb-4">
-            {post.data.tags?.map(tag => (
-              <span class="px-2 py-1 bg-[var(--brand)]/20 text-[var(--brand)] rounded text-xs">
-                {tag}
-              </span>
-            ))}
-          </div>
-          
-          <a 
-            href={`/sk/blog/${post.slug}`}
-            class="btn btn-primary btn-sm"
-          >
-            Čítať viac
-          </a>
-        </article>
-      ))}
-    </div>
-
-    <!-- Categories -->
-    <div class="card p-8 mb-12">
-      <h2 class="text-2xl font-semibold text-[var(--text)] mb-6">Kategórie článkov</h2>
-      
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <a href="/sk/blog?kategoria=tradicie" class="p-4 border border-[var(--border)] rounded-lg hover:bg-[var(--hover)] transition-colors text-center">
-          <div class="text-2xl mb-2">🏛️</div>
-          <div class="font-medium text-[var(--text)]">Tradície</div>
-        </a>
-        
-        <a href="/sk/blog?kategoria=darceky" class="p-4 border border-[var(--border)] rounded-lg hover:bg-[var(--hover)] transition-colors text-center">
-          <div class="text-2xl mb-2">🎁</div>
-          <div class="font-medium text-[var(--text)]">Darčeky</div>
-        </a>
-        
-        <a href="/sk/blog?kategoria=tipy" class="p-4 border border-[var(--border)] rounded-lg hover:bg-[var(--hover)] transition-colors text-center">
-          <div class="text-2xl mb-2">💡</div>
-          <div class="font-medium text-[var(--text)]">Tipy</div>
-        </a>
-        
-        <a href="/sk/blog?kategoria=zaujimavosti" class="p-4 border border-[var(--border)] rounded-lg hover:bg-[var(--hover)] transition-colors text-center">
-          <div class="text-2xl mb-2">🔍</div>
-          <div class="font-medium text-[var(--text)]">Zaujímavosti</div>
-        </a>
-      </div>
-    </div>
-
-    <!-- Newsletter Signup -->
-    <div class="card p-8 mb-12 bg-gradient-to-r from-[var(--brand)]/10 to-[var(--accent)]/10">
-      <div class="text-center">
-        <h2 class="text-2xl font-semibold text-[var(--text)] mb-4">
-          Nechajte si posielať novinky
-        </h2>
-        <p class="text-[var(--muted)] mb-6">
-          Prihláste sa na odber a dostávajte najnovšie články o meninách priamo do vašej schránky.
-        </p>
-        
-        <div class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-          <input 
-            type="email" 
-            placeholder="Váš e-mail"
-            class="flex-1 px-4 py-2 border border-[var(--border)] rounded-lg bg-[var(--card)] text-[var(--text)] focus:ring-2 focus:ring-[var(--brand)] focus:border-transparent"
-          />
-          <button class="btn btn-primary">
-            Prihlásiť sa
-          </button>
+<Layout title="Blog o slovenských menách | Meniny365.sk" description="Objavte fascinujúci svet slovenských mien. Články o trendoch, histórii, pôvode mien a praktické rady na výber mena pre dieťa.">
+  <div class="min-h-screen bg-gradient-to-br from-slate-50 to-indigo-50">
+    <!-- Hero Section -->
+    <div class="bg-gradient-to-r from-indigo-600 to-purple-700 text-white py-16">
+      <div class="max-w-6xl mx-auto px-4">
+        <div class="text-center">
+          <h1 class="text-4xl md:text-5xl font-bold mb-6">
+            Blog o slovenských menách
+          </h1>
+          <p class="text-xl text-indigo-100 max-w-3xl mx-auto">
+            Objavte fascinujúci svet slovenských mien, ich pôvod, trendy a praktické rady na výber perfektného mena pre vaše dieťa.
+          </p>
         </div>
       </div>
     </div>
 
-    <!-- Related Links -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <a href="/sk" class="card p-6 hover:scale-105 transition-transform">
-        <h3 class="text-xl font-semibold text-[var(--text)] mb-2">📅 Dnes má meniny</h3>
-        <p class="text-[var(--muted)]">Zistite kto má dnes meniny</p>
-      </a>
-      
-      <a href="/sk/populárne-mená" class="card p-6 hover:scale-105 transition-transform">
-        <h3 class="text-xl font-semibold text-[var(--text)] mb-2">🔥 Populárne mená</h3>
-        <p class="text-[var(--muted)]">Zistite ktoré mená sú najpopulárnejšie</p>
-      </a>
-      
-      <a href="/sk/návrhy-mena" class="card p-6 hover:scale-105 transition-transform">
-        <h3 class="text-xl font-semibold text-[var(--text)] mb-2">💡 Návrhy mien</h3>
-        <p class="text-[var(--muted)]">Nájdite perfektné meno pre vaše dieťa</p>
-      </a>
+    <div class="max-w-6xl mx-auto px-4 py-12">
+      <!-- Category Filter -->
+      <div class="mb-8">
+        <div class="flex flex-wrap gap-2 justify-center" id="categoryFilter">
+          {categories.map(category => (
+            <button 
+              class={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+                category === 'Všetky' 
+                  ? 'bg-indigo-600 text-white shadow-md' 
+                  : 'bg-white text-slate-600 hover:bg-indigo-50 hover:shadow-sm'
+              }`}
+              data-category={category}
+            >
+              {category}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <!-- Blog Posts Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="blogPosts">
+        {blogPosts.map(post => (
+          <Card class="overflow-hidden hover:shadow-xl transition-shadow duration-300" data-category={post.category}>
+            <div class="aspect-video bg-gradient-to-br from-indigo-100 to-purple-100 mb-4 flex items-center justify-center relative">
+              <div class="text-8xl opacity-80 drop-shadow-lg">
+                {post.category === 'Trendy' ? '✨' : 
+                 post.category === 'História' ? '📚' :
+                 post.category === 'Rady' ? '💡' :
+                 post.category === 'Štatistiky' ? '📊' :
+                 post.category === 'Kalendár' ? '📅' : '🏛️'}
+              </div>
+              <div class="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent"></div>
+            </div>
+            
+            <div class="p-6">
+              <div class="flex items-center gap-2 mb-3">
+                <span class="px-2 py-1 bg-indigo-100 text-indigo-700 text-xs font-medium rounded-full">
+                  {post.category}
+                </span>
+                <span class="text-slate-500 text-sm">{post.readTime}</span>
+              </div>
+              
+              <h2 class="text-xl font-bold text-slate-900 mb-3 line-clamp-2">
+                {post.title}
+              </h2>
+              
+              <p class="text-slate-600 mb-4 line-clamp-3">
+                {post.excerpt}
+              </p>
+              
+              <div class="mb-4">
+                <span class="text-sm text-slate-500">{post.date}</span>
+              </div>
+              
+              <!-- Full-width CTA Button -->
+              <a 
+                href={`/sk/blog/${post.slug}`}
+                class="w-full inline-flex items-center justify-center px-4 py-3 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition-colors duration-200 shadow-sm hover:shadow-md"
+              >
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+                Čítať článok
+              </a>
+            </div>
+          </Card>
+        ))}
+      </div>
+
+      <!-- CTA Section -->
+      <div class="mt-16 text-center">
+        <Card class="bg-gradient-to-r from-indigo-600 to-purple-700 text-white">
+          <div class="p-8">
+            <h2 class="text-2xl font-bold mb-4">
+              Hľadáte meno pre svoje dieťa?
+            </h2>
+            <p class="text-indigo-100 mb-6 max-w-2xl mx-auto">
+              Objavte naše rozsiahle databázy slovenských mien s informáciami o ich pôvode, význame a histórii.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+              <a 
+                href="/sk/povod-a-vyznam-mien"
+                class="inline-flex items-center px-6 py-3 bg-white text-indigo-600 font-semibold rounded-lg hover:bg-indigo-50 transition-colors"
+              >
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+                Vyhľadať mená
+              </a>
+              <a 
+                href="/sk/trendy-v-menach"
+                class="inline-flex items-center px-6 py-3 bg-indigo-500 text-white font-semibold rounded-lg hover:bg-indigo-400 transition-colors"
+              >
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                </svg>
+                Trendy mená
+              </a>
+            </div>
+          </div>
+        </Card>
+      </div>
     </div>
   </div>
 </Layout>
+
+<style>
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const categoryButtons = document.querySelectorAll('#categoryFilter button');
+    const blogPosts = document.querySelectorAll('#blogPosts [data-category]');
+    let selectedCategories = new Set(['Všetky']);
+
+    // Initialize with "Všetky" selected
+    updateButtonStates();
+    filterPosts();
+
+    categoryButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        const category = this.getAttribute('data-category');
+        
+        if (category === 'Všetky') {
+          // If "Všetky" is clicked, clear all other selections
+          selectedCategories.clear();
+          selectedCategories.add('Všetky');
+        } else {
+          // Remove "Všetky" if it was selected
+          selectedCategories.delete('Všetky');
+          
+          // Toggle the clicked category
+          if (selectedCategories.has(category)) {
+            selectedCategories.delete(category);
+          } else {
+            selectedCategories.add(category);
+          }
+          
+          // If no categories are selected, select "Všetky"
+          if (selectedCategories.size === 0) {
+            selectedCategories.add('Všetky');
+          }
+        }
+        
+        updateButtonStates();
+        filterPosts();
+      });
+    });
+
+    function updateButtonStates() {
+      categoryButtons.forEach(button => {
+        const category = button.getAttribute('data-category');
+        const isSelected = selectedCategories.has(category);
+        
+        if (isSelected) {
+          button.className = 'px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 bg-indigo-600 text-white shadow-md';
+        } else {
+          button.className = 'px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 bg-white text-slate-600 hover:bg-indigo-50 hover:shadow-sm';
+        }
+      });
+    }
+
+    function filterPosts() {
+      blogPosts.forEach(post => {
+        const postCategory = post.getAttribute('data-category');
+        const shouldShow = selectedCategories.has('Všetky') || selectedCategories.has(postCategory);
+        
+        if (shouldShow) {
+          post.style.display = 'block';
+          post.style.animation = 'fadeIn 0.3s ease-in-out';
+        } else {
+          post.style.display = 'none';
+        }
+      });
+    }
+  });
+</script>
+
+<style>
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>

@@ -3,20 +3,19 @@ Allow: /
 
 # Sitemaps
 Sitemap: https://meniny365.sk/sitemap-index.xml
+Sitemap: https://meniny365.sk/sitemap-pages.xml
+Sitemap: https://meniny365.sk/sitemap-blog.xml
+Sitemap: https://meniny365.sk/sitemap-names.xml
 
-# Disallow admin and private areas
-Disallow: /admin/
-Disallow: /private/
+# Disallow admin and API routes
 Disallow: /api/
+Disallow: /admin/
+Disallow: /_astro/
+Disallow: /node_modules/
 
 # Allow important pages
 Allow: /sk/
-Allow: /sk/den/
-Allow: /sk/kalendár/
-Allow: /sk/meno/
-Allow: /sk/populárne-mená/
-Allow: /sk/návrhy-mena/
 Allow: /sk/blog/
-
-# Crawl delay
-Crawl-delay: 1
+Allow: /sk/meno/
+Allow: /sk/kalendár/
+Allow: /sk/den/

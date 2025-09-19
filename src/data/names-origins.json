@@ -1,0 +1,490 @@
+{
+  "Irena": {
+    "name": "Irena",
+    "slug": "irena",
+    "description": "Irena je ženské krstné meno gréckeho pôvodu. Pochádza z gréckeho slova 'eiréné' znamenajúceho 'mier' alebo 'pokoj'. V gréckej mytológii bola Eiréné bohynou mieru.",
+    "originLangs": ["grécke"],
+    "variants": ["Iréna", "Irenka", "Ira", "Iren"],
+    "gender": "F",
+    "frequency": 4
+  },
+  "Štefánia": {
+    "name": "Štefánia",
+    "slug": "stefania",
+    "description": "Štefánia je ženské krstné meno gréckeho pôvodu. Je to ženská forma mena Štefan, ktoré pochádza z gréckeho 'stephanos' znamenajúceho 'veniec' alebo 'koruna'.",
+    "originLangs": ["grécke"],
+    "variants": ["Štefka", "Štefinka", "Stéfanie", "Stefania"],
+    "gender": "F",
+    "frequency": 4
+  },
+  "Štefan": {
+    "name": "Štefan",
+    "slug": "stefan",
+    "description": "Štefan je mužské krstné meno gréckeho pôvodu. Pochádza z gréckeho slova 'stephanos' znamenajúceho 'veniec' alebo 'koruna'. V kresťanstve je svätý Štefan prvý mučeník.",
+    "originLangs": ["grécke"],
+    "variants": ["Štefko", "Štefanek", "Stefan", "Stefán"],
+    "gender": "M",
+    "frequency": 4
+  },
+  "Zdenko": {
+    "name": "Zdenko",
+    "slug": "zdenko",
+    "description": "Zdenko je mužské krstné meno slovanského pôvodu. Pochádza zo slovanského slova 'zden' znamenajúceho 'vytvoriť' alebo 'vybudovať'.",
+    "originLangs": ["slovanské"],
+    "variants": ["Zdeno", "Zdenek", "Zden", "Zdenko"],
+    "gender": "M",
+    "frequency": 4
+  },
+  "Miloslava": {
+    "name": "Miloslava",
+    "slug": "miloslava",
+    "description": "Miloslava je ženské krstné meno slovanského pôvodu. Pochádza zo slovanských slov 'mil' (milý) a 'slav' (sláva).",
+    "originLangs": ["slovanské"],
+    "variants": ["Mila", "Milka", "Miloslávka", "Miloslava"],
+    "gender": "F",
+    "frequency": 4
+  },
+  "Viktor": {
+    "name": "Viktor",
+    "slug": "viktor",
+    "description": "Viktor je mužské krstné meno latinského pôvodu. Pochádza z latinského slova 'victor' znamenajúceho 'víťaz'.",
+    "originLangs": ["latinské"],
+    "variants": ["Viktorín", "Viktorik", "Victor", "Viktor"],
+    "gender": "M",
+    "frequency": 4
+  },
+  "Jozef": {
+    "name": "Jozef",
+    "slug": "jozef",
+    "description": "Jozef je mužské krstné meno hebrejského pôvodu. V Biblii je Jozef syn Jakuba a Ráchel, známy svojimi farebnými plášťami a výkladom snov.",
+    "originLangs": ["hebrejské"],
+    "variants": ["Jozefín", "Jozefko", "Josef", "Jozef"],
+    "gender": "M",
+    "frequency": 4
+  },
+  "Oto": {
+    "name": "Oto",
+    "slug": "oto",
+    "description": "Oto je mužské krstné meno germánskeho pôvodu. Pochádza zo starogermánskeho slova 'aud' znamenajúceho 'bohatstvo' alebo 'majetok'.",
+    "originLangs": ["germánske"],
+    "variants": ["Otto", "Otík", "Otko", "Oto"],
+    "gender": "M",
+    "frequency": 4
+  },
+  "Otília": {
+    "name": "Otília",
+    "slug": "otilia",
+    "description": "Otília je ženské krstné meno germánskeho pôvodu. Pochádza zo starogermánskeho slova 'aud' (bohatstvo) a 'hild' (boj).",
+    "originLangs": ["germánske"],
+    "variants": ["Otka", "Otílie", "Odilia", "Otília"],
+    "gender": "F",
+    "frequency": 4
+  },
+  "Leonarda": {
+    "name": "Leonarda",
+    "slug": "leonarda",
+    "description": "Leonarda je ženské krstné meno germánskeho pôvodu. Pochádza zo starogermánskeho slova 'leon' (lev) a 'hard' (silný).",
+    "originLangs": ["germánske"],
+    "variants": ["Leonardka", "Leonka", "Leonarda", "Leonardina"],
+    "gender": "F",
+    "frequency": 4
+  },
+  "Adam": {
+    "name": "Adam",
+    "slug": "adam",
+    "description": "Adam je mužské krstné meno hebrejského pôvodu. V Biblii je Adam prvý človek, ktorého stvoril Boh. Meno znamená 'človek' alebo 'zem'.",
+    "originLangs": ["hebrejské"],
+    "variants": ["Adám", "Adamek", "Adam", "Adámek"],
+    "gender": "M",
+    "frequency": 3
+  },
+  "Emma": {
+    "name": "Emma",
+    "slug": "emma",
+    "description": "Emma je ženské krstné meno germánskeho pôvodu. Pochádza zo starogermánskeho slova 'ermen' znamenajúceho 'univerzálny' alebo 'celý'.",
+    "originLangs": ["germánske", "starogermánske"],
+    "variants": ["Ema", "Emka", "Emma", "Emka"],
+    "gender": "F",
+    "frequency": 3
+  },
+  "Jakub": {
+    "name": "Jakub",
+    "slug": "jakub",
+    "description": "Jakub je mužské krstné meno hebrejského pôvodu. V Biblii je Jakub syn Izáka a vnuk Abraháma. Meno znamená 'držať za pätu'.",
+    "originLangs": ["hebrejské"],
+    "variants": ["Jakob", "Kuba", "Kubko", "Jakub"],
+    "gender": "M",
+    "frequency": 3
+  },
+  "Sofia": {
+    "name": "Sofia",
+    "slug": "sofia",
+    "description": "Sofia je ženské krstné meno gréckeho pôvodu. Pochádza z gréckeho slova 'sophia' znamenajúceho 'múdrosť'.",
+    "originLangs": ["grécke"],
+    "variants": ["Sofie", "Sofka", "Sofinka", "Sofia"],
+    "gender": "F",
+    "frequency": 3
+  },
+  "Peter": {
+    "name": "Peter",
+    "slug": "peter",
+    "description": "Peter je mužské krstné meno gréckeho pôvodu. Pochádza z gréckeho slova 'petros' znamenajúceho 'skala' alebo 'kameň'. V kresťanstve je svätý Peter apoštol.",
+    "originLangs": ["grécke"],
+    "variants": ["Petr", "Petro", "Petrík", "Peter"],
+    "gender": "M",
+    "frequency": 3
+  },
+  "Mária": {
+    "name": "Mária",
+    "slug": "maria",
+    "description": "Mária je ženské krstné meno hebrejského pôvodu. V Biblii je Mária matka Ježiša Krista. Meno znamená 'milovaná' alebo 'horká'.",
+    "originLangs": ["hebrejské"],
+    "variants": ["Maruška", "Marička", "Marie", "Mária"],
+    "gender": "F",
+    "frequency": 3
+  },
+  "Ján": {
+    "name": "Ján",
+    "slug": "jan",
+    "description": "Ján je mužské krstné meno hebrejského pôvodu. V Biblii je Ján Krstiteľ, ktorý pokrstil Ježiša. Meno znamená 'Boh je milostivý'.",
+    "originLangs": ["hebrejské"],
+    "variants": ["Janko", "Jano", "Johan", "Ján"],
+    "gender": "M",
+    "frequency": 3
+  },
+  "Jana": {
+    "name": "Jana",
+    "slug": "jana",
+    "description": "Jana je ženské krstné meno hebrejského pôvodu. Je to ženská forma mena Ján. Meno znamená 'Boh je milostivý'.",
+    "originLangs": ["hebrejské"],
+    "variants": ["Janča", "Janinka", "Jane", "Jana"],
+    "gender": "F",
+    "frequency": 3
+  },
+  "Daniel": {
+    "name": "Daniel",
+    "slug": "daniel",
+    "description": "Daniel je mužské krstné meno hebrejského pôvodu. V Biblii je Daniel prorok známy svojimi víziami. Meno znamená 'Boh je môj sudca'.",
+    "originLangs": ["hebrejské"],
+    "variants": ["Dano", "Daník", "Danny", "Daniel"],
+    "gender": "M",
+    "frequency": 3
+  },
+  "Anna": {
+    "name": "Anna",
+    "slug": "anna",
+    "description": "Anna je ženské krstné meno hebrejského pôvodu. V Biblii je Anna prorokyňa, ktorá vítala Ježiša v chráme. Meno znamená 'milá' alebo 'milostivá'.",
+    "originLangs": ["hebrejské"],
+    "variants": ["Anka", "Anička", "Anka", "Anna"],
+    "gender": "F",
+    "frequency": 3
+  },
+  "Petra": {
+    "name": "Petra",
+    "slug": "petra",
+    "description": "Petra je ženské krstné meno gréckeho pôvodu. Je to ženská forma mena Peter, ktoré pochádza z gréckeho slova 'petros' znamenajúceho 'skala' alebo 'kameň'.",
+    "originLangs": ["grécke"],
+    "variants": ["Petra", "Petríka", "Petka", "Petra"],
+    "gender": "F",
+    "frequency": 2
+  },
+  "Michal": {
+    "name": "Michal",
+    "slug": "michal",
+    "description": "Michal je mužské krstné meno hebrejského pôvodu. V Biblii je Michal dcéra kráľa Saula. Meno znamená 'kto je ako Boh'.",
+    "originLangs": ["hebrejské"],
+    "variants": ["Michal", "Michal", "Michal", "Michal"],
+    "gender": "M",
+    "frequency": 2
+  },
+  "Lukáš": {
+    "name": "Lukáš",
+    "slug": "lukas",
+    "description": "Lukáš je mužské krstné meno gréckeho pôvodu. Pochádza z gréckeho slova 'lukas' znamenajúceho 'svetlý' alebo 'záříci'. V kresťanstve je svätý Lukáš evanjelista.",
+    "originLangs": ["grécke"],
+    "variants": ["Lukáš", "Lukáš", "Lukáš", "Lukáš"],
+    "gender": "M",
+    "frequency": 2
+  },
+  "Tomáš": {
+    "name": "Tomáš",
+    "slug": "tomas",
+    "description": "Tomáš je mužské krstné meno aramejského pôvodu. V Biblii je Tomáš jeden z dvanástich apoštolov. Meno znamená 'dvojča'.",
+    "originLangs": ["aramejské"],
+    "variants": ["Tomáš", "Tomáš", "Tomáš", "Tomáš"],
+    "gender": "M",
+    "frequency": 2
+  },
+  "Juraj": {
+    "name": "Juraj",
+    "slug": "juraj",
+    "description": "Juraj je mužské krstné meno gréckeho pôvodu. Pochádza z gréckeho slova 'georgios' znamenajúceho 'rolník' alebo 'zemědělec'. V kresťanstve je svätý Juraj drakobijec.",
+    "originLangs": ["grécke"],
+    "variants": ["Juraj", "Juraj", "Juraj", "Juraj"],
+    "gender": "M",
+    "frequency": 2
+  },
+  "Andrej": {
+    "name": "Andrej",
+    "slug": "andrej",
+    "description": "Andrej je mužské krstné meno gréckeho pôvodu. Pochádza z gréckeho slova 'andreas' znamenajúceho 'mužný' alebo 'statečný'. V kresťanstve je svätý Andrej apoštol.",
+    "originLangs": ["grécke"],
+    "variants": ["Andrej", "Andrej", "Andrej", "Andrej"],
+    "gender": "M",
+    "frequency": 2
+  },
+  "Richard": {
+    "name": "Richard",
+    "slug": "richard",
+    "description": "Richard je mužské krstné meno germánskeho pôvodu. Pochádza zo starogermánskeho slova 'ric' (vládca) a 'hard' (silný).",
+    "originLangs": ["germánske"],
+    "variants": ["Richard", "Richard", "Richard", "Richard"],
+    "gender": "M",
+    "frequency": 2
+  },
+  "Marek": {
+    "name": "Marek",
+    "slug": "marek",
+    "description": "Marek je mužské krstné meno latinského pôvodu. Pochádza z latinského slova 'marcus' znamenajúceho 'posvätný bohu Marsovi'. V kresťanstve je svätý Marek evanjelista.",
+    "originLangs": ["latinské"],
+    "variants": ["Marek", "Marek", "Marek", "Marek"],
+    "gender": "M",
+    "frequency": 2
+  },
+  "Robert": {
+    "name": "Robert",
+    "slug": "robert",
+    "description": "Robert je mužské krstné meno germánskeho pôvodu. Pochádza zo starogermánskeho slova 'hrod' (sláva) a 'berht' (jasný).",
+    "originLangs": ["germánske"],
+    "variants": ["Robert", "Robert", "Robert", "Robert"],
+    "gender": "M",
+    "frequency": 2
+  },
+  "Jozef": {
+    "name": "Jozef",
+    "slug": "jozef",
+    "description": "Jozef je mužské krstné meno hebrejského pôvodu. V Biblii je Jozef syn Jakuba a Ráchel, známy svojimi farebnými plášťami a výkladom snov.",
+    "originLangs": ["hebrejské"],
+    "variants": ["Jozef", "Jozef", "Jozef", "Jozef"],
+    "gender": "M",
+    "frequency": 2
+  },
+  "Pavel": {
+    "name": "Pavel",
+    "slug": "pavel",
+    "description": "Pavel je mužské krstné meno latinského pôvodu. Pochádza z latinského slova 'paulus' znamenajúceho 'malý'. V kresťanstve je svätý Pavel apoštol.",
+    "originLangs": ["latinské"],
+    "variants": ["Pavel", "Pavel", "Pavel", "Pavel"],
+    "gender": "M",
+    "frequency": 2
+  },
+  "Milan": {
+    "name": "Milan",
+    "slug": "milan",
+    "description": "Milan je mužské krstné meno slovanského pôvodu. Pochádza zo slovanského slova 'mil' znamenajúceho 'milý' alebo 'milovaný'.",
+    "originLangs": ["slovanské"],
+    "variants": ["Milan", "Milan", "Milan", "Milan"],
+    "gender": "M",
+    "frequency": 2
+  },
+  "Simon": {
+    "name": "Simon",
+    "slug": "simon",
+    "description": "Simon je mužské krstné meno hebrejského pôvodu. V Biblii je Simon jeden z dvanástich apoštolov. Meno znamená 'počúvajúci' alebo 'poslušný'.",
+    "originLangs": ["hebrejské"],
+    "variants": ["Simon", "Simon", "Simon", "Simon"],
+    "gender": "M",
+    "frequency": 2
+  },
+  "Ladislav": {
+    "name": "Ladislav",
+    "slug": "ladislav",
+    "description": "Ladislav je mužské krstné meno slovanského pôvodu. Pochádza zo slovanských slov 'lad' (poriadok) a 'slav' (sláva).",
+    "originLangs": ["slovanské"],
+    "variants": ["Ladislav", "Ladislav", "Ladislav", "Ladislav"],
+    "gender": "M",
+    "frequency": 2
+  },
+  "Vladimir": {
+    "name": "Vladimir",
+    "slug": "vladimir",
+    "description": "Vladimir je mužské krstné meno slovanského pôvodu. Pochádza zo slovanských slov 'vlad' (vládnuť) a 'mir' (mier).",
+    "originLangs": ["slovanské"],
+    "variants": ["Vladimir", "Vladimir", "Vladimir", "Vladimir"],
+    "gender": "M",
+    "frequency": 2
+  },
+  "Stanislav": {
+    "name": "Stanislav",
+    "slug": "stanislav",
+    "description": "Stanislav je mužské krstné meno slovanského pôvodu. Pochádza zo slovanských slov 'stan' (stáť) a 'slav' (sláva).",
+    "originLangs": ["slovanské"],
+    "variants": ["Stanislav", "Stanislav", "Stanislav", "Stanislav"],
+    "gender": "M",
+    "frequency": 2
+  },
+  "Branislav": {
+    "name": "Branislav",
+    "slug": "branislav",
+    "description": "Branislav je mužské krstné meno slovanského pôvodu. Pochádza zo slovanských slov 'bran' (brániť) a 'slav' (sláva).",
+    "originLangs": ["slovanské"],
+    "variants": ["Branislav", "Branislav", "Branislav", "Branislav"],
+    "gender": "M",
+    "frequency": 2
+  },
+  "Dusan": {
+    "name": "Dusan",
+    "slug": "dusan",
+    "description": "Dusan je mužské krstné meno slovanského pôvodu. Pochádza zo slovanského slova 'dus' znamenajúceho 'duša' alebo 'duch'.",
+    "originLangs": ["slovanské"],
+    "variants": ["Dusan", "Dusan", "Dusan", "Dusan"],
+    "gender": "M",
+    "frequency": 2
+  },
+  "Miroslav": {
+    "name": "Miroslav",
+    "slug": "miroslav",
+    "description": "Miroslav je mužské krstné meno slovanského pôvodu. Pochádza zo slovanských slov 'mir' (mier) a 'slav' (sláva).",
+    "originLangs": ["slovanské"],
+    "variants": ["Miroslav", "Miroslav", "Miroslav", "Miroslav"],
+    "gender": "M",
+    "frequency": 2
+  },
+  "Jaroslav": {
+    "name": "Jaroslav",
+    "slug": "jaroslav",
+    "description": "Jaroslav je mužské krstné meno slovanského pôvodu. Pochádza zo slovanských slov 'jar' (jarý, silný) a 'slav' (sláva).",
+    "originLangs": ["slovanské"],
+    "variants": ["Jaroslav", "Jaroslav", "Jaroslav", "Jaroslav"],
+    "gender": "M",
+    "frequency": 2
+  },
+  "Vladislav": {
+    "name": "Vladislav",
+    "slug": "vladislav",
+    "description": "Vladislav je mužské krstné meno slovanského pôvodu. Pochádza zo slovanských slov 'vlad' (vládnuť) a 'slav' (sláva).",
+    "originLangs": ["slovanské"],
+    "variants": ["Vladislav", "Vladislav", "Vladislav", "Vladislav"],
+    "gender": "M",
+    "frequency": 2
+  },
+  "Frantisek": {
+    "name": "Frantisek",
+    "slug": "frantisek",
+    "description": "Frantisek je mužské krstné meno germánskeho pôvodu. Pochádza zo starogermánskeho slova 'frank' znamenajúceho 'voľný' alebo 'odvážny'.",
+    "originLangs": ["germánske"],
+    "variants": ["Frantisek", "Frantisek", "Frantisek", "Frantisek"],
+    "gender": "M",
+    "frequency": 2
+  },
+  "Anton": {
+    "name": "Anton",
+    "slug": "anton",
+    "description": "Anton je mužské krstné meno latinského pôvodu. Pochádza z latinského slova 'antonius' znamenajúceho 'neoceniteľný' alebo 'vzácny'.",
+    "originLangs": ["latinské"],
+    "variants": ["Anton", "Anton", "Anton", "Anton"],
+    "gender": "M",
+    "frequency": 2
+  },
+  "Pavol": {
+    "name": "Pavol",
+    "slug": "pavol",
+    "description": "Pavol je mužské krstné meno latinského pôvodu. Pochádza z latinského slova 'paulus' znamenajúceho 'malý'. V kresťanstve je svätý Pavol apoštol.",
+    "originLangs": ["latinské"],
+    "variants": ["Pavol", "Pavol", "Pavol", "Pavol"],
+    "gender": "M",
+    "frequency": 2
+  },
+  "Stefan": {
+    "name": "Stefan",
+    "slug": "stefan",
+    "description": "Stefan je mužské krstné meno gréckeho pôvodu. Pochádza z gréckeho slova 'stephanos' znamenajúceho 'veniec' alebo 'koruna'.",
+    "originLangs": ["grécke"],
+    "variants": ["Stefan", "Stefan", "Stefan", "Stefan"],
+    "gender": "M",
+    "frequency": 2
+  },
+  "Sebastian": {
+    "name": "Sebastian",
+    "slug": "sebastian",
+    "description": "Sebastian je mužské krstné meno gréckeho pôvodu. Pochádza z gréckeho slova 'sebastos' znamenajúceho 'ctihodný' alebo 'vážený'.",
+    "originLangs": ["grécke"],
+    "variants": ["Sebastian", "Sebastian", "Sebastian", "Sebastian"],
+    "gender": "M",
+    "frequency": 2
+  },
+  "Maximilian": {
+    "name": "Maximilian",
+    "slug": "maximilian",
+    "description": "Maximilian je mužské krstné meno latinského pôvodu. Pochádza z latinského slova 'maximus' znamenajúceho 'najväčší' alebo 'najlepší'.",
+    "originLangs": ["latinské"],
+    "variants": ["Maximilian", "Maximilian", "Maximilian", "Maximilian"],
+    "gender": "M",
+    "frequency": 2
+  },
+  "Matias": {
+    "name": "Matias",
+    "slug": "matias",
+    "description": "Matias je mužské krstné meno hebrejského pôvodu. Pochádza z hebrejského slova 'mattityahu' znamenajúceho 'dar od Boha'.",
+    "originLangs": ["hebrejské"],
+    "variants": ["Matias", "Matias", "Matias", "Matias"],
+    "gender": "M",
+    "frequency": 2
+  },
+  "Timotej": {
+    "name": "Timotej",
+    "slug": "timotej",
+    "description": "Timotej je mužské krstné meno gréckeho pôvodu. Pochádza z gréckeho slova 'timotheos' znamenajúceho 'ctiaci Boha'.",
+    "originLangs": ["grécke"],
+    "variants": ["Timotej", "Timotej", "Timotej", "Timotej"],
+    "gender": "M",
+    "frequency": 2
+  },
+  "Kristian": {
+    "name": "Kristian",
+    "slug": "kristian",
+    "description": "Kristian je mužské krstné meno latinského pôvodu. Pochádza z latinského slova 'christianus' znamenajúceho 'kresťan'.",
+    "originLangs": ["latinské"],
+    "variants": ["Kristian", "Kristian", "Kristian", "Kristian"],
+    "gender": "M",
+    "frequency": 2
+  },
+  "Dominik": {
+    "name": "Dominik",
+    "slug": "dominik",
+    "description": "Dominik je mužské krstné meno latinského pôvodu. Pochádza z latinského slova 'dominus' znamenajúceho 'pán' alebo 'vládca'.",
+    "originLangs": ["latinské"],
+    "variants": ["Dominik", "Dominik", "Dominik", "Dominik"],
+    "gender": "M",
+    "frequency": 2
+  },
+  "Marcel": {
+    "name": "Marcel",
+    "slug": "marcel",
+    "description": "Marcel je mužské krstné meno latinského pôvodu. Pochádza z latinského slova 'marcellus' znamenajúceho 'malý bojovník'.",
+    "originLangs": ["latinské"],
+    "variants": ["Marcel", "Marcel", "Marcel", "Marcel"],
+    "gender": "M",
+    "frequency": 2
+  },
+  "Rastislav": {
+    "name": "Rastislav",
+    "slug": "rastislav",
+    "description": "Rastislav je mužské krstné meno slovanského pôvodu. Pochádza zo slovanských slov 'rast' (rásť) a 'slav' (sláva).",
+    "originLangs": ["slovanské"],
+    "variants": ["Rastislav", "Rastislav", "Rastislav", "Rastislav"],
+    "gender": "M",
+    "frequency": 2
+  },
+  "Lubomir": {
+    "name": "Lubomir",
+    "slug": "lubomir",
+    "description": "Lubomir je mužské krstné meno slovanského pôvodu. Pochádza zo slovanských slov 'lub' (milý) a 'mir' (mier).",
+    "originLangs": ["slovanské"],
+    "variants": ["Lubomir", "Lubomir", "Lubomir", "Lubomir"],
+    "gender": "M",
+    "frequency": 2
+  }
+}
+
+

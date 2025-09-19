@@ -1,0 +1,31 @@
+---
+// Google Analytics and Search Console setup
+---
+
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'GA_MEASUREMENT_ID', {
+    page_title: document.title,
+    page_location: window.location.href
+  });
+</script>
+
+<!-- Google Search Console -->
+<meta name="google-site-verification" content="GOOGLE_SITE_VERIFICATION_CODE" />
+
+<!-- Additional SEO tracking -->
+<script>
+  // Track page views for SEO monitoring
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'page_view', {
+      page_title: document.title,
+      page_location: window.location.href,
+      page_path: window.location.pathname
+    });
+  }
+</script>
+

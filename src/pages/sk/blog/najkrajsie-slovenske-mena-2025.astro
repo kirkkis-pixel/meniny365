@@ -1,0 +1,67 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { generateBlogPostSEO } from '../../../lib/seo.ts';
+
+const post = {
+  title: "Najkrajšie slovenské mená 2025 - Kompletný zoznam",
+  slug: "najkrajsie-slovenske-mena-2025",
+  category: "mená",
+  keywords: "najkrajšie slovenské mená, krásne mená pre dievčatá, krásne mená pre chlapcov, slovenské mená 2025",
+  publishedTime: new Date().toISOString(),
+  modifiedTime: new Date().toISOString(),
+  excerpt: "Najkrajšie slovenské mená 2025",
+  content: "# Najkrajšie slovenské mená 2025\n\nSlovenské mená majú svoju jedinečnú krásu a históriu. V tomto článku vám predstavíme najkrajšie slovenské mená pre rok 2025, ktoré sú obľúbené medzi rodičmi a majú hlboký kultúrny význam.\n\n## Najkrajšie mená pre dievčatá\n\n### 1. Luna\n- **Pôvod**: Latinské\n- **Význam**: Mesiac\n- **Meniny**: 15. augusta\n- **Prečo je krásne**: Melodické zvuky a mystický význam\n\n### 2. Sofia\n- **Pôvod**: Grécke\n- **Význam**: Múdrosť\n- **Meniny**: 15. mája\n- **Prečo je krásne**: Klasické a elegantné\n\n### 3. Emma\n- **Pôvod**: Germánske\n- **Význam**: Univerzálne, celé\n- **Meniny**: 19. apríla\n- **Prečo je krásne**: Krátke a sladké\n\n## Najkrajšie mená pre chlapcov\n\n### 1. Adam\n- **Pôvod**: Hebrejské\n- **Význam**: Človek\n- **Meniny**: 24. decembra\n- **Prečo je krásne**: Silné a tradičné\n\n### 2. Oliver\n- **Pôvod**: Latinské\n- **Význam**: Olivový strom\n- **Meniny**: 5. júla\n- **Prečo je krásne**: Moderné a elegantné\n\n### 3. Jakub\n- **Pôvod**: Hebrejské\n- **Význam**: Následovník\n- **Meniny**: 25. júla\n- **Prečo je krásne**: Klasické slovenské meno\n\n## Trendy v slovenských menách 2025\n\nV roku 2025 vidíme niekoľko trendov:\n- Návrat k tradičným slovenským menám\n- Vplyv medzinárodných mien\n- Krátke a jednoduché mená\n- Mená s hlbokým významom\n\n## Ako vybrať perfektné meno\n\nPri výbere mena pre vaše dieťa zvážte:\n1. **Význam mena** - Vyberte meno s pozitívnym významom\n2. **Výslovnosť** - Uistite sa, že sa meno ľahko vyslovuje\n3. **Tradície** - Zvážte rodinné tradície\n4. **Meniny** - Pozrite si, kedy má meno meniny\n\n## Záver\n\nVýber mena je dôležitá rozhodnutie, ktoré ovplyvní celý život vašeho dieťaťa. Najkrajšie slovenské mená kombinujú tradíciu s modernosťou a majú hlboký kultúrny význam.\n\nPoužite náš [kalendár menín](/sk) na vyhľadanie ďalších krásnych mien a ich pôvodu."
+};
+
+const seoData = generateBlogPostSEO(post);
+---
+
+<Layout 
+  title={seoData.title}
+  description={seoData.description}
+  canonical={seoData.canonical}
+  keywords={seoData.keywords}
+  publishedTime={seoData.publishedTime}
+  modifiedTime={seoData.modifiedTime}
+  type={seoData.type}
+  structuredData={seoData.structuredData}
+>
+  <article class="max-w-4xl mx-auto px-4 py-20">
+    <header class="mb-12">
+      <div class="inline-flex items-center bg-slate-100 rounded-full px-4 py-2 mb-6">
+        <span class="text-sm font-medium text-slate-700">mená</span>
+      </div>
+      <h1 class="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
+        Najkrajšie slovenské mená 2025 - Kompletný zoznam
+      </h1>
+      <div class="flex items-center text-slate-600 text-sm">
+        <time datetime={post.publishedTime}>
+          {new Date(post.publishedTime).toLocaleDateString('sk-SK')}
+        </time>
+        <span class="mx-2">•</span>
+        <span>4 minút čítania</span>
+      </div>
+    </header>
+
+    <div class="prose prose-lg max-w-none">
+      <div set:html={post.content}></div>
+    </div>
+
+    <footer class="mt-16 pt-8 border-t border-slate-200">
+      <div class="flex flex-col sm:flex-row gap-4">
+        <a 
+          href="/sk/povod-a-vyznam-mien" 
+          class="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+        >
+          Zistiť pôvod mien
+        </a>
+        <a 
+          href="/sk/darceky" 
+          class="bg-slate-100 text-slate-700 px-6 py-3 rounded-lg font-semibold hover:bg-slate-200 transition-colors"
+        >
+          Nájsť darčeky
+        </a>
+      </div>
+    </footer>
+  </article>
+</Layout>

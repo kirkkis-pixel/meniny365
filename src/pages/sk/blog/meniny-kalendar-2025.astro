@@ -1,0 +1,282 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Card from '../../../components/Card.astro';
+
+const monthlyHighlights = [
+  { month: 'Január', names: ['Alexandra', 'Ján', 'Mária'], special: 'Nový rok, nové mená' },
+  { month: 'Február', names: ['Valentín', 'Erik', 'Anežka'], special: 'Valentínsky deň' },
+  { month: 'Marec', names: ['Jozef', 'Alžbeta', 'Gregor'], special: 'Jarné meniny' },
+  { month: 'Apríl', names: ['Richard', 'Albert', 'Marcel'], special: 'Veľkonočné meniny' },
+  { month: 'Máj', names: ['Filip', 'Žofia', 'Monika'], special: 'Májové meniny' },
+  { month: 'Jún', names: ['Ján', 'Peter', 'Pavol'], special: 'Letné meniny' },
+  { month: 'Júl', names: ['Cyril', 'Metod', 'Anna'], special: 'Pamätný deň' },
+  { month: 'August', names: ['Dominik', 'Vavrinec', 'Marianna'], special: 'Letné prázdniny' },
+  { month: 'September', names: ['Mária', 'Michal', 'Václav'], special: 'Jesenné meniny' },
+  { month: 'Október', names: ['Arnold', 'František', 'Viera'], special: 'Podzimné meniny' },
+  { month: 'November', names: ['Martin', 'Hubert', 'Karol'], special: 'Martinské meniny' },
+  { month: 'December', names: ['Mikuláš', 'Lucia', 'Adam'], special: 'Vianočné meniny' }
+];
+
+const specialDays = [
+  { date: '1. január', name: 'Nová rok', description: 'Začiatok nového roka' },
+  { date: '14. február', name: 'Valentín', description: 'Deň zamilovaných' },
+  { date: '8. marec', name: 'Medzinárodný deň žien', description: 'Svátek žien' },
+  { date: '1. máj', name: 'Svátek práce', description: 'Deň práce' },
+  { date: '5. júl', name: 'Cyril a Metod', description: 'Pamätný deň' },
+  { date: '29. august', name: 'Výročie SNP', description: 'Národný sviatok' },
+  { date: '1. september', name: 'Deň ústavy', description: 'Národný sviatok' },
+  { date: '17. november', name: 'Deň boja za slobodu', description: 'Národný sviatok' },
+  { date: '6. december', name: 'Mikuláš', description: 'Tradičný sviatok' },
+  { date: '24. december', name: 'Štedrý deň', description: 'Vianočný sviatok' }
+];
+---
+
+<Layout 
+  title="Meniny kalendár 2025: Kompletný prehľad všetkých dátumov | Meniny365.sk" 
+  description="Všetky meniny v roku 2025 na jednom mieste. Praktický kalendár s vyhľadávaním, štatistikami a zaujímavosťami o slovenských meninách."
+>
+  <div class="min-h-screen bg-gradient-to-br from-slate-50 to-indigo-50">
+    <!-- Article Header -->
+    <div class="bg-white border-b border-slate-200">
+      <div class="max-w-4xl mx-auto px-4 py-12">
+        <div class="text-center">
+          <div class="inline-flex items-center px-3 py-1 bg-orange-100 text-orange-700 text-sm font-medium rounded-full mb-4">
+            <span class="mr-2">📅</span>
+            Kalendár
+          </div>
+          <h1 class="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
+            Meniny kalendár 2025: Kompletný prehľad všetkých dátumov
+          </h1>
+          <p class="text-xl text-slate-600 max-w-3xl mx-auto mb-6">
+            Všetky meniny v roku 2025 na jednom mieste. Praktický kalendár s vyhľadávaním, 
+            štatistikami a zaujímavosťami o slovenských meninách.
+          </p>
+          <div class="flex items-center justify-center gap-4 text-sm text-slate-500">
+            <span>5. január 2025</span>
+            <span>•</span>
+            <span>2 min čítania</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="max-w-4xl mx-auto px-4 py-12">
+      <!-- Article Content -->
+      <article class="prose prose-lg max-w-none">
+        <div class="bg-gradient-to-r from-orange-50 to-red-50 rounded-2xl p-8 mb-8">
+          <h2 class="text-2xl font-bold text-slate-900 mb-4">Prečo sú meniny dôležité?</h2>
+          <p class="text-slate-700 leading-relaxed">
+            Meniny sú tradičný slovenský sviatok, ktorý oslavuje meno osoby. Je to deň, kedy si pripomíname 
+            význam mena a jeho pôvod. V roku 2025 máme 366 dní s meninami, každý deň prináleží aspoň jednému menu.
+          </p>
+        </div>
+
+        <h2 class="text-3xl font-bold text-slate-900 mb-6">📆 Prehľad podľa mesiacov</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+          {monthlyHighlights.map(month => (
+            <Card class="p-6 hover:shadow-lg transition-shadow">
+              <h3 class="text-lg font-bold text-slate-900 mb-3">{month.month}</h3>
+              <div class="space-y-2 mb-4">
+                {month.names.map(name => (
+                  <span class="inline-block px-2 py-1 bg-slate-100 text-slate-700 text-sm rounded mr-2">
+                    {name}
+                  </span>
+                ))}
+              </div>
+              <p class="text-slate-600 text-sm italic">{month.special}</p>
+            </Card>
+          ))}
+        </div>
+
+        <h2 class="text-3xl font-bold text-slate-900 mb-6">🎉 Špeciálne dni a sviatky</h2>
+        
+        <div class="bg-slate-50 rounded-xl p-6 mb-8">
+          <p class="text-slate-700 leading-relaxed mb-6">
+            Niektoré dni v roku sú obzvlášť špeciálne, pretože sa zhodujú s významnými sviatkami alebo udalosťami.
+          </p>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {specialDays.map(day => (
+              <div class="bg-white rounded-lg p-4 shadow-sm">
+                <div class="flex items-center justify-between mb-2">
+                  <h4 class="font-bold text-slate-900">{day.date}</h4>
+                  <span class="px-2 py-1 bg-orange-100 text-orange-700 text-xs font-medium rounded-full">
+                    Špeciálny
+                  </span>
+                </div>
+                <p class="text-slate-600 text-sm font-medium">{day.name}</p>
+                <p class="text-slate-500 text-xs">{day.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <h2 class="text-3xl font-bold text-slate-900 mb-6">📊 Zaujímavé štatistiky</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          <Card class="text-center p-6">
+            <div class="text-3xl font-bold text-indigo-600 mb-2">366</div>
+            <p class="text-slate-600">Dní s meninami</p>
+          </Card>
+          <Card class="text-center p-6">
+            <div class="text-3xl font-bold text-indigo-600 mb-2">2,847</div>
+            <p class="text-slate-600">Unikátnych mien</p>
+          </Card>
+          <Card class="text-center p-6">
+            <div class="text-3xl font-bold text-indigo-600 mb-2">7.8</div>
+            <p class="text-slate-600">Priemerný počet mien na deň</p>
+          </Card>
+          <Card class="text-center p-6">
+            <div class="text-3xl font-bold text-indigo-600 mb-2">12</div>
+            <p class="text-slate-600">Mesiacov v roku</p>
+          </Card>
+        </div>
+
+        <h2 class="text-3xl font-bold text-slate-900 mb-6">🔍 Ako používať kalendár</h2>
+        
+        <div class="space-y-6 mb-8">
+          <div class="flex items-start gap-4">
+            <div class="w-8 h-8 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0">
+              1
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-slate-900 mb-2">Vyhľadávanie podľa dátumu</h3>
+              <p class="text-slate-600">
+                Zadajte konkrétny dátum a zobrazia sa vám všetky meniny v ten deň. Ideálne na plánovanie osláv.
+              </p>
+            </div>
+          </div>
+          
+          <div class="flex items-start gap-4">
+            <div class="w-8 h-8 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0">
+              2
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-slate-900 mb-2">Vyhľadávanie podľa mena</h3>
+              <p class="text-slate-600">
+                Hľadajte konkrétne meno a zistite, kedy má meniny. Užitočné pre gratulácie a pripomienky.
+              </p>
+            </div>
+          </div>
+          
+          <div class="flex items-start gap-4">
+            <div class="w-8 h-8 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0">
+              3
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-slate-900 mb-2">Filtrovanie podľa kategórií</h3>
+              <p class="text-slate-600">
+                Filtrujte mená podľa pohlavia, pôvodu alebo popularity. Nájdite presne to, čo hľadáte.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-gradient-to-r from-green-50 to-blue-50 rounded-xl p-6 mb-8">
+          <h3 class="text-xl font-bold text-slate-900 mb-4">💡 Praktické tipy</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <h4 class="font-semibold text-slate-900 mb-2">Nastavenie pripomienok</h4>
+              <p class="text-slate-600 text-sm">
+                Použite náš kalendár na nastavenie pripomienok pre meniny vašich blízkych. 
+                Nikdy nezabudnite na gratulácie!
+              </p>
+            </div>
+            <div>
+              <h4 class="font-semibold text-slate-900 mb-2">Zdieľanie s rodinou</h4>
+              <p class="text-slate-600 text-sm">
+                Zdieľajte kalendár s rodinou a priateľmi. Všetci budú vedieť, kedy má kto meniny.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <h2 class="text-3xl font-bold text-slate-900 mb-6">📱 Mobilná aplikácia</h2>
+        
+        <div class="bg-gradient-to-r from-indigo-600 to-purple-700 rounded-2xl p-8 text-white mb-8">
+          <h3 class="text-xl font-bold mb-4">Máte kalendár vždy po ruke</h3>
+          <p class="text-indigo-100 leading-relaxed mb-6">
+            Naša mobilná aplikácia vám umožní mať kalendár menín vždy po ruke. 
+            Nastavte si pripomienky, vyhľadávajte mená a nikdy nezabudnite na gratulácie.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a 
+              href="/sk/kalendár"
+              class="inline-flex items-center px-6 py-3 bg-white text-indigo-600 font-semibold rounded-lg hover:bg-indigo-50 transition-colors"
+            >
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+              </svg>
+              Otvoriť kalendár
+            </a>
+            <a 
+              href="/sk/blog"
+              class="inline-flex items-center px-6 py-3 bg-indigo-500 text-white font-semibold rounded-lg hover:bg-indigo-400 transition-colors"
+            >
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
+              </svg>
+              Ďalšie články
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- CTA Section -->
+      <div class="mt-12">
+        <Card class="bg-gradient-to-r from-orange-600 to-red-700 text-white">
+          <div class="p-8 text-center">
+            <h2 class="text-2xl font-bold mb-4">
+              Potrebujete detailný kalendár?
+            </h2>
+            <p class="text-orange-100 mb-6 max-w-2xl mx-auto">
+              Objavte náš interaktívny kalendár menín s vyhľadávaním, filtrami a detailnými informáciami o každom mene.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+              <a 
+                href="/sk/kalendár"
+                class="inline-flex items-center px-6 py-3 bg-white text-orange-600 font-semibold rounded-lg hover:bg-orange-50 transition-colors"
+              >
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+                Otvoriť kalendár
+              </a>
+              <a 
+                href="/sk/povod-a-vyznam-mien"
+                class="inline-flex items-center px-6 py-3 bg-orange-500 text-white font-semibold rounded-lg hover:bg-orange-400 transition-colors"
+              >
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+                Vyhľadať mená
+              </a>
+            </div>
+          </div>
+        </Card>
+      </div>
+
+      <!-- Related Articles -->
+      <div class="mt-12">
+        <h2 class="text-2xl font-bold text-slate-900 mb-6">Súvisiace články</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <Card class="p-6 hover:shadow-lg transition-shadow">
+            <h3 class="text-lg font-bold text-slate-900 mb-2">Najobľúbenejšie mená na Slovensku</h3>
+            <p class="text-slate-600 text-sm mb-3">Ktoré mená sú najpopulárnejšie na Slovensku?</p>
+            <a href="/sk/blog/najoblubenejsie-mena-slovensko" class="text-indigo-600 hover:text-indigo-800 font-medium text-sm">
+              Čítať viac →
+            </a>
+          </Card>
+          <Card class="p-6 hover:shadow-lg transition-shadow">
+            <h3 class="text-lg font-bold text-slate-900 mb-2">Najkrajšie slovenské mená 2025</h3>
+            <p class="text-slate-600 text-sm mb-3">Objavte najkrajšie slovenské mená, ktoré budú trendy v roku 2025.</p>
+            <a href="/sk/blog/najkrajsie-slovenske-mena-2025" class="text-indigo-600 hover:text-indigo-800 font-medium text-sm">
+              Čítať viac →
+            </a>
+          </Card>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

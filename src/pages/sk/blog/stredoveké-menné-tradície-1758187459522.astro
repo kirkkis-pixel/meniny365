@@ -1,0 +1,127 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Card from '../../../components/Card.astro';
+
+const sampleData = [
+  { name: 'Emma', meaning: 'Univerzálna', trend: 'Stúpa' },
+  { name: 'Lukáš', meaning: 'Svetlo', trend: 'Stabilný' },
+  { name: 'Sofia', meaning: 'Múdrosť', trend: 'Stúpa' }
+];
+---
+
+<Layout 
+  title="Tradičné slovenské menné korene | Meniny365.sk" 
+  description="Tradičné menné korene a ich vplyv na súčasné pomenovávanie."
+>
+  <div class="min-h-screen bg-gradient-to-br from-slate-50 to-indigo-50">
+    <!-- Article Header -->
+    <div class="bg-white border-b border-slate-200">
+      <div class="max-w-4xl mx-auto px-4 py-12">
+        <div class="text-center">
+          <div class="inline-flex items-center px-3 py-1 bg-indigo-100 text-indigo-700 text-sm font-medium rounded-full mb-4">
+            <span class="mr-2">📚</span>
+            História
+          </div>
+          <h1 class="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
+            Stredoveké mená a ich význam
+          </h1>
+          <p class="text-xl text-slate-600 max-w-3xl mx-auto mb-6">
+            Historické menné tradície, ktoré sa zachovali dodnes.
+          </p>
+          <div class="flex items-center justify-center gap-4 text-sm text-slate-500">
+            <span>18. 9. 2025</span>
+            <span>•</span>
+            <span>4 min čítania</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="max-w-4xl mx-auto px-4 py-12">
+      <article class="prose prose-lg max-w-none">
+        <div class="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-2xl p-8 mb-8">
+          <h2 class="text-2xl font-bold text-slate-900 mb-4">Týždeň 38 - september</h2>
+          <p class="text-slate-700 leading-relaxed">
+            Tento týždeň sa zameriavame na história aspekty slovenských mien. 
+            Objavte najnovšie trendy, štatistiky a rady, ktoré vám pomôžu lepšie pochopiť 
+            svet slovenských mien a ich pôvod.
+          </p>
+        </div>
+
+        <h2 class="text-3xl font-bold text-slate-900 mb-6">Kľúčové pozorovania</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          {sampleData.map((item, index) => (
+            <Card class="p-6 hover:shadow-lg transition-shadow">
+              <div class="flex items-center justify-between mb-3">
+                <h3 class="text-xl font-bold text-slate-900">{item.name}</h3>
+                <span class="px-2 py-1 bg-green-100 text-green-700 text-xs font-medium rounded-full">
+                  {item.trend}
+                </span>
+              </div>
+              <p class="text-slate-600 text-sm">{item.meaning}</p>
+            </Card>
+          ))}
+        </div>
+
+        <h2 class="text-3xl font-bold text-slate-900 mb-6">Praktické rady</h2>
+        
+        <div class="space-y-6 mb-8">
+          <div class="flex items-start gap-4">
+            <div class="w-8 h-8 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0">
+              1
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-slate-900 mb-2">Zvážte význam mena</h3>
+              <p class="text-slate-600">
+                Každé meno má svoj jedinečný význam a históriu. Vyberte meno, ktorého význam 
+                rezonuje s vašimi hodnotami a očakávaniami.
+              </p>
+            </div>
+          </div>
+          
+          <div class="flex items-start gap-4">
+            <div class="w-8 h-8 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0">
+              2
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-slate-900 mb-2">Testujte výslovnosť</h3>
+              <p class="text-slate-600">
+                Meno by malo byť ľahko vysloviteľné v slovenčine aj v iných jazykoch. 
+                Vyhnite sa menám, ktoré môžu spôsobiť problémy.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-gradient-to-r from-indigo-600 to-purple-700 rounded-2xl p-8 text-white mb-8">
+          <h2 class="text-2xl font-bold mb-4">Potrebujete viac inšpirácie?</h2>
+          <p class="text-indigo-100 leading-relaxed mb-6">
+            Objavte naše rozsiahle databázy slovenských mien s informáciami o ich pôvode, 
+            význame a histórii. Vyhľadávajte podľa kategórií, trendov alebo významu.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a 
+              href="/sk/povod-a-vyznam-mien"
+              class="inline-flex items-center px-6 py-3 bg-white text-indigo-600 font-semibold rounded-lg hover:bg-indigo-50 transition-colors"
+            >
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+              </svg>
+              Vyhľadať mená
+            </a>
+            <a 
+              href="/sk/trendy-v-menach"
+              class="inline-flex items-center px-6 py-3 bg-indigo-500 text-white font-semibold rounded-lg hover:bg-indigo-400 transition-colors"
+            >
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+              </svg>
+              Trendy mená
+            </a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,67 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { generateBlogPostSEO } from '../../../lib/seo.ts';
+
+const post = {
+  title: "Meniny v decembri 2025 - Kompletný kalendár",
+  slug: "meniny-december-2025",
+  category: "kalendár",
+  keywords: "meniny december 2025, vianočné meniny, decembrové mená, kalendár menín december",
+  publishedTime: new Date().toISOString(),
+  modifiedTime: new Date().toISOString(),
+  excerpt: "Meniny v decembri 2025 - Kompletný kalendár",
+  content: "# Meniny v decembri 2025 - Kompletný kalendár\n\nDecember je mesiac plný vianočných sviatkov a krásnych mien. V tomto článku nájdete kompletný kalendár menín pre december 2025 s pôvodom mien a tipmi na darčeky.\n\n## Najdôležitejšie meniny v decembri\n\n### 6. december - Mikuláš\n- **Pôvod**: Grécke\n- **Význam**: Víťaz ľudu\n- **Tradície**: Mikulášsky večer, darčeky pre deti\n\n### 13. december - Lucia\n- **Pôvod**: Latinské\n- **Význam**: Svetlo\n- **Tradície**: Lucia ako symbol svetla v temnote\n\n### 24. december - Adam a Eva\n- **Pôvod**: Hebrejské\n- **Význam**: Adam - človek, Eva - život\n- **Tradície**: Štedrý večer, vianočný stromček\n\n### 25. december - Prvý sviatok vianočný\n- **Meniny**: Ježiš, Kristus\n- **Tradície**: Narodenie Ježiša Krista\n\n## Kompletný kalendár menín v decembri\n\n| Deň | Mená | Pôvod | Význam |\n|-----|------|-------|--------|\n| 1. | Edmund | Germánske | Bohatý ochranca |\n| 2. | Bibiána | Latinské | Živá |\n| 3. | František | Germánske | Slobodný |\n| 4. | Barbora | Grécke | Cudzinka |\n| 5. | Oto | Germánske | Bohatý |\n| 6. | Mikuláš | Grécke | Víťaz ľudu |\n| 7. | Ambróz | Grécke | Nesmrteľný |\n| 8. | Marina | Latinské | Morská |\n| 9. | Izabela | Hebrejské | Boh je moja prísaha |\n| 10. | Radúz | Slovanské | Radosť |\n\n## Vianočné meniny a tradície\n\n### Mikulášsky večer (6. december)\n- Tradične sa darujú sladkosti a malé darčeky\n- Deti dostávajú čokoládové figúrky\n- Rodina sa zbierka na večeru\n\n### Lucijiny sviatky (13. december)\n- Lucia ako symbol svetla\n- Tradičné pečenie luciek\n- Zvyky súvisiace so svetlom\n\n### Vianočné meniny (24-25. december)\n- Najdôležitejšie sviatky v roku\n- Rodinné stretnutia a oslavy\n- Darčeky a vianočné tradície\n\n## Tipy na darčeky k vianočným meninám\n\n### Pre Mikuláša (6. december)\n- Čokoládové figúrky\n- Malé hračky\n- Knihy pre deti\n\n### Pre Luciu (13. december)\n- Sviečky a svetlá\n- Knížky o tradíciách\n- Dekoratívne predmety\n\n### Pre Adama a Evu (24. december)\n- Vianočné dekorácie\n- Rodinné fotografie\n- Tradičné jedlá\n\n## Záver\n\nDecember je mesiac plný krásnych mien a vianočných tradícií. Použite náš [kalendár menín](/sk) na vyhľadanie ďalších mien a ich pôvodu.\n\nPre viac informácií o menách a ich pôvode navštívte našu stránku [Pôvod mien](/sk/povod-a-vyznam-mien)."
+};
+
+const seoData = generateBlogPostSEO(post);
+---
+
+<Layout 
+  title={seoData.title}
+  description={seoData.description}
+  canonical={seoData.canonical}
+  keywords={seoData.keywords}
+  publishedTime={seoData.publishedTime}
+  modifiedTime={seoData.modifiedTime}
+  type={seoData.type}
+  structuredData={seoData.structuredData}
+>
+  <article class="max-w-4xl mx-auto px-4 py-20">
+    <header class="mb-12">
+      <div class="inline-flex items-center bg-slate-100 rounded-full px-4 py-2 mb-6">
+        <span class="text-sm font-medium text-slate-700">kalendár</span>
+      </div>
+      <h1 class="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
+        Meniny v decembri 2025 - Kompletný kalendár
+      </h1>
+      <div class="flex items-center text-slate-600 text-sm">
+        <time datetime={post.publishedTime}>
+          {new Date(post.publishedTime).toLocaleDateString('sk-SK')}
+        </time>
+        <span class="mx-2">•</span>
+        <span>4 minút čítania</span>
+      </div>
+    </header>
+
+    <div class="prose prose-lg max-w-none">
+      <div set:html={post.content}></div>
+    </div>
+
+    <footer class="mt-16 pt-8 border-t border-slate-200">
+      <div class="flex flex-col sm:flex-row gap-4">
+        <a 
+          href="/sk/povod-a-vyznam-mien" 
+          class="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+        >
+          Zistiť pôvod mien
+        </a>
+        <a 
+          href="/sk/darceky" 
+          class="bg-slate-100 text-slate-700 px-6 py-3 rounded-lg font-semibold hover:bg-slate-200 transition-colors"
+        >
+          Nájsť darčeky
+        </a>
+      </div>
+    </footer>
+  </article>
+</Layout>

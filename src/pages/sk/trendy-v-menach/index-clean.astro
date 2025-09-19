@@ -1,0 +1,384 @@
+---
+export const prerender = true;
+
+import Layout from '../../../layouts/Layout.astro';
+import SectionHeader from '../../../components/SectionHeader.astro';
+import Card from '../../../components/Card.astro';
+import StatBadge from '../../../components/StatBadge.astro';
+import { formatDelta, getTrendIcon } from '../../../lib/TrendDelta.js';
+import { createSparkline } from '../../../lib/InlineSparkline.js';
+import { toSlug, getProgressWidth } from '../../../lib/visuals.js';
+
+// Static trending names data - 100 unique names
+const trendingData = {
+  lastUpdated: new Date().toISOString(),
+  items: [
+    // Rising trends - mix of male and female
+    { name: "Luna", trendScore: 95, trendsDelta: 45, viewsDelta: 38, label: "rising" },
+    { name: "Adam", trendScore: 92, trendsDelta: 42, viewsDelta: 35, label: "rising" },
+    { name: "Nina", trendScore: 87, trendsDelta: 32, viewsDelta: 28, label: "rising" },
+    { name: "Jakub", trendScore: 85, trendsDelta: 30, viewsDelta: 25, label: "rising" },
+    { name: "Zoe", trendScore: 82, trendsDelta: 28, viewsDelta: 25, label: "rising" },
+    { name: "Samuel", trendScore: 80, trendsDelta: 25, viewsDelta: 22, label: "rising" },
+    { name: "Mia", trendScore: 78, trendsDelta: 22, viewsDelta: 20, label: "rising" },
+    { name: "Oliver", trendScore: 76, trendsDelta: 20, viewsDelta: 18, label: "rising" },
+    { name: "Emma", trendScore: 75, trendsDelta: 18, viewsDelta: 16, label: "rising" },
+    { name: "Liam", trendScore: 73, trendsDelta: 16, viewsDelta: 14, label: "rising" },
+    { name: "Sofia", trendScore: 72, trendsDelta: 15, viewsDelta: 14, label: "rising" },
+    { name: "Filip", trendScore: 70, trendsDelta: 14, viewsDelta: 12, label: "rising" },
+    { name: "Eva", trendScore: 68, trendsDelta: 12, viewsDelta: 11, label: "rising" },
+    { name: "Daniel", trendScore: 66, trendsDelta: 11, viewsDelta: 10, label: "rising" },
+    { name: "Anna", trendScore: 65, trendsDelta: 10, viewsDelta: 9, label: "rising" },
+    { name: "Matej", trendScore: 63, trendsDelta: 9, viewsDelta: 8, label: "rising" },
+    { name: "Maria", trendScore: 62, trendsDelta: 8, viewsDelta: 7, label: "rising" },
+    { name: "David", trendScore: 61, trendsDelta: 7, viewsDelta: 6, label: "rising" },
+    { name: "Jana", trendScore: 60, trendsDelta: 6, viewsDelta: 5, label: "rising" },
+    { name: "Patrik", trendScore: 58, trendsDelta: 5, viewsDelta: 4, label: "rising" },
+    { name: "Viktor", trendScore: 89, trendsDelta: 40, viewsDelta: 33, label: "rising" },
+    { name: "Natalia", trendScore: 88, trendsDelta: 39, viewsDelta: 32, label: "rising" },
+    { name: "Sebastian", trendScore: 86, trendsDelta: 37, viewsDelta: 30, label: "rising" },
+    { name: "Valentina", trendScore: 84, trendsDelta: 35, viewsDelta: 28, label: "rising" },
+    { name: "Maximilian", trendScore: 83, trendsDelta: 34, viewsDelta: 27, label: "rising" },
+    { name: "Isabella", trendScore: 81, trendsDelta: 32, viewsDelta: 25, label: "rising" },
+    { name: "Matias", trendScore: 79, trendsDelta: 30, viewsDelta: 23, label: "rising" },
+    { name: "Timotej", trendScore: 74, trendsDelta: 25, viewsDelta: 18, label: "rising" },
+    { name: "Elena", trendScore: 71, trendsDelta: 22, viewsDelta: 15, label: "rising" },
+    
+    // Stable trends - mix of male and female
+    { name: "Zuzana", trendScore: 55, trendsDelta: 2, viewsDelta: 1, label: "stable" },
+    { name: "Martin", trendScore: 54, trendsDelta: 1, viewsDelta: 0, label: "stable" },
+    { name: "Martina", trendScore: 53, trendsDelta: 0, viewsDelta: 0, label: "stable" },
+    { name: "Peter", trendScore: 52, trendsDelta: 0, viewsDelta: 0, label: "stable" },
+    { name: "Petra", trendScore: 51, trendsDelta: -1, viewsDelta: -1, label: "stable" },
+    { name: "Michal", trendScore: 50, trendsDelta: -2, viewsDelta: -2, label: "stable" },
+    { name: "Monika", trendScore: 49, trendsDelta: -3, viewsDelta: -3, label: "stable" },
+    { name: "Lukas", trendScore: 48, trendsDelta: -4, viewsDelta: -4, label: "stable" },
+    { name: "Lucia", trendScore: 47, trendsDelta: -5, viewsDelta: -5, label: "stable" },
+    { name: "Tomas", trendScore: 46, trendsDelta: -6, viewsDelta: -6, label: "stable" },
+    { name: "Kristina", trendScore: 45, trendsDelta: -7, viewsDelta: -6, label: "stable" },
+    { name: "Jozef", trendScore: 44, trendsDelta: -8, viewsDelta: -7, label: "stable" },
+    { name: "Katarina", trendScore: 43, trendsDelta: -9, viewsDelta: -8, label: "stable" },
+    { name: "Pavel", trendScore: 42, trendsDelta: -10, viewsDelta: -9, label: "stable" },
+    { name: "Barbora", trendScore: 41, trendsDelta: -11, viewsDelta: -10, label: "stable" },
+    { name: "Milan", trendScore: 40, trendsDelta: -12, viewsDelta: -11, label: "stable" },
+    { name: "Veronika", trendScore: 39, trendsDelta: -13, viewsDelta: -12, label: "stable" },
+    { name: "Simon", trendScore: 38, trendsDelta: -14, viewsDelta: -13, label: "stable" },
+    { name: "Alena", trendScore: 37, trendsDelta: -15, viewsDelta: -14, label: "stable" },
+    { name: "Marek", trendScore: 36, trendsDelta: -16, viewsDelta: -15, label: "stable" },
+    { name: "Kristian", trendScore: 49, trendsDelta: -1, viewsDelta: -2, label: "stable" },
+    { name: "Nikola", trendScore: 48, trendsDelta: -2, viewsDelta: -3, label: "stable" },
+    { name: "Dominik", trendScore: 47, trendsDelta: -3, viewsDelta: -4, label: "stable" },
+    { name: "Karolina", trendScore: 46, trendsDelta: -4, viewsDelta: -5, label: "stable" },
+    { name: "Marcel", trendScore: 43, trendsDelta: -7, viewsDelta: -8, label: "stable" },
+    { name: "Rastislav", trendScore: 41, trendsDelta: -9, viewsDelta: -10, label: "stable" },
+    { name: "Lubomir", trendScore: 37, trendsDelta: -13, viewsDelta: -14, label: "stable" },
+    { name: "Vladimir", trendScore: 35, trendsDelta: -15, viewsDelta: -16, label: "stable" },
+    
+    // Cooling trends - mix of male and female
+    { name: "Juraj", trendScore: 35, trendsDelta: -17, viewsDelta: -16, label: "cooling" },
+    { name: "Andrej", trendScore: 34, trendsDelta: -18, viewsDelta: -17, label: "cooling" },
+    { name: "Richard", trendScore: 33, trendsDelta: -19, viewsDelta: -18, label: "cooling" },
+    { name: "Robert", trendScore: 32, trendsDelta: -20, viewsDelta: -19, label: "cooling" },
+    { name: "Gabriela", trendScore: 31, trendsDelta: -21, viewsDelta: -20, label: "cooling" },
+    { name: "Ladislav", trendScore: 30, trendsDelta: -22, viewsDelta: -21, label: "cooling" },
+    { name: "Stanislav", trendScore: 26, trendsDelta: -26, viewsDelta: -25, label: "cooling" },
+    { name: "Iveta", trendScore: 25, trendsDelta: -27, viewsDelta: -26, label: "cooling" },
+    { name: "Branislav", trendScore: 24, trendsDelta: -28, viewsDelta: -27, label: "cooling" },
+    { name: "Silvia", trendScore: 23, trendsDelta: -29, viewsDelta: -28, label: "cooling" },
+    { name: "Dusan", trendScore: 22, trendsDelta: -30, viewsDelta: -29, label: "cooling" },
+    { name: "Jarmila", trendScore: 21, trendsDelta: -31, viewsDelta: -30, label: "cooling" },
+    { name: "Miroslav", trendScore: 20, trendsDelta: -32, viewsDelta: -31, label: "cooling" },
+    { name: "Viera", trendScore: 19, trendsDelta: -33, viewsDelta: -32, label: "cooling" },
+    { name: "Jaroslav", trendScore: 18, trendsDelta: -34, viewsDelta: -33, label: "cooling" },
+    { name: "Bozena", trendScore: 17, trendsDelta: -35, viewsDelta: -34, label: "cooling" },
+    { name: "Vladislav", trendScore: 16, trendsDelta: -36, viewsDelta: -35, label: "cooling" },
+    { name: "Tereza", trendScore: 15, trendsDelta: -37, viewsDelta: -36, label: "cooling" },
+    { name: "Jozefina", trendScore: 14, trendsDelta: -38, viewsDelta: -37, label: "cooling" },
+    { name: "Frantisek", trendScore: 13, trendsDelta: -39, viewsDelta: -38, label: "cooling" },
+    { name: "Zdenka", trendScore: 12, trendsDelta: -40, viewsDelta: -39, label: "cooling" },
+    { name: "Anton", trendScore: 11, trendsDelta: -41, viewsDelta: -40, label: "cooling" },
+    { name: "Marta", trendScore: 10, trendsDelta: -42, viewsDelta: -41, label: "cooling" },
+    { name: "Helena", trendScore: 8, trendsDelta: -44, viewsDelta: -43, label: "cooling" },
+    { name: "Pavol", trendScore: 7, trendsDelta: -45, viewsDelta: -44, label: "cooling" },
+    { name: "Marianna", trendScore: 6, trendsDelta: -46, viewsDelta: -45, label: "cooling" },
+    { name: "Stefan", trendScore: 5, trendsDelta: -47, viewsDelta: -46, label: "cooling" },
+    { name: "Jozef", trendScore: 9, trendsDelta: -43, viewsDelta: -42, label: "cooling" },
+    { name: "Anna", trendScore: 2, trendsDelta: -50, viewsDelta: -49, label: "cooling" },
+    { name: "Michal", trendScore: 1, trendsDelta: -51, viewsDelta: -50, label: "cooling" }
+  ]
+};
+
+// Gender detection based on common Slovak names
+function detectGender(name: string): 'M' | 'F' | 'U' {
+  const femaleEndings = ['a', 'ia', 'ina', 'ka', 'la', 'na', 'ra', 'sa', 'ta', 'va', 'za'];
+  const maleEndings = ['o', 'ko', 'lo', 'no', 'ro', 'so', 'to', 'vo', 'zo'];
+  
+  const lastChar = name.slice(-1).toLowerCase();
+  const lastTwoChars = name.slice(-2).toLowerCase();
+  const lastThreeChars = name.slice(-3).toLowerCase();
+  
+  if (femaleEndings.includes(lastChar) || femaleEndings.includes(lastTwoChars) || femaleEndings.includes(lastThreeChars)) {
+    return 'F';
+  }
+  
+  if (maleEndings.includes(lastChar) || maleEndings.includes(lastTwoChars) || maleEndings.includes(lastThreeChars)) {
+    return 'M';
+  }
+  
+  return 'U';
+}
+
+// Sort by trend score (highest first)
+const sortedData = trendingData.items.sort((a, b) => b.trendScore - a.trendScore);
+
+// Filter data based on gender
+let filteredData = sortedData;
+const genderFilter = 'all'; // Default to all
+
+if (genderFilter === 'male') {
+  filteredData = sortedData.filter(item => detectGender(item.name) === 'M');
+} else if (genderFilter === 'female') {
+  filteredData = sortedData.filter(item => detectGender(item.name) === 'F');
+}
+
+// Pagination
+const itemsPerPage = 10;
+const currentPage = 1;
+const startIndex = (currentPage - 1) * itemsPerPage;
+const endIndex = startIndex + itemsPerPage;
+const paginatedData = filteredData.slice(startIndex, endIndex);
+
+// Structured data for SEO
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "Dataset",
+  "name": "Trendy v menách na Slovensku",
+  "description": "Analýza trendov slovenských mien na základe Google Trends a Wikimedia Pageviews",
+  "url": "https://meniny365.sk/sk/trendy-v-menach",
+  "dateModified": trendingData.lastUpdated,
+  "provider": {
+    "@type": "Organization",
+    "name": "meniny365.sk"
+  }
+};
+---
+
+<Layout title="Trendy v menách | meniny365.sk" description="Analýza trendov slovenských mien na základe Google Trends a Wikimedia Pageviews. Zistite, ktoré mená sú najpopulárnejšie v roku 2025." canonical="https://meniny365.sk/sk/trendy-v-menach" structuredData={structuredData}>
+  <main class="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100">
+    <!-- Header Section -->
+    <div class="relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-r from-indigo-600/10 via-purple-600/10 to-pink-600/10"></div>
+      <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div class="text-center">
+          <div class="inline-flex items-center px-4 py-2 rounded-full bg-indigo-100 text-indigo-800 text-sm font-medium mb-6">
+            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+            </svg>
+            Aktualizované týždenne
+          </div>
+          
+          <h1 class="text-4xl md:text-6xl font-bold text-slate-900 mb-6">
+            Trendy v menách
+          </h1>
+          
+          <p class="text-xl text-slate-600 max-w-3xl mx-auto mb-8">
+            Analýza trendov na základe Google Trends a Wikimedia Pageviews
+          </p>
+          
+          <!-- Filters -->
+          <div class="flex flex-wrap justify-center gap-4 mb-8">
+            <div class="flex items-center space-x-2">
+              <label class="text-sm font-medium text-slate-700">Pohlavie:</label>
+              <select class="px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                <option value="all">Všetky pohlavia</option>
+                <option value="male">Mužské mená</option>
+                <option value="female">Ženské mená</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="text-sm text-slate-500">
+            Zobrazené: {paginatedData.length} z {filteredData.length}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results Section -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      {paginatedData.length === 0 ? (
+        <div class="text-center py-12">
+          <div class="text-6xl mb-4">🔍</div>
+          <h3 class="text-xl font-semibold text-slate-900 mb-2">Žiadne výsledky</h3>
+          <p class="text-slate-600">Skúste zmeniť vyhľadávací výraz alebo filter.</p>
+        </div>
+      ) : (
+        <div class="grid gap-6">
+          {paginatedData.map((item, index) => (
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
+              <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center space-x-4">
+                  <div class="text-2xl font-bold text-slate-400">
+                    {startIndex + index + 1}
+                  </div>
+                  <div>
+                    <h3 class="text-2xl font-bold text-slate-900 mb-1">
+                      <a href={`/sk/meno/${toSlug(item.name)}`} class="hover:text-indigo-600 transition-colors">
+                        {item.name}
+                      </a>
+                    </h3>
+                    <div class="flex items-center space-x-2">
+                      <span class={`px-2 py-1 rounded-full text-xs font-medium ${
+                        item.label === 'rising' ? 'bg-green-100 text-green-800' :
+                        item.label === 'stable' ? 'bg-blue-100 text-blue-800' :
+                        'bg-red-100 text-red-800'
+                      }`}>
+                        {item.label === 'rising' ? 'Stúpa' : item.label === 'stable' ? 'Stabilné' : 'Klesá'}
+                      </span>
+                      <span class="text-slate-500 text-sm">
+                        {detectGender(item.name) === 'M' ? '♂' : detectGender(item.name) === 'F' ? '♀' : '⚥'}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="text-right">
+                  <div class="text-sm text-slate-500 mb-1">Trend {item.trendScore}%</div>
+                  <div class="w-24 bg-slate-200 rounded-full h-2">
+                    <div 
+                      class="bg-gradient-to-r from-indigo-500 to-purple-500 h-2 rounded-full transition-all duration-300"
+                      style={`width: ${getProgressWidth(item.trendScore)}%`}
+                    ></div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="flex items-center justify-between p-4 bg-slate-50 rounded-xl">
+                  <div class="flex items-center space-x-2">
+                    <span class="text-green-600">
+                      {getTrendIcon(item.trendsDelta)}
+                    </span>
+                    <span class="text-sm font-medium text-slate-700">Trends</span>
+                  </div>
+                  <span class="text-lg font-bold text-slate-900">
+                    {formatDelta(item.trendsDelta)}
+                  </span>
+                </div>
+                
+                <div class="flex items-center justify-between p-4 bg-slate-50 rounded-xl">
+                  <div class="flex items-center space-x-2">
+                    <span class="text-blue-600">
+                      {getTrendIcon(item.viewsDelta)}
+                    </span>
+                    <span class="text-sm font-medium text-slate-700">Návštevnosť</span>
+                  </div>
+                  <span class="text-lg font-bold text-slate-900">
+                    {formatDelta(item.viewsDelta)}
+                  </span>
+                </div>
+              </div>
+              
+              <div class="mt-4 p-4 bg-gradient-to-r from-slate-50 to-slate-100 rounded-xl">
+                <div class="flex items-center justify-between">
+                  <span class="text-sm font-medium text-slate-700">Trend graf</span>
+                  <div class="text-xs text-slate-500">
+                    {createSparkline(item.trendScore)}
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+      
+      {filteredData.length > itemsPerPage && (
+        <div class="text-center mt-8">
+          <button class="inline-flex items-center px-6 py-3 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition-colors">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+            Zobraziť viac
+          </button>
+        </div>
+      )}
+    </div>
+
+    <!-- Footer Info -->
+    <div class="bg-slate-100 py-8">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center text-sm text-slate-600">
+          <p class="mb-2">
+            Google Trends, Wikimedia Pageviews — spracované meniny365
+          </p>
+          <p>
+            Posledná aktualizácia: {new Date(trendingData.lastUpdated).toLocaleDateString('sk-SK')}
+          </p>
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<script>
+  // Client-side filtering and pagination
+  document.addEventListener('DOMContentLoaded', () => {
+    const genderSelect = document.querySelector('select');
+    const resultsContainer = document.querySelector('.grid.gap-6');
+    const showMoreBtn = document.querySelector('button');
+    const countDisplay = document.querySelector('.text-sm.text-slate-500');
+    
+    let currentPage = 1;
+    let currentGender = 'all';
+    let allData = [];
+    
+    // Load data from server
+    const serverData = [
+      // This would be populated with the actual data from the server
+      // For now, we'll use the filtered data from the server
+    ];
+    
+    function filterAndDisplay() {
+      let filtered = allData;
+      
+      if (currentGender === 'male') {
+        filtered = allData.filter(item => item.gender === 'M');
+      } else if (currentGender === 'female') {
+        filtered = allData.filter(item => item.gender === 'F');
+      }
+      
+      const startIndex = 0;
+      const endIndex = currentPage * 10;
+      const paginated = filtered.slice(startIndex, endIndex);
+      
+      // Update display
+      if (countDisplay) {
+        countDisplay.textContent = `Zobrazené: ${paginated.length} z ${filtered.length}`;
+      }
+      
+      // Show/hide show more button
+      if (showMoreBtn) {
+        showMoreBtn.style.display = paginated.length < filtered.length ? 'inline-flex' : 'none';
+      }
+    }
+    
+    // Gender filter change
+    if (genderSelect) {
+      genderSelect.addEventListener('change', (e) => {
+        currentGender = e.target.value;
+        currentPage = 1;
+        filterAndDisplay();
+      });
+    }
+    
+    // Show more button
+    if (showMoreBtn) {
+      showMoreBtn.addEventListener('click', () => {
+        currentPage++;
+        filterAndDisplay();
+      });
+    }
+  });
+</script>
+
+

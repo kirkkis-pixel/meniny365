@@ -1,0 +1,620 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Card from '../../components/Card.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+---
+
+<Layout 
+  title="Vytvoriť pohľadnicu | Meniny365.sk" 
+  description="Vytvorte krásne personalizované pohľadnice s menom a gratuláciami. Zdieľajte radosť s rodinou a priateľmi."
+>
+  <div class="min-h-screen bg-gradient-to-br from-slate-50 to-indigo-50">
+    <!-- Hero Section -->
+    <div class="bg-white border-b border-slate-200">
+      <div class="max-w-5xl mx-auto px-4 py-12">
+        <div class="text-center">
+          <!-- AI-powered pill -->
+          <div class="inline-flex items-center bg-slate-100 text-slate-700 px-4 py-2 rounded-full text-sm font-medium mb-6">
+            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+            </svg>
+            Inteligentné vytváranie pohľadníc
+          </div>
+          
+          <h1 class="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
+            Vytvoriť pohľadnicu
+          </h1>
+          <p class="text-lg text-slate-600 max-w-2xl mx-auto">
+            Vytvorte jedinečné pohľadnice s AI. Vyberte si meno, farby, štýl a správu pre dokonalú gratuláciu.
+          </p>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Card Creator Section -->
+    <div class="max-w-5xl mx-auto px-4 py-16">
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Card Customization Form -->
+        <Card class="p-6">
+          <form id="cardForm" class="space-y-6">
+            <!-- Name Input -->
+            <div>
+              <label for="cardName" class="block text-sm font-medium text-slate-700 mb-2">
+                Meno pre pohľadnicu
+              </label>
+              <input
+                type="text"
+                id="cardName"
+                name="name"
+                placeholder="Zadajte meno"
+                class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                value="Luna"
+                required
+              />
+            </div>
+
+            <!-- Message Input -->
+            <div>
+              <label for="cardMessage" class="block text-sm font-medium text-slate-700 mb-2">
+                Správa
+              </label>
+              <select
+                id="cardMessage"
+                name="message"
+                class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+              >
+                <option value="Všetko najlepšie k meninám!">Všetko najlepšie k meninám!</option>
+                <option value="Šťastné meniny!">Šťastné meniny!</option>
+                <option value="Krásne meniny!">Krásne meniny!</option>
+                <option value="Srdečne gratulujem k meninám!">Srdečne gratulujem k meninám!</option>
+                <option value="Nech ti meniny prinesú veľa radosti!">Nech ti meniny prinesú veľa radosti!</option>
+                <option value="Nech sa ti splnia všetky sny!">Nech sa ti splnia všetky sny!</option>
+                <option value="Prajem ti krásny deň!">Prajem ti krásny deň!</option>
+                <option value="Nech ti život prinesie veľa šťastia!">Nech ti život prinesie veľa šťastia!</option>
+                <option value="Gratulujem k meninám!">Gratulujem k meninám!</option>
+                <option value="Nech sa ti darí vo všetkom!">Nech sa ti darí vo všetkom!</option>
+                <option value="Prajem ti veľa zdravia a radosti!">Prajem ti veľa zdravia a radosti!</option>
+                <option value="Nech ti tento deň prinesie úsmev!">Nech ti tento deň prinesie úsmev!</option>
+                <option value="S láskou ti prajem krásne meniny!">S láskou ti prajem krásne meniny!</option>
+                <option value="Nech sa ti splnia všetky túžby!">Nech sa ti splnia všetky túžby!</option>
+                <option value="Prajem ti úspech vo všetkom!">Prajem ti úspech vo všetkom!</option>
+                <option value="Nech ti život prinesie len krásne chvíle!">Nech ti život prinesie len krásne chvíle!</option>
+                <option value="Gratulujem a prajem ti všetko najlepšie!">Gratulujem a prajem ti všetko najlepšie!</option>
+                <option value="Nech sa ti darí a nech si šťastný/á!">Nech sa ti darí a nech si šťastný/á!</option>
+                <option value="Prajem ti veľa lásky a šťastia!">Prajem ti veľa lásky a šťastia!</option>
+                <option value="Nech ti tento špeciálny deň prinesie radosť!">Nech ti tento špeciálny deň prinesie radosť!</option>
+              </select>
+            </div>
+
+            <!-- Style Selection -->
+            <div class="bg-slate-50 p-4 rounded-lg">
+              <h3 class="text-base font-semibold text-slate-800 mb-3">Štýl dizajnu</h3>
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                {[
+                  { id: 'artistic', name: 'Umelecký', icon: '🎨' },
+                  { id: 'elegant', name: 'Elegantný', icon: '✨' },
+                  { id: 'playful', name: 'Hravý', icon: '🎉' },
+                  { id: 'romantic', name: 'Romantický', icon: '🌹' }
+                ].map((style) => (
+                  <label class="cursor-pointer group">
+                    <input
+                      type="radio"
+                      name="style"
+                      value={style.id}
+                      class="sr-only"
+                      checked={style.id === 'artistic'}
+                    />
+                    <div class="style-option flex flex-col items-center p-3 bg-white border-2 border-slate-200 rounded-lg hover:border-indigo-400 hover:shadow-sm transition-all duration-200 group-hover:scale-105">
+                      <div class="text-xl mb-2">{style.icon}</div>
+                      <div class="text-xs font-medium text-slate-900 text-center">{style.name}</div>
+                    </div>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            <!-- Typography Selection -->
+            <div class="bg-slate-50 p-4 rounded-lg">
+              <h3 class="text-base font-semibold text-slate-800 mb-3">Typografia</h3>
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                {[
+                  { id: 'script', name: 'Skript', font: 'Dancing Script' },
+                  { id: 'elegant', name: 'Elegantné', font: 'Playfair Display' },
+                  { id: 'bold', name: 'Odvážne', font: 'Poppins' },
+                  { id: 'romantic', name: 'Romantické', font: 'Great Vibes' }
+                ].map((typo) => (
+                  <label class="cursor-pointer group">
+                    <input
+                      type="radio"
+                      name="typography"
+                      value={typo.id}
+                      class="sr-only"
+                      checked={typo.id === 'script'}
+                    />
+                    <div class="typo-option flex flex-col items-center p-3 bg-white border-2 border-slate-200 rounded-lg hover:border-indigo-400 hover:shadow-sm transition-all duration-200 group-hover:scale-105">
+                      <div class="text-lg mb-2" style={`font-family: ${typo.font}`}>Aa</div>
+                      <div class="text-xs font-medium text-slate-900 text-center">{typo.name}</div>
+                    </div>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            <!-- Orientation Selection -->
+            <div class="bg-slate-50 p-4 rounded-lg">
+              <h3 class="text-base font-semibold text-slate-800 mb-3">Orientácia</h3>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                {[
+                  { id: 'landscape', name: 'Na šírku', description: 'Klasický formát', icon: '📐' },
+                  { id: 'portrait', name: 'Na výšku', description: 'Vertikálny formát', icon: '📏' }
+                ].map((orientation) => (
+                  <label class="cursor-pointer group">
+                    <input
+                      type="radio"
+                      name="orientation"
+                      value={orientation.id}
+                      class="sr-only"
+                      checked={orientation.id === 'landscape'}
+                    />
+                    <div class="orientation-option flex items-center p-3 bg-white border-2 border-slate-200 rounded-lg hover:border-indigo-400 hover:shadow-sm transition-all duration-200 group-hover:scale-105">
+                      <div class="text-xl mr-3">{orientation.icon}</div>
+                      <div>
+                        <div class="text-sm font-medium text-slate-900">{orientation.name}</div>
+                        <div class="text-xs text-slate-600">{orientation.description}</div>
+                      </div>
+                    </div>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            <!-- Color Palette Selection -->
+            <div class="bg-slate-50 p-4 rounded-lg">
+              <h3 class="text-base font-semibold text-slate-800 mb-3">Farebná paleta</h3>
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                {[
+                  { name: 'Vodové farby', colors: ['#1e40af', '#3b82f6', '#ffffff'], description: 'Jemné vodové efekty' },
+                  { name: 'Zlaté akcenty', colors: ['#1e293b', '#fbbf24', '#ffffff'], description: 'Elegantné zlaté detaily' },
+                  { name: 'Kvetinové', colors: ['#be185d', '#ec4899', '#fef3c7'], description: 'Romantické kvetinové motívy' },
+                  { name: 'Slnečné', colors: ['#dc2626', '#f59e0b', '#fef3c7'], description: 'Teplé slnečné farby' }
+                ].map((palette, index) => (
+                  <label class="cursor-pointer group">
+                    <input
+                      type="radio"
+                      name="palette"
+                      value={index}
+                      class="sr-only"
+                      checked={index === 0}
+                    />
+                    <div class="palette-option flex flex-col p-3 bg-white border-2 border-slate-200 rounded-lg hover:border-indigo-400 hover:shadow-sm transition-all duration-200 group-hover:scale-105">
+                      <div class="flex space-x-1 mb-2">
+                        {palette.colors.map((color) => (
+                          <div class="w-4 h-4 rounded-full" style={`background-color: ${color}`}></div>
+                        ))}
+                      </div>
+                      <div class="text-xs font-medium text-slate-900 text-center">{palette.name}</div>
+                    </div>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            <!-- Generate Button -->
+            <button
+              type="submit"
+              class="w-full bg-slate-900 text-white py-3 px-6 rounded-lg font-semibold hover:bg-slate-800 transition-colors duration-200"
+            >
+              Vytvoriť pohľadnicu
+            </button>
+          </form>
+        </Card>
+
+        <!-- Live Preview -->
+        <Card class="p-6">
+          <h3 class="text-xl font-bold text-slate-900 mb-6">Náhľad pohľadnice</h3>
+          <div class="bg-slate-50 rounded-xl p-6 min-h-[400px] flex items-center justify-center">
+            <div id="livePreview" class="bg-white rounded-xl p-6 shadow-lg max-w-sm w-full text-center">
+              <div class="mb-4">
+                <svg class="w-12 h-12 text-pink-500 mx-auto" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                </svg>
+              </div>
+              <h3 class="text-2xl font-bold text-slate-900 mb-2">Šťastné meniny!</h3>
+              <p class="text-slate-600 mb-4">Všetko najlepšie k meninám</p>
+              <div id="previewName" class="text-3xl font-bold text-pink-500">Luna</div>
+            </div>
+          </div>
+        </Card>
+      </div>
+
+      <!-- Generated Card Display -->
+      <div id="generatedCard" class="hidden mt-12">
+        <Card class="p-6">
+          <h3 class="text-2xl font-bold text-slate-900 mb-6">Vaša pohľadnica je pripravená!</h3>
+          <div id="cardResult" class="text-center"></div>
+          <div class="flex justify-center space-x-4 mt-6">
+            <button
+              id="downloadCard"
+              class="bg-slate-900 text-white px-6 py-3 rounded-lg font-semibold hover:bg-slate-800 transition-colors duration-200"
+            >
+              Stiahnuť pohľadnicu
+            </button>
+            <button
+              id="shareCard"
+              class="bg-slate-100 text-slate-700 px-6 py-3 rounded-lg font-semibold hover:bg-slate-200 transition-colors duration-200"
+            >
+              Zdieľať
+            </button>
+          </div>
+        </Card>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Define data arrays in client-side JavaScript
+    const colorPalettes = [
+      {
+        name: 'Vodové farby',
+        colors: ['#1e40af', '#3b82f6', '#ffffff'],
+        description: 'Jemné vodové efekty',
+        background: 'linear-gradient(135deg, #dbeafe 0%, #bfdbfe 30%, #93c5fd 70%, #60a5fa 100%)',
+        pattern: 'watercolor',
+        style: 'artistic'
+      },
+      {
+        name: 'Zlaté akcenty',
+        colors: ['#1e293b', '#fbbf24', '#ffffff'],
+        description: 'Elegantné zlaté detaily',
+        background: 'linear-gradient(135deg, #fef3c7 0%, #fde68a 50%, #fcd34d 100%)',
+        pattern: 'golden',
+        style: 'luxury'
+      },
+      {
+        name: 'Kvetinové',
+        colors: ['#be185d', '#ec4899', '#fef3c7'],
+        description: 'Romantické kvetinové motívy',
+        background: 'linear-gradient(135deg, #fdf2f8 0%, #fce7f3 30%, #fbcfe8 70%, #f9a8d4 100%)',
+        pattern: 'floral',
+        style: 'romantic'
+      },
+      {
+        name: 'Hviezdne',
+        colors: ['#1e1b4b', '#6366f1', '#ffffff'],
+        description: 'Magické hviezdne pozadie',
+        background: 'linear-gradient(135deg, #0f0f23 0%, #1e1b4b 50%, #312e81 100%)',
+        pattern: 'stars',
+        style: 'magical'
+      },
+      {
+        name: 'Vlnové',
+        colors: ['#0c4a6e', '#0891b2', '#ffffff'],
+        description: 'Dynamické oceánske vlny',
+        background: 'linear-gradient(135deg, #0c4a6e 0%, #0891b2 50%, #22d3ee 100%)',
+        pattern: 'waves',
+        style: 'oceanic'
+      },
+      {
+        name: 'Pastelové',
+        colors: ['#7c3aed', '#a855f7', '#faf5ff'],
+        description: 'Jemné pastelové tóny',
+        background: 'linear-gradient(135deg, #faf5ff 0%, #f3e8ff 30%, #e9d5ff 70%, #ddd6fe 100%)',
+        pattern: 'pastel',
+        style: 'soft'
+      },
+      {
+        name: 'Slnečné',
+        colors: ['#dc2626', '#f59e0b', '#fef3c7'],
+        description: 'Teplé slnečné farby',
+        background: 'linear-gradient(135deg, #fef3c7 0%, #fed7aa 30%, #fdba74 70%, #fb923c 100%)',
+        pattern: 'sunshine',
+        style: 'warm'
+      },
+      {
+        name: 'Lesné',
+        colors: ['#365314', '#65a30d', '#ffffff'],
+        description: 'Prírodné lesné motívy',
+        background: 'linear-gradient(135deg, #365314 0%, #65a30d 50%, #84cc16 100%)',
+        pattern: 'forest',
+        style: 'natural'
+      }
+    ];
+
+    const cardStyles = [
+      { id: 'artistic', name: 'Umelecký', icon: '🎨', fontWeight: '600', letterSpacing: '0.025em' },
+      { id: 'elegant', name: 'Elegantný', icon: '✨', fontWeight: '500', letterSpacing: '0.05em' },
+      { id: 'playful', name: 'Hravý', icon: '🎉', fontWeight: '700', letterSpacing: '0.01em' },
+      { id: 'romantic', name: 'Romantický', icon: '🌹', fontWeight: '400', letterSpacing: '0.03em' }
+    ];
+
+    const typographyOptions = [
+      { id: 'script', name: 'Skript', font: 'Dancing Script' },
+      { id: 'elegant', name: 'Elegantné', font: 'Playfair Display' },
+      { id: 'bold', name: 'Odvážne', font: 'Poppins' },
+      { id: 'romantic', name: 'Romantické', font: 'Great Vibes' }
+    ];
+
+    const orientationOptions = [
+      { id: 'landscape', name: 'Na šírku', description: 'Klasický formát', icon: '📐' },
+      { id: 'portrait', name: 'Na výšku', description: 'Vertikálny formát', icon: '📏' }
+    ];
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.getElementById('cardForm');
+      const cardName = document.getElementById('cardName');
+      const cardMessage = document.getElementById('cardMessage');
+      const previewName = document.getElementById('previewName');
+      const livePreview = document.getElementById('livePreview');
+      const generatedCard = document.getElementById('generatedCard');
+      const cardResult = document.getElementById('cardResult');
+      const downloadCard = document.getElementById('downloadCard');
+      const shareCard = document.getElementById('shareCard');
+
+      // Update preview on input change
+      function updatePreview() {
+        const name = cardName.value || 'Luna';
+        const message = cardMessage.value || 'Šťastné meniny!';
+        
+        // Get selected options
+        const selectedPalette = document.querySelector('input[name="palette"]:checked');
+        const selectedStyle = document.querySelector('input[name="style"]:checked');
+        const selectedTypography = document.querySelector('input[name="typography"]:checked');
+        const selectedOrientation = document.querySelector('input[name="orientation"]:checked');
+        
+        // Get data for selected options
+        const paletteData = colorPalettes[parseInt(selectedPalette?.value || '0')];
+        const styleData = cardStyles.find(s => s.id === (selectedStyle?.value || 'artistic'));
+        const typoData = typographyOptions.find(t => t.id === (selectedTypography?.value || 'script'));
+        const orientationData = orientationOptions.find(o => o.id === (selectedOrientation?.value || 'landscape'));
+        
+        previewName.textContent = name;
+        
+        // Update live preview with new styling
+        const liveMessage = livePreview.querySelector('h3');
+        const liveSubMessage = livePreview.querySelector('p');
+        const liveName = document.getElementById('previewName');
+        
+        if (liveMessage) {
+          liveMessage.textContent = message;
+          liveMessage.style.color = paletteData.colors[0];
+          liveMessage.style.fontFamily = typoData.font;
+          liveMessage.style.fontWeight = styleData.fontWeight;
+          liveMessage.style.letterSpacing = styleData.letterSpacing;
+        }
+        
+        if (liveSubMessage) {
+          liveSubMessage.textContent = 'Všetko najlepšie k meninám';
+          liveSubMessage.style.color = paletteData.colors[1];
+          liveSubMessage.style.fontFamily = typoData.font;
+        }
+        
+        if (liveName) {
+          liveName.textContent = name;
+          liveName.style.color = paletteData.colors[0];
+          liveName.style.fontFamily = typoData.font;
+          liveName.style.fontWeight = 'bold';
+        }
+        
+        // Update card background
+        livePreview.style.background = paletteData.background;
+        
+        // Add pattern if applicable
+        const patternCSS = getPatternCSS(paletteData.pattern, paletteData.colors[0], paletteData.colors[1]);
+        if (patternCSS) {
+          livePreview.style.backgroundImage = patternCSS;
+        } else {
+          livePreview.style.backgroundImage = '';
+        }
+        
+        // Update orientation
+        if (orientationData.id === 'portrait') {
+          livePreview.style.aspectRatio = '3/4';
+          livePreview.style.maxWidth = '300px';
+        } else {
+          livePreview.style.aspectRatio = '4/3';
+          livePreview.style.maxWidth = '400px';
+        }
+      }
+      
+      // Generate pattern CSS
+      function getPatternCSS(pattern, primary, secondary) {
+        switch(pattern) {
+          case 'watercolor':
+            return `radial-gradient(circle at 20% 20%, ${primary}15 15px, transparent 15px),
+                    radial-gradient(circle at 80% 30%, ${secondary}20 20px, transparent 20px),
+                    radial-gradient(circle at 60% 70%, ${primary}12 12px, transparent 12px),
+                    radial-gradient(circle at 30% 80%, ${secondary}18 18px, transparent 18px)`;
+          case 'golden':
+            return `radial-gradient(circle at 30% 30%, ${secondary}30 2px, transparent 2px),
+                    radial-gradient(circle at 10% 10%, ${secondary}20 1px, transparent 1px),
+                    radial-gradient(circle at 50% 50%, ${secondary}25 1.5px, transparent 1.5px),
+                    radial-gradient(circle at 20% 40%, ${secondary}15 1px, transparent 1px)`;
+          case 'floral':
+            return `radial-gradient(ellipse at 40% 10%, ${primary}10 8px, transparent 8px),
+                    radial-gradient(ellipse at 60% 40%, ${secondary}8 6px, transparent 6px),
+                    radial-gradient(ellipse at 20% 60%, ${primary}6 7px, transparent 7px),
+                    radial-gradient(ellipse at 70% 20%, ${secondary}5 4px, transparent 4px)`;
+          case 'stars':
+            return `radial-gradient(star at 40% 5%, ${secondary}40 3px, transparent 3px),
+                    radial-gradient(star at 10% 20%, ${primary}30 2px, transparent 2px),
+                    radial-gradient(star at 70% 40%, ${secondary}25 2px, transparent 2px),
+                    radial-gradient(star at 20% 60%, ${primary}20 2px, transparent 2px)`;
+          case 'waves':
+            return `linear-gradient(45deg, ${primary}10 1px, transparent 1px),
+                    linear-gradient(-45deg, ${secondary}8 1px, transparent 1px),
+                    linear-gradient(90deg, ${primary}6 1px, transparent 1px),
+                    linear-gradient(0deg, ${secondary}4 1px, transparent 1px)`;
+          case 'pastel':
+            return `radial-gradient(circle at 25% 25%, ${primary}5 8px, transparent 8px),
+                    radial-gradient(circle at 10% 10%, ${secondary}4 4px, transparent 4px),
+                    radial-gradient(circle at 40% 40%, ${primary}3 6px, transparent 6px),
+                    radial-gradient(circle at 15% 35%, ${secondary}2 3px, transparent 3px)`;
+          case 'sunshine':
+            return `radial-gradient(circle at 30% 30%, ${secondary}20 3px, transparent 3px),
+                    linear-gradient(45deg, ${secondary}15 1px, transparent 1px),
+                    linear-gradient(-45deg, ${primary}10 0.5px, transparent 0.5px)`;
+          case 'forest':
+            return `radial-gradient(ellipse at 30% 5%, ${primary}15 4px, transparent 4px),
+                    radial-gradient(ellipse at 10% 25%, ${secondary}12 3px, transparent 3px),
+                    radial-gradient(ellipse at 50% 35%, ${primary}10 3px, transparent 3px),
+                    radial-gradient(circle at 15% 45%, ${secondary}8 2px, transparent 2px)`;
+          default:
+            return 'none';
+        }
+      }
+
+      // Add event listeners for all form elements
+      cardName.addEventListener('input', updatePreview);
+      cardMessage.addEventListener('change', updatePreview);
+      
+      // Add event listeners for all form elements with proper selection handling
+      document.querySelectorAll('input[name="palette"]').forEach(radio => {
+        radio.addEventListener('change', function() {
+          console.log('Palette changed to:', this.value);
+          updatePreview();
+        });
+      });
+      
+      document.querySelectorAll('input[name="style"]').forEach(radio => {
+        radio.addEventListener('change', function() {
+          console.log('Style changed to:', this.value);
+          updatePreview();
+        });
+      });
+      
+      document.querySelectorAll('input[name="typography"]').forEach(radio => {
+        radio.addEventListener('change', function() {
+          console.log('Typography changed to:', this.value);
+          updatePreview();
+        });
+      });
+      
+      document.querySelectorAll('input[name="orientation"]').forEach(radio => {
+        radio.addEventListener('change', function() {
+          console.log('Orientation changed to:', this.value);
+          updatePreview();
+        });
+      });
+
+      // Handle visual selection for all radio buttons
+      function updateVisualSelection(radioName, optionClass) {
+        document.querySelectorAll(`input[name="${radioName}"]`).forEach(radio => {
+          radio.addEventListener('change', function() {
+            if (this.checked) {
+              // Remove selection from all options
+              document.querySelectorAll(`.${optionClass}`).forEach(option => {
+                option.classList.remove('border-indigo-500', 'bg-indigo-50', 'ring-2', 'ring-indigo-200');
+                option.classList.add('border-slate-200');
+              });
+              
+              // Add selection to clicked option
+              const selectedOption = this.closest('label').querySelector(`.${optionClass}`);
+              if (selectedOption) {
+                selectedOption.classList.remove('border-slate-200');
+                selectedOption.classList.add('border-indigo-500', 'bg-indigo-50', 'ring-2', 'ring-indigo-200');
+              }
+            }
+          });
+        });
+      }
+
+      // Apply visual selection to all option types
+      updateVisualSelection('palette', 'palette-option');
+      updateVisualSelection('style', 'style-option');
+      updateVisualSelection('typography', 'typo-option');
+      updateVisualSelection('orientation', 'orientation-option');
+
+      // Add click handlers to labels for better UX
+      document.querySelectorAll('label').forEach(label => {
+        label.addEventListener('click', function(e) {
+          const radio = this.querySelector('input[type="radio"]');
+          if (radio) {
+            radio.checked = true;
+            radio.dispatchEvent(new Event('change'));
+          }
+        });
+      });
+
+      // Form submission
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const formData = new FormData(form);
+        const name = formData.get('name');
+        const message = formData.get('message');
+        const palette = formData.get('palette');
+        const style = formData.get('style');
+        const typography = formData.get('typography');
+        const orientation = formData.get('orientation');
+        
+        try {
+          const response = await fetch('/api/ai/card', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              name,
+              message,
+              palette: parseInt(palette),
+              style,
+              typography,
+              orientation
+            })
+          });
+          
+          const result = await response.json();
+          
+          if (result.success) {
+            // Display the generated card
+            cardResult.innerHTML = `
+              <img src="${result.imageUrl}" alt="Generated greeting card" class="max-w-full h-auto rounded-lg shadow-lg" />
+            `;
+            
+            generatedCard.classList.remove('hidden');
+            generatedCard.scrollIntoView({ behavior: 'smooth' });
+          } else {
+            alert('Chyba pri vytváraní pohľadnice. Skúste to znova.');
+          }
+        } catch (error) {
+          console.error('Error:', error);
+          alert('Chyba pri vytváraní pohľadnice. Skúste to znova.');
+        }
+      });
+
+      // Download functionality
+      downloadCard.addEventListener('click', function() {
+        const img = cardResult.querySelector('img');
+        if (img) {
+          const link = document.createElement('a');
+          link.href = img.src;
+          link.download = `pohladnica-${cardName.value || 'luna'}.png`;
+          link.click();
+        }
+      });
+
+      // Share functionality
+      shareCard.addEventListener('click', function() {
+        const img = cardResult.querySelector('img');
+        if (img && navigator.share) {
+          navigator.share({
+            title: 'Moja pohľadnica',
+            text: 'Pozrite si moju krásnu pohľadnicu!',
+            url: img.src
+          });
+        } else {
+          // Fallback: copy to clipboard
+          navigator.clipboard.writeText(img.src).then(() => {
+            alert('Odkaz na pohľadnicu bol skopírovaný do schránky!');
+          });
+        }
+      });
+
+      // Initialize preview
+      updatePreview();
+    });
+  </script>
+</Layout>
+

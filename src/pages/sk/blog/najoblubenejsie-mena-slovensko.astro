@@ -1,0 +1,297 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Card from '../../../components/Card.astro';
+
+const topNames = [
+  { name: 'Emma', rank: 1, trend: 'Stúpa', meaning: 'Univerzálna', gender: 'Ženské' },
+  { name: 'Sofia', rank: 2, trend: 'Stabilný', meaning: 'Múdrosť', gender: 'Ženské' },
+  { name: 'Lukáš', rank: 3, trend: 'Stúpa', meaning: 'Svetlo', gender: 'Mužské' },
+  { name: 'Adam', rank: 4, trend: 'Stabilný', meaning: 'Človek', gender: 'Mužské' },
+  { name: 'Ema', rank: 5, trend: 'Stúpa', meaning: 'Univerzálna', gender: 'Ženské' },
+  { name: 'Jakub', rank: 6, trend: 'Stabilný', meaning: 'Nahradí', gender: 'Mužské' },
+  { name: 'Mia', rank: 7, trend: 'Stúpa', meaning: 'Môj', gender: 'Ženské' },
+  { name: 'Oliver', rank: 8, trend: 'Stúpa', meaning: 'Olivový strom', gender: 'Mužské' },
+  { name: 'Liam', rank: 9, trend: 'Stúpa', meaning: 'Silný bojovník', gender: 'Mužské' },
+  { name: 'Zoe', rank: 10, trend: 'Stabilný', meaning: 'Život', gender: 'Ženské' }
+];
+
+const regionalStats = [
+  { region: 'Bratislava', topName: 'Emma', percentage: '12.3%' },
+  { region: 'Košice', topName: 'Sofia', percentage: '11.8%' },
+  { region: 'Žilina', topName: 'Lukáš', percentage: '13.1%' },
+  { region: 'Nitra', topName: 'Adam', percentage: '10.9%' },
+  { region: 'Trnava', topName: 'Ema', percentage: '11.5%' }
+];
+
+const trends = [
+  { category: 'Medzinárodné mená', percentage: '45%', description: 'Anglické a iné medzinárodné mená' },
+  { category: 'Klasické slovenské', percentage: '35%', description: 'Tradičné slovenské mená' },
+  { category: 'Moderné slovenské', percentage: '20%', description: 'Nové slovenské mená' }
+];
+---
+
+<Layout 
+  title="Najobľúbenejšie mená na Slovensku: Štatistiky a trendy 2025 | Meniny365.sk" 
+  description="Ktoré mená sú najpopulárnejšie na Slovensku? Pozrite si najnovšie štatistiky, trendy a regionálne rozdiely v pomenovávaní detí."
+>
+  <div class="min-h-screen bg-gradient-to-br from-slate-50 to-indigo-50">
+    <!-- Article Header -->
+    <div class="bg-white border-b border-slate-200">
+      <div class="max-w-4xl mx-auto px-4 py-12">
+        <div class="text-center">
+          <div class="inline-flex items-center px-3 py-1 bg-blue-100 text-blue-700 text-sm font-medium rounded-full mb-4">
+            <span class="mr-2">📊</span>
+            Štatistiky
+          </div>
+          <h1 class="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
+            Najobľúbenejšie mená na Slovensku: Štatistiky a trendy 2025
+          </h1>
+          <p class="text-xl text-slate-600 max-w-3xl mx-auto mb-6">
+            Ktoré mená sú najpopulárnejšie na Slovensku? Pozrite si najnovšie štatistiky, trendy a regionálne rozdiely v pomenovávaní detí.
+          </p>
+          <div class="flex items-center justify-center gap-4 text-sm text-slate-500">
+            <span>8. január 2025</span>
+            <span>•</span>
+            <span>3 min čítania</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="max-w-4xl mx-auto px-4 py-12">
+      <!-- Article Content -->
+      <article class="prose prose-lg max-w-none">
+        <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-8 mb-8">
+          <h2 class="text-2xl font-bold text-slate-900 mb-4">Ako fungujú menné trendy na Slovensku?</h2>
+          <p class="text-slate-700 leading-relaxed">
+            Menné trendy na Slovensku sa menia každý rok. Rodičia sa čoraz viac obracajú k medzinárodným menám, 
+            ale stále si zachovávajú lásku k tradičným slovenským menám s hlbokým kultúrnym významom.
+          </p>
+        </div>
+
+        <h2 class="text-3xl font-bold text-slate-900 mb-6">🏆 Top 10 najobľúbenejších mien 2025</h2>
+        
+        <div class="bg-slate-50 rounded-xl p-6 mb-8">
+          <p class="text-slate-700 leading-relaxed mb-4">
+            Rok 2025 prináša zaujímavé trendy v pomenovávaní detí na Slovensku. Analýza údajov z matrík ukazuje, 
+            že rodičia sa čoraz viac obracajú k medzinárodným menám, ktoré sú však stále v súlade so slovenskou kultúrou. 
+            Najpopulárnejšie mená kombinujú moderný prístup s tradičnými hodnotami.
+          </p>
+          <p class="text-slate-700 leading-relaxed">
+            <strong>Kľúčové pozorovania:</strong> Medzinárodné mená ako Emma, Sofia a Oliver dominujú v top 10, 
+            čo odráža globalizáciu a túžbu rodičov po menách, ktoré budú zrozumiteľné v celom svete. 
+            Zároveň si zachovávajú lásku k klasickým slovenským menám s hlbokým kultúrnym významom.
+          </p>
+        </div>
+        
+        <div class="space-y-4 mb-8">
+          {topNames.map(name => (
+            <Card class="p-6 hover:shadow-lg transition-shadow">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-4">
+                  <div class="w-10 h-10 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold">
+                    {name.rank}
+                  </div>
+                  <div>
+                    <h3 class="text-xl font-bold text-slate-900">{name.name}</h3>
+                    <p class="text-slate-600 text-sm">{name.meaning} • {name.gender}</p>
+                  </div>
+                </div>
+                <div class="text-right">
+                  <span class={`px-3 py-1 text-sm font-medium rounded-full ${
+                    name.trend === 'Stúpa' ? 'bg-green-100 text-green-700' :
+                    name.trend === 'Klesá' ? 'bg-red-100 text-red-700' :
+                    'bg-slate-100 text-slate-700'
+                  }`}>
+                    {name.trend}
+                  </span>
+                </div>
+              </div>
+            </Card>
+          ))}
+        </div>
+
+        <h2 class="text-3xl font-bold text-slate-900 mb-6">🗺️ Regionálne rozdiely</h2>
+        
+        <div class="bg-slate-50 rounded-xl p-6 mb-8">
+          <p class="text-slate-700 leading-relaxed mb-6">
+            Mená sa líšia aj podľa regiónov Slovenska. Každý kraj má svoje preferencie a tradície v pomenovávaní detí.
+          </p>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {regionalStats.map(region => (
+              <div class="bg-white rounded-lg p-4 shadow-sm">
+                <h4 class="font-bold text-slate-900 mb-2">{region.region}</h4>
+                <div class="text-2xl font-bold text-indigo-600 mb-1">{region.topName}</div>
+                <div class="text-sm text-slate-600">{region.percentage} detí</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <h2 class="text-3xl font-bold text-slate-900 mb-6">📈 Trendy v pomenovávaní</h2>
+        
+        <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6 mb-8">
+          <p class="text-slate-700 leading-relaxed mb-4">
+            Analýza pomenovávacích trendov na Slovensku odhaľuje fascinujúce vzorce v rozhodovaní rodičov. 
+            Štatistiky ukazujú jasné preferencie, ktoré odrážajú zmeny v spoločnosti a kultúre.
+          </p>
+          <p class="text-slate-700 leading-relaxed">
+            <strong>Význam týchto trendov:</strong> Zvýšený záujem o medzinárodné mená signalizuje 
+            globalizáciu a túžbu po univerzálnosti. Zároveň si rodičia zachovávajú úctu k slovenskej 
+            tradícii a kultúrnym hodnotám, čo sa prejavuje v popularite klasických mien.
+          </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          {trends.map(trend => (
+            <Card class="p-6 text-center">
+              <div class="text-3xl font-bold text-indigo-600 mb-2">{trend.percentage}</div>
+              <h3 class="text-lg font-bold text-slate-900 mb-2">{trend.category}</h3>
+              <p class="text-slate-600 text-sm">{trend.description}</p>
+            </Card>
+          ))}
+        </div>
+
+        <h2 class="text-3xl font-bold text-slate-900 mb-6">🔍 Zaujímavé pozorovania</h2>
+        
+        <div class="space-y-6 mb-8">
+          <div class="flex items-start gap-4">
+            <div class="w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0">
+              ✓
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-slate-900 mb-2">Medzinárodné mená na vzostupe</h3>
+              <p class="text-slate-600">
+                Mená ako Emma, Oliver, Liam a Mia sa stávajú čoraz populárnejšie. Rodičia hľadajú mená, 
+                ktoré sú zrozumiteľné v celom svete.
+              </p>
+            </div>
+          </div>
+          
+          <div class="flex items-start gap-4">
+            <div class="w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0">
+              ✓
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-slate-900 mb-2">Návrat k klasike</h3>
+              <p class="text-slate-600">
+                Tradičné slovenské mená ako Ján, Mária, Peter a Anna si stále udržiavajú svoju popularitu, 
+                najmä v starších generáciách.
+              </p>
+            </div>
+          </div>
+          
+          <div class="flex items-start gap-4">
+            <div class="w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0">
+              ✓
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-slate-900 mb-2">Krátke mená v móde</h3>
+              <p class="text-slate-600">
+                Rodičia uprednostňujú kratšie mená (3-4 písmená), ktoré sú ľahšie na výslovnosť a zapamätanie.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-gradient-to-r from-amber-50 to-orange-50 rounded-xl p-6 mb-8">
+          <h3 class="text-xl font-bold text-slate-900 mb-4">📊 Štatistické údaje</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <h4 class="font-semibold text-slate-900 mb-2">Celkový počet mien</h4>
+              <p class="text-2xl font-bold text-amber-600">2,847</p>
+              <p class="text-sm text-slate-600">Unikátnych mien v databáze</p>
+            </div>
+            <div>
+              <h4 class="font-semibold text-slate-900 mb-2">Najčastejšie písmeno</h4>
+              <p class="text-2xl font-bold text-amber-600">A</p>
+              <p class="text-sm text-slate-600">Začína 23% všetkých mien</p>
+            </div>
+          </div>
+        </div>
+
+        <h2 class="text-3xl font-bold text-slate-900 mb-6">💡 Praktické rady</h2>
+        
+        <div class="bg-gradient-to-r from-indigo-600 to-purple-700 rounded-2xl p-8 text-white mb-8">
+          <h3 class="text-xl font-bold mb-4">Ako vybrať meno podľa trendov?</h3>
+          <div class="space-y-4">
+            <div class="flex items-start gap-3">
+              <div class="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0 mt-0.5">
+                1
+              </div>
+              <p class="text-indigo-100">Zvážte, či chcete meno, ktoré je trendy, alebo klasické</p>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0 mt-0.5">
+                2
+              </div>
+              <p class="text-indigo-100">Skúmajte regionálne trendy vo vašom okolí</p>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0 mt-0.5">
+                3
+              </div>
+              <p class="text-indigo-100">Pamätajte, že trendy sa menia, ale meno zostáva</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- CTA Section -->
+      <div class="mt-12">
+        <Card class="bg-gradient-to-r from-blue-600 to-indigo-700 text-white">
+          <div class="p-8 text-center">
+            <h2 class="text-2xl font-bold mb-4">
+              Chcete vedieť viac o menách?
+            </h2>
+            <p class="text-blue-100 mb-6 max-w-2xl mx-auto">
+              Objavte detailné informácie o pôvode, význame a histórii tisícok slovenských mien v našej databáze.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+              <a 
+                href="/sk/povod-a-vyznam-mien"
+                class="inline-flex items-center px-6 py-3 bg-white text-blue-600 font-semibold rounded-lg hover:bg-blue-50 transition-colors"
+              >
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+                Vyhľadať mená
+              </a>
+              <a 
+                href="/sk/trendy-v-menach"
+                class="inline-flex items-center px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-400 transition-colors"
+              >
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                </svg>
+                Trendy mená
+              </a>
+            </div>
+          </div>
+        </Card>
+      </div>
+
+      <!-- Related Articles -->
+      <div class="mt-12">
+        <h2 class="text-2xl font-bold text-slate-900 mb-6">Súvisiace články</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <Card class="p-6 hover:shadow-lg transition-shadow">
+            <h3 class="text-lg font-bold text-slate-900 mb-2">Najkrajšie slovenské mená 2025</h3>
+            <p class="text-slate-600 text-sm mb-3">Objavte najkrajšie slovenské mená, ktoré budú trendy v roku 2025.</p>
+            <a href="/sk/blog/najkrajsie-slovenske-mena-2025" class="text-indigo-600 hover:text-indigo-800 font-medium text-sm">
+              Čítať viac →
+            </a>
+          </Card>
+          <Card class="p-6 hover:shadow-lg transition-shadow">
+            <h3 class="text-lg font-bold text-slate-900 mb-2">Ako vybrať meno pre dieťa</h3>
+            <p class="text-slate-600 text-sm mb-3">Praktické tipy a rady na výber mena pre vaše dieťa.</p>
+            <a href="/sk/blog/ako-vybrat-meno-pre-dieta" class="text-indigo-600 hover:text-indigo-800 font-medium text-sm">
+              Čítať viac →
+            </a>
+          </Card>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,67 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { generateBlogPostSEO } from '../../../lib/seo.ts';
+
+const post = {
+  title: "Pôvod slovenských mien - História a tradície",
+  slug: "povod-slovenskych-mien-historia",
+  category: "história",
+  keywords: "pôvod slovenských mien, história mien, slovenské mená, tradície mien",
+  publishedTime: new Date().toISOString(),
+  modifiedTime: new Date().toISOString(),
+  excerpt: "Pôvod slovenských mien - História a tradície",
+  content: "# Pôvod slovenských mien - História a tradície\n\nSlovenské mená majú bohatú históriu a kultúrny význam. V tomto článku sa pozrieme na pôvod slovenských mien, ich históriu a tradície.\n\n## Historický vývoj slovenských mien\n\n### Staroslovenské mená (9-11. storočie)\nNajstaršie slovenské mená pochádzajú z doby Veľkej Moravy:\n- **Bojislav** - bojovník slávy\n- **Vratislav** - vracia slávu\n- **Svatopluk** - svätý pluk\n\n### Stredoveké mená (12-15. storočie)\nS príchodom kresťanstva sa mená menili:\n- **Ján** - z hebrejského \"milostivý\"\n- **Mária** - z hebrejského \"milovaná\"\n- **Peter** - z gréckeho \"skala\"\n\n### Novoveké mená (16-19. storočie)\nV tomto období sa objavujú mená z rôznych kultúr:\n- **František** - z germánskeho \"slobodný\"\n- **Alžbeta** - z hebrejského \"môj Boh je prísaha\"\n- **Jozef** - z hebrejského \"Boh pridá\"\n\n## Kategórie slovenských mien\n\n### 1. Kresťanské mená\n- **Pôvod**: Hebrejské, grécke, latinské\n- **Príklady**: Ján, Mária, Peter, Pavol\n- **Charakteristika**: Súvisia s biblickými postavami\n\n### 2. Germánske mená\n- **Pôvod**: Germánske kmene\n- **Príklady**: František, Alžbeta, Viliam\n- **Charakteristika**: Silné a bojovné významy\n\n### 3. Slovanské mená\n- **Pôvod**: Staroslovanské\n- **Príklady**: Božena, Vlasta, Radúz\n- **Charakteristika**: Súvisia s prírodou a vlastnosťami\n\n### 4. Latinské mená\n- **Pôvod**: Rímska kultúra\n- **Príklady**: Viktor, Patrik, Marko\n- **Charakteristika**: Vznešené a elegantné\n\n## Tradície súvisiace s menami\n\n### Meniny\n- Každé meno má svoj deň v kalendári\n- Tradične sa oslavujú darčekmi a gratuláciami\n- Rodina sa zbierka na oslavu\n\n### Pomenovanie detí\n- Tradične sa mená vyberali podľa svätcov\n- Rodinné tradície a dedičstvo\n- Vplyv cirkvi a spoločnosti\n\n### Mená a povolania\n- Niektoré mená súviseli s povolaniami\n- **Kováč** - kováč\n- **Mlynár** - mlynár\n- **Pastier** - pastier\n\n## Moderné trendy v menách\n\n### 21. storočie\n- Návrat k tradičným slovenským menám\n- Vplyv medzinárodných mien\n- Krátke a jednoduché mená\n- Mená s hlbokým významom\n\n### Najpopulárnejšie mená 2025\n1. **Luna** - mesiac (latinské)\n2. **Adam** - človek (hebrejské)\n3. **Sofia** - múdrosť (grécke)\n4. **Oliver** - olivový strom (latinské)\n5. **Emma** - univerzálne (germánske)\n\n## Ako zistiť pôvod mena\n\n### 1. Etymologický slovník\n- Hľadajte pôvod v jazykových slovníkoch\n- Porovnávajte s podobnými menami\n- Skúmajte historický kontext\n\n### 2. Rodinné tradície\n- Pýtajte sa starších členov rodiny\n- Skúmajte rodokmeň\n- Hľadajte písomné záznamy\n\n### 3. Online zdroje\n- Použite náš [kalendár menín](/sk)\n- Navštívte stránku [Pôvod mien](/sk/povod-a-vyznam-mien)\n- Vyhľadajte v databázach mien\n\n## Záver\n\nSlovenské mená majú bohatú históriu a kultúrny význam. Ich pôvod sa tiahne stáročia späť a odráža vývoj slovenskej kultúry a spoločnosti.\n\nPre viac informácií o konkrétnych menách navštívte našu stránku [Pôvod mien](/sk/povod-a-vyznam-mien) alebo použite náš [kalendár menín](/sk) na vyhľadanie mien a ich pôvodu."
+};
+
+const seoData = generateBlogPostSEO(post);
+---
+
+<Layout 
+  title={seoData.title}
+  description={seoData.description}
+  canonical={seoData.canonical}
+  keywords={seoData.keywords}
+  publishedTime={seoData.publishedTime}
+  modifiedTime={seoData.modifiedTime}
+  type={seoData.type}
+  structuredData={seoData.structuredData}
+>
+  <article class="max-w-4xl mx-auto px-4 py-20">
+    <header class="mb-12">
+      <div class="inline-flex items-center bg-slate-100 rounded-full px-4 py-2 mb-6">
+        <span class="text-sm font-medium text-slate-700">história</span>
+      </div>
+      <h1 class="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
+        Pôvod slovenských mien - História a tradície
+      </h1>
+      <div class="flex items-center text-slate-600 text-sm">
+        <time datetime={post.publishedTime}>
+          {new Date(post.publishedTime).toLocaleDateString('sk-SK')}
+        </time>
+        <span class="mx-2">•</span>
+        <span>4 minút čítania</span>
+      </div>
+    </header>
+
+    <div class="prose prose-lg max-w-none">
+      <div set:html={post.content}></div>
+    </div>
+
+    <footer class="mt-16 pt-8 border-t border-slate-200">
+      <div class="flex flex-col sm:flex-row gap-4">
+        <a 
+          href="/sk/povod-a-vyznam-mien" 
+          class="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+        >
+          Zistiť pôvod mien
+        </a>
+        <a 
+          href="/sk/darceky" 
+          class="bg-slate-100 text-slate-700 px-6 py-3 rounded-lg font-semibold hover:bg-slate-200 transition-colors"
+        >
+          Nájsť darčeky
+        </a>
+      </div>
+    </footer>
+  </article>
+</Layout>

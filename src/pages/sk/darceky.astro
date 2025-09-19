@@ -1,150 +1,230 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import GiftIdeasForm from '../../components/GiftIdeasForm.astro';
-import GiftIdeasResults from '../../components/GiftIdeasResults.astro';
+import Card from '../../components/Card.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import GiftForm from '../../components/GiftForm.astro';
+import GiftList from '../../components/GiftList.astro';
 
-// Generate structured data
-const structuredData = {
-  "@context": "https://schema.org",
-  "@type": "WebPage",
-  "name": "AI Generátor darčekových nápadov | meniny365",
-  "description": "Inteligentný generátor darčekových nápadov pre meniny. Nájdite perfektný darček na základe rozpočtu, vzťahu a štýlu.",
-  "url": "https://meniny365.sk/sk/darceky",
-  "mainEntity": {
-    "@type": "SoftwareApplication",
-    "name": "AI Generátor darčekových nápadov",
-    "description": "Generátor darčekových nápadov využívajúci umelú inteligenciu",
-    "applicationCategory": "LifestyleApplication",
-    "operatingSystem": "Web"
-  }
-};
+// Get prefilled name from URL params
+const url = new URL(Astro.request.url);
+const prefilledName = url.searchParams.get('name') || '';
 ---
 
 <Layout 
-  title="AI Generátor darčekových nápadov | meniny365"
-  description="Inteligentný generátor darčekových nápadov pre meniny. Nájdite perfektný darček na základe rozpočtu, vzťahu a štýlu."
-  canonical="https://meniny365.sk/sk/darceky"
-  structuredData={structuredData}
->
+           title="Darčeky k meninám | meniny365.sk"
+           description="Nájdi inšpiráciu na darček podľa mena, rozpočtu a štýlu. Detailné nápady a popisy pre dokonalý výber."
+         >
+  <div class="min-h-screen bg-gradient-to-br from-slate-50 to-indigo-50">
   <!-- Hero Section -->
-  <section class="relative pt-20 pb-16 overflow-hidden">
-    <!-- Background Overlay -->
-    <div class="absolute inset-0 bg-gradient-to-br from-white/90 via-white/95 to-indigo-50/60"></div>
-    
-    <div class="container relative z-10 text-center max-w-4xl">
-      <!-- Badge -->
-      <div class="inline-flex items-center bg-gradient-to-r from-slate-100 to-indigo-100 rounded-full px-4 py-2 mb-8 animate-fade-in-up shadow-sm">
-        <span class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-xs font-medium px-2 py-1 rounded-full mr-3">AI</span>
-        <span class="text-sm text-slate-700">Inteligentný generátor darčekov</span>
-        <svg class="w-4 h-4 ml-2 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-        </svg>
-      </div>
-      
-      <!-- Main Heading -->
-      <h1 class="text-6xl font-bold text-black mb-8 leading-tight animate-fade-in-up" style="animation-delay: 0.2s;">
-        Nájdite perfektný darček
-      </h1>
-      
-      <!-- Subtitle -->
-      <p class="text-xl text-gray-600 mb-12 max-w-2xl mx-auto leading-relaxed tracking-tight animate-fade-in-up" style="animation-delay: 0.4s;">
-        AI-powered generátor darčekových nápadov pre meniny. 
-        Zadajte kritériá a získajte personalizované návrhy darčekov.
-      </p>
-    </div>
-  </section>
-
-  <!-- Gift Ideas Generator -->
-  <section class="py-16">
-    <div class="container max-w-4xl">
-      <GiftIdeasForm />
-      <GiftIdeasResults />
-    </div>
-  </section>
-
-  <!-- Features Section -->
-  <section class="py-20 bg-gray-50">
-    <div class="container">
-      <div class="text-center mb-16">
-        <h2 class="text-4xl font-bold text-slate-800 mb-6">Prečo si vybrať náš generátor?</h2>
-        <p class="text-xl text-slate-600 max-w-2xl mx-auto">
-          Inteligentný systém, ktorý berie do úvahy všetky dôležité faktory
-        </p>
-      </div>
-      
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="text-center p-6">
-          <div class="w-16 h-16 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
-            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <div class="bg-white border-b border-slate-200">
+      <div class="max-w-4xl mx-auto px-4 py-12">
+        <div class="text-center">
+          <!-- AI-powered pill -->
+          <div class="inline-flex items-center bg-green-100 text-green-700 px-4 py-2 rounded-full text-sm font-medium mb-6">
+            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
             </svg>
+            AI-powered
           </div>
-          <h3 class="text-xl font-semibold text-slate-800 mb-4">AI-Powered</h3>
-          <p class="text-slate-600">
-            Využíva umelú inteligenciu na generovanie relevantných a personalizovaných návrhov darčekov.
+          
+          <h1 class="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
+            Darčeky k meninám
+          </h1>
+                   <p class="text-lg text-slate-600 max-w-2xl mx-auto">
+                     Nájdi inšpiráciu na darček podľa mena, rozpočtu a štýlu. Detailné nápady a popisy pre dokonalý výber.
           </p>
+        </div>
+          </div>
         </div>
         
-        <div class="text-center p-6">
-          <div class="w-16 h-16 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
-            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
-            </svg>
+    <!-- Main Content -->
+    <div class="max-w-4xl mx-auto px-4 py-16">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <!-- Gift Form -->
+        <Card class="p-6">
+          <SectionHeader
+            eyebrow="Inšpirácie"
+            title="Darčeky podľa mena"
+            subtitle="Nájdi rýchlo tip na darček k meninám"
+          />
+          <GiftForm prefilledName={prefilledName} />
+        </Card>
+
+        <!-- Gift Results -->
+        <Card class="p-6">
+          <h3 class="text-xl font-bold text-slate-900 mb-6">Navrhnuté darčeky</h3>
+          <div id="giftResults">
+            <GiftList gifts={[]} />
           </div>
-          <h3 class="text-xl font-semibold text-slate-800 mb-4">Rozpočet</h3>
-          <p class="text-slate-600">
-            Filtruje nápady podľa vášho rozpočtu a zobrazuje ceny s ohľadom na rýchlosť doručenia.
-          </p>
-        </div>
-        
-        <div class="text-center p-6">
-          <div class="w-16 h-16 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
-            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-            </svg>
-          </div>
-          <h3 class="text-xl font-semibold text-slate-800 mb-4">Personalizované</h3>
-          <p class="text-slate-600">
-            Berie do úvahy vzťah, štýl a preferencie pre maximálne relevantné návrhy.
-          </p>
-        </div>
+        </Card>
       </div>
     </div>
-  </section>
+  </div>
 
-  <!-- CTA Section -->
-  <section class="py-20 bg-gradient-to-r from-indigo-600 to-purple-600">
-    <div class="container text-center">
-      <h2 class="text-4xl font-bold text-white mb-6">
-        Začnite hľadať darčeky ešte dnes
-      </h2>
-      <p class="text-xl text-indigo-100 mb-8 max-w-2xl mx-auto">
-        Vyplňte formulár vyššie a získajte personalizované návrhy darčekov za menej ako minútu.
-      </p>
-      <a 
-        href="#giftForm" 
-        class="inline-flex items-center bg-white text-indigo-600 px-8 py-4 rounded-xl font-semibold hover:bg-indigo-50 transition-all duration-200 transform hover:scale-105 shadow-lg"
-      >
-        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.getElementById('giftForm');
+      const giftResults = document.getElementById('giftResults');
+      const submitButton = form.querySelector('button[type="submit"]');
+
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        // Show loading state
+        submitButton.disabled = true;
+        submitButton.textContent = 'Načítavam...';
+        
+        try {
+          // Get form data
+          const formData = new FormData(form);
+          const filters = {
+            budget: formData.get('budget'),
+            relationship: formData.get('relationship'),
+            type: formData.getAll('type'),
+            style: formData.getAll('style'),
+            delivery: formData.get('delivery'),
+            name: formData.get('name')
+          };
+
+          // Call API
+          const response = await fetch('/api/gifts', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(filters)
+          });
+          
+          const result = await response.json();
+          
+          if (result.success) {
+            // Update the gift results
+            giftResults.innerHTML = `
+              <div class="space-y-6">
+                ${result.gifts.map(gift => `
+                  <div class="gift-card bg-gradient-to-r from-slate-50 to-slate-100 rounded-xl shadow-sm border border-slate-200 hover:shadow-lg hover:border-slate-300 transition-all duration-300 overflow-hidden">
+                    <div class="flex flex-col lg:flex-row">
+                      <!-- Header Section -->
+                      <div class="lg:w-80 h-32 lg:h-auto bg-gradient-to-r from-slate-200 to-slate-300 flex items-center justify-between px-6 py-4">
+                        <!-- Category Badge -->
+                        <div class="bg-white px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 shadow-sm">
+                          ${gift.category}
+                        </div>
+                        
+                        <!-- Price Badge -->
+                        ${gift.price ? `
+                          <div class="bg-slate-900 text-white px-3 py-2 rounded-lg text-sm font-bold shadow-lg">
+                            ${gift.price}
+                          </div>
+                        ` : ''}
+                      </div>
+                      
+                      <!-- Content Section -->
+                      <div class="flex-1 p-6">
+                        <!-- Title -->
+                        <h3 class="text-xl font-semibold text-slate-900 mb-3 leading-tight">
+                          ${gift.title}
+                        </h3>
+                        
+                        <!-- Description -->
+                        <p class="text-slate-600 text-sm mb-4 leading-relaxed">
+                          ${gift.why}
+                        </p>
+                        
+                        <!-- Tags -->
+                        <div class="flex flex-wrap gap-1.5 mb-6">
+                          ${gift.tags.slice(0, 5).map(tag => `
+                            <span class="px-2 py-1 rounded text-xs font-medium ${getTagColor(tag)}">
+                              ${tag}
+                            </span>
+                          `).join('')}
+                        </div>
+                        
+                        <!-- CTA Button -->
+                        <a
+                          href="${gift.affiliateUrl}"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="inline-flex items-center justify-center bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 px-6 rounded-lg text-base font-semibold hover:from-blue-700 hover:to-blue-800 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                        >
+                          Nájsť podobné
+                          <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
         </svg>
-        Začať hľadať
       </a>
     </div>
-  </section>
-</Layout>
+                    </div>
+                  </div>
+                `).join('')}
+              </div>
+            `;
+          } else {
+            giftResults.innerHTML = `
+              <div class="text-center py-8">
+                <div class="text-red-500 mb-2">Chyba pri načítaní darčekov</div>
+                <p class="text-slate-600">Skúste to prosím znova.</p>
+              </div>
+            `;
+          }
+        } catch (error) {
+          console.error('Error:', error);
+          giftResults.innerHTML = `
+            <div class="text-center py-8">
+              <div class="text-red-500 mb-2">Chyba pri načítaní darčekov</div>
+              <p class="text-slate-600">Skúste to prosím znova.</p>
+            </div>
+          `;
+        } finally {
+          // Reset button state
+          submitButton.disabled = false;
+          submitButton.textContent = 'Ukáž darčeky';
+        }
+      });
 
-<style>
-  .animate-fade-in-up {
-    animation: fadeInUp 0.6s ease-out forwards;
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  
-  @keyframes fadeInUp {
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-</style>
+
+      function getTagColor(tag) {
+        const colors = {
+          'eco': 'bg-green-100 text-green-800',
+          'minimalistický': 'bg-gray-100 text-gray-800',
+          'luxusný': 'bg-yellow-100 text-yellow-800',
+          'hravý': 'bg-pink-100 text-pink-800',
+          'romantický': 'bg-red-100 text-red-800',
+          'fyzický darček': 'bg-blue-100 text-blue-800',
+          'digitálne': 'bg-indigo-100 text-indigo-800',
+          'zážitok': 'bg-orange-100 text-orange-800',
+          'rozpočtový': 'bg-green-100 text-green-800',
+          'stredný': 'bg-blue-100 text-blue-800',
+          'kvalitný': 'bg-purple-100 text-purple-800',
+          'praktický': 'bg-cyan-100 text-cyan-800',
+          'elegantný': 'bg-gray-100 text-gray-800',
+          'modernejší': 'bg-teal-100 text-teal-800',
+          'tradičný': 'bg-amber-100 text-amber-800',
+          'osobný': 'bg-violet-100 text-violet-800',
+          'dekoratívny': 'bg-fuchsia-100 text-fuchsia-800',
+          'relax': 'bg-lime-100 text-lime-800',
+          'zdravý': 'bg-green-100 text-green-800',
+          'interaktívny': 'bg-yellow-100 text-yellow-800',
+          'outdoor': 'bg-green-100 text-green-800',
+          'technický': 'bg-slate-100 text-slate-800',
+          'profesionálny': 'bg-indigo-100 text-indigo-800',
+          'hobby': 'bg-orange-100 text-orange-800',
+          'šport': 'bg-red-100 text-red-800',
+          'gaming': 'bg-purple-100 text-purple-800',
+          'práca': 'bg-slate-100 text-slate-800',
+          'romantika': 'bg-red-100 text-red-800',
+          'spomienky': 'bg-pink-100 text-pink-800',
+          'šperky': 'bg-amber-100 text-amber-800',
+          'kuchyňa': 'bg-orange-100 text-orange-800',
+          'domov': 'bg-green-100 text-green-800',
+          'zábava': 'bg-blue-100 text-blue-800',
+          'praktické': 'bg-cyan-100 text-cyan-800',
+          'technológie': 'bg-indigo-100 text-indigo-800',
+          'všeobecné': 'bg-gray-100 text-gray-800'
+        };
+        return colors[tag] || 'bg-slate-100 text-slate-800';
+      }
+    });
+  </script>
+
+
+</Layout>

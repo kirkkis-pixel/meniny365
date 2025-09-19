@@ -18,9 +18,7 @@ allNames.forEach(name => {
 const allOriginData = Object.values(namesOrigins)
   .map(entry => ({
     ...entry,
-    frequency: nameCounts[entry.name] || 0,
-    // Remove duplicate variants
-    variants: entry.variants ? [...new Set(entry.variants.filter(v => v !== entry.name))] : []
+    frequency: nameCounts[entry.name] || 0
   }))
   .sort((a, b) => (b.frequency || 0) - (a.frequency || 0));
 ---
@@ -32,54 +30,45 @@ const allOriginData = Object.values(namesOrigins)
   <div class="min-h-screen bg-gradient-to-br from-slate-50/95 via-white to-indigo-50/40">
     <div class="container mx-auto px-4 py-16">
       <div class="max-w-4xl mx-auto">
-        <!-- Smart Insights Pill -->
-        <div class="flex justify-center mb-6">
-          <div class="inline-flex items-center bg-slate-100 rounded-full px-4 py-2">
-            <span class="text-sm text-slate-700 flex items-center">
-              <span class="mr-2">🤖</span>
-              Inteligentné analýzy pôvodu mien
-            </span>
-          </div>
-        </div>
-
         <SectionHeader
-          eyebrow=""
+          eyebrow="Wikidata & Wikipedia"
           title="Pôvod a význam mien"
           subtitle="Databáza slovenských mien s informáciami o ich pôvode, význame a histórii"
         />
 
         <!-- Search -->
         <div class="mb-8">
-          <div class="flex justify-center">
-            <div class="relative w-full max-w-md">
-              <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                <svg class="h-5 w-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                </svg>
-              </div>
-              <input 
-                type="text" 
-                id="nameSearch"
-                placeholder="Hľadať meno..."
-                class="block w-full pl-12 pr-4 py-4 border border-slate-300 rounded-lg text-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white shadow-sm"
-              />
+          <div class="relative max-w-md mx-auto">
+            <input 
+              type="text" 
+              id="nameSearch"
+              placeholder="Hľadať meno..."
+              class="w-full px-4 py-3 pl-10 pr-4 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+            />
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <svg class="h-5 w-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+              </svg>
             </div>
           </div>
         </div>
 
+        <!-- Popular Names Section -->
+        <div class="mb-8">
+          <h2 class="text-2xl font-bold text-slate-900 mb-4">Najpopulárnejšie mená v kalendári</h2>
+          <p class="text-slate-600 mb-6">Týchto 10 mien sa vyskytuje najčastejšie v slovenskom kalendári menín.</p>
+        </div>
 
         <!-- Names Grid -->
         <div id="namesGrid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
           {allOriginData.slice(0, 10).map((entry: any, index: number) => (
-            <Card interactive={true} class="name-card cursor-pointer hover:shadow-xl hover:scale-105 transition-all duration-300 group" data-name={entry.name.toLowerCase()} data-variants={entry.variants?.join(' ').toLowerCase() || ''} data-entry={JSON.stringify(entry)}>
+            <Card interactive={true} class="name-card cursor-pointer hover:shadow-lg transition-all duration-200" data-name={entry.name.toLowerCase()} data-variants={entry.variants?.join(' ').toLowerCase() || ''} data-entry={JSON.stringify(entry)}>
               <div class="space-y-3">
                 <!-- Header -->
                 <div class="flex items-start justify-between">
                   <div>
-                    <h3 class="text-xl font-bold text-slate-900 mb-2 group-hover:text-indigo-600 transition-colors">
-                      <a href={`/sk/meno/${entry.slug}`} class="hover:text-indigo-600 transition-colors">
-                        {entry.name}
-                      </a>
+                    <h3 class="text-xl font-bold text-slate-900 mb-2">
+                      {entry.name}
                     </h3>
                   </div>
                 </div>
@@ -125,13 +114,13 @@ const allOriginData = Object.values(namesOrigins)
                 )}
 
                 <!-- Read More Button -->
-                <div class="pt-2">
-                  <a href={`/sk/meno/${entry.slug}`} class="read-more-btn w-full inline-flex items-center justify-center px-4 py-3 bg-gradient-to-r from-slate-800 to-slate-900 text-white text-sm font-medium rounded-xl hover:from-slate-900 hover:to-black transition-all duration-200 transform hover:scale-105 shadow-lg">
+                <div class="pt-2 text-right">
+                  <button class="read-more-btn inline-flex items-center px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition-colors">
                     <span>Zobraziť detail</span>
                     <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                     </svg>
-                  </a>
+                  </button>
                 </div>
               </div>
             </Card>
@@ -142,7 +131,7 @@ const allOriginData = Object.values(namesOrigins)
         <div class="text-center mt-8">
           <button 
             id="showMoreBtn" 
-            class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-slate-800 to-slate-900 text-white font-medium rounded-xl hover:from-slate-900 hover:to-black transition-all duration-200 transform hover:scale-105 shadow-lg"
+            class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-indigo-600 to-indigo-700 text-white font-medium rounded-lg hover:from-indigo-700 hover:to-indigo-800 transition-all duration-200 transform hover:scale-105 shadow-lg"
           >
             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
@@ -299,23 +288,42 @@ const allOriginData = Object.values(namesOrigins)
         }
       }
       
-      // Add click listeners to name cards (excluding read more button)
+      // Add click listeners to name cards and read more buttons
       nameCards.forEach(card => {
+        const readMoreBtn = card.querySelector('.read-more-btn');
+        
         // Click on card (excluding read more button)
         card.addEventListener('click', (e) => {
           if (!(e.target as HTMLElement).closest('.read-more-btn')) {
+            e.preventDefault();
             const entryData = card.getAttribute('data-entry');
             if (entryData) {
               try {
                 const entry = JSON.parse(entryData);
-                // Navigate to the individual name page
-                window.location.href = `/sk/meno/${entry.slug}`;
+                showModal(entry);
               } catch (error) {
                 console.error('Error parsing entry data:', error);
               }
             }
           }
         });
+        
+        // Click on read more button
+        if (readMoreBtn) {
+          readMoreBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const entryData = card.getAttribute('data-entry');
+            if (entryData) {
+              try {
+                const entry = JSON.parse(entryData);
+                showModal(entry);
+              } catch (error) {
+                console.error('Error parsing entry data:', error);
+              }
+            }
+          });
+        }
       });
       
       // Modal close functionality
@@ -416,3 +424,5 @@ const allOriginData = Object.values(namesOrigins)
     });
   </script>
 </Layout>
+
+
