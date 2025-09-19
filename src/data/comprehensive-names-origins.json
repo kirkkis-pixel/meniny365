@@ -325,15 +325,10 @@
   "Peter": {
     "name": "Peter",
     "slug": "peter",
-    "description": "Mužské meno Peter má grécky pôvod a jeho význam znie \"skala, kameň\". Je to jedno z najpopulárnejších menín na Slovensku.",
-    "originLangs": [
-      "grécke"
-    ],
-    "variants": [],
     "gender": "M",
-    "frequency": 3,
     "origin": "grécky",
     "meaning": "skala, kameň",
+    "description": "Mužské meno Peter má grécky pôvod a jeho význam znie \"skala, kameň\". Je to jedno z najpopulárnejších menín na Slovensku.",
     "characteristics": "Je to silná a spoľahlivá osobnosť s pevnými zásadami. Má rád stabilitu a bezpečnosť.",
     "personality": "Je veľmi pracovitý a zodpovedný. Má silný charakter a je veľmi lojálny k svojim blízkym.",
     "behavior": "Rád sa stara o rodinu a je veľmi spoľahlivý. Má rád tradície a rodinné hodnoty. Je dobrý organizátor.",
@@ -341,20 +336,16 @@
     "stones": "Jeho ochranné kamene sú onyx a čierny kremeň.",
     "colors": "Čierna, hnedá",
     "numbers": "8, 17, 26",
-    "compatibility": "Najlepšie sa zhoduje s menami: Mária, Anna, Zuzana, Ján, Michal, Jozef"
+    "compatibility": "Najlepšie sa zhoduje s menami: Mária, Anna, Zuzana, Ján, Michal, Jozef",
+    "variants": []
   },
   "Mária": {
     "name": "Mária",
     "slug": "maria",
-    "description": "Ženské meno Mária má hebrejský pôvod a jeho význam znie \"milovaná Bohom\". Je to najpopulárnejšie ženské meno na Slovensku.",
-    "originLangs": [
-      "hebrejské"
-    ],
-    "variants": [],
     "gender": "F",
-    "frequency": 3,
     "origin": "hebrejský",
     "meaning": "milovaná Bohom",
+    "description": "Ženské meno Mária má hebrejský pôvod a jeho význam znie \"milovaná Bohom\". Je to najpopulárnejšie ženské meno na Slovensku.",
     "characteristics": "Je to jemná a starostlivá osobnosť s veľkým srdcom. Má prirodzený talent na staranie sa o druhých.",
     "personality": "Je veľmi empatická a citlivá na potreby druhých. Má silný materinský inštinkt a je veľmi obetavá.",
     "behavior": "Rád sa stara o rodinu a deti. Je spoľahlivá a vždy pomôže, keď je potreba. Má rád tradície a rodinné hodnoty.",
@@ -362,20 +353,16 @@
     "stones": "Jej ochranné kamene sú perla a ružový kremeň.",
     "colors": "Ružová, biela",
     "numbers": "2, 11, 20",
-    "compatibility": "Najlepšie sa zhoduje s menami: Ján, Peter, Michal, Jozef, Pavol, Tomáš"
+    "compatibility": "Najlepšie sa zhoduje s menami: Ján, Peter, Michal, Jozef, Pavol, Tomáš",
+    "variants": []
   },
   "Ján": {
     "name": "Ján",
     "slug": "jan",
-    "description": "Mužské meno Ján má hebrejský pôvod a jeho význam znie \"Boh je milostivý\". Je to jedno z najpopulárnejších menín na Slovensku.",
-    "originLangs": [
-      "hebrejské"
-    ],
-    "variants": [],
     "gender": "M",
-    "frequency": 3,
     "origin": "hebrejský",
     "meaning": "Boh je milostivý",
+    "description": "Mužské meno Ján má hebrejský pôvod a jeho význam znie \"Boh je milostivý\". Je to jedno z najpopulárnejších menín na Slovensku.",
     "characteristics": "Je to silná a charizmatická osobnosť s prirodzenou autoritou. Má rád zodpovednosť a rád pomáha druhým.",
     "personality": "Je prirodzený vodca, ktorý si získava rešpekt svojou poctivosťou a pracovitosťou. Má silný charakter a je veľmi lojálny.",
     "behavior": "Rád sa stara o rodinu a priateľov. Je spoľahlivý a vždy dodrží svoje sľuby. Má rád tradície a rodinné hodnoty.",
@@ -383,7 +370,8 @@
     "stones": "Jeho ochranné kamene sú diamant a zlato.",
     "colors": "Zlatá, oranžová",
     "numbers": "1, 10, 19",
-    "compatibility": "Najlepšie sa zhoduje s menami: Mária, Anna, Zuzana, Peter, Michal, Jozef"
+    "compatibility": "Najlepšie sa zhoduje s menami: Mária, Anna, Zuzana, Peter, Michal, Jozef",
+    "variants": []
   },
   "Jana": {
     "name": "Jana",
@@ -457,25 +445,19 @@
   "Petra": {
     "name": "Petra",
     "slug": "petra",
-    "description": "Krásne meno Petra má slovenský pôvod a je veľmi populárne na Slovensku.",
-    "originLangs": [
-      "grécke"
-    ],
-    "variants": [
-      "Petra"
-    ],
     "gender": "F",
-    "frequency": 2,
-    "origin": "slovenský",
-    "meaning": "krásne meno",
-    "characteristics": "Je to charizmatická osobnosť s prirodzeným šarmom.",
-    "personality": "Má silný charakter a je veľmi lojálny k svojim blízkym.",
-    "behavior": "Rád sa stara o rodinu a priateľov. Je spoľahlivý a vždy pomôže, keď je potreba.",
-    "astrology": "Ovplyvňuje ho/ju planéta Slnko.",
-    "stones": "Jeho/jej ochranné kamene sú kremeň a ametyst.",
-    "colors": "Modrá, zelená",
-    "numbers": "1, 5, 9",
-    "compatibility": "Najlepšie sa zhoduje s menami: Mária, Anna, Ján, Peter, Michal"
+    "origin": "grécky",
+    "meaning": "skala, kameň",
+    "description": "Ženské meno Petra má grécky pôvod a jeho význam znie \"skala, kameň\". Je to veľmi populárne meno na Slovensku.",
+    "characteristics": "Je to silná a spoľahlivá osobnosť s pevnými zásadami. Má rád stabilitu a bezpečnosť.",
+    "personality": "Je veľmi pracovitá a zodpovedná. Má silný charakter a je veľmi lojálna k svojim blízkym.",
+    "behavior": "Rád sa stara o rodinu a je veľmi spoľahlivá. Má rád tradície a rodinné hodnoty. Je dobrá organizátorka.",
+    "astrology": "Ovplyvňuje ju planéta Saturn.",
+    "stones": "Jej ochranné kamene sú onyx a čierny kremeň.",
+    "colors": "Čierna, hnedá",
+    "numbers": "8, 17, 26",
+    "compatibility": "Najlepšie sa zhoduje s menami: Ján, Peter, Michal, Jozef, Pavol, Tomáš",
+    "variants": []
   },
   "Michal": {
     "name": "Michal",
@@ -2094,11 +2076,6 @@
     "origin": "latinský",
     "meaning": "pochádzajúci z Mauretánie",
     "description": "Mužské meno Móric má latinský pôvod a jeho význam znie \"pochádzajúci z Mauretánie\" (v Severnej Afrike).",
-    "variants": [
-      "Móric",
-      "Móric",
-      "Móric"
-    ],
     "characteristics": "Je jemným, starostlivým, bojazlivým a nepriebojným človekom. Vie sa občas zavesiť na niekoho vplyvného a potom, za jeho chrbtom sa dokáže zabezpečiť.",
     "personality": "Je nerád v centre pozornosti, snaží sa byť v ústraní a nepozorovane si \"prihrievať svoju polievočku\". Byť jeho spoločníkom znamená vykonávať jeho nápady a vystavovať svoje postavenie riziku za neho.",
     "behavior": "Nikdy neriskuje, nikdy sa nesnaží priveľa investovať, alebo sa presadiť do centra diania. Zodpovednosť za všetko radšej nechá na svojej partnerke. Pritom sa však rád hrá na vodcu a snaží sa aspoň pred príbuznými vystupovať autoritatívne.",
@@ -2106,6 +2083,7 @@
     "stones": "Jeho ochranné kamene sú ametyst a granát.",
     "colors": "Modrá, fialová",
     "numbers": "3, 12, 21",
-    "compatibility": "Najlepšie sa zhoduje s menami: Mária, Anna, Zuzana, Peter, Ján, Michal"
+    "compatibility": "Najlepšie sa zhoduje s menami: Mária, Anna, Zuzana, Peter, Ján, Michal",
+    "variants": []
   }
 }
