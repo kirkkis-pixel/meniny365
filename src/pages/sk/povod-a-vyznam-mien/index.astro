@@ -199,7 +199,8 @@ const origins = [...new Set(allOriginEntries.map(entry => entry.origin).filter(B
           .replace(/[ť]/g, "t")
           .replace(/[ú]/g, "u")
           .replace(/[ý]/g, "y")
-          .replace(/[ž]/g, "z");
+          .replace(/[ž]/g, "z")
+          .replace(/[-_]/g, ""); // Remove hyphens and underscores
       }
       function filterCards() {
         const filteredCards = allCards.filter(card => {
@@ -210,7 +211,17 @@ const origins = [...new Set(allOriginEntries.map(entry => entry.origin).filter(B
           const normalizedName = normalizeText(name);
           const normalizedQuery = normalizeText(currentQuery);
           const matchesQuery = !currentQuery || normalizedName.includes(normalizedQuery);
-          const matchesFilter = currentFilter === 'all' || gender === currentFilter;
+          
+          // Debug logging for Petra search
+          if (currentQuery && currentQuery.toLowerCase() === "petra") {
+            console.log("Searching for Petra:", {
+              name: name,
+              normalizedName: normalizedName,
+              query: currentQuery,
+              normalizedQuery: normalizedQuery,
+              matchesQuery: matchesQuery
+            });
+          }          const matchesFilter = currentFilter === 'all' || gender === currentFilter;
           
           return matchesQuery && matchesFilter;
         });
