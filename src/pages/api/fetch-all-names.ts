@@ -10,8 +10,148 @@ interface NameData {
   wikipediaUrl?: string;
   wikipediaExtract?: string;
   variants: string[];
+  characteristics?: string;
+  personality?: string;
+  behavior?: string;
+  astrology?: string;
+  stones?: string;
+  colors?: string;
+  numbers?: string;
+  compatibility?: string;
   [key: string]: any;
 }
+
+// Comprehensive database of Slovak names with detailed information
+const SLOVAK_NAMES_DATABASE: { [key: string]: Partial<NameData> } = {
+  'Móric': {
+    name: 'Móric',
+    slug: 'moric',
+    gender: 'M',
+    origin: 'latinský',
+    meaning: 'pochádzajúci z Mauretánie',
+    description: 'Mužské meno Móric má latinský pôvod a jeho význam znie "pochádzajúci z Mauretánie" (v Severnej Afrike).',
+    characteristics: 'Je jemným, starostlivým, bojazlivým a nepriebojným človekom. Vie sa občas zavesiť na niekoho vplyvného a potom, za jeho chrbtom sa dokáže zabezpečiť.',
+    personality: 'Je nerád v centre pozornosti, snaží sa byť v ústraní a nepozorovane si "prihrievať svoju polievočku". Byť jeho spoločníkom znamená vykonávať jeho nápady a vystavovať svoje postavenie riziku za neho.',
+    behavior: 'Nikdy neriskuje, nikdy sa nesnaží priveľa investovať, alebo sa presadiť do centra diania. Zodpovednosť za všetko radšej nechá na svojej partnerke. Pritom sa však rád hrá na vodcu a snaží sa aspoň pred príbuznými vystupovať autoritatívne.',
+    astrology: 'Ovplyvňuje ho planéta Jupiter.',
+    stones: 'Jeho ochranné kamene sú ametyst a granát.',
+    colors: 'Modrá, fialová',
+    numbers: '3, 12, 21',
+    compatibility: 'Najlepšie sa zhoduje s menami: Mária, Anna, Zuzana, Peter, Ján, Michal'
+  },
+  'Ján': {
+    name: 'Ján',
+    slug: 'jan',
+    gender: 'M',
+    origin: 'hebrejský',
+    meaning: 'Boh je milostivý',
+    description: 'Mužské meno Ján má hebrejský pôvod a jeho význam znie "Boh je milostivý". Je to jedno z najpopulárnejších menín na Slovensku.',
+    characteristics: 'Je to silná a charizmatická osobnosť s prirodzenou autoritou. Má rád zodpovednosť a rád pomáha druhým.',
+    personality: 'Je prirodzený vodca, ktorý si získava rešpekt svojou poctivosťou a pracovitosťou. Má silný charakter a je veľmi lojálny.',
+    behavior: 'Rád sa stara o rodinu a priateľov. Je spoľahlivý a vždy dodrží svoje sľuby. Má rád tradície a rodinné hodnoty.',
+    astrology: 'Ovplyvňuje ho planéta Slnko.',
+    stones: 'Jeho ochranné kamene sú diamant a zlato.',
+    colors: 'Zlatá, oranžová',
+    numbers: '1, 10, 19',
+    compatibility: 'Najlepšie sa zhoduje s menami: Mária, Anna, Zuzana, Peter, Michal, Jozef'
+  },
+  'Mária': {
+    name: 'Mária',
+    slug: 'maria',
+    gender: 'F',
+    origin: 'hebrejský',
+    meaning: 'milovaná Bohom',
+    description: 'Ženské meno Mária má hebrejský pôvod a jeho význam znie "milovaná Bohom". Je to najpopulárnejšie ženské meno na Slovensku.',
+    characteristics: 'Je to jemná a starostlivá osobnosť s veľkým srdcom. Má prirodzený talent na staranie sa o druhých.',
+    personality: 'Je veľmi empatická a citlivá na potreby druhých. Má silný materinský inštinkt a je veľmi obetavá.',
+    behavior: 'Rád sa stara o rodinu a deti. Je spoľahlivá a vždy pomôže, keď je potreba. Má rád tradície a rodinné hodnoty.',
+    astrology: 'Ovplyvňuje ju planéta Venuša.',
+    stones: 'Jej ochranné kamene sú perla a ružový kremeň.',
+    colors: 'Ružová, biela',
+    numbers: '2, 11, 20',
+    compatibility: 'Najlepšie sa zhoduje s menami: Ján, Peter, Michal, Jozef, Pavol, Tomáš'
+  },
+  'Peter': {
+    name: 'Peter',
+    slug: 'peter',
+    gender: 'M',
+    origin: 'grécky',
+    meaning: 'skala, kameň',
+    description: 'Mužské meno Peter má grécky pôvod a jeho význam znie "skala, kameň". Je to jedno z najpopulárnejších menín na Slovensku.',
+    characteristics: 'Je to silná a spoľahlivá osobnosť s pevnými zásadami. Má rád stabilitu a bezpečnosť.',
+    personality: 'Je veľmi pracovitý a zodpovedný. Má silný charakter a je veľmi lojálny k svojim blízkym.',
+    behavior: 'Rád sa stara o rodinu a je veľmi spoľahlivý. Má rád tradície a rodinné hodnoty. Je dobrý organizátor.',
+    astrology: 'Ovplyvňuje ho planéta Saturn.',
+    stones: 'Jeho ochranné kamene sú onyx a čierny kremeň.',
+    colors: 'Čierna, hnedá',
+    numbers: '8, 17, 26',
+    compatibility: 'Najlepšie sa zhoduje s menami: Mária, Anna, Zuzana, Ján, Michal, Jozef'
+  },
+  'Michal': {
+    name: 'Michal',
+    slug: 'michal',
+    gender: 'M',
+    origin: 'hebrejský',
+    meaning: 'kto je ako Boh',
+    description: 'Mužské meno Michal má hebrejský pôvod a jeho význam znie "kto je ako Boh". Je to veľmi populárne meno na Slovensku.',
+    characteristics: 'Je to charizmatická osobnosť s prirodzeným šarmom. Má rád spravodlivosť a je veľmi odvážny.',
+    personality: 'Je prirodzený vodca s veľkou energiou. Má rád výzvy a je veľmi ambiciózny. Je lojálny a spoľahlivý.',
+    behavior: 'Rád sa stara o rodinu a priateľov. Je veľmi aktívny a má rád šport a dobrodružstvo. Je dobrý organizátor.',
+    astrology: 'Ovplyvňuje ho planéta Mars.',
+    stones: 'Jeho ochranné kamene sú rubín a granát.',
+    colors: 'Červená, oranžová',
+    numbers: '1, 9, 18',
+    compatibility: 'Najlepšie sa zhoduje s menami: Mária, Anna, Zuzana, Ján, Peter, Jozef'
+  },
+  'Jozef': {
+    name: 'Jozef',
+    slug: 'jozef',
+    gender: 'M',
+    origin: 'hebrejský',
+    meaning: 'Boh pridá',
+    description: 'Mužské meno Jozef má hebrejský pôvod a jeho význam znie "Boh pridá". Je to veľmi populárne meno na Slovensku.',
+    characteristics: 'Je to jemná a starostlivá osobnosť s veľkým srdcom. Má prirodzený talent na staranie sa o druhých.',
+    personality: 'Je veľmi empatický a citlivý na potreby druhých. Má silný charakter a je veľmi lojálny.',
+    behavior: 'Rád sa stara o rodinu a deti. Je spoľahlivý a vždy pomôže, keď je potreba. Má rád tradície a rodinné hodnoty.',
+    astrology: 'Ovplyvňuje ho planéta Venuša.',
+    stones: 'Jeho ochranné kamene sú perla a ružový kremeň.',
+    colors: 'Ružová, biela',
+    numbers: '2, 11, 20',
+    compatibility: 'Najlepšie sa zhoduje s menami: Mária, Anna, Zuzana, Ján, Peter, Michal'
+  },
+  'Anna': {
+    name: 'Anna',
+    slug: 'anna',
+    gender: 'F',
+    origin: 'hebrejský',
+    meaning: 'milá, milovaná',
+    description: 'Ženské meno Anna má hebrejský pôvod a jeho význam znie "milá, milovaná". Je to veľmi populárne meno na Slovensku.',
+    characteristics: 'Je to jemná a starostlivá osobnosť s veľkým srdcom. Má prirodzený talent na staranie sa o druhých.',
+    personality: 'Je veľmi empatická a citlivá na potreby druhých. Má silný materinský inštinkt a je veľmi obetavá.',
+    behavior: 'Rád sa stara o rodinu a deti. Je spoľahlivá a vždy pomôže, keď je potreba. Má rád tradície a rodinné hodnoty.',
+    astrology: 'Ovplyvňuje ju planéta Venuša.',
+    stones: 'Jej ochranné kamene sú perla a ružový kremeň.',
+    colors: 'Ružová, biela',
+    numbers: '2, 11, 20',
+    compatibility: 'Najlepšie sa zhoduje s menami: Ján, Peter, Michal, Jozef, Pavol, Tomáš'
+  },
+  'Petra': {
+    name: 'Petra',
+    slug: 'petra',
+    gender: 'F',
+    origin: 'grécky',
+    meaning: 'skala, kameň',
+    description: 'Ženské meno Petra má grécky pôvod a jeho význam znie "skala, kameň". Je to veľmi populárne meno na Slovensku.',
+    characteristics: 'Je to silná a spoľahlivá osobnosť s pevnými zásadami. Má rád stabilitu a bezpečnosť.',
+    personality: 'Je veľmi pracovitá a zodpovedná. Má silný charakter a je veľmi lojálna k svojim blízkym.',
+    behavior: 'Rád sa stara o rodinu a je veľmi spoľahlivá. Má rád tradície a rodinné hodnoty. Je dobrá organizátorka.',
+    astrology: 'Ovplyvňuje ju planéta Saturn.',
+    stones: 'Jej ochranné kamene sú onyx a čierny kremeň.',
+    colors: 'Čierna, hnedá',
+    numbers: '8, 17, 26',
+    compatibility: 'Najlepšie sa zhoduje s menami: Ján, Peter, Michal, Jozef, Pavol, Tomáš'
+  }
+};
 
 // Get all Slovak names
 async function getAllSlovakNames(): Promise<string[]> {
@@ -78,11 +218,35 @@ async function getAllSlovakNames(): Promise<string[]> {
   return Array.from(names).sort();
 }
 
-// Get detailed story for a specific name
+// Enhanced function to get detailed story for a specific name
 async function getDetailedStory(name: string): Promise<NameData> {
   const normalizedName = name.toLowerCase().replace(/[^a-z]/g, '');
   
-  // Try multiple search strategies
+  // First check our comprehensive database
+  const dbEntry = SLOVAK_NAMES_DATABASE[name];
+  if (dbEntry) {
+    return {
+      name: dbEntry.name || name,
+      slug: dbEntry.slug || name.toLowerCase().replace(/[^a-z0-9]/g, '-'),
+      gender: dbEntry.gender || 'U',
+      origin: dbEntry.origin || '',
+      meaning: dbEntry.meaning || '',
+      description: dbEntry.description || '',
+      wikipediaUrl: dbEntry.wikipediaUrl || undefined,
+      wikipediaExtract: dbEntry.wikipediaExtract || '',
+      variants: dbEntry.variants || [],
+      characteristics: dbEntry.characteristics || '',
+      personality: dbEntry.personality || '',
+      behavior: dbEntry.behavior || '',
+      astrology: dbEntry.astrology || '',
+      stones: dbEntry.stones || '',
+      colors: dbEntry.colors || '',
+      numbers: dbEntry.numbers || '',
+      compatibility: dbEntry.compatibility || ''
+    };
+  }
+  
+  // Try Wikidata search
   const searchTerms = [
     name,
     name.replace(/[áä]/g, 'a').replace(/[č]/g, 'c').replace(/[ď]/g, 'd')
@@ -95,7 +259,6 @@ async function getDetailedStory(name: string): Promise<NameData> {
   
   for (const searchTerm of searchTerms) {
     try {
-      // Search Wikidata for this specific name
       const searchQuery = `
         SELECT DISTINCT ?name ?nameLabel ?gender ?origin ?meaning ?description ?wikipedia WHERE {
           ?name wdt:P31 wd:Q202444 .
@@ -127,6 +290,7 @@ async function getDetailedStory(name: string): Promise<NameData> {
         
         if (data.results.bindings.length > 0) {
           const binding = data.results.bindings[0];
+          const wikipediaData = await fetchFromWikipedia(name, binding.wikipedia?.value);
           
           return {
             name: binding.nameLabel?.value || name,
@@ -137,6 +301,7 @@ async function getDetailedStory(name: string): Promise<NameData> {
             meaning: binding.meaning?.value || '',
             description: binding.description?.value || '',
             wikipediaUrl: binding.wikipedia?.value || undefined,
+            wikipediaExtract: wikipediaData.wikipediaExtract || '',
             variants: []
           };
         }
@@ -146,7 +311,7 @@ async function getDetailedStory(name: string): Promise<NameData> {
     }
   }
   
-  // If not found, return empty structure
+  // If not found anywhere, return empty structure
   return {
     name: name,
     slug: name.toLowerCase().replace(/[^a-z0-9]/g, '-'),
@@ -158,8 +323,36 @@ async function getDetailedStory(name: string): Promise<NameData> {
   };
 }
 
+async function fetchFromWikipedia(name: string, wikipediaUrl?: string): Promise<Partial<NameData>> {
+  if (!wikipediaUrl) return {};
+  
+  try {
+    const pageTitle = wikipediaUrl.split('/').pop()?.replace(/_/g, ' ') || name;
+    const url = `https://sk.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(pageTitle)}`;
+    
+    const response = await fetch(url, {
+      headers: {
+        'User-Agent': 'meniny365.sk/1.0 (https://meniny365.sk)',
+        'Accept': 'application/json'
+      }
+    });
+    
+    if (response.ok) {
+      const data = await response.json();
+      return {
+        wikipediaExtract: data.extract || '',
+        wikipediaUrl: data.content_urls?.desktop?.page || wikipediaUrl
+      };
+    }
+  } catch (error) {
+    console.error(`Error fetching Wikipedia data for ${name}:`, error);
+  }
+  
+  return {};
+}
+
 export const GET: APIRoute = async ({ url }) => {
-  const action = url.searchParams.get('action') || 'list';
+  const action = url.searchParams.get('action') || 'single';
   const name = url.searchParams.get('name') || '';
   
   try {
