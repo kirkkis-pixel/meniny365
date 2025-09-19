@@ -42,7 +42,7 @@ const origins = [...new Set(allOriginEntries.map(entry => entry.origin).filter(B
         </div>
 
         <!-- Filter Buttons -->
-        <div class="flex flex-wrap gap-2 mb-6">
+        <div class="flex flex-wrap justify-center gap-2 mb-6">
           <button 
             class="filter-btn active px-4 py-2 rounded-full text-sm font-medium transition-colors bg-indigo-600 text-white"
             data-filter="all"
@@ -62,7 +62,7 @@ const origins = [...new Set(allOriginEntries.map(entry => entry.origin).filter(B
     </div>
 
     <!-- Names Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8" id="namesGrid">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8" id="namesGrid">
       {allOriginEntries.slice(0, initialLoadCount).map((entry, index) => (
         <div class="name-card bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow p-6" data-gender={entry.gender} data-origin={entry.origin}>
           <div class="flex items-start justify-between mb-4">
@@ -91,7 +91,7 @@ const origins = [...new Set(allOriginEntries.map(entry => entry.origin).filter(B
           <div class="mt-4">
             <a 
               href={`/sk/meno/${entry.name.toLowerCase()}`}
-              class="inline-flex items-center px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-md hover:bg-indigo-700 transition-colors"
+              class="w-full inline-flex items-center justify-center px-4 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-sm font-medium rounded-lg hover:from-indigo-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg"
             >
               Zobraziť detail
               <svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -133,7 +133,7 @@ const origins = [...new Set(allOriginEntries.map(entry => entry.origin).filter(B
           <div class="mt-4">
             <a 
               href={`/sk/meno/${entry.name.toLowerCase()}`}
-              class="inline-flex items-center px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-md hover:bg-indigo-700 transition-colors"
+              class="w-full inline-flex items-center justify-center px-4 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-sm font-medium rounded-lg hover:from-indigo-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg"
             >
               Zobraziť detail
               <svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -149,7 +149,7 @@ const origins = [...new Set(allOriginEntries.map(entry => entry.origin).filter(B
     <div class="text-center" id="loadMoreContainer">
       <button 
         id="loadMoreBtn"
-        class="px-6 py-3 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition-colors"
+        class="px-8 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold rounded-full shadow-lg hover:from-purple-700 hover:to-indigo-700 transition-all duration-300 transform hover:scale-105"
       >
         Načítať ďalšie mená ({allOriginEntries.length - initialLoadCount} zostáva)
       </button>
