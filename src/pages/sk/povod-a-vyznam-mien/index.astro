@@ -184,13 +184,32 @@ const origins = [...new Set(allOriginEntries.map(entry => entry.origin).filter(B
       // Collect all cards (visible and hidden)
       const allCards = [...document.querySelectorAll('.name-card')];
       
+      function normalizeText(text) {
+        return text.toLowerCase()
+          .replace(/[áä]/g, "a")
+          .replace(/[č]/g, "c")
+          .replace(/[ď]/g, "d")
+          .replace(/[é]/g, "e")
+          .replace(/[í]/g, "i")
+          .replace(/[ĺľ]/g, "l")
+          .replace(/[ň]/g, "n")
+          .replace(/[óô]/g, "o")
+          .replace(/[ŕ]/g, "r")
+          .replace(/[š]/g, "s")
+          .replace(/[ť]/g, "t")
+          .replace(/[ú]/g, "u")
+          .replace(/[ý]/g, "y")
+          .replace(/[ž]/g, "z");
+      }
       function filterCards() {
         const filteredCards = allCards.filter(card => {
           const name = card.querySelector('h3').textContent.toLowerCase();
           const gender = card.dataset.gender;
           const origin = card.dataset.origin;
           
-          const matchesQuery = !currentQuery || name.includes(currentQuery.toLowerCase());
+          const normalizedName = normalizeText(name);
+          const normalizedQuery = normalizeText(currentQuery);
+          const matchesQuery = !currentQuery || normalizedName.includes(normalizedQuery);
           const matchesFilter = currentFilter === 'all' || gender === currentFilter;
           
           return matchesQuery && matchesFilter;
