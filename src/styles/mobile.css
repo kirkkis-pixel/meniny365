@@ -52,18 +52,7 @@
     flex-shrink: 0 !important;
   }
   
-  /* Mobile Background Gradients */
-  .mobile-gradient-bg {
-    background: linear-gradient(135deg, #f8fafc 0%, #ffffff 50%, #e0e7ff 100%) !important;
-  }
-  
-  .mobile-card-bg {
-    background: linear-gradient(135deg, #f1f5f9 0%, #ffffff 50%, #e0e7ff 100%) !important;
-  }
-  
-  .mobile-calendar-bg {
-    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%) !important;
-  }
+  /* Mobile Background - now handled by global.css */
   
   /* Force mobile-specific spacing */
   .mobile-spacing {
@@ -80,9 +69,151 @@
   /* Mobile feature boxes */
   .mobile-feature-box {
     padding: 1rem !important;
-    background: rgba(255, 255, 255, 0.6) !important;
+    background: transparent !important;
     border-radius: 0.75rem !important;
     margin: 0.5rem !important;
+  }
+  
+  /* Mobile feature boxes optimization - AGGRESSIVE */
+  .feature-box-mobile {
+    padding: 0.75rem !important;
+    margin-bottom: 1rem !important;
+    border-radius: 1rem !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+  }
+  
+  .feature-box-mobile .feature-header {
+    flex-direction: row !important;
+    align-items: flex-start !important;
+    justify-content: space-between !important;
+    margin-bottom: 0.75rem !important;
+    width: 100% !important;
+  }
+  
+  .feature-box-mobile .feature-icon {
+    width: 2.5rem !important;
+    height: 2.5rem !important;
+    margin-bottom: 0 !important;
+    flex-shrink: 0 !important;
+  }
+  
+  .feature-box-mobile .feature-icon svg {
+    width: 1.5rem !important;
+    height: 1.5rem !important;
+  }
+  
+  .feature-box-mobile .feature-badge {
+    align-self: flex-start !important;
+    margin-bottom: 0 !important;
+    padding: 0.25rem 0.75rem !important;
+    font-size: 0.75rem !important;
+    flex-shrink: 0 !important;
+  }
+  
+  .feature-box-mobile .feature-title {
+    font-size: 1.5rem !important;
+    line-height: 1.3 !important;
+    margin-bottom: 0.75rem !important;
+    width: 100% !important;
+    word-wrap: break-word !important;
+  }
+  
+  .feature-box-mobile .feature-description {
+    font-size: 0.85rem !important;
+    line-height: 1.4 !important;
+    margin-bottom: 1.25rem !important;
+    width: 100% !important;
+    word-wrap: break-word !important;
+  }
+  
+  .feature-box-mobile .feature-preview {
+    padding: 0.5rem !important;
+    margin-bottom: 1rem !important;
+    border-radius: 0.75rem !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  
+  .feature-box-mobile .feature-preview-content {
+    padding: 0.375rem !important;
+    border-radius: 0.5rem !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  
+  .feature-box-mobile .feature-list {
+    font-size: 0.75rem !important;
+    margin-bottom: 0.75rem !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  
+  .feature-box-mobile .feature-list li {
+    margin-bottom: 0.25rem !important;
+    width: 100% !important;
+    word-wrap: break-word !important;
+  }
+  
+  .feature-box-mobile .feature-list svg {
+    width: 1rem !important;
+    height: 1rem !important;
+    flex-shrink: 0 !important;
+  }
+  
+  .feature-box-mobile .feature-cta {
+    padding: 0.75rem 1.5rem !important;
+    font-size: 0.9rem !important;
+    border-radius: 0.75rem !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    text-align: center !important;
+    font-weight: 600 !important;
+  }
+  
+  /* Force mobile grid layout */
+  .grid.grid-cols-1 {
+    gap: 1rem !important;
+  }
+  
+  /* Reduce padding between calendar and counter section on mobile */
+  .mobile-calendar-section {
+    margin-bottom: 2rem !important;
+  }
+  
+  /* Reduce month name font size in calendar header */
+  .mobile-calendar-section h3 {
+    font-size: 1.25rem !important;
+    line-height: 1.3 !important;
+  }
+  
+  /* Mobile-specific feature box overrides */
+  .feature-box-mobile h3 {
+    font-size: 1.25rem !important;
+    line-height: 1.2 !important;
+    margin-bottom: 0.5rem !important;
+  }
+  
+  .feature-box-mobile p {
+    font-size: 0.8rem !important;
+    line-height: 1.3 !important;
+    margin-bottom: 0.75rem !important;
+  }
+  
+  .feature-box-mobile ul {
+    font-size: 0.75rem !important;
+    margin-bottom: 0.75rem !important;
+  }
+  
+  .feature-box-mobile a {
+    padding: 0.5rem 0.75rem !important;
+    font-size: 0.8rem !important;
   }
 }
 

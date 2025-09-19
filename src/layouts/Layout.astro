@@ -159,16 +159,6 @@ const {
     <title>{title}</title>
   </head>
   <body class="min-h-screen">
-    <!-- Full-bleed background layer -->
-    <div
-      class="fixed inset-0 -z-10 bg-no-repeat bg-cover"
-      style="
-        background:
-          radial-gradient(75% 60% at 50% -10%, rgba(98,212,179,.22) 0%, transparent 60%),
-          linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
-        background-attachment: fixed;
-      "
-    />
     <!-- Clean Navigation Header -->
     <header id="navbar" class="sticky top-0 z-50 bg-white/80 backdrop-blur-sm transition-all duration-300">
       <div class="container">
@@ -222,120 +212,128 @@ const {
       <slot />
     </main>
     
-    <!-- Premium Dark Footer -->
+    <!-- Premium Dark Footer - Updated -->
     <footer class="relative mt-32 text-white">
       <!-- Full Width Background -->
       <div class="absolute inset-0 w-screen left-1/2 transform -translate-x-1/2 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900"></div>
-      <div class="container relative z-10 mx-auto px-4 py-20">
+      <div class="relative z-10 w-full px-4 py-8">
         <!-- Main Footer Content -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
-          <!-- Brand Section -->
-          <div class="lg:col-span-2">
-            <div class="flex items-center space-x-3 mb-6">
+        <div class="max-w-7xl mx-auto">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8 footer-grid" style="display: grid; grid-template-columns: 1fr; gap: 2rem;">
+            <style>
+              @media (min-width: 768px) {
+                .footer-grid {
+                  grid-template-columns: 2fr 1fr 1fr !important;
+                }
+              }
+            </style>
+            <!-- Left Column - Brand Section with Pills -->
+            <div>
+              <div class="flex items-center space-x-3 mb-4">
               <div class="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center">
                 <span class="text-white font-bold text-lg">M</span>
               </div>
               <h3 class="text-2xl font-bold text-white">meniny365.sk</h3>
             </div>
-            <p class="text-slate-300 text-lg leading-relaxed mb-8 max-w-md">
+              <p class="text-slate-300 text-lg leading-relaxed mb-6">
               Prvý AI-powered kalendár menín na Slovensku. 
               Inteligentné vyhľadávanie, návrhy darčekov a personalizované skúsenosti.
             </p>
-            <div class="flex items-center space-x-4">
-              <div class="flex items-center space-x-2 bg-slate-800/50 px-3 py-2 rounded-lg">
-                <span class="text-indigo-400">🤖</span>
-                <span class="text-sm text-slate-300">AI-Powered</span>
+              <div class="flex flex-col sm:flex-row gap-4">
+                <div class="flex items-center space-x-2 bg-gradient-to-r from-indigo-600 to-purple-600 px-4 py-2 rounded-lg shadow-lg w-fit">
+                  <span class="text-white">🤖</span>
+                  <span class="text-sm text-white font-medium">AI-Powered</span>
+                </div>
+                <div class="flex items-center space-x-2 bg-gradient-to-r from-green-600 to-emerald-600 px-4 py-2 rounded-lg shadow-lg w-fit">
+                  <span class="text-white">✓</span>
+                  <span class="text-sm text-white font-medium">100% Zdarma</span>
+                </div>
               </div>
-              <div class="flex items-center space-x-2 bg-slate-800/50 px-3 py-2 rounded-lg">
-                <span class="text-green-400">✓</span>
-                <span class="text-sm text-slate-300">100% Zdarma</span>
-              </div>
-            </div>
           </div>
 
-          <!-- Navigation -->
-          <div>
-            <h4 class="text-lg font-semibold text-white mb-6">Navigácia</h4>
-            <ul class="space-y-4">
+            <!-- Middle Column - Navigation -->
+            <div>
+              <h4 class="text-lg font-semibold text-white mb-4">Navigácia</h4>
+              <ul class="space-y-3">
               <li><a href="/sk" class="text-slate-300 hover:text-white transition-colors duration-200 flex items-center group">
                 <svg class="w-4 h-4 mr-2 text-slate-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
                 </svg>
-                Domov
+                  Domov
               </a></li>
-              <li><a href="/sk#kalendar" class="text-slate-300 hover:text-white transition-colors duration-200 flex items-center group">
+                <li><a href="/sk#kalendar" class="text-slate-300 hover:text-white transition-colors duration-200 flex items-center group">
                 <svg class="w-4 h-4 mr-2 text-slate-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                 </svg>
-                Kalendár
+                  Kalendár
               </a></li>
-              <li><a href="/sk/trendy-v-menach" class="text-slate-300 hover:text-white transition-colors duration-200 flex items-center group">
+                <li><a href="/sk/trendy-v-menach" class="text-slate-300 hover:text-white transition-colors duration-200 flex items-center group">
                 <svg class="w-4 h-4 mr-2 text-slate-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
                 </svg>
                 Populárne mená
               </a></li>
-              <li><a href="/sk/povod-a-vyznam-mien" class="text-slate-300 hover:text-white transition-colors duration-200 flex items-center group">
+                <li><a href="/sk/povod-a-vyznam-mien" class="text-slate-300 hover:text-white transition-colors duration-200 flex items-center group">
                 <svg class="w-4 h-4 mr-2 text-slate-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
                 </svg>
-                Pôvod mien
-              </a></li>
-              <li><a href="/sk/pohladnice" class="text-slate-300 hover:text-white transition-colors duration-200 flex items-center group">
-                <svg class="w-4 h-4 mr-2 text-slate-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                </svg>
-                Pohľadnice
-              </a></li>
-              <li><a href="/sk/darceky" class="text-slate-300 hover:text-white transition-colors duration-200 flex items-center group">
-                <svg class="w-4 h-4 mr-2 text-slate-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
-                </svg>
-                Darčeky
-              </a></li>
-              <li><a href="/sk/blog" class="text-slate-300 hover:text-white transition-colors duration-200 flex items-center group">
-                <svg class="w-4 h-4 mr-2 text-slate-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
-                </svg>
-                Blog
+                  Pôvod mien
+                </a></li>
+                <li><a href="/sk/pohladnice" class="text-slate-300 hover:text-white transition-colors duration-200 flex items-center group">
+                  <svg class="w-4 h-4 mr-2 text-slate-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                  </svg>
+                  Pohľadnice
+                </a></li>
+                <li><a href="/sk/darceky" class="text-slate-300 hover:text-white transition-colors duration-200 flex items-center group">
+                  <svg class="w-4 h-4 mr-2 text-slate-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+                  </svg>
+                  Darčeky
+                </a></li>
+                <li><a href="/sk/blog" class="text-slate-300 hover:text-white transition-colors duration-200 flex items-center group">
+                  <svg class="w-4 h-4 mr-2 text-slate-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
+                  </svg>
+                  Blog
               </a></li>
             </ul>
           </div>
 
-          <!-- Features -->
-          <div>
-            <h4 class="text-lg font-semibold text-white mb-6">Funkcie</h4>
-            <ul class="space-y-4">
+            <!-- Right Column - Functions -->
+            <div>
+              <h4 class="text-lg font-semibold text-white mb-4">Funkcie</h4>
+              <ul class="space-y-3">
               <li><a href="/sk/darceky" class="text-slate-300 hover:text-white transition-colors duration-200 flex items-center group">
                 <svg class="w-4 h-4 mr-2 text-slate-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
                 </svg>
                 AI Darčeky
               </a></li>
-              <li><a href="/sk/pohladnice" class="text-slate-300 hover:text-white transition-colors duration-200 flex items-center group">
+                <li><a href="/sk/pohladnice" class="text-slate-300 hover:text-white transition-colors duration-200 flex items-center group">
                 <svg class="w-4 h-4 mr-2 text-slate-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                 </svg>
                 E-pohľadnice
               </a></li>
-              <li><a href="/sk/povod-a-vyznam-mien" class="text-slate-300 hover:text-white transition-colors duration-200 flex items-center group">
+                <li><a href="/sk/povod-a-vyznam-mien" class="text-slate-300 hover:text-white transition-colors duration-200 flex items-center group">
                 <svg class="w-4 h-4 mr-2 text-slate-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
                 </svg>
-                AI Analýzy
+                  AI Analýzy
               </a></li>
-              <li><a href="/sk/trendy-v-menach" class="text-slate-300 hover:text-white transition-colors duration-200 flex items-center group">
+                <li><a href="/sk/trendy-v-menach" class="text-slate-300 hover:text-white transition-colors duration-200 flex items-center group">
                 <svg class="w-4 h-4 mr-2 text-slate-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
                 </svg>
-                Trendy mená
+                  Trendy mená
               </a></li>
             </ul>
           </div>
         </div>
 
         <!-- Bottom Section -->
-        <div class="border-t border-slate-700/50 pt-8">
+          <div class="border-t border-slate-700/50 pt-4">
           <div class="flex flex-col md:flex-row items-center justify-between">
             <div class="text-slate-400 text-sm mb-4 md:mb-0">
               <p>&copy; 2025 meniny365.sk - Všetky práva vyhradené</p>
@@ -344,6 +342,7 @@ const {
               <a href="/sk/privacy" class="text-slate-400 hover:text-white transition-colors text-sm">Ochrana údajov</a>
               <a href="/sk/terms" class="text-slate-400 hover:text-white transition-colors text-sm">Podmienky</a>
               <a href="/sk/contact" class="text-slate-400 hover:text-white transition-colors text-sm">Kontakt</a>
+              </div>
             </div>
           </div>
         </div>
