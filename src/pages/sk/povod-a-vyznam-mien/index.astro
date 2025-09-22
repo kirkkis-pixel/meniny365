@@ -90,7 +90,7 @@ const origins = [...new Set(allOriginEntries.map(entry => entry.origin).filter(B
           
           <div class="mt-4">
             <a 
-              href={`/sk/meno/${entry.name.toLowerCase()}`}
+              href={`/sk/meno/${toSlug(entry.name)}`}
               class="w-full inline-flex items-center justify-center px-4 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-sm font-medium rounded-lg hover:from-indigo-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg"
             >
               Zobraziť detail
@@ -132,7 +132,7 @@ const origins = [...new Set(allOriginEntries.map(entry => entry.origin).filter(B
           
           <div class="mt-4">
             <a 
-              href={`/sk/meno/${entry.name.toLowerCase()}`}
+              href={`/sk/meno/${toSlug(entry.name)}`}
               class="w-full inline-flex items-center justify-center px-4 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-sm font-medium rounded-lg hover:from-indigo-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg"
             >
               Zobraziť detail
