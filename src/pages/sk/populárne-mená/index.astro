@@ -38,9 +38,25 @@ const structuredData = {
   canonical="https://meniny365.sk/sk/populárne-mená"
   structuredData={structuredData}
 >
-  <div class="container py-8">
+  <div class="container mx-auto px-4 py-8 max-w-6xl">
     <!-- Breadcrumbs -->
-    <nav class="mb-8">
+    <!-- Pill -->
+    <div class="text-center mb-6">
+      <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-emerald-100 text-emerald-800">
+        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+        </svg>
+        AI-powered
+      </span>
+    </div>
+    
+    <!-- Title -->
+    <h1 class="text-4xl font-bold text-center text-[var(--text)] mb-6">Trendy v menách</h1>
+    
+    <!-- Lead Paragraph -->
+    <p class="text-lg text-center text-[var(--muted)] max-w-2xl mx-auto mb-12">
+      Analýza trendov na základe Google Trends a Wikimedia Pageviews
+    </p>    <nav class="mb-8">
       <ol class="flex items-center space-x-2 text-sm text-[var(--muted)]">
         <li><a href="/sk" class="hover:text-[var(--brand)] transition-colors">Dnes</a></li>
         <li>/</li>
