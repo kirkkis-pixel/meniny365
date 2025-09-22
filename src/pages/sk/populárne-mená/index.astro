@@ -38,7 +38,7 @@ const structuredData = {
   canonical="https://meniny365.sk/sk/populárne-mená"
   structuredData={structuredData}
 >
-  <!-- FORCE DEPLOYMENT - Content width unified to max-w-4xl -->  <div class="container mx-auto px-4 py-8 max-w-4xl">
+  <div class="container mx-auto px-4 py-8 max-w-4xl">
     <!-- Breadcrumbs -->
     <!-- Pill -->
     <div class="text-center mb-6">
@@ -97,12 +97,44 @@ const structuredData = {
         </div>
       </div>
     </div>
+    <!-- Search and Filter Section -->
+    <div class="mb-8">
+      <div class="max-w-2xl mx-auto">
+        <!-- Search Input -->
+        <div class="relative mb-6">
+          <input 
+            type="text" 
+            id="searchInput" 
+            placeholder="Hľadať mená..." 
+            class="w-full px-4 py-3 pl-12 pr-4 text-lg border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+          >
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+          </div>
+        </div>
+        
+        <!-- Filter Buttons -->
+        <div class="flex justify-center space-x-4 mb-6">
+          <button class="filter-btn px-4 py-2 rounded-full text-sm font-medium bg-indigo-100 text-indigo-800" data-filter="all">
+            Všetky
+          </button>
+          <button class="filter-btn px-4 py-2 rounded-full text-sm font-medium bg-gray-100 text-gray-600 hover:bg-indigo-100 hover:text-indigo-800" data-filter="mužské">
+            Mužské
+          </button>
+          <button class="filter-btn px-4 py-2 rounded-full text-sm font-medium bg-gray-100 text-gray-600 hover:bg-indigo-100 hover:text-indigo-800" data-filter="ženské">
+            Ženské
+          </button>
+        </div>
+      </div>
+    </div>
 
     <!-- Popularity List -->
     <div class="card p-6 mb-12">
       <h2 class="text-2xl font-semibold text-[var(--text)] mb-6">Rebríček populárnych mien</h2>
       
-      <div class="space-y-4">
+      <div id="namesList" class="space-y-4">
         {popularityData.slice(0, 20).map((item, index) => (
           <div class="flex items-center justify-between p-4 border border-[var(--border)] rounded-lg hover:bg-[var(--hover)] transition-colors">
             <div class="flex items-center space-x-4">
@@ -136,6 +168,12 @@ const structuredData = {
             </div>
           </div>
         ))}
+      <!-- Load More Button -->
+      <div class="text-center mt-8">
+        <button id="loadMoreBtn" class="bg-indigo-600 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-indigo-700 transition-colors">
+          Načítať ďalšie mená
+        </button>
+      </div>
       </div>
     </div>
 
@@ -199,4 +237,261 @@ const structuredData = {
       </a>
     </div>
   </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const searchInput = document.getElementById("searchInput");
+    const filterButtons = document.querySelectorAll(".filter-btn");
+    const namesList = document.getElementById("namesList");
+    const loadMoreBtn = document.getElementById("loadMoreBtn");
+    
+    // Get all names data from the server
+    const allNames = [
+      {name: "Adam", gender: "mužské", trend: "up"},
+      {name: "Adriana", gender: "ženské", trend: "down"},
+      {name: "Agáta", gender: "ženské", trend: "up"},
+      {name: "Albert", gender: "mužské", trend: "down"},
+      {name: "Albín", gender: "mužské", trend: "up"},
+      {name: "Alexandra", gender: "ženské", trend: "up"},
+      {name: "Alexej", gender: "mužské", trend: "down"},
+      {name: "Alfonz", gender: "mužské", trend: "down"},
+      {name: "Alfréd", gender: "mužské", trend: "up"},
+      {name: "Alica", gender: "ženské", trend: "up"},
+      {name: "Alojz", gender: "mužské", trend: "down"},
+      {name: "Alžbeta", gender: "ženské", trend: "up"},
+      {name: "Amália", gender: "ženské", trend: "down"},
+      {name: "Andrej", gender: "mužské", trend: "up"},
+      {name: "Anna", gender: "ženské", trend: "up"},
+      {name: "Anton", gender: "mužské", trend: "down"},
+      {name: "Antonín", gender: "mužské", trend: "up"},
+      {name: "Arnold", gender: "mužské", trend: "down"},
+      {name: "Artúr", gender: "mužské", trend: "up"},
+      {name: "Augustín", gender: "mužské", trend: "down"},
+      {name: "Aurel", gender: "mužské", trend: "up"},
+      {name: "Barbora", gender: "ženské", trend: "up"},
+      {name: "Beáta", gender: "ženské", trend: "down"},
+      {name: "Benedikt", gender: "mužské", trend: "up"},
+      {name: "Blažej", gender: "mužské", trend: "down"},
+      {name: "Bohdan", gender: "mužské", trend: "up"},
+      {name: "Bohumil", gender: "mužské", trend: "down"},
+      {name: "Bohuslav", gender: "mužské", trend: "up"},
+      {name: "Branislav", gender: "mužské", trend: "up"},
+      {name: "Brigita", gender: "ženské", trend: "down"},
+      {name: "Cecília", gender: "ženské", trend: "up"},
+      {name: "Cyril", gender: "mužské", trend: "down"},
+      {name: "Dagmar", gender: "ženské", trend: "down"},
+      {name: "Dalibor", gender: "mužské", trend: "up"},
+      {name: "Daniel", gender: "mužské", trend: "up"},
+      {name: "Daniela", gender: "ženské", trend: "up"},
+      {name: "Dávid", gender: "mužské", trend: "up"},
+      {name: "Denis", gender: "mužské", trend: "up"},
+      {name: "Diana", gender: "ženské", trend: "up"},
+      {name: "Dobromila", gender: "ženské", trend: "down"},
+      {name: "Dominik", gender: "mužské", trend: "up"},
+      {name: "Dorota", gender: "ženské", trend: "down"},
+      {name: "Dušan", gender: "mužské", trend: "up"},
+      {name: "Edita", gender: "ženské", trend: "down"},
+      {name: "Eduard", gender: "mužské", trend: "up"},
+      {name: "Elena", gender: "ženské", trend: "up"},
+      {name: "Eliška", gender: "ženské", trend: "up"},
+      {name: "Emil", gender: "mužské", trend: "down"},
+      {name: "Erik", gender: "mužské", trend: "up"},
+      {name: "Eva", gender: "ženské", trend: "up"},
+      {name: "Ferdinand", gender: "mužské", trend: "down"},
+      {name: "Filip", gender: "mužské", trend: "up"},
+      {name: "František", gender: "mužské", trend: "up"},
+      {name: "Gabriel", gender: "mužské", trend: "up"},
+      {name: "Gabriela", gender: "ženské", trend: "up"},
+      {name: "Gertrúda", gender: "ženské", trend: "down"},
+      {name: "Gustáv", gender: "mužské", trend: "down"},
+      {name: "Hana", gender: "ženské", trend: "up"},
+      {name: "Henrich", gender: "mužské", trend: "up"},
+      {name: "Hugo", gender: "mužské", trend: "down"},
+      {name: "Igor", gender: "mužské", trend: "up"},
+      {name: "Irena", gender: "ženské", trend: "down"},
+      {name: "Ivan", gender: "mužské", trend: "up"},
+      {name: "Iveta", gender: "ženské", trend: "up"},
+      {name: "Jana", gender: "ženské", trend: "up"},
+      {name: "Ján", gender: "mužské", trend: "up"},
+      {name: "Jarmila", gender: "ženské", trend: "down"},
+      {name: "Jaroslav", gender: "mužské", trend: "up"},
+      {name: "Jasna", gender: "ženské", trend: "up"},
+      {name: "Jela", gender: "ženské", trend: "down"},
+      {name: "Jozef", gender: "mužské", trend: "up"},
+      {name: "Jozefína", gender: "ženské", trend: "down"},
+      {name: "Júlia", gender: "ženské", trend: "up"},
+      {name: "Július", gender: "mužské", trend: "up"},
+      {name: "Juraj", gender: "mužské", trend: "up"},
+      {name: "Kamil", gender: "mužské", trend: "up"},
+      {name: "Karol", gender: "mužské", trend: "up"},
+      {name: "Katarína", gender: "ženské", trend: "up"},
+      {name: "Klaudia", gender: "ženské", trend: "up"},
+      {name: "Kornel", gender: "mužské", trend: "down"},
+      {name: "Kristína", gender: "ženské", trend: "up"},
+      {name: "Ladislav", gender: "mužské", trend: "up"},
+      {name: "Lívia", gender: "ženské", trend: "up"},
+      {name: "Ľubica", gender: "ženské", trend: "up"},
+      {name: "Ľubomír", gender: "mužské", trend: "up"},
+      {name: "Ľuboslav", gender: "mužské", trend: "up"},
+      {name: "Ľudmila", gender: "ženské", trend: "down"},
+      {name: "Magdaléna", gender: "ženské", trend: "up"},
+      {name: "Marcel", gender: "mužské", trend: "up"},
+      {name: "Marek", gender: "mužské", trend: "up"},
+      {name: "Margita", gender: "ženské", trend: "down"},
+      {name: "Mária", gender: "ženské", trend: "up"},
+      {name: "Marián", gender: "mužské", trend: "up"},
+      {name: "Mariána", gender: "ženské", trend: "up"},
+      {name: "Marianna", gender: "ženské", trend: "up"},
+      {name: "Marika", gender: "ženské", trend: "up"},
+      {name: "Marta", gender: "ženské", trend: "up"},
+      {name: "Martin", gender: "mužské", trend: "up"},
+      {name: "Martina", gender: "ženské", trend: "up"},
+      {name: "Matúš", gender: "mužské", trend: "up"},
+      {name: "Michal", gender: "mužské", trend: "up"},
+      {name: "Milan", gender: "mužské", trend: "up"},
+      {name: "Miloslav", gender: "mužské", trend: "up"},
+      {name: "Miroslav", gender: "mužské", trend: "up"},
+      {name: "Monika", gender: "ženské", trend: "up"},
+      {name: "Natália", gender: "ženské", trend: "up"},
+      {name: "Norbert", gender: "mužské", trend: "down"},
+      {name: "Oldrich", gender: "mužské", trend: "down"},
+      {name: "Ondrej", gender: "mužské", trend: "up"},
+      {name: "Patrik", gender: "mužské", trend: "up"},
+      {name: "Pavol", gender: "mužské", trend: "up"},
+      {name: "Peter", gender: "mužské", trend: "up"},
+      {name: "Petra", gender: "ženské", trend: "up"},
+      {name: "Radovan", gender: "mužské", trend: "up"},
+      {name: "Renáta", gender: "ženské", trend: "up"},
+      {name: "Richard", gender: "mužské", trend: "up"},
+      {name: "Robert", gender: "mužské", trend: "up"},
+      {name: "Roman", gender: "mužské", trend: "up"},
+      {name: "Róbert", gender: "mužské", trend: "up"},
+      {name: "Róza", gender: "ženské", trend: "down"},
+      {name: "Samuel", gender: "mužské", trend: "up"},
+      {name: "Silvia", gender: "ženské", trend: "up"},
+      {name: "Simona", gender: "ženské", trend: "up"},
+      {name: "Slavomír", gender: "mužské", trend: "up"},
+      {name: "Soňa", gender: "ženské", trend: "up"},
+      {name: "Stanislav", gender: "mužské", trend: "up"},
+      {name: "Štefan", gender: "mužské", trend: "up"},
+      {name: "Štefánia", gender: "ženské", trend: "up"},
+      {name: "Tamara", gender: "ženské", trend: "up"},
+      {name: "Tatiana", gender: "ženské", trend: "up"},
+      {name: "Tomáš", gender: "mužské", trend: "up"},
+      {name: "Valéria", gender: "ženské", trend: "up"},
+      {name: "Vanda", gender: "ženské", trend: "down"},
+      {name: "Václav", gender: "mužské", trend: "down"},
+      {name: "Vendelín", gender: "mužské", trend: "down"},
+      {name: "Veronika", gender: "ženské", trend: "up"},
+      {name: "Viera", gender: "ženské", trend: "up"},
+      {name: "Viktor", gender: "mužské", trend: "up"},
+      {name: "Vilma", gender: "ženské", trend: "down"},
+      {name: "Vladimír", gender: "mužské", trend: "up"},
+      {name: "Vladislav", gender: "mužské", trend: "up"},
+      {name: "Vlasta", gender: "ženské", trend: "down"},
+      {name: "Zdenka", gender: "ženské", trend: "down"},
+      {name: "Zuzana", gender: "ženské", trend: "up"}
+    ];
+    
+    let visibleCount = 20;
+    const namesPerLoad = 20;
+    
+    function normalizeText(text) {
+      return text
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[áä]/g, "a")
+        .replace(/[č]/g, "c")
+        .replace(/[ď]/g, "d")
+        .replace(/[ľĺ]/g, "l")
+        .replace(/[ň]/g, "n")
+        .replace(/[óô]/g, "o")
+        .replace(/[ŕ]/g, "r")
+        .replace(/[š]/g, "s")
+        .replace(/[ť]/g, "t")
+        .replace(/[ú]/g, "u")
+        .replace(/[ý]/g, "y")
+        .replace(/[ž]/g, "z")
+        .replace(/[^a-z0-9\s-]/g, "");
+    }
+    
+    function renderNames() {
+      const searchTerm = normalizeText(searchInput.value);
+      const activeFilter = document.querySelector(".filter-btn.bg-indigo-100")?.dataset.filter || "all";
+      
+      const filteredNames = allNames.filter(name => {
+        const matchesSearch = normalizeText(name.name).includes(searchTerm);
+        const matchesFilter = activeFilter === "all" || name.gender === activeFilter;
+        return matchesSearch && matchesFilter;
+      });
+      
+      const namesToShow = filteredNames.slice(0, visibleCount);
+      
+      namesList.innerHTML = namesToShow.map((name, index) => `
+        <div class="flex items-center justify-between p-4 border border-[var(--border)] rounded-lg hover:bg-[var(--hover)] transition-colors">
+          <div class="flex items-center space-x-4">
+            <div class="flex items-center justify-center w-8 h-8 bg-[var(--brand)] text-white rounded-full font-bold text-sm">
+              ${index + 1}
+            </div>
+            <div>
+              <a 
+                href="/sk/meno/${name.name.toLowerCase().replace(/[áä]/g, "a").replace(/[č]/g, "c").replace(/[ď]/g, "d").replace(/[ľĺ]/g, "l").replace(/[ň]/g, "n").replace(/[óô]/g, "o").replace(/[ŕ]/g, "r").replace(/[š]/g, "s").replace(/[ť]/g, "t").replace(/[ú]/g, "u").replace(/[ý]/g, "y").replace(/[ž]/g, "z").replace(/[^a-z0-9]/g, "-")}"
+                class="text-lg font-semibold text-[var(--text)] hover:text-[var(--brand)] transition-colors"
+              >
+                ${name.name}
+              </a>
+              <div class="text-sm text-[var(--muted)]">
+                ${name.gender} • ${name.trend === "up" ? "↗️ Rastúci trend" : "↘️ Klesajúci trend"}
+              </div>
+            </div>
+          </div>
+          <div class="flex items-center space-x-2">
+            <div class="w-16 h-2 bg-[var(--border)] rounded-full overflow-hidden">
+              <div 
+                class="h-full bg-[var(--brand)] rounded-full"
+                style="width: ${Math.max(20, 100 - index * 4)}%"
+              ></div>
+            </div>
+            <span class="text-sm text-[var(--muted)]">
+              ${Math.max(20, 100 - index * 4)}%
+            </span>
+          </div>
+        </div>
+      `).join("");
+      
+      // Show/hide load more button
+      if (visibleCount >= filteredNames.length) {
+        loadMoreBtn.style.display = "none";
+      } else {
+        loadMoreBtn.style.display = "block";
+      }
+    }
+    
+    function loadMore() {
+      visibleCount += namesPerLoad;
+      renderNames();
+    }
+    
+    // Event listeners
+    searchInput.addEventListener("input", renderNames);
+    
+    filterButtons.forEach(button => {
+      button.addEventListener("click", () => {
+        filterButtons.forEach(btn => {
+          btn.classList.remove("bg-indigo-100", "text-indigo-800");
+          btn.classList.add("bg-gray-100", "text-gray-600");
+        });
+        button.classList.remove("bg-gray-100", "text-gray-600");
+        button.classList.add("bg-indigo-100", "text-indigo-800");
+        renderNames();
+      });
+    });
+    
+    loadMoreBtn.addEventListener("click", loadMore);
+    
+    // Initial render
+    renderNames();
+  });
+</script>
 </Layout>
