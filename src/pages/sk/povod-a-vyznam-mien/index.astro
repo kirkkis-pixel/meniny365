@@ -1,0 +1,428 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import SectionHeader from '../../../components/SectionHeader.astro';
+import Card from '../../../components/Card.astro';
+import StatBadge from '../../../components/StatBadge.astro';
+import { toSlug } from '../../../lib/slug';
+import meninyData from '../../../data/meniny-sk/meniny-2025-simple.json';
+import namesOrigins from '../../../data/names-origins.json';
+
+// Get most popular names from calendar data
+const allNames = Object.values(meninyData).flat();
+const nameCounts: {[key: string]: number} = {};
+allNames.forEach(name => {
+  nameCounts[name] = (nameCounts[name] || 0) + 1;
+});
+
+// Convert names-origins.json to array and add frequency data
+const allOriginData = Object.values(namesOrigins)
+  .map(entry => ({
+    ...entry,
+    frequency: nameCounts[entry.name] || 0
+  }))
+  .sort((a, b) => (b.frequency || 0) - (a.frequency || 0));
+---
+
+<Layout 
+  title="Pôvod a význam slovenských mien | meniny365"
+  description="Zistite pôvod a význam slovenských mien. Databáza mien s informáciami o ich histórii a pôvode."
+>
+  <div class="min-h-screen">
+    <div class="container mx-auto px-4 py-16">
+      <div class="max-w-4xl mx-auto">
+        <SectionHeader
+          eyebrow="Wikidata & Wikipedia"
+          title="Pôvod a význam mien"
+          subtitle="Databáza slovenských mien s informáciami o ich pôvode, význame a histórii"
+        />
+
+        <!-- Search -->
+        <div class="mb-8">
+          <div class="relative max-w-md mx-auto">
+            <input 
+              type="text" 
+              id="nameSearch"
+              placeholder="Hľadať meno..."
+              class="w-full px-4 py-3 pl-10 pr-4 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+            />
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <svg class="h-5 w-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Popular Names Section -->
+        <div class="mb-8">
+          <h2 class="text-2xl font-bold text-slate-900 mb-4">Najpopulárnejšie mená v kalendári</h2>
+          <p class="text-slate-600 mb-6">Týchto 10 mien sa vyskytuje najčastejšie v slovenskom kalendári menín.</p>
+        </div>
+
+        <!-- Names Grid -->
+        <div id="namesGrid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {allOriginData.slice(0, 10).map((entry: any, index: number) => (
+            <Card interactive={true} class="name-card cursor-pointer hover:shadow-lg transition-all duration-200" data-name={entry.name.toLowerCase()} data-variants={entry.variants?.join(' ').toLowerCase() || ''} data-entry={JSON.stringify(entry)}>
+              <div class="space-y-3">
+                <!-- Header -->
+                <div class="flex items-start justify-between">
+                  <div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-2">
+                      {entry.name}
+                    </h3>
+                  </div>
+                </div>
+
+                <!-- Origin Languages -->
+                {entry.originLangs && entry.originLangs.length > 0 && (
+                  <div class="flex flex-wrap gap-2">
+                    {entry.originLangs.map((lang: string) => (
+                      <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-slate-100 text-slate-700">
+                        {lang}
+                      </span>
+                    ))}
+                  </div>
+                )}
+
+                <!-- Description -->
+                {entry.description && (
+                  <p class="text-sm text-slate-600 leading-relaxed">
+                    {entry.description.length > 120 
+                      ? `${entry.description.substring(0, 120)}...` 
+                      : entry.description
+                    }
+                  </p>
+                )}
+
+                <!-- Variants -->
+                {entry.variants && entry.variants.length > 0 && (
+                  <div class="pt-2 border-t border-slate-100">
+                    <div class="flex flex-wrap gap-1">
+                      <span class="text-xs text-slate-500 mr-2">Varianty:</span>
+                      {entry.variants.slice(0, 3).map((variant: string) => (
+                        <span class="inline-flex items-center px-2 py-1 rounded text-xs bg-indigo-50 text-indigo-700">
+                          {variant}
+                        </span>
+                      ))}
+                      {entry.variants.length > 3 && (
+                        <span class="text-xs text-slate-400">
+                          +{entry.variants.length - 3} ďalších
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                )}
+
+                <!-- Read More Button -->
+                <div class="pt-2 text-right">
+                  <button class="read-more-btn inline-flex items-center px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition-colors">
+                    <span>Zobraziť detail</span>
+                    <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </Card>
+          ))}
+        </div>
+
+        <!-- Show More Button -->
+        <div class="text-center mt-8">
+          <button 
+            id="showMoreBtn" 
+            class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-indigo-600 to-indigo-700 text-white font-medium rounded-lg hover:from-indigo-700 hover:to-indigo-800 transition-all duration-200 transform hover:scale-105 shadow-lg"
+          >
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+            Zobraziť všetky mená ({allOriginData.length})
+          </button>
+        </div>
+
+        <!-- No Results Message -->
+        <div id="noResults" class="hidden text-center py-12">
+          <div class="text-slate-400 mb-4">
+            <svg class="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-medium text-slate-900 mb-2">Nenašli sa žiadne mená</h3>
+          <p class="text-slate-600">Skúste zmeniť vyhľadávací výraz</p>
+        </div>
+
+        <!-- Attribution -->
+        <div class="text-center mt-12">
+          <p class="text-sm text-slate-500">
+            <strong>Licencie:</strong> Wikidata (CC0), Wikipedia (CC BY-SA)
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Name Detail Modal -->
+  <div id="nameModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4" style="display: none;">
+    <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+      <div class="p-6">
+        <!-- Modal Header -->
+        <div class="flex items-center justify-between mb-6">
+          <h2 id="modalName" class="text-2xl font-bold text-slate-900"></h2>
+          <button id="closeModal" class="text-slate-400 hover:text-slate-600 transition-colors">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Modal Content -->
+        <div id="modalContent" class="space-y-4">
+          <!-- Content will be populated by JavaScript -->
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="mt-6 pt-4 border-t border-slate-200">
+          <div class="flex justify-between items-center">
+            <a id="modalLink" href="#" class="text-indigo-600 hover:text-indigo-800 font-medium">
+              Zobraziť detailnú stránku →
+            </a>
+            <button id="closeModalBtn" class="px-4 py-2 bg-slate-100 text-slate-700 rounded-lg hover:bg-slate-200 transition-colors">
+              Zavrieť
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const searchInput = document.getElementById('nameSearch');
+      const nameCards = document.querySelectorAll('.name-card');
+      const noResults = document.getElementById('noResults');
+      const showMoreBtn = document.getElementById('showMoreBtn');
+      const namesGrid = document.getElementById('namesGrid');
+      const nameModal = document.getElementById('nameModal');
+      const modalName = document.getElementById('modalName');
+      const modalContent = document.getElementById('modalContent');
+      const modalLink = document.getElementById('modalLink');
+      const closeModal = document.getElementById('closeModal');
+      const closeModalBtn = document.getElementById('closeModalBtn');
+      
+      let showingAll = false;
+      const allNames = Array.from(nameCards);
+      
+      // Ensure modal is hidden on page load
+      if (nameModal) {
+        nameModal.style.display = 'none';
+        nameModal.classList.add('hidden');
+      }
+      
+      // Initially hide names beyond the first 10
+      allNames.forEach((card, index) => {
+        if (index >= 10) {
+          (card as HTMLElement).style.display = 'none';
+        }
+      });
+      
+      // Modal functionality
+      function showModal(entry) {
+        if (modalName && modalContent && modalLink && nameModal) {
+          modalName.textContent = entry.name;
+          modalLink.href = `/sk/meno/${entry.slug}`;
+          
+          modalContent.innerHTML = `
+            <div class="space-y-4">
+              <!-- Origin Languages -->
+              ${entry.originLangs && entry.originLangs.length > 0 ? `
+                <div class="flex flex-wrap gap-2">
+                  ${entry.originLangs.map((lang: string) => 
+                    `<span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-slate-100 text-slate-700">${lang}</span>`
+                  ).join('')}
+                </div>
+              ` : ''}
+              
+              <!-- Full Description -->
+              ${entry.description ? `
+                <div>
+                  <h3 class="text-lg font-semibold text-slate-900 mb-2">Pôvod a význam</h3>
+                  <p class="text-slate-700 leading-relaxed">${entry.description}</p>
+                </div>
+              ` : ''}
+              
+              <!-- Variants -->
+              ${entry.variants && entry.variants.length > 0 ? `
+                <div>
+                  <h3 class="text-lg font-semibold text-slate-900 mb-2">Varianty mena</h3>
+                  <div class="flex flex-wrap gap-2">
+                    ${entry.variants.map((variant: string) => 
+                      `<span class="inline-flex items-center px-3 py-1 rounded text-sm bg-indigo-50 text-indigo-700">${variant}</span>`
+                    ).join('')}
+                  </div>
+                </div>
+              ` : ''}
+              
+              <!-- Gender -->
+              ${entry.gender ? `
+                <div>
+                  <h3 class="text-lg font-semibold text-slate-900 mb-2">Pohlavie</h3>
+                  <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-700">
+                    ${entry.gender === 'M' ? 'Mužské' : entry.gender === 'F' ? 'Ženské' : 'Univerzálne'}
+                  </span>
+                </div>
+              ` : ''}
+            </div>
+          `;
+          
+          nameModal.style.display = 'flex';
+          nameModal.classList.remove('hidden');
+          document.body.style.overflow = 'hidden';
+        }
+      }
+      
+      function hideModal() {
+        if (nameModal) {
+          nameModal.style.display = 'none';
+          nameModal.classList.add('hidden');
+          document.body.style.overflow = 'auto';
+        }
+      }
+      
+      // Add click listeners to name cards and read more buttons
+      nameCards.forEach(card => {
+        const readMoreBtn = card.querySelector('.read-more-btn');
+        
+        // Click on card (excluding read more button)
+        card.addEventListener('click', (e) => {
+          if (!(e.target as HTMLElement).closest('.read-more-btn')) {
+            e.preventDefault();
+            const entryData = card.getAttribute('data-entry');
+            if (entryData) {
+              try {
+                const entry = JSON.parse(entryData);
+                showModal(entry);
+              } catch (error) {
+                console.error('Error parsing entry data:', error);
+              }
+            }
+          }
+        });
+        
+        // Click on read more button
+        if (readMoreBtn) {
+          readMoreBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const entryData = card.getAttribute('data-entry');
+            if (entryData) {
+              try {
+                const entry = JSON.parse(entryData);
+                showModal(entry);
+              } catch (error) {
+                console.error('Error parsing entry data:', error);
+              }
+            }
+          });
+        }
+      });
+      
+      // Modal close functionality
+      if (closeModal) {
+        closeModal.addEventListener('click', (e) => {
+          e.preventDefault();
+          hideModal();
+        });
+      }
+      
+      if (closeModalBtn) {
+        closeModalBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          hideModal();
+        });
+      }
+      
+      // Close modal on background click
+      if (nameModal) {
+        nameModal.addEventListener('click', (e) => {
+          if (e.target === nameModal) {
+            hideModal();
+          }
+        });
+      }
+      
+      // Close modal on escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && nameModal && nameModal.style.display !== 'none') {
+          hideModal();
+        }
+      });
+      
+      // Show more functionality
+      showMoreBtn?.addEventListener('click', () => {
+        if (!showingAll) {
+          // Show all names
+          allNames.forEach(card => {
+            (card as HTMLElement).style.display = 'block';
+          });
+          showMoreBtn.innerHTML = `
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path>
+            </svg>
+            Zobraziť menej
+          `;
+          showingAll = true;
+        } else {
+          // Show only first 10
+          allNames.forEach((card, index) => {
+            (card as HTMLElement).style.display = index < 10 ? 'block' : 'none';
+          });
+          showMoreBtn.innerHTML = `
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+            Zobraziť všetky mená (${allNames.length})
+          `;
+          showingAll = false;
+        }
+      });
+      
+      // Enhanced search functionality
+      searchInput?.addEventListener('input', (e) => {
+        const query = (e.target as HTMLInputElement).value.toLowerCase().trim();
+        let visibleCount = 0;
+        
+        nameCards.forEach(card => {
+          const name = card.getAttribute('data-name') || '';
+          const variants = card.getAttribute('data-variants') || '';
+          const shouldShow = name.includes(query) || variants.includes(query);
+          
+          (card as HTMLElement).style.display = shouldShow ? 'block' : 'none';
+          if (shouldShow) visibleCount++;
+        });
+        
+        // Update show more button visibility
+        if (showMoreBtn) {
+          if (query.length > 0) {
+            showMoreBtn.style.display = 'none';
+          } else {
+            showMoreBtn.style.display = 'inline-flex';
+          }
+        }
+        
+        if (noResults) {
+          noResults.classList.toggle('hidden', visibleCount > 0);
+        }
+      });
+      
+      // Clear search on escape key
+      searchInput?.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          (e.target as HTMLInputElement).value = '';
+          (e.target as HTMLInputElement).dispatchEvent(new Event('input'));
+        }
+      });
+    });
+  </script>
+</Layout>
+
+
